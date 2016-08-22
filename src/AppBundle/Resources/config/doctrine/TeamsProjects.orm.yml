@@ -1,0 +1,39 @@
+AppBundle\Entity\TeamsProjects:
+  type: entity
+  repositoryClass: AppBundle\Repository\TeamsProjects
+  table: teams_projects
+  fields:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+      options:
+        comment: 'Unique identifier'
+    start_date:
+      type: date
+      nullable: true
+      options:
+        comment: 'Entry date of the team on the project'
+    end_date:
+      type: date
+      nullable: true
+      options:
+        comment: 'Exit date of the team on the project'
+    comment:
+      type: string
+      nullable: true
+      options:
+        comment: 'Comment'
+  manyToOne:
+    Team:
+      targetEntity: AppBundle\Entity\Teams
+      inversedBy: TeamsProjects
+      joinColumn:
+        name: team_ref
+        referencedColumnName: id
+    Project:
+      targetEntity: AppBundle\Entity\Projects
+      inversedBy: TeamsProjects
+      joinColumn:
+        name: project_ref
+        referencedColumnName: id

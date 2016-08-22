@@ -1,0 +1,39 @@
+AppBundle\Entity\ProjectsMembers:
+  type: entity
+  repositoryClass: AppBundle\Repository\ProjectsMembers
+  table: projects_members
+  fields:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+      options:
+        comment: 'Unique identifier'
+    start_date:
+      type: date
+      nullable: true
+      options:
+        comment: 'Entry date of the person on the project'
+    end_date:
+      type: date
+      nullable: true
+      options:
+        comment: 'Exit date of the person on the project'
+    comment:
+      type: string
+      nullable: true
+      options:
+        comment: 'Comment'
+  manyToOne:
+    Person:
+      targetEntity: AppBundle\Entity\Person
+      inversedBy: ProjectsMembers
+      joinColumn:
+        name: person_ref
+        referencedColumnName: id
+    Project:
+      targetEntity: AppBundle\Entity\Projects
+      inversedBy: ProjectsMembers
+      joinColumn:
+        name: project_ref
+        referencedColumnName: id

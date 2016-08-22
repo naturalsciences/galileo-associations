@@ -28,3 +28,23 @@ AppBundle\Entity\Person:
       cascade: ["persist"]
       orderBy:
         start_date: asc
+    ProjectsMembers:
+      targetEntity: AppBundle\Entity\ProjectsMembers
+      mappedBy: Person
+      joinColumn:
+        name: id
+        referencedColumnName: person_ref
+        nullable: false
+      cascade: ["persist"]
+      orderBy:
+        start_date: asc
+    TeamssMembers:
+      targetEntity: AppBundle\Entity\TeamsMembers
+      mappedBy: Person
+      joinColumn:
+        name: id
+        referencedColumnName: person_ref
+        nullable: false
+      cascade: ["persist"]
+      orderBy:
+        start_date: asc
