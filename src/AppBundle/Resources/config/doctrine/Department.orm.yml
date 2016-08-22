@@ -1,0 +1,30 @@
+AppBundle\Entity\Department:
+  type: entity
+  repositoryClass: AppBundle\Repository\DepartmentRepository
+  table: department
+  fields:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+    level:
+      type: string
+      nullable: false
+    path:
+      type: string
+    name_fr:
+      type: string
+    name_en:
+      type: string
+    name_nl:
+      type: string
+    is_active:
+      type: boolean
+  oneToMany:
+    WorkingDuty:
+      targetEntity: AppBundle\Entity\WorkingDuty
+      mappedBy: Department
+      joinColumn:
+        name: id
+        referencedColumnName: department_ref
+        nullable: false

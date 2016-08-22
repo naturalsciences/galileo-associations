@@ -1,0 +1,87 @@
+AppBundle\Entity\Projects:
+  type: entity
+  repositoryClass: AppBundle\Repository\ProjectsRepository
+  table: projects
+  fields:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+    international_name:
+      type: string
+      nullable: false
+      unique: true
+      options:
+        comment: 'The name to be used internationaly'
+    international_description:
+      type: text
+      nullable: true
+      options:
+        comment: 'Description of the project associated to the international language selected'
+    international_name_language:
+      type: string
+      nullable: false
+      options:
+        default: 'EN'
+        comment: 'The language associated to the international name'
+    international_cascade:
+      type: boolean
+      nullable: false
+      options:
+        default: true
+        comment: 'True/False - Tells if the international name and description have to be used for the translated versions'
+    name_en:
+      type: string
+      nullable: true
+      options:
+        comment: 'Translated name in English'
+    description_en:
+      type: text
+      nullable: true
+      options:
+        comment: 'Description of the project in English'
+    name_fr:
+      type: string
+      nullable: true
+      options:
+        comment: 'Translated name in French'
+    description_fr:
+      type: text
+      nullable: true
+      options:
+        comment: 'Description of the project in French'
+    name_nl:
+      type: string
+      nullable: true
+      options:
+        comment: 'Translated name in Dutch'
+    description_nl:
+      type: text
+      nullable: true
+      options:
+        comment: 'Description of the project in Dutch'
+    start_date:
+      type: date
+      nullable: true
+      options:
+        comment: 'Project start date'
+    end_date:
+      type: date
+      nullable: true
+      options:
+        comment: 'Project end date'
+  oneToMany:
+    ProjectsMembers:
+      targetEntity: AppBundle\Entity\ProjectsMembers
+      mappedBy: Projects
+      joinColumn:
+        name: id
+        referencedColumnName: project_ref
+        nullable: false
+    TeamsProjects:
+      targetEntity: AppBundle\Entity\TeamsProjects
+      mappedBy: Projects
+      joinColumn:
+        name: id
+        referencedColumnName: project_ref
+        nullable: false

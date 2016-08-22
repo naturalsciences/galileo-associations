@@ -1,0 +1,33 @@
+AppBundle\Entity\WorkingDuty:
+  type: entity
+  repositoryClass: AppBundle\Repository\WorkingDuty
+  table: working_duty
+  fields:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+    percentage:
+      type: integer
+      length: 3
+      notnull: true
+      default: 100
+    start_date:
+      type: date
+    end_date:
+      type: date
+    comment:
+      type: string
+  manyToOne:
+    Person:
+      targetEntity: AppBundle\Entity\Person
+      inversedBy: WorkingDuty
+      joinColumn:
+        name: person_ref
+        referencedColumnName: id
+    Department:
+      targetEntity: AppBundle\Entity\Department
+      inversedBy: WorkingDuty
+      joinColumn:
+        name: department_ref
+        referencedColumnName: id

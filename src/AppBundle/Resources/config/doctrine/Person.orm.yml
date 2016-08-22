@@ -1,0 +1,30 @@
+AppBundle\Entity\Person:
+  type: entity
+  repositoryClass: AppBundle\Repository\PersonRepository
+  table: person
+  fields:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+    first_name:
+      type: string
+    last_name:
+      type: string
+    matricule:
+      type: string
+    uid:
+      type: string
+    email:
+      type: text
+  oneToMany:
+    WorkingDuty:
+      targetEntity: AppBundle\Entity\WorkingDuty
+      mappedBy: Person
+      joinColumn:
+        name: id
+        referencedColumnName: person_ref
+        nullable: false
+      cascade: ["persist"]
+      orderBy:
+        start_date: asc
