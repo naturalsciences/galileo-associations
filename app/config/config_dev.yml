@@ -1,6 +1,5 @@
 imports:
     - { resource: config.yml }
-    - { resource: parameters_dev.yml }
 
 framework:
     router:
@@ -30,6 +29,13 @@ monolog:
         #chromephp:
         #    type:   chromephp
         #    level:  info
-
+doctrine:
+    dbal:
+        driver:   "%database_test_driver%"
+        host:     "%database_test_host%"
+        port:     "%database_test_port%"
+        dbname:   "%database_test_name%"
+        user:     "%database_test_user%"
+        password: "%database_test_password%"
 #swiftmailer:
 #    delivery_address: me@example.com
