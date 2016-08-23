@@ -38,11 +38,6 @@ class Department
     private $name_nl;
 
     /**
-     * @var boolean
-     */
-    private $is_active;
-
-    /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $WorkingDuty;
@@ -186,30 +181,6 @@ class Department
     }
 
     /**
-     * Set isActive
-     *
-     * @param boolean $isActive
-     *
-     * @return Department
-     */
-    public function setIsActive($isActive)
-    {
-        $this->is_active = $isActive;
-
-        return $this;
-    }
-
-    /**
-     * Get isActive
-     *
-     * @return boolean
-     */
-    public function getIsActive()
-    {
-        return $this->is_active;
-    }
-
-    /**
      * Add workingDuty
      *
      * @param \AppBundle\Entity\WorkingDuty $workingDuty
@@ -243,3 +214,4 @@ class Department
         return $this->WorkingDuty;
     }
 }
+

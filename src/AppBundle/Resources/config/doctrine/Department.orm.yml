@@ -29,10 +29,6 @@ AppBundle\Entity\Department:
       type: string
       options:
         comment: 'Name of department/service in dutch'
-    is_active:
-      type: boolean
-      options:
-        comment: 'True/False - Tells if department/service is still active'
   oneToMany:
     WorkingDuty:
       targetEntity: AppBundle\Entity\WorkingDuty
