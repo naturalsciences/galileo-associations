@@ -197,3 +197,4 @@ class WorkingDuty
         return $this->Department;
     }
 }
+

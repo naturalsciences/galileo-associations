@@ -214,4 +214,3 @@ class Department
         return $this->WorkingDuty;
     }
 }
-

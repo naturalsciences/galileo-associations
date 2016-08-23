@@ -35,7 +35,7 @@ class ProjectsMembers
     /**
      * @var \AppBundle\Entity\Projects
      */
-    private $Project;
+    private $Projects;
 
 
     /**
@@ -145,35 +145,6 @@ class ProjectsMembers
     }
 
     /**
-     * Set project
-     *
-     * @param \AppBundle\Entity\Projects $project
-     *
-     * @return ProjectsMembers
-     */
-    public function setProject(\AppBundle\Entity\Projects $project = null)
-    {
-        $this->Project = $project;
-
-        return $this;
-    }
-
-    /**
-     * Get project
-     *
-     * @return \AppBundle\Entity\Projects
-     */
-    public function getProject()
-    {
-        return $this->Project;
-    }
-    /**
-     * @var \AppBundle\Entity\Projects
-     */
-    private $Projects;
-
-
-    /**
      * Set projects
      *
      * @param \AppBundle\Entity\Projects $projects
@@ -197,3 +168,4 @@ class ProjectsMembers
         return $this->Projects;
     }
 }
+
