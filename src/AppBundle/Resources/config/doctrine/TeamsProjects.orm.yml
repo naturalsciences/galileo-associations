@@ -2,13 +2,12 @@ AppBundle\Entity\TeamsProjects:
   type: entity
   repositoryClass: AppBundle\Repository\TeamsProjects
   table: teams_projects
-  fields:
+  id:
     id:
       type: integer
       generator:
         strategy: AUTO
-      options:
-        comment: 'Unique identifier'
+  fields:
     start_date:
       type: date
       nullable: true
@@ -25,13 +24,13 @@ AppBundle\Entity\TeamsProjects:
       options:
         comment: 'Comment'
   manyToOne:
-    Team:
+    Teams:
       targetEntity: AppBundle\Entity\Teams
       inversedBy: TeamsProjects
       joinColumn:
         name: team_ref
         referencedColumnName: id
-    Project:
+    Projects:
       targetEntity: AppBundle\Entity\Projects
       inversedBy: TeamsProjects
       joinColumn:

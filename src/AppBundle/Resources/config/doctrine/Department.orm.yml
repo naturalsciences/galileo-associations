@@ -2,24 +2,37 @@ AppBundle\Entity\Department:
   type: entity
   repositoryClass: AppBundle\Repository\DepartmentRepository
   table: department
-  fields:
+  id:
     id:
       type: integer
       generator:
         strategy: AUTO
+  fields:
     level:
       type: string
       nullable: false
+      options:
+        comment: 'Level in the hierarchy of organization'
     path:
       type: string
+      options:
+        comment: 'Hierarchic path of id in the organization'
     name_fr:
       type: string
+      options:
+        comment: 'Name of department/service in french'
     name_en:
       type: string
+      options:
+        comment: 'Name of department/service in english'
     name_nl:
       type: string
+      options:
+        comment: 'Name of department/service in dutch'
     is_active:
       type: boolean
+      options:
+        comment: 'True/False - Tells if department/service is still active'
   oneToMany:
     WorkingDuty:
       targetEntity: AppBundle\Entity\WorkingDuty

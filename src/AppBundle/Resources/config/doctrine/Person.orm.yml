@@ -2,21 +2,32 @@ AppBundle\Entity\Person:
   type: entity
   repositoryClass: AppBundle\Repository\PersonRepository
   table: person
-  fields:
+  id:
     id:
       type: integer
       generator:
         strategy: AUTO
+  fields:
     first_name:
       type: string
+      options:
+        comment: 'First name'
     last_name:
       type: string
+      options:
+        comment: 'Last name'
     matricule:
       type: string
+      options:
+        comment: 'Institution internal identifier (matricule)'
     uid:
       type: string
+      options:
+        comment: 'Unique identifier associated from AD (Active Directory)'
     email:
       type: text
+      options:
+        comment: 'Person main email'
   oneToMany:
     WorkingDuty:
       targetEntity: AppBundle\Entity\WorkingDuty
@@ -38,7 +49,7 @@ AppBundle\Entity\Person:
       cascade: ["persist"]
       orderBy:
         start_date: asc
-    TeamssMembers:
+    TeamsMembers:
       targetEntity: AppBundle\Entity\TeamsMembers
       mappedBy: Person
       joinColumn:

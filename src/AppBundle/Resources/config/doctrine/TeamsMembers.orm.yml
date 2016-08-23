@@ -2,13 +2,12 @@ AppBundle\Entity\TeamsMembers:
   type: entity
   repositoryClass: AppBundle\Repository\TeamsMembers
   table: teams_members
-  fields:
+  id:
     id:
       type: integer
       generator:
         strategy: AUTO
-      options:
-        comment: 'Unique identifier'
+  fields:
     start_date:
       type: date
       nullable: true

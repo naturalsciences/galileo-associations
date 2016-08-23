@@ -2,22 +2,31 @@ AppBundle\Entity\WorkingDuty:
   type: entity
   repositoryClass: AppBundle\Repository\WorkingDuty
   table: working_duty
-  fields:
+  id:
     id:
       type: integer
       generator:
         strategy: AUTO
+  fields:
     percentage:
       type: integer
       length: 3
-      notnull: true
+      nullable: false
       default: 100
+      options:
+        comment: 'Duty percentage of the person in this department'
     start_date:
       type: date
+      options:
+        comment: 'Start date of person in this department'
     end_date:
       type: date
+      options:
+        comment: 'End date of person in this department'
     comment:
       type: string
+      options:
+        comment: 'Associated description of this duty'
   manyToOne:
     Person:
       targetEntity: AppBundle\Entity\Person

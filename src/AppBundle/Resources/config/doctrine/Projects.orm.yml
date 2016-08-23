@@ -2,11 +2,12 @@ AppBundle\Entity\Projects:
   type: entity
   repositoryClass: AppBundle\Repository\ProjectsRepository
   table: projects
-  fields:
+  id:
     id:
       type: integer
       generator:
         strategy: AUTO
+  fields:
     international_name:
       type: string
       nullable: false

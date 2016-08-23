@@ -2,11 +2,12 @@ AppBundle\Entity\Teams:
   type: entity
   repositoryClass: AppBundle\Repository\TeamsRepository
   table: teams
-  fields:
+  id:
     id:
       type: integer
       generator:
         strategy: AUTO
+  fields:
     international_name:
       type: string
       nullable: false
