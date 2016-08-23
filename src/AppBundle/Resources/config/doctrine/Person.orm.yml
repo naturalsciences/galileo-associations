@@ -28,6 +28,9 @@ AppBundle\Entity\Person:
       type: text
       options:
         comment: 'Person main email'
+  uniqueConstraints:
+    unq_person_uid:
+      columns: uid
   oneToMany:
     WorkingDuty:
       targetEntity: AppBundle\Entity\WorkingDuty

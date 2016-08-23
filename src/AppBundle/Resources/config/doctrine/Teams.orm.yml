@@ -71,6 +71,9 @@ AppBundle\Entity\Teams:
       nullable: true
       options:
         comment: 'team end date'
+  uniqueConstraints:
+    unq_team_international_name:
+      columns: international_name
   oneToMany:
     TeamsMembers:
       targetEntity: AppBundle\Entity\TeamsMembers

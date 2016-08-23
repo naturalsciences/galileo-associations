@@ -11,7 +11,6 @@ AppBundle\Entity\Projects:
     international_name:
       type: string
       nullable: false
-      unique: true
       options:
         comment: 'The name to be used internationaly'
     international_description:
@@ -71,6 +70,9 @@ AppBundle\Entity\Projects:
       nullable: true
       options:
         comment: 'Project end date'
+  uniqueConstraints:
+    unq_project_international_name:
+      columns: international_name
   oneToMany:
     ProjectsMembers:
       targetEntity: AppBundle\Entity\ProjectsMembers

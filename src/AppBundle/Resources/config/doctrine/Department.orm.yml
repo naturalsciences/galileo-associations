@@ -15,6 +15,7 @@ AppBundle\Entity\Department:
         comment: 'Level in the hierarchy of organization'
     path:
       type: string
+      default: '/'
       options:
         comment: 'Hierarchic path of id in the organization'
     name_fr:
