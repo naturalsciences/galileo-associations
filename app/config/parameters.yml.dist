@@ -7,12 +7,12 @@ parameters:
     database_port:     ~
     database_name:     symfony
     database_user:     root
-    database_password: ~
+    database_password: S3cret
     database_test_host:     127.0.0.1
     database_test_port:     ~
     database_test_name:     symfony
     database_test_user:     root
-    database_test_password: ~
+    database_test_password: S3cret
     # You should uncomment this if you want use pdo_sqlite
     # database_path: "%kernel.root_dir%/data.db3"
 
