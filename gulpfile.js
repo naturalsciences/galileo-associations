@@ -18,14 +18,17 @@ app.errorHandling = function(error) {
 
 app.addStyle = function(paths, outputFilename) {
     return gulp.src(paths)
-        .pipe(plugins.plumber(app.errorHandling(error)))
+        .pipe(plugins.plumber(function(error) {
+            console.log(error.toString());
+            this.emit('end');
+        }))
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.sass())
-        .pipe(plugins.concat('css/'+outputFilename))
+        .pipe(plugins.concat(outputFilename))
         .pipe(plugins.cleanCss())
         .pipe(plugins.rev())
         .pipe(plugins.sourcemaps.write('.'))
-        .pipe(gulp.dest('web'))
+        .pipe(gulp.dest('web/css'))
         // write the rev-manifest.json file for gulp-rev
         .pipe(plugins.rev.manifest(config.revManifestPath, {
             merge: true
@@ -40,11 +43,11 @@ app.addScript = function(paths, outputFilename) {
             this.emit('end');
         }))
         .pipe(plugins.sourcemaps.init())
-        .pipe(plugins.concat('js/'+outputFilename))
+        .pipe(plugins.concat(outputFilename))
         .pipe(plugins.uglify())
         .pipe(plugins.rev())
         .pipe(plugins.sourcemaps.write('.'))
-        .pipe(gulp.dest('web'))
+        .pipe(gulp.dest('web/js'))
         // write the rev-manifest.json file for gulp-rev
         .pipe(plugins.rev.manifest(config.revManifestPath, {
             merge: true
@@ -92,10 +95,14 @@ gulp.task('styles', function() {
     var pipeline = new Pipeline();
 
     pipeline.add([
-        config.bowerDir+'/bootstrap/dist/css/bootstrap.css',
-        config.bowerDir+'/font-awesome/css/font-awesome.css',
+        config.bowerDir+'/bootstrap/dist/css/bootstrap.css'
+    ], 'bootstrap-min.css');
+
+    pipeline.add([
+        config.bowerDir+'/fontawesome/css/font-awesome.css',
+        config.bowerDir+'/tether/dist/css/tether-theme-arrows.css',
         config.assetsDir+'/sass/base.scss'
-    ], 'main.css');
+    ], 'site-min.css');
 
     return pipeline.run(app.addStyle);
 });
@@ -105,7 +112,8 @@ gulp.task('scripts', function() {
 
     pipeline.add([
         config.bowerDir+'/jquery/dist/jquery.js',
-        config.assetsDir+'/js/main.js'
+        config.bowerDir+'/tether/dist/js/tether.js',
+        config.bowerDir+'/bootstrap/dist/js/bootstrap.js'
     ], 'site.js');
 
     return pipeline.run(app.addScript);
@@ -113,7 +121,7 @@ gulp.task('scripts', function() {
 
 gulp.task('fonts', function() {
     return app.copy(
-        config.bowerDir+'/font-awesome/fonts/*',
+        config.bowerDir+'/fontawesome/fonts/*',
         'web/fonts'
     );
 });
@@ -126,8 +134,13 @@ gulp.task('clean', function() {
 });
 
 gulp.task('watch', function() {
-    gulp.watch(config.assetsDir+'/'+config.sassPattern, ['styles']);
-    gulp.watch(config.assetsDir+'/js/**/*.js', ['scripts']);
+    gulp.watch(config.assetsDir+'/'+config.sassPattern, ['clean', 'styles']);
+    gulp.watch(config.bowerDir+'/bootstrap/dist/css/bootstrap.css', ['clean', 'styles']);
+    gulp.watch(config.bowerDir+'/fontawesome/css/font-awesome.css', ['clean', 'styles']);
+    gulp.watch(config.bowerDir+'/tether/dist/css/tether-theme-arrows.css', ['clean', 'styles']);
+    gulp.watch(config.assetsDir+'/js/**/*.js', ['clean', 'scripts']);
+    gulp.watch(config.bowerDir+'/bootstrap/dist/js/**/*.js', ['clean', 'scripts']);
+    gulp.watch(config.bowerDir+'/tether/dist/js/**/*.js', ['clean', 'scripts']);
 });
 
 gulp.task('default', ['clean', 'styles', 'scripts', 'fonts', 'watch']);
