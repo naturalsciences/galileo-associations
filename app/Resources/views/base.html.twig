@@ -1,13 +1,27 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <!-- Meta part -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <!-- Title and favicon part -->
+        <title>{% block title %}Welcome to Galileo Extension !{% endblock %}</title>
+        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+        <!-- Stylesheets part -->
+        <link rel="stylesheet" href="{{ asset('css/bootstrap-min.css'|asset_version) }}" type="text/css" media="all" />
+        <link rel="stylesheet" href="{{ asset('css/site-min.css'|asset_version) }}" type="text/css" media="all" />
+        {% block stylesheets %}{% endblock %}
+
+        <!-- Javascripts in the header -->
+        {% block javascriptsheader %}{% endblock %}
     </head>
     <body>
         {% block body %}{% endblock %}
+        <script src="{{ asset('js/site-min.js'|asset_version) }}" type="text/javascript"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

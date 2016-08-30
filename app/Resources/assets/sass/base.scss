@@ -3,7 +3,14 @@
 // Setup files
 @import 'setup/colors';
 
+// Layout files
+@import 'layouts/images';
+@import 'layouts/navigation';
+@import 'layouts/headers';
+
+// Module files
+@import 'modules/base';
+
 body {
-  background-color: $white;
-  color: $black;
+  font-size: 14px;
 }

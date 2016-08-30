@@ -95,12 +95,13 @@ gulp.task('styles', function() {
     var pipeline = new Pipeline();
 
     pipeline.add([
-        config.bowerDir+'/bootstrap/dist/css/bootstrap.css'
+        config.bowerDir+'/bootstrap/scss/bootstrap-flex.scss'
     ], 'bootstrap-min.css');
 
     pipeline.add([
         config.bowerDir+'/fontawesome/css/font-awesome.css',
         config.bowerDir+'/tether/dist/css/tether-theme-arrows.css',
+        config.bowerDir+'/jasny-bootstrap/dist/css/jasny-bootstrap.min.css',
         config.assetsDir+'/sass/base.scss'
     ], 'site-min.css');
 
@@ -112,9 +113,11 @@ gulp.task('scripts', function() {
 
     pipeline.add([
         config.bowerDir+'/jquery/dist/jquery.js',
+        config.bowerDir+'/jquery-ui/jquery-ui.js',
         config.bowerDir+'/tether/dist/js/tether.js',
-        config.bowerDir+'/bootstrap/dist/js/bootstrap.js'
-    ], 'site.js');
+        config.bowerDir+'/bootstrap/dist/js/bootstrap.js',
+        config.bowerDir+'/jasny-bootstrap/dist/js/bootstrap.js'
+    ], 'site-min.js');
 
     return pipeline.run(app.addScript);
 });
@@ -134,13 +137,14 @@ gulp.task('clean', function() {
 });
 
 gulp.task('watch', function() {
-    gulp.watch(config.assetsDir+'/'+config.sassPattern, ['clean', 'styles']);
-    gulp.watch(config.bowerDir+'/bootstrap/dist/css/bootstrap.css', ['clean', 'styles']);
-    gulp.watch(config.bowerDir+'/fontawesome/css/font-awesome.css', ['clean', 'styles']);
-    gulp.watch(config.bowerDir+'/tether/dist/css/tether-theme-arrows.css', ['clean', 'styles']);
-    gulp.watch(config.assetsDir+'/js/**/*.js', ['clean', 'scripts']);
-    gulp.watch(config.bowerDir+'/bootstrap/dist/js/**/*.js', ['clean', 'scripts']);
-    gulp.watch(config.bowerDir+'/tether/dist/js/**/*.js', ['clean', 'scripts']);
+    gulp.watch(config.assetsDir+'/'+config.sassPattern, ['styles']);
+    gulp.watch(config.bowerDir+'/bootstrap/dist/css/bootstrap.css', ['styles']);
+    gulp.watch(config.bowerDir+'/fontawesome/css/font-awesome.css', ['styles']);
+    gulp.watch(config.bowerDir+'/tether/dist/css/tether-theme-arrows.css', ['styles']);
+    gulp.watch(config.assetsDir+'/js/**/*.js', ['scripts']);
+    gulp.watch(config.bowerDir+'/bootstrap/dist/js/**/*.js', ['scripts']);
+    gulp.watch(config.bowerDir+'/jasny-bootstrap/dist/js/**/*.js', ['scripts']);
+    gulp.watch(config.bowerDir+'/tether/dist/js/**/*.js', ['scripts']);
 });
 
 gulp.task('default', ['clean', 'styles', 'scripts', 'fonts', 'watch']);

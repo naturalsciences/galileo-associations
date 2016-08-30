@@ -20,7 +20,10 @@ class AssetVersionExtension extends \Twig_Extension
 
     public function getAssetVersion($filename)
     {
-        $file = end(explode('/', rtrim($filename, '/')));
+        $trimedFile = rtrim($filename, '/');
+        $explodedFilePath = explode('/', $trimedFile);
+        $file = array_pop($explodedFilePath);
+        $file_path = implode('/', $explodedFilePath).'/';
 
         $manifestPath = $this->appDir.'/Resources/assets/rev-manifest.json';
         if (!file_exists($manifestPath)) {
@@ -32,7 +35,7 @@ class AssetVersionExtension extends \Twig_Extension
             throw new \Exception(sprintf('There is no file "%s" in the version manifest!', $filename));
         }
 
-        return $paths[$file];
+        return $file_path.$paths[$file];
     }
 
     public function getName()
