@@ -139,8 +139,10 @@ gulp.task('clean', function() {
 gulp.task('watch', function() {
     gulp.watch(config.assetsDir+'/'+config.sassPattern, ['styles']);
     gulp.watch(config.bowerDir+'/bootstrap/dist/css/bootstrap.css', ['styles']);
+    gulp.watch(config.bowerDir+'/bootstrap/scss/bootstrap-flex.scss', ['styles']);
     gulp.watch(config.bowerDir+'/fontawesome/css/font-awesome.css', ['styles']);
     gulp.watch(config.bowerDir+'/tether/dist/css/tether-theme-arrows.css', ['styles']);
+    gulp.watch(config.bowerDir+'/jasny-bootstrap/dist/css/jasny-bootstrap.min.css', ['styles']);
     gulp.watch(config.assetsDir+'/js/**/*.js', ['scripts']);
     gulp.watch(config.bowerDir+'/bootstrap/dist/js/**/*.js', ['scripts']);
     gulp.watch(config.bowerDir+'/jasny-bootstrap/dist/js/**/*.js', ['scripts']);

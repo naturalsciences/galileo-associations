@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <nav class="navmenu navmenu-default navmenu-fixed-right offcanvas canvas-slid"><!--style="left: 0px; right: 1380px;"-->
-        <a class="navmenu-brand" href="#">Project name</a>
+    <nav class="navmenu navmenu-default navmenu-fixed-left offcanvas canvas-slid rbins-searches">
+        <a class="navmenu-brand" href="#">RBINS searches</a>
         <ul class="nav navmenu-nav">
             <li><a href="#">Slide in</a></li>
             <li class="active"><a href="#">Push</a></li>
@@ -19,11 +19,21 @@
                 </a>
             </div>
         </div>
-        <div class="navbar navbar-default navmenu-fixed-right canvas-slid">
+        <div class="navbar navbar-default canvas-slid rbins-menu-toggle">
             <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target=".navmenu" data-canvas="body">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-        </div>    </nav>
+        </div>
+    </nav>
+    <nav class="navmenu navmenu-default navmenu-fixed-right offcanvas canvas-slid">
+        <a class="navmenu-brand" href="#">Project name</a>
+        <ul class="nav navmenu-nav">
+            <li><a href="#">Slide in</a></li>
+            <li class="active"><a href="#">Push</a></li>
+            <li><a href="#">Reveal</a></li>
+            <li><a href="#">Off canvas navbar</a></li>
+        </ul>
+    </nav>
 {% endblock %}
