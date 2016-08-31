@@ -101,7 +101,6 @@ gulp.task('styles', function() {
     pipeline.add([
         config.bowerDir+'/fontawesome/css/font-awesome.css',
         config.bowerDir+'/tether/dist/css/tether-theme-arrows.css',
-        config.bowerDir+'/jasny-bootstrap/dist/css/jasny-bootstrap.min.css',
         config.assetsDir+'/sass/base.scss'
     ], 'site-min.css');
 
@@ -123,7 +122,6 @@ gulp.task('scripts', function() {
             config.bowerDir+'/jquery-ui/jquery-ui.js',
             config.bowerDir+'/tether/dist/js/tether.js',
             config.bowerDir+'/bootstrap/dist/js/bootstrap.js',
-            config.bowerDir+'/jasny-bootstrap/dist/js/jasny-bootstrap.js',
             config.assetsDir+'/js/**/*.js'
         ],
         'site-min.js'
@@ -152,11 +150,9 @@ gulp.task('watch', function() {
     gulp.watch(config.bowerDir+'/bootstrap/scss/bootstrap-flex.scss', ['styles']);
     gulp.watch(config.bowerDir+'/fontawesome/css/font-awesome.css', ['styles']);
     gulp.watch(config.bowerDir+'/tether/dist/css/tether-theme-arrows.css', ['styles']);
-    gulp.watch(config.bowerDir+'/jasny-bootstrap/dist/css/jasny-bootstrap.min.css', ['styles']);
     gulp.watch(config.assetsDir+'/js/**/*.js', ['scripts']);
     gulp.watch(config.bowerDir+'/bootstrap/dist/js/**/*.js', ['scripts']);
-    gulp.watch(config.bowerDir+'/jasny-bootstrap/dist/js/**/*.js', ['scripts']);
     gulp.watch(config.bowerDir+'/tether/dist/js/**/*.js', ['scripts']);
 });
 
-gulp.task('default', ['clean', 'styles', 'scripts', 'fonts', 'watch']);
+gulp.task('default', ['clean', 'styles', 'scripts', 'fonts']);
