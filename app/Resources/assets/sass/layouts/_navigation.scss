@@ -2,19 +2,52 @@
 
 .navbar.rbins-navbar {
   border-radius: 0;
+  padding-right: 0;
 }
+
 .navmenu {
-  width: 12.5rem;
+  width: 50%;
+
+  @include media-breakpoint-between(sm, md) {
+    width: 36%;
+  }
+
+  @include media-breakpoint-between(md, lg) {
+    width: 25%;
+  }
+
+  @include media-breakpoint-up(lg) {
+    width: 20%;
+  }
+
   &.rbins-searches {
     top: 4rem;
   }
+
+  &.rbins-menu {
+    background-color: $darkgrey;
+    // border-color: $darkgrey;
+
+    a, li a {
+      color: $white;
+
+      &:hover {
+        color: $lightgrey;
+      }
+    }
+  }
 }
+
 button.navbar-toggle {
   background-color: $white;
   border: 1px solid $white;
   border-radius: 4px;
-  float: right;
   padding: 1rem;
+
+  &:hover {
+    background-color: $lightgrey;
+  }
+
   .icon-bar {
     background-color: $darkgrey;
     border-radius: 1px;
@@ -23,14 +56,45 @@ button.navbar-toggle {
     margin-bottom: .05rem;
     width: 1rem;
   }
+
+  &.navbar-toggle-right {
+    float: right;
+  }
+
+  &.navbar-toggle-left {
+    float: left;
+  }
 }
+
 .media.rbins-icon-media {
   float: left;
   margin-bottom: 0;
 }
+
 .rbins-menu-toggle {
   float: right;
   padding-bottom: 0;
   padding-right: 0;
-  padding-top: .25rem;
+  margin-right: .5rem;
+}
+
+.nav-toggles {
+  float: right;
+  width: 56%;
+
+  @include media-breakpoint-between(sm, md) {
+    width: 42%;
+  }
+
+  @include media-breakpoint-between(md, lg) {
+    width: 30%;
+  }
+
+  @include media-breakpoint-up(lg) {
+    width: 23%;
+  }
+
+  div {
+    display: inline-block;
+  }
 }

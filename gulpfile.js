@@ -111,13 +111,23 @@ gulp.task('styles', function() {
 gulp.task('scripts', function() {
     var pipeline = new Pipeline();
 
-    pipeline.add([
-        config.bowerDir+'/jquery/dist/jquery.js',
-        config.bowerDir+'/jquery-ui/jquery-ui.js',
-        config.bowerDir+'/tether/dist/js/tether.js',
-        config.bowerDir+'/bootstrap/dist/js/bootstrap.js',
-        config.bowerDir+'/jasny-bootstrap/dist/js/bootstrap.js'
-    ], 'site-min.js');
+    pipeline.add(
+        [
+            config.bowerDir+'/jquery/dist/jquery.min.js'
+        ],
+        'jquery-min.js'
+    );
+
+    pipeline.add(
+        [
+            config.bowerDir+'/jquery-ui/jquery-ui.js',
+            config.bowerDir+'/tether/dist/js/tether.js',
+            config.bowerDir+'/bootstrap/dist/js/bootstrap.js',
+            config.bowerDir+'/jasny-bootstrap/dist/js/jasny-bootstrap.js',
+            config.assetsDir+'/js/**/*.js'
+        ],
+        'site-min.js'
+    );
 
     return pipeline.run(app.addScript);
 });

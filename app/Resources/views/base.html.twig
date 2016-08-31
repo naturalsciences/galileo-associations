@@ -7,7 +7,7 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
         <!-- Title and favicon part -->
-        <title>{% block title %}Welcome to Galileo Extension !{% endblock %}</title>
+        <title>{% block title %}{% block product_title %}Galileo Extension{% endblock product_title %}{% block page_title %} - Welcome !{% endblock page_title %}{% endblock title %}</title>
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
@@ -17,11 +17,79 @@
         {% block stylesheets %}{% endblock %}
 
         <!-- Javascripts in the header -->
+        <script type="text/javascript" src="{{ asset('js/jquery-min.js'|asset_version) }}"></script>
         {% block javascriptsheader %}{% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {%  block navigation %}
+            {% block search_menu %}
+                <nav class="navmenu navmenu-default navmenu-fixed-left offcanvas in rbins-searches">
+                    <a class="navmenu-brand" href="#">RBINS searches</a>
+                    <ul class="nav navmenu-nav">
+                        <li><a href="#">Slide in</a></li>
+                        <li class="active"><a href="#">Push</a></li>
+                        <li><a href="#">Reveal</a></li>
+                        <li><a href="#">Off canvas navbar</a></li>
+                    </ul>
+                </nav>
+            {% endblock search_menu %}
+            {% block navigation_top_bar %}
+                <nav class="navbar navbar-static-top navbar-dark bg-inverse rbins-navbar">
+                    <!-- Brand -->
+                    <div class="media rbins-icon-media">
+                        <div class="media-left">
+                            <a class="navbar-brand" href="{{ url('app_homepage') }}">
+                                <img class="media-object logo-icon" src="{{ asset('img/logo.png') }}" alt="Logo Museum" title="Go to Homepage">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="nav-toggles">
+                        <div class="navmenu-close">
+                            <button type="button" class="navbar-toggle navbar-toggle-right">
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div class="rbins-menu-toggle">
+                            <button type="button" class="navbar-toggle navbar-toggle-right" data-toggle="offcanvas" data-target=".rbins-menu">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                    </div>
+                </nav>
+            {% endblock navigation_top_bar %}
+            {% block navigation_responsive_menu %}
+                <nav class="navmenu navmenu-default navmenu-fixed-right offcanvas rbins-menu">
+                    <a class="navmenu-brand" href="#">{{ block('product_title') }}</a>
+                    <ul class="nav navmenu-nav">
+                        <li><a href="#">Slide in</a></li>
+                        <li class="active"><a href="#">Push</a></li>
+                        <li><a href="#">Reveal</a></li>
+                        <li><a href="#">Off canvas navbar</a></li>
+                    </ul>
+                </nav>
+            {% endblock navigation_responsive_menu %}
+        {%  endblock navigation %}
+        {% block content %}{% endblock %}
         <script src="{{ asset('js/site-min.js'|asset_version) }}" type="text/javascript"></script>
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+            {% block javascript_navigation %}
+                <script type="text/javascript">
+                    $(document).ready(
+                            function() {
+                                $('.rbins-menu-toggle').offcanvas('toggle');
+
+                                $('.rbins-menu').on(
+                                        'shown.bs.offcanvas',
+                                        function () {
+                                            console.log('showed');
+                                        }
+                                );
+                            }
+                    );
+                </script>
+            {% endblock javascript_navigation %}
+        {% endblock javascripts %}
     </body>
 </html>
