@@ -155,4 +155,4 @@ gulp.task('watch', function() {
     gulp.watch(config.bowerDir+'/tether/dist/js/**/*.js', ['scripts']);
 });
 
-gulp.task('default', ['clean', 'styles', 'scripts', 'fonts']);
+gulp.task('default', ['styles', 'scripts', 'fonts']);

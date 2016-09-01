@@ -37,9 +37,9 @@
                         </header>
                     {% endblock navigation_top_bar_brand %}
                     {% block navigation_top_bar_lg %}
-                        <div class="col-lg-5 hidden-md-down container rbins-lg-actions">
+                        <nav class="col-md-9 col-lg-10 hidden-md-down container rbins-lg-actions">
                             {% include ":partials:_logOff.html.twig" with { 'position_class': 'pull-lg-right', 'solarize': true, 'icon_increase': 'fa-2x' } %}
-                        </div>
+                        </nav>
                     {% endblock navigation_top_bar_lg %}
                     {% block navigation_top_bar_responsive %}
                         <div class="nav-toggles hidden-xl-up">
