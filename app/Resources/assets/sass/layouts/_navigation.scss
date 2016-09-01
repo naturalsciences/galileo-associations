@@ -57,6 +57,7 @@
 
 .navbar.rbins-navbar {
   border-radius: 0;
+  padding-left: 0;
   padding-right: 0;
 }
 
@@ -150,5 +151,15 @@ button.navbar-toggle {
         height: 42px;
       }
     }
+  }
+}
+
+.rbins-lg-actions {
+  float: right;
+  height: 46px;
+
+  div {
+    height: 46px;
+    margin: 0;
   }
 }

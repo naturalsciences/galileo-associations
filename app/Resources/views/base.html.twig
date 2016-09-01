@@ -24,28 +24,43 @@
         {%  block navigation %}
             {% block navigation_top_bar %}
                 <nav class="navbar navbar-fixed-top navbar-dark bg-inverse rbins-navbar">
-                    <!-- Brand -->
-                    <div class="media rbins-icon-media">
-                        <div class="media-left">
-                            <a class="navbar-brand" href="{{ url('app_homepage') }}">
-                                <img class="media-object logo-icon" src="{{ asset('img/logo.png') }}" alt="Logo Museum" title="Go to Homepage">
-                            </a>
+                    {% block navigation_top_bar_brand %}
+                        <!-- Brand -->
+                        <div class="col-xs-2 col-md-3 col-lg-2 media rbins-icon-media">
+                            <div class="media-left">
+                                <a class="navbar-brand" href="{{ url('app_homepage') }}">
+                                    {% block branding %}
+                                        <img class="media-object logo-icon" src="{{ asset('img/logo.png') }}" alt="Logo Museum" title="Go to Homepage">
+                                    {% endblock branding %}
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="nav-toggles hidden-xl-up">
-                        <div class="navmenu-close">
-                            <button type="button" class="navbar-toggle navbar-toggle-right" data-target=".rbins-menu">
-                                <span class="icon-bar"></span>
-                            </button>
+                    {% endblock navigation_top_bar_brand %}
+                    {% block navigation_top_bar_lg %}
+                        <div class="col-lg-5 hidden-md-down container rbins-lg-actions">
+                            {% include ":partials:_logOff.html.twig" with { 'position_class': 'pull-lg-right', 'solarize': true, 'icon_increase': 'fa-2x' } %}
                         </div>
-                        <div class="rbins-menu-toggle">
-                            <button type="button" class="navbar-toggle navbar-toggle-right" data-target=".rbins-menu">
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
+                    {% endblock navigation_top_bar_lg %}
+                    {% block navigation_top_bar_responsive %}
+                        <div class="nav-toggles hidden-xl-up">
+                            {% block navigation_top_bar_responsive_close %}
+                                <div class="navmenu-close">
+                                    <button type="button" class="navbar-toggle navbar-toggle-right" data-target=".rbins-menu">
+                                        <span class="icon-bar"></span>
+                                    </button>
+                                </div>
+                            {% endblock navigation_top_bar_responsive_close %}
+                            {% block navigation_top_bar_responsive_toggle %}
+                                <div class="rbins-menu-toggle">
+                                    <button type="button" class="navbar-toggle navbar-toggle-right" data-target=".rbins-menu">
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </button>
+                                </div>
+                            {% endblock navigation_top_bar_responsive_toggle %}
                         </div>
-                    </div>
+                    {% endblock navigation_top_bar_responsive %}
                 </nav>
             {% endblock navigation_top_bar %}
             {% block navigation_responsive_menu %}
