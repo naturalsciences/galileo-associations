@@ -160,6 +160,12 @@ button.navbar-toggle {
 
   div {
     height: 46px;
-    margin: 0;
+    margin-left: 1rem;
+    margin-right: 0;
+
+    a {
+      color: $white;
+      text-decoration: none;
+    }
   }
 }

@@ -38,7 +38,9 @@
                     {% endblock navigation_top_bar_brand %}
                     {% block navigation_top_bar_lg %}
                         <nav class="col-md-9 col-lg-10 hidden-md-down container rbins-lg-actions">
-                            {% include ":partials:_logOff.html.twig" with { 'position_class': 'pull-lg-right', 'solarize': true, 'icon_increase': 'fa-2x' } %}
+                            {% set action_vars = { 'position_class': 'pull-lg-right', 'solarize': true, 'icon_increase': 'fa-2x' } %}
+                            {% include ":partials:_logOff.html.twig" with action_vars %}
+                            {% include ":partials:_profile.html.twig" with action_vars %}
                         </nav>
                     {% endblock navigation_top_bar_lg %}
                     {% block navigation_top_bar_responsive %}
