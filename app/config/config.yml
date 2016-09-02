@@ -70,3 +70,22 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+lunetics_locale:
+  strict_mode: false
+  strict_match: true
+  allowed_locales:
+    - en
+    - nl
+    - fr
+  guessing_order:
+    - router
+    - session
+    - cookie
+    - query
+    - browser
+  cookie:
+    set_on_change: true
+  switcher:
+    template: /_partials/languages.html.twig
+    show_current_locale: true

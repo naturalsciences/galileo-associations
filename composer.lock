@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "46aa6829f2540f0bca50aab74aa3a5b8",
-    "content-hash": "c1a3708a2880898f1f1ccce0fc4ebf56",
+    "hash": "536d5d1ce618813bcae957f18f37bd6c",
+    "content-hash": "5690833135d9dfb9e757c6d5ce8de555",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -526,23 +526,26 @@
         },
         {
             "name": "doctrine/doctrine-migrations-bundle",
-            "version": "1.1.1",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineMigrationsBundle.git",
-                "reference": "303a576e2124efb07ec215e34ea2480b841cf5e4"
+                "reference": "0b89ee55bceb53c60bc4ba32924ac5053e377abb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineMigrationsBundle/zipball/303a576e2124efb07ec215e34ea2480b841cf5e4",
-                "reference": "303a576e2124efb07ec215e34ea2480b841cf5e4",
+                "url": "https://api.github.com/repos/doctrine/DoctrineMigrationsBundle/zipball/0b89ee55bceb53c60bc4ba32924ac5053e377abb",
+                "reference": "0b89ee55bceb53c60bc4ba32924ac5053e377abb",
                 "shasum": ""
             },
             "require": {
                 "doctrine/doctrine-bundle": "~1.0",
-                "doctrine/migrations": "~1.0",
-                "php": ">=5.3.2",
+                "doctrine/migrations": "^1.1",
+                "php": ">=5.4.0",
                 "symfony/framework-bundle": "~2.3|~3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.8"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -580,7 +583,7 @@
                 "migrations",
                 "schema"
             ],
-            "time": "2015-11-04 13:45:30"
+            "time": "2016-06-30 19:26:35"
         },
         {
             "name": "doctrine/inflector",
@@ -1006,6 +1009,74 @@
                 "sql"
             ],
             "time": "2014-01-12 16:20:24"
+        },
+        {
+            "name": "lunetics/locale-bundle",
+            "version": "2.5.3",
+            "target-dir": "Lunetics/LocaleBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lunetics/LocaleBundle.git",
+                "reference": "62a75ead1ca9be7a4338f5cf8e363c9b10ff844a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lunetics/LocaleBundle/zipball/62a75ead1ca9be7a4338f5cf8e363c9b10ff844a",
+                "reference": "62a75ead1ca9be7a4338f5cf8e363c9b10ff844a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9",
+                "psr/log": "~1.0",
+                "symfony/framework-bundle": "^2.8|^3.0",
+                "symfony/intl": "^2.8|^3.0",
+                "symfony/validator": "^2.8|^3.0",
+                "symfony/yaml": "^2.8|^3.0"
+            },
+            "require-dev": {
+                "ext-intl": "*",
+                "symfony/form": "^2.8|^3.0",
+                "twig/twig": "1.*|2.*"
+            },
+            "suggest": {
+                "ext-intl": "Needed for displaying the country name in the locale language"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Lunetics\\LocaleBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Lunetics",
+                    "homepage": "http://www.lunetics.com"
+                },
+                {
+                    "name": "Christophe Willesmen",
+                    "homepage": "http://christophewillemsen.com"
+                }
+            ],
+            "description": "A Bundle for switching Languages",
+            "keywords": [
+                "browser",
+                "bundle",
+                "cookie",
+                "language",
+                "locale",
+                "multilanguage",
+                "router"
+            ],
+            "time": "2016-06-29 06:36:59"
         },
         {
             "name": "monolog/monolog",
@@ -2131,16 +2202,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.24.1",
+            "version": "v1.24.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "3566d311a92aae4deec6e48682dc5a4528c4a512"
+                "reference": "33093f6e310e6976baeac7b14f3a6ec02f2d79b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/3566d311a92aae4deec6e48682dc5a4528c4a512",
-                "reference": "3566d311a92aae4deec6e48682dc5a4528c4a512",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/33093f6e310e6976baeac7b14f3a6ec02f2d79b7",
+                "reference": "33093f6e310e6976baeac7b14f3a6ec02f2d79b7",
                 "shasum": ""
             },
             "require": {
@@ -2188,7 +2259,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2016-05-30 09:11:59"
+            "time": "2016-09-01 17:50:53"
         },
         {
             "name": "zendframework/zend-code",

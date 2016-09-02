@@ -1,0 +1,6 @@
+<div class="{% if action_vars.position_class is defined %}{{ action_vars.position_class }}{% endif %} row flex-items-xs-middle hidden-lg-down">
+    <a href="#" title="Log out">
+        {% block log_out_icon %}<i class="fa fa-sign-out {% if action_vars.solarize is defined %}{% if solarize == true %}fa-inverse{% endif %}{% endif %} {% if action_vars.icon_increase is defined %}{{ icon_increase }}{% endif %}" aria-hidden="true"></i>{% endblock log_out_icon %}
+        &nbsp;{% block log_out_text %}{% endblock log_out_text %}
+    </a>
+</div>

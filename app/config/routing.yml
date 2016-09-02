@@ -1,5 +1,6 @@
 app_homepage:
-    path: /
+    path: /{_locale}
     defaults:
       _controller: AppBundle:Default:index
+      _locale: "%locale%"
     methods: [GET]
