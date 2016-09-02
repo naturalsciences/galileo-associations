@@ -169,3 +169,14 @@ button.navbar-toggle {
     }
   }
 }
+
+.rbins-lg-actions-profile a i,
+.rbins-lg-actions-profile a span {
+  display: block;
+  float: left;
+}
+
+.rbins-lg-actions-profile a span {
+  margin-left: 9px;
+  margin-top: 3px;
+}
