@@ -1,1 +1,9 @@
 {% extends "base.html.twig" %}
+
+{# Example of overwritte a partial
+{% block navigation_top_bar_lg_logoff %}
+    {% embed ":partials:_logOff.html.twig" with action_vars %}
+        {% block log_out_text %}Log out{% endblock log_out_text %}
+    {% endembed %}
+{% endblock navigation_top_bar_lg_logoff %}
+#}
