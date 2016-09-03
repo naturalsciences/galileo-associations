@@ -180,3 +180,11 @@ button.navbar-toggle {
   margin-left: 9px;
   margin-top: 3px;
 }
+
+.rbins-menu {
+  color: $white;
+
+  div.dropdown-menu {
+    height: auto;
+  }
+}

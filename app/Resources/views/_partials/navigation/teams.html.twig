@@ -1,0 +1,9 @@
+<div class="dropdown {% if action_vars.position_class is defined %}{{ action_vars.position_class }}{% endif %} row flex-items-xs-middle rbins-menu">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Teams">
+        &nbsp;{% block teams_text %}<span>Teams</span>{% endblock teams_text %}
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="#">Add a team</a>
+        <a class="dropdown-item" href="#">List all teams</a>
+    </div>
+</div>

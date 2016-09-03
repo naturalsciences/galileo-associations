@@ -37,16 +37,26 @@
                         </header>
                     {% endblock navigation_top_bar_brand %}
                     {% block navigation_top_bar_lg %}
-                        <nav class="col-md-9 col-lg-10 hidden-md-down container rbins-lg-actions">
-                            {% set action_vars = { 'position_class': 'pull-lg-right', 'solarize': true, 'icon_increase': 'fa-2x' } %}
+                        <nav class="nav nav-inline col-md-9 col-lg-10 hidden-md-down container rbins-lg-actions">
+                            {% set action_vars = { 'position_class': 'pull-lg-left', 'solarize': true, 'icon_increase': 'fa-2x' } %}
+                            {% block navigation_top_bar_lg_teams %}
+                                {% include "_partials/navigation/teams.html.twig" %}
+                            {% endblock navigation_top_bar_lg_teams %}
+                            {% block navigation_top_bar_lg_projects %}
+                                {% include "_partials/navigation/projects.html.twig" %}
+                            {% endblock navigation_top_bar_lg_projects %}
+                            {% block navigation_top_bar_lg_ad_sync %}
+                                {% include "_partials/navigation/adSync.html.twig" %}
+                            {% endblock navigation_top_bar_lg_ad_sync %}
+                            {% set action_vars = action_vars|merge({ 'position_class': 'pull-lg-right' }) %}
                             {% block navigation_top_bar_lg_logoff %}
-                                {% include ":_partials:logOff.html.twig" with action_vars %}
+                                {% include "_partials/navigation/logOff.html.twig" with action_vars %}
                             {% endblock navigation_top_bar_lg_logoff %}
                             {% block navigation_top_bar_lg_languages %}
                                 {{  locale_switcher() }}
                             {% endblock navigation_top_bar_lg_languages %}
                             {% block navigation_top_bar_lg_profile %}
-                                {% include ":_partials:profile.html.twig" with action_vars %}
+                                {% include "_partials/navigation/profile.html.twig" with action_vars %}
                             {% endblock navigation_top_bar_lg_profile %}
                         </nav>
                     {% endblock navigation_top_bar_lg %}

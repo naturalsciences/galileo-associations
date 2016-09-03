@@ -87,5 +87,5 @@ lunetics_locale:
   cookie:
     set_on_change: true
   switcher:
-    template: /_partials/languages.html.twig
+    template: /_partials/navigation/languages.html.twig
     show_current_locale: true
