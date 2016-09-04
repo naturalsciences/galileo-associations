@@ -1,5 +1,6 @@
 <div class="{% if action_vars.position_class is defined %}{{ action_vars.position_class }}{% endif %} row flex-items-xs-middle {% if action_vars.responsive_hidden_class is defined %}{{ action_vars.responsive_hidden_class }}{% endif %} rbins-menu-option">
     <a class="nav-link" href="#" title="Synchronize user with active directory">
+        {% block ad_sync_icon %}<i class="fa fa-refresh {% if action_vars.solarize is defined %}{% if action_vars.solarize == true %}fa-inverse{% endif %}{% endif %}" aria-hidden="true"></i>{% endblock ad_sync_icon %}
         &nbsp;{% block ad_sync_text %}<span>AD Synchronization</span>{% endblock ad_sync_text %}
     </a>
 </div>

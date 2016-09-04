@@ -101,17 +101,17 @@
                             {% endblock navigation_responsive_menu_profile %}
                         </li>
                         {% set action_vars = action_vars|merge({ 'responsive_hidden_class': 'hidden-lg-up' }) %}
-                        <li>
+                        <li class="rbins-menu-dropdown">
                             {% block navigation_responsive_menu_teams %}
                                 {% include "_partials/navigation/teams.html.twig" with action_vars %}
                             {% endblock navigation_responsive_menu_teams %}
                         </li>
-                        <li>
+                        <li class="rbins-menu-dropdown">
                             {% block navigation_responsive_menu_projects %}
                                 {% include "_partials/navigation/projects.html.twig" with action_vars %}
                             {% endblock navigation_responsive_menu_projects %}
                         </li>
-                        <li>
+                        <li class="rbins-menu-dropdown">
                             {% block navigation_responsive_menu_ad_sync %}
                                 {% include "_partials/navigation/adSync.html.twig" with action_vars %}
                             {% endblock navigation_responsive_menu_ad_sync %}

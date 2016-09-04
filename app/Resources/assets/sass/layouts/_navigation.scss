@@ -83,8 +83,13 @@
     .navmenu-nav {
 
       li {
-        margin-top: 6px;
         margin-bottom: 6px;
+        margin-top: 6px;
+      }
+
+      li.rbins-menu-dropdown {
+        margin-bottom: 12px;
+        margin-top: 12px;
       }
 
       .row {
@@ -95,11 +100,47 @@
           margin-right: 16px;
         }
 
-        i.fa-users {
+        i.fa-users,
+        i.fa-briefcase,
+        i.fa-refresh {
           font-size: 1.5rem;
-          margin-right: 10px;
+          margin-right: 14px;
+        }
+
+        i.fa-user {
+          margin-right: 18px;
+        }
+
+        i.fa-users {
+          margin-right: 14px;
+        }
+
+        i.fa-briefcase {
+          margin-right: 17px;
+        }
+
+        i.fa-refresh {
+          margin-right: 19px;
+        }
+
+        span {
+          margin-top: 4px;
+        }
+
+        .dropdown-toggle:after {
+          margin-top: 9px;
         }
       }
+    }
+
+    .rbins-lg-actions-profile a i,
+    .rbins-lg-actions-profile a span {
+      display: block;
+      float: left;
+    }
+
+    .rbins-lg-actions-profile a span {
+      margin-top: 6px;
     }
   }
 
@@ -194,32 +235,42 @@ button.navbar-toggle {
       color: $white;
       text-decoration: none;
     }
+
   }
-}
 
-.rbins-lg-actions-profile a i,
-.rbins-lg-actions-profile a span {
-  display: block;
-  float: left;
-}
+  .rbins-lg-actions-profile a i,
+  .rbins-lg-actions-profile a span {
+    display: block;
+    float: left;
+  }
 
-.rbins-lg-actions-profile a i {
-  margin-right: 9px;
-}
+  .rbins-lg-actions-profile a i {
+    margin-right: 9px;
+  }
 
-.rbins-lg-actions-profile a span {
-  margin-top: 3px;
+  .rbins-lg-actions-profile a span {
+    margin-top: 3px;
+  }
 }
 
 .rbins-menu-option {
   color: $white;
 
+  i,
+  span {
+    display: block;
+    float: left;
+  }
+
   i {
     margin-right: 16px;
   }
 
-  i.fa-users {
+  i.fa-users,
+  i.fa-briefcase,
+  i.fa-refresh {
     font-size: 1.5rem;
+    margin-right: 8px;
   }
 
   ul.dropdown-menu {
