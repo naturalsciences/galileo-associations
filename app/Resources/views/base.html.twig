@@ -1,7 +1,7 @@
 {#
     Default variables set
 -#}
-{% set action_vars = { 'position_class': 'pull-lg-left', 'responsive_hidden_class': 'hidden-md-down','solarize': true, 'icon_increase': 'fa-2x' } %}
+{% set action_vars = { 'position_class': 'pull-lg-left', 'responsive_hidden_class': 'hidden-md-down','solarize': true, 'icon_increase': 'fa-2x', 'dropdown_sub_menu_class': 'dropdown-menu' } %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -100,7 +100,7 @@
                                 {% include "_partials/navigation/profile.html.twig" with action_vars %}
                             {% endblock navigation_responsive_menu_profile %}
                         </li>
-                        {% set action_vars = action_vars|merge({ 'responsive_hidden_class': 'hidden-lg-up' }) %}
+                        {% set action_vars = action_vars|merge({ 'responsive_hidden_class': 'hidden-lg-up', 'dropdown_sub_menu_class': 'collapse-menu' }) %}
                         <li class="rbins-menu-dropdown">
                             {% block navigation_responsive_menu_teams %}
                                 {% include "_partials/navigation/teams.html.twig" with action_vars %}

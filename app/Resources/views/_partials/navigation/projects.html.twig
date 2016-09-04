@@ -3,7 +3,7 @@
         {% block projects_icon %}<i class="fa fa-briefcase {% if action_vars.solarize is defined %}{% if action_vars.solarize == true %}fa-inverse{% endif %}{% endif %}" aria-hidden="true"></i>{% endblock projects_icon %}
         &nbsp;{% block projects_text %}<span>Projects <b class="caret"></b></span>{% endblock projects_text %}
     </a>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <ul class="{% if action_vars.dropdown_sub_menu_class is defined %}{{ action_vars.dropdown_sub_menu_class }}{% else %}dropdown-menu{% endif %}" aria-labelledby="dropdownMenuButton">
         <li><a class="dropdown-item" href="#">Add a project</a></li>
         <li><a class="dropdown-item" href="#">List all projects</a></li>
     </ul>

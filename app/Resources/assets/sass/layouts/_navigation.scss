@@ -53,6 +53,7 @@
 .navmenu-brand:hover,
 .navmenu-brand:focus {
   text-decoration: none;
+  color: $orange;
 }
 
 .navbar.rbins-navbar {
@@ -76,8 +77,13 @@
       color: $white;
 
       &:hover {
-        color: $lightgrey;
+        color: $orange;
       }
+    }
+
+    li.active a.nav-link,
+    li.active a.nav-link:hover {
+      color: $orange;
     }
 
     .navmenu-nav {
@@ -142,6 +148,13 @@
     .rbins-lg-actions-profile a span {
       margin-top: 6px;
     }
+
+    .rbins-lg-actions-profile a.nav-link:hover,
+    .rbins-lg-actions-profile a.nav-link:hover i,
+    .rbins-menu-option a.nav-link:hover,
+    .rbins-menu-option a.nav-link:hover i {
+      color: $orange;
+    }
   }
 
   .navmenu-brand {
@@ -157,7 +170,8 @@ button.navbar-toggle {
   padding: 1rem;
 
   &:hover {
-    background-color: $lightgrey;
+    background-color: $orange;
+    border: 1px solid $orange;
   }
 
   .icon-bar {
@@ -234,8 +248,18 @@ button.navbar-toggle {
     a {
       color: $white;
       text-decoration: none;
+
+      &:hover,
+      &:hover i {
+        color: $orange;
+      }
     }
 
+    ul.locale_chooser a.nav-link:hover,
+    ul.locale_chooser li.active a.nav-link,
+    ul.locale_chooser li.active a.nav-link:hover {
+      color: $orange;
+    }
   }
 
   .rbins-lg-actions-profile a i,
@@ -278,6 +302,10 @@ button.navbar-toggle {
 
     a {
       color: $black;
+
+      &:hover {
+        color: $orange;
+      }
     }
 
     &::before {
@@ -292,4 +320,20 @@ button.navbar-toggle {
       top: -7px;
     }
   }
+
+  ul.collapse-menu {
+    display: none;
+    height: auto;
+    list-style: none;
+    padding-left: 22px;
+
+    a:hover {
+      background-color: transparent;
+      color: $orange;
+    }
+  }
+}
+
+.rbins-menu-option.open > ul.collapse-menu {
+  display: block;
 }
