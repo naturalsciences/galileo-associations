@@ -1,6 +1,6 @@
-<div class="dropdown {% if action_vars.position_class is defined %}{{ action_vars.position_class }}{% endif %} row flex-items-xs-middle rbins-menu-option">
+<div class="dropdown {% if action_vars.position_class is defined %}{{ action_vars.position_class }}{% endif %} row flex-items-xs-middle {% if action_vars.responsive_hidden_class is defined %}{{ action_vars.responsive_hidden_class }}{% endif %} rbins-menu-option">
     <a data-toggle="dropdown" class="dropdown-toggle" href="#" role="button" aria-haspopup="true" aria-expanded="false" title="Teams">
-        Teams <b class="caret"></b>
+        {% block teams_icon %}<i class="fa fa-users {% if action_vars.solarize is defined %}{% if action_vars.solarize == true %}fa-inverse{% endif %}{% endif %}" aria-hidden="true"></i>{% endblock teams_icon %}<span>Teams <b class="caret"></b></span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <li><a class="dropdown-item" href="#">Add a team</a></li>

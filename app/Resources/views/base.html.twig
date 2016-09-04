@@ -1,7 +1,7 @@
 {#
     Default variables set
 -#}
-{% set action_vars = { 'position_class': 'pull-lg-left', 'responsive_hidden_class': 'hidden-lg-down','solarize': true, 'icon_increase': 'fa-2x' } %}
+{% set action_vars = { 'position_class': 'pull-lg-left', 'responsive_hidden_class': 'hidden-md-down','solarize': true, 'icon_increase': 'fa-2x' } %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -51,7 +51,7 @@
                             {% block navigation_top_bar_lg_ad_sync %}
                                 {% include "_partials/navigation/adSync.html.twig" %}
                             {% endblock navigation_top_bar_lg_ad_sync %}
-                            {% set action_vars = action_vars|merge({ 'position_class': 'pull-lg-right' }) %}
+                            {% set action_vars = action_vars|merge({ 'position_class': 'pull-lg-right', 'responsive_hidden_class': 'hidden-lg-down' }) %}
                             {% block navigation_top_bar_lg_logoff %}
                                 {% include "_partials/navigation/logOff.html.twig" with action_vars %}
                             {% endblock navigation_top_bar_lg_logoff %}
@@ -95,10 +95,26 @@
                             {% endblock navigation_responsive_menu_languages %}
                         </li>
                         {% set action_vars = action_vars|merge({ 'position_class': '', 'responsive_hidden_class': '' }) %}
-                        <li class="active">
+                        <li>
                             {% block navigation_responsive_menu_profile %}
                                 {% include "_partials/navigation/profile.html.twig" with action_vars %}
                             {% endblock navigation_responsive_menu_profile %}
+                        </li>
+                        {% set action_vars = action_vars|merge({ 'responsive_hidden_class': 'hidden-lg-up' }) %}
+                        <li>
+                            {% block navigation_responsive_menu_teams %}
+                                {% include "_partials/navigation/teams.html.twig" with action_vars %}
+                            {% endblock navigation_responsive_menu_teams %}
+                        </li>
+                        <li>
+                            {% block navigation_responsive_menu_projects %}
+                                {% include "_partials/navigation/projects.html.twig" with action_vars %}
+                            {% endblock navigation_responsive_menu_projects %}
+                        </li>
+                        <li>
+                            {% block navigation_responsive_menu_ad_sync %}
+                                {% include "_partials/navigation/adSync.html.twig" with action_vars %}
+                            {% endblock navigation_responsive_menu_ad_sync %}
                         </li>
                     </ul>
                 </nav>

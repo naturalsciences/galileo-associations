@@ -1,4 +1,4 @@
-<div class="dropdown {% if action_vars.position_class is defined %}{{ action_vars.position_class }}{% endif %} row flex-items-xs-middle rbins-menu-option">
+<div class="dropdown {% if action_vars.position_class is defined %}{{ action_vars.position_class }}{% endif %} row flex-items-xs-middle {% if action_vars.responsive_hidden_class is defined %}{{ action_vars.responsive_hidden_class }}{% endif %} rbins-menu-option">
     <a data-toggle="dropdown" class="dropdown-toggle" href="#" role="button" aria-haspopup="true" aria-expanded="false" title="Projects">
         Projects <b class="caret"></b>
     </a>

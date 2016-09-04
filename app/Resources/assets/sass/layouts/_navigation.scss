@@ -94,6 +94,11 @@
         i {
           margin-right: 16px;
         }
+
+        i.fa-users {
+          font-size: 1.5rem;
+          margin-right: 10px;
+        }
       }
     }
   }
@@ -208,6 +213,14 @@ button.navbar-toggle {
 
 .rbins-menu-option {
   color: $white;
+
+  i {
+    margin-right: 16px;
+  }
+
+  i.fa-users {
+    font-size: 1.5rem;
+  }
 
   ul.dropdown-menu {
     height: auto;
