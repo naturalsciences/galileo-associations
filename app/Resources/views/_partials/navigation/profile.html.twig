@@ -1,4 +1,4 @@
-<div class="{% if action_vars.position_class is defined %}{{ action_vars.position_class }}{% endif %} row flex-items-xs-middle hidden-lg-down rbins-lg-actions-profile">
+<div class="{% if action_vars.position_class is defined %}{{ action_vars.position_class }}{% endif %} row flex-items-xs-middle {% if action_vars.responsive_hidden_class is defined %}{{ action_vars.responsive_hidden_class }}{% endif %} rbins-lg-actions-profile">
     <a class="nav-link" href="#" title="Access your profile">
         {% block profile_icon %}<i class="fa fa-user {% if action_vars.solarize is defined %}{% if solarize == true %}fa-inverse{% endif %}{% endif %} {% if action_vars.icon_increase is defined %}{{ icon_increase }}{% endif %}" aria-hidden="true"></i>{% endblock profile_icon %}
         &nbsp;{% block profile_text %}<span>Firstname Lastname</span>{% endblock profile_text %}

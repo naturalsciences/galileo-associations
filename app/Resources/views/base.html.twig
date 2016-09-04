@@ -1,3 +1,7 @@
+{#
+    Default variables set
+-#}
+{% set action_vars = { 'position_class': 'pull-lg-left', 'responsive_hidden_class': 'hidden-lg-down','solarize': true, 'icon_increase': 'fa-2x' } %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -38,7 +42,6 @@
                     {% endblock navigation_top_bar_brand %}
                     {% block navigation_top_bar_lg %}
                         <nav class="nav nav-inline col-md-9 col-lg-10 hidden-md-down container rbins-lg-actions">
-                            {% set action_vars = { 'position_class': 'pull-lg-left', 'solarize': true, 'icon_increase': 'fa-2x' } %}
                             {% block navigation_top_bar_lg_teams %}
                                 {% include "_partials/navigation/teams.html.twig" %}
                             {% endblock navigation_top_bar_lg_teams %}
@@ -86,10 +89,17 @@
                 <nav class="col-xs-6 col-sm-4 col-md-3 navmenu navmenu-default navmenu-fixed-right offcanvas hidden-xl-up rbins-menu">
                     <a class="navmenu-brand" href="#">{{ block('product_title') }}</a>
                     <ul class="nav navmenu-nav">
-                        <li><a href="#">Slide in</a></li>
-                        <li class="active"><a href="#">Push</a></li>
-                        <li><a href="#">Reveal</a></li>
-                        <li><a href="#">Off canvas navbar</a></li>
+                        <li>
+                            {% block navigation_responsive_menu_languages %}
+                                {{  locale_switcher(null, null, "_partials/navigation/languagesNonFloating.html.twig") }}
+                            {% endblock navigation_responsive_menu_languages %}
+                        </li>
+                        {% set action_vars = action_vars|merge({ 'position_class': '', 'responsive_hidden_class': '' }) %}
+                        <li class="active">
+                            {% block navigation_responsive_menu_profile %}
+                                {% include "_partials/navigation/profile.html.twig" with action_vars %}
+                            {% endblock navigation_responsive_menu_profile %}
+                        </li>
                     </ul>
                 </nav>
             {% endblock navigation_responsive_menu %}
@@ -100,8 +110,6 @@
                 <ul class="nav navmenu-nav">
                     <li><a href="#">Slide in</a></li>
                     <li class="active"><a href="#">Push</a></li>
-                    <li><a href="#">Reveal</a></li>
-                    <li><a href="#">Off canvas navbar</a></li>
                 </ul>
             </aside>
         {% endblock search_menu %}

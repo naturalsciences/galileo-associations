@@ -1,0 +1,13 @@
+{#
+    This partial is dedicated to be a language switcher
+-#}
+<div class="row flex-items-xs-middle">
+    {% block language_icon %}<i class="fa fa-language fa-inverse fa-2x" aria-hidden="true"></i>{% endblock language_icon %}
+    <ul class="nav navbar-nav locale_chooser">
+        {% for locale in locales %}
+            <li class="nav-item {% if current_locale == locale.locale %}active locale_current{% endif %}">
+                <a class="nav-link" href="{{ locale.link }}" title="{{ locale.locale_target_language|capitalize }}">{{ locale.locale|upper }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
