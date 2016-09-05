@@ -25,7 +25,7 @@
         {% block javascriptsheader %}{% endblock %}
     </head>
     <body>
-        {%  block navigation %}
+        {% block navigation %}
             {% block navigation_top_bar %}
                 <nav class="navbar navbar-fixed-top navbar-dark bg-inverse rbins-navbar">
                     {% block navigation_top_bar_brand %}
@@ -88,6 +88,7 @@
             {% block navigation_responsive_menu %}
                 <nav class="col-xs-6 col-sm-4 col-md-3 navmenu navmenu-default navmenu-fixed-right offcanvas hidden-xl-up rbins-menu">
                     <a class="navmenu-brand" href="#">{{ block('product_title') }}</a>
+                    <hr />
                     <ul class="nav navmenu-nav">
                         <li>
                             {% block navigation_responsive_menu_languages %}
@@ -116,6 +117,14 @@
                                 {% include "_partials/navigation/adSync.html.twig" with action_vars %}
                             {% endblock navigation_responsive_menu_ad_sync %}
                         </li>
+                        {% set action_vars = action_vars|merge({ 'position_class': '', 'responsive_hidden_class': '' }) %}
+                        <li class="rbins-set-bottom">
+                            {% block navigation_responsive_menu_logoff %}
+                                {% embed "_partials/navigation/logOff.html.twig" with action_vars %}
+                                    {% block log_out_text %}<span>Log Out</span>{% endblock log_out_text %}
+                                {% endembed %}
+                            {% endblock navigation_responsive_menu_logoff %}
+                        </li>
                     </ul>
                 </nav>
             {% endblock navigation_responsive_menu %}
@@ -133,7 +142,7 @@
             <div class="container-fixed rbins-content">
                 <div class="row">
                     <div class="col-md-3 col-lg-2 hidden-sm-down"></div>
-                    <div class="col-xs-10 col-sm-11 col-md-8 col-lg-9 col-xl-10">
+                    <div class="col-xs-12 col-md-9 col-lg-10">
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vitae nunc gravida, eleifend eros eget, placerat mauris. Vivamus vehicula ante id lectus bibendum, sit amet tempus neque convallis. Nullam nec nibh mauris. Integer at purus semper, ultricies tellus eu, placerat lorem. Etiam et sapien vulputate leo suscipit placerat. Nam non blandit nulla. Praesent eget mi sit amet ipsum sodales dapibus. Mauris sagittis justo orci, a tincidunt eros egestas at. Donec sollicitudin at ante nec volutpat. Maecenas porttitor tristique lacus eget vulputate. Curabitur interdum sodales hendrerit. Morbi odio sem, accumsan a risus vitae, interdum malesuada nulla. Proin quis sem neque. Cras tincidunt magna ut ante sodales, sit amet fermentum dui sagittis. Etiam vestibulum velit id ex hendrerit consectetur. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
                         <p>Aliquam tempus vulputate diam, ut sagittis augue ultrices quis. Nam dictum nisl neque, at tempor nisl cursus eget. Maecenas justo augue, posuere ac lacinia sed, congue in arcu. Vestibulum posuere risus sem, sit amet efficitur felis ultrices a. Donec id tincidunt diam. Nunc ut mollis neque. Proin dignissim elit lorem, at aliquam lacus hendrerit at. Donec purus tellus, viverra hendrerit porttitor non, consectetur non dui. Fusce pretium enim ipsum, non pharetra orci pulvinar eget. Cras sit amet orci urna.</p>
                         <p>In hac habitasse platea dictumst. Vivamus sollicitudin consequat ultricies. Nullam luctus iaculis mauris, ac varius magna bibendum in. Suspendisse malesuada sem sit amet maximus aliquet. Maecenas aliquet, erat nec finibus viverra, arcu dui varius leo, sed pulvinar ipsum justo in turpis. Quisque vitae blandit diam. Sed vel diam laoreet, volutpat nibh id, egestas nisl. Vestibulum volutpat vel sem ut dignissim. Integer eros sem, efficitur id erat venenatis, commodo rhoncus mi. Nulla tempus semper quam. Vivamus ullamcorper, nibh eget ultrices mollis, lectus purus molestie neque, eget porta elit felis eu odio. Nulla vel ipsum urna. Proin id urna mauris. Aenean a malesuada justo. Donec euismod congue justo, ac lobortis nisl.</p>
@@ -155,7 +164,6 @@
                         <p>Integer sed rutrum erat. In hac habitasse platea dictumst. Sed ac sapien non sem gravida commodo. Mauris iaculis eleifend tincidunt. Phasellus maximus aliquam nisi vel consequat. Phasellus ornare bibendum ante, eu pulvinar sem faucibus vitae. Quisque ut libero libero. Aenean pulvinar dapibus ipsum, vitae viverra metus rutrum vel. Integer dictum nunc vitae aliquet tincidunt. Etiam vel elementum elit.</p>
                         <p>Quisque bibendum, enim non porttitor varius, lorem magna sagittis mi, non vulputate est purus ac massa. Vivamus nec purus orci. Integer vitae interdum justo. In hac habitasse platea dictumst. Etiam dui lacus, suscipit quis lacus sit amet, hendrerit molestie dolor. Pellentesque non dui libero. Proin eget placerat ante, et iaculis velit. Pellentesque a ultrices orci. Suspendisse orci felis, sodales at turpis dictum, porttitor auctor velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse vulputate volutpat ultricies. Donec quis quam eu justo fermentum auctor faucibus ut erat. Duis mattis commodo ipsum, in egestas mauris consectetur non.</p>
                     </div>
-                    <div class="col-xs-2 col-sm-1 hidden-xl-up"></div>
                 </div>
             </div>
         {% endblock %}

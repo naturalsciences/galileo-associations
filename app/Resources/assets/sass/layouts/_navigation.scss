@@ -72,6 +72,13 @@
   &.rbins-menu {
     background-color: $darkgrey;
 
+    hr {
+      border-color: $white;
+      margin-left: -15px;
+      margin-right: -15px;
+      margin-top: -1px;
+    }
+
     a,
     li a {
       color: $white;
@@ -140,17 +147,22 @@
     }
 
     .rbins-lg-actions-profile a i,
-    .rbins-lg-actions-profile a span {
+    .rbins-lg-actions-profile a span,
+    .rbins-lg-actions-logout a i,
+    .rbins-lg-actions-logout a span     {
       display: block;
       float: left;
     }
 
-    .rbins-lg-actions-profile a span {
+    .rbins-lg-actions-profile a span,
+    .rbins-lg-actions-logout a span {
       margin-top: 6px;
     }
 
     .rbins-lg-actions-profile a.nav-link:hover,
     .rbins-lg-actions-profile a.nav-link:hover i,
+    .rbins-lg-actions-logout a.nav-link:hover,
+    .rbins-lg-actions-logout a.nav-link:hover i,
     .rbins-menu-option a.nav-link:hover,
     .rbins-menu-option a.nav-link:hover i {
       color: $orange;
@@ -263,16 +275,20 @@ button.navbar-toggle {
   }
 
   .rbins-lg-actions-profile a i,
-  .rbins-lg-actions-profile a span {
+  .rbins-lg-actions-profile a span,
+  .rbins-lg-actions-logout a i,
+  .rbins-lg-actions-logout a span {
     display: block;
     float: left;
   }
 
-  .rbins-lg-actions-profile a i {
+  .rbins-lg-actions-profile a i,
+  .rbins-lg-actions-logout a i {
     margin-right: 9px;
   }
 
-  .rbins-lg-actions-profile a span {
+  .rbins-lg-actions-profile a span,
+  .rbins-lg-actions-logout a span {
     margin-top: 3px;
   }
 }
@@ -336,4 +352,9 @@ button.navbar-toggle {
 
 .rbins-menu-option.open > ul.collapse-menu {
   display: block;
+}
+
+.rbins-set-bottom {
+  bottom: 8px;
+  position: absolute;
 }
