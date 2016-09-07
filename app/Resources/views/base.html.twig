@@ -1,7 +1,26 @@
 {#
     Default variables set
 -#}
-{% set action_vars = { 'position_class': 'pull-lg-left', 'responsive_hidden_class': 'hidden-md-down','solarize': true, 'icon_increase': 'fa-2x', 'dropdown_sub_menu_class': 'dropdown-menu' } %}
+{%
+    set action_vars = {
+                        'position_class': 'pull-lg-left',
+                        'responsive_hidden_class': 'hidden-md-down',
+                        'solarize': true,
+                        'icon_increase': 'fa-2x',
+                        'dropdown_sub_menu_class': 'dropdown-menu'
+                      }
+%}
+{%
+    set search_vars = {
+                        'heading_label_id': 'people-heading',
+                        'heading_text': 'Search People',
+                        'collapsable_element_id': 'collapseOne',
+                        'collapsable_element_default_state': 'in',
+                        'search_control_id': 'person-search',
+                        'search_popover_help_text_en': 'Type here the start of fist name or last name',
+                        'parent_id': 'rbins-search-menu'
+                      }
+%}
 <!DOCTYPE html>
 <html>
     <head>
@@ -34,7 +53,10 @@
                             <div class="media-left">
                                 <a class="navbar-brand" href="{{ url('app_homepage') }}">
                                     {% block branding %}
-                                        <img class="media-object logo-icon" src="{{ asset('img/logo.png') }}" alt="Logo Museum" title="Go to Homepage">
+                                        <img class="media-object logo-icon"
+                                             src="{{ asset('img/logo.png') }}"
+                                             alt="Logo Museum"
+                                             title="Go to Homepage">
                                     {% endblock branding %}
                                 </a>
                             </div>
@@ -51,7 +73,14 @@
                             {% block navigation_top_bar_lg_ad_sync %}
                                 {% include "_partials/navigation/adSync.html.twig" %}
                             {% endblock navigation_top_bar_lg_ad_sync %}
-                            {% set action_vars = action_vars|merge({ 'position_class': 'pull-lg-right', 'responsive_hidden_class': 'hidden-lg-down' }) %}
+                            {%
+                                set action_vars = action_vars|merge(
+                                    {
+                                        'position_class': 'pull-lg-right',
+                                        'responsive_hidden_class': 'hidden-lg-down'
+                                    }
+                                )
+                            %}
                             {% block navigation_top_bar_lg_logoff %}
                                 {% include "_partials/navigation/logOff.html.twig" with action_vars %}
                             {% endblock navigation_top_bar_lg_logoff %}
@@ -101,7 +130,14 @@
                                 {% include "_partials/navigation/profile.html.twig" with action_vars %}
                             {% endblock navigation_responsive_menu_profile %}
                         </li>
-                        {% set action_vars = action_vars|merge({ 'responsive_hidden_class': 'hidden-lg-up', 'dropdown_sub_menu_class': 'collapse-menu' }) %}
+                        {%
+                            set action_vars = action_vars|merge(
+                                {
+                                    'responsive_hidden_class': 'hidden-lg-up',
+                                    'dropdown_sub_menu_class': 'collapse-menu'
+                                }
+                            )
+                        %}
                         <li class="rbins-menu-dropdown">
                             {% block navigation_responsive_menu_teams %}
                                 {% include "_partials/navigation/teams.html.twig" with action_vars %}
@@ -117,7 +153,14 @@
                                 {% include "_partials/navigation/adSync.html.twig" with action_vars %}
                             {% endblock navigation_responsive_menu_ad_sync %}
                         </li>
-                        {% set action_vars = action_vars|merge({ 'position_class': '', 'responsive_hidden_class': '' }) %}
+                        {%
+                            set action_vars = action_vars|merge(
+                                {
+                                    'position_class': '',
+                                    'responsive_hidden_class': ''
+                                }
+                            )
+                        %}
                         <li class="rbins-set-bottom">
                             {% block navigation_responsive_menu_logoff %}
                                 {% embed "_partials/navigation/logOff.html.twig" with action_vars %}
@@ -131,42 +174,42 @@
         {%  endblock navigation %}
         {% block search_menu %}
             <aside id="rbins-search-menu" class="col-md-3 col-lg-3 hidden-sm-down navmenu navmenu-default navmenu-fixed-left rbins-searches">
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="people-heading">
-                        <h4 class="panel-title">
-                            <button class="btn btn-secondary bg-inverse btn-block rbins-btn-secondary text-sm-left" data-toggle="collapse" data-parent="#rbins-search-menu" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                Search People
-                            </button>
-                        </h4>
-                    </div>
-                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="people-heading">
-                        Anim pariatur cliche reprehenderit
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="teams-heading">
-                        <h4 class="panel-title">
-                            <button class="btn btn-secondary bg-inverse btn-block rbins-btn-secondary text-sm-left collapsed" data-toggle="collapse" data-parent="#rbins-search-menu" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                Search Teams
-                            </button>
-                        </h4>
-                    </div>
-                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="teams-heading">
-                        Anim pariatur cliche reprehenderit
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="projects-heading">
-                        <h4 class="panel-title">
-                            <button class="btn btn-secondary bg-inverse btn-block rbins-btn-secondary text-sm-left collapsed" data-toggle="collapse" data-parent="#rbins-search-menu" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                Search Projects
-                            </button>
-                        </h4>
-                    </div>
-                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="projects-heading">
-                        Anim pariatur cliche reprehenderit
-                    </div>
-                </div>
+                {% block search_menu_option_people %}
+                    {% embed "/_partials/search/fastSearch.html.twig" with search_vars %}
+                    {% endembed %}
+                {% endblock search_menu_option_people %}
+                {%
+                    set search_vars = search_vars|merge(
+                        {
+                            'heading_label_id': 'teams-heading',
+                            'heading_text': 'Search Teams',
+                            'collapsable_element_id': 'collapseTwo',
+                            'collapsable_element_default_state': '',
+                            'search_control_id': 'team-search',
+                            'search_popover_help_text_en': 'Type here the start of team name',
+                        }
+                    )
+                %}
+                {% block search_menu_option_teams %}
+                    {% embed "/_partials/search/fastSearch.html.twig" with search_vars %}
+                    {% endembed %}
+                {% endblock search_menu_option_teams %}
+                {%
+                    set search_vars = search_vars|merge(
+                        {
+                            'heading_label_id': 'projects-heading',
+                            'heading_text': 'Search Projects',
+                            'collapsable_element_id': 'collapseThree',
+                            'collapsable_element_default_state': '',
+                            'search_control_id': 'project-search',
+                            'search_popover_help_text_en': 'Type here the start of project name',
+                        }
+                    )
+                %}
+                {% block search_menu_option_projects %}
+                    {% embed "/_partials/search/fastSearch.html.twig" with search_vars %}
+                    {% endembed %}
+                {% endblock search_menu_option_projects %}
             </aside>
         {% endblock search_menu %}
         {% block content %}
@@ -215,7 +258,11 @@
                                 $(".rbins-menu-toggle button").on(
                                         'click',
                                         function () {
-                                            $($(this).data('target')).toggle( "slide", { direction: "right", done: toggleClose($(".navmenu-close")) }, 500);
+                                            $($(this).data('target')).toggle(
+                                                    "slide",
+                                                    { direction: "right", done: toggleClose($(".navmenu-close")) },
+                                                    500
+                                            );
                                         }
                                 );
 
@@ -231,6 +278,13 @@
                                         'click',
                                         function(event) {
                                             event.stopPropagation();
+                                        }
+                                );
+
+                                $("#rbins-search-menu div.collapse").on(
+                                        'shown.bs.collapse',
+                                        function(){
+                                            $(this).find('form input:first').focus();
                                         }
                                 );
                             }
