@@ -80,6 +80,8 @@
         {% endblock search_menu %}
         {% block content %}{% endblock %}
         <script src="{{ asset('js/site-min.js'|asset_version) }}" type="text/javascript"></script>
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
         {% block javascripts %}
             <script type="text/javascript">
                 {% block javascript_navigation %}
