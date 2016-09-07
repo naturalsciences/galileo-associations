@@ -232,7 +232,7 @@ button.navbar-toggle {
   }
 
   @include media-breakpoint-between(lg, xl) {
-    width: 28.5%;
+    width: 36.5%;
   }
 
   div {
@@ -366,4 +366,35 @@ button.navbar-toggle {
 .rbins-set-bottom {
   bottom: 8px;
   position: absolute;
+}
+
+.rbins-btn-secondary {
+  color: $white;
+}
+
+#people-heading {
+  margin-top: 0.5rem;
+}
+
+#people-heading,
+#teams-heading,
+#projects-heading {
+
+  @include media-breakpoint-between(md, lg) {
+    margin-left: -15%;
+    width: 128%;
+
+    button {
+      padding-left: 12%;
+    }
+  }
+
+  @include media-breakpoint-up(lg) {
+    margin-left: -10%;
+    width: 120%;
+
+    button {
+      padding-left: 8%;
+    }
+  }
 }
