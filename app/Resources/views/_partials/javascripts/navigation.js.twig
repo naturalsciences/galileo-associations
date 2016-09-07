@@ -1,0 +1,111 @@
+$(document).ready(
+    function() {
+
+        var xhr;
+        var action = 'view';
+        var search_term = '';
+        var target_results;
+        var toggleClose = function(elem) {
+            $(elem).fadeToggle('medium', function() {
+                if ($(this).is(':visible'))
+                    $(this).css('display','inline-block');
+            });
+        };
+
+        $(".rbins-menu-toggle button").on(
+                'click',
+                function () {
+                    $($(this).data('target')).toggle(
+                            "slide",
+                            { direction: "right", done: toggleClose($(".navmenu-close")) },
+                            500
+                    );
+                }
+        );
+
+        $(".navmenu-close button").on(
+                'click',
+                function () {
+                    $(this).parent().fadeToggle('fast');
+                    $($(this).data('target')).toggle( "slide", { direction: "right" }, 500);
+                }
+        );
+
+        $(".rbins-menu-dropdown .rbins-menu-option ul.collapse-menu a").on(
+                'click',
+                function(event) {
+                    event.stopPropagation();
+                }
+        );
+
+        $("#rbins-search-menu div.collapse").on(
+                'shown.bs.collapse',
+                function(){
+                    $(this).find('form input:first').focus();
+                }
+        );
+
+        $('.rbins-search-input').popover({ trigger: 'hover' });
+
+        $('.rbins-search-input').on(
+                'click keydown',
+                function(){
+                    $(this).popover('hide');
+                }
+        );
+
+        $('.rbins-search-input').on(
+                'keyup change',
+                function(e){
+
+                    if(search_term == $(this).val()) {
+                        return;
+                    }
+                    if(xhr) xhr.abort();
+
+                    search_term = $(this).val();
+                    target_results = $(this).closest('form').find('div.search-results');
+
+                    $(target_results).addClass('loading');
+
+                    if(search_term ==''){
+                        $(target_results).find('ul').html('');
+                        $(target_results).removeClass('loading');
+                        return;
+                    }
+
+                    {#
+
+                        !!! Will need to reflect on how to compose this!!!
+
+                        xhr = $.ajax({
+                            url: "{{ path('search_person') }}",
+                            dataType: 'json',
+                            data: { term: search_term },
+                            success: function(data){
+                                var items = [];
+                                $.each(data, function(i, person) {
+                                    items.push('<li><a class="' + person.is_active + '" href="' + Routing.generate('person', {id: person.value, action: action}) + '">' + person.label +'</a></li>');
+                                });
+                                $('#person_results ul').html(items.join(''));
+                                $('#person_results').removeClass('loading');
+
+                            }
+                        });
+                    #}
+                }
+        );
+
+        $('.rbins-search-input').closest('form').on(
+                'submit',
+                function(e){
+                    //Follow the first link if ENT
+                    e.preventDefault();
+                    target_href = $(this).find('div.search-results li:first a').attr('href');
+                    if( target_href !== undefined && target_href !== '' && target_href !== '#' ) {
+                        window.location = target_href;
+                    }
+                }
+        );
+    }
+);

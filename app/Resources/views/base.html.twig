@@ -81,54 +81,11 @@
         {% block content %}{% endblock %}
         <script src="{{ asset('js/site-min.js'|asset_version) }}" type="text/javascript"></script>
         {% block javascripts %}
-            {% block javascript_navigation %}
-                <script type="text/javascript">
-                    $(document).ready(
-                            function() {
-
-                                var toggleClose = function(elem) {
-                                    $(elem).fadeToggle('medium', function() {
-                                        if ($(this).is(':visible'))
-                                            $(this).css('display','inline-block');
-                                    });
-                                };
-
-                                $(".rbins-menu-toggle button").on(
-                                        'click',
-                                        function () {
-                                            $($(this).data('target')).toggle(
-                                                    "slide",
-                                                    { direction: "right", done: toggleClose($(".navmenu-close")) },
-                                                    500
-                                            );
-                                        }
-                                );
-
-                                $(".navmenu-close button").on(
-                                        'click',
-                                        function () {
-                                            $(this).parent().fadeToggle('fast');
-                                            $($(this).data('target')).toggle( "slide", { direction: "right" }, 500);
-                                        }
-                                );
-
-                                $(".rbins-menu-dropdown .rbins-menu-option ul.collapse-menu a").on(
-                                        'click',
-                                        function(event) {
-                                            event.stopPropagation();
-                                        }
-                                );
-
-                                $("#rbins-search-menu div.collapse").on(
-                                        'shown.bs.collapse',
-                                        function(){
-                                            $(this).find('form input:first').focus();
-                                        }
-                                );
-                            }
-                    );
-                </script>
-            {% endblock javascript_navigation %}
+            <script type="text/javascript">
+                {% block javascript_navigation %}
+                    {% include "/_partials/javascripts/navigation.js.twig" %}
+                {% endblock javascript_navigation %}
+            </script>
         {% endblock javascripts %}
     </body>
 </html>
