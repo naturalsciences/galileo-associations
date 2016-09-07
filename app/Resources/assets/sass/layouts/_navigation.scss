@@ -228,7 +228,7 @@ button.navbar-toggle {
   }
 
   @include media-breakpoint-between(md, lg) {
-    width: 29.5%;
+    width: 37.5%;
   }
 
   @include media-breakpoint-between(lg, xl) {
@@ -356,6 +356,11 @@ button.navbar-toggle {
 
 .rbins-menu-option.open > ul.collapse-menu {
   display: block;
+  z-index: 10500;
+
+  a {
+    background-color: transparent;
+  }
 }
 
 .rbins-set-bottom {

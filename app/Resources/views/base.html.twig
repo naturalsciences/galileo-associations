@@ -86,7 +86,7 @@
                 </nav>
             {% endblock navigation_top_bar %}
             {% block navigation_responsive_menu %}
-                <nav class="col-xs-6 col-sm-4 col-md-3 navmenu navmenu-default navmenu-fixed-right offcanvas hidden-xl-up rbins-menu">
+                <nav class="col-xs-6 col-sm-4 col-md-4 navmenu navmenu-default navmenu-fixed-right offcanvas hidden-xl-up rbins-menu">
                     <a class="navmenu-brand" href="#">{{ block('product_title') }}</a>
                     <hr />
                     <ul class="nav navmenu-nav">
@@ -193,6 +193,13 @@
                                         function () {
                                             $(this).parent().fadeToggle('fast');
                                             $($(this).data('target')).toggle( "slide", { direction: "right" }, 500);
+                                        }
+                                );
+
+                                $(".rbins-menu-dropdown .rbins-menu-option ul.collapse-menu a").on(
+                                        'click',
+                                        function(event) {
+                                            event.stopPropagation();
                                         }
                                 );
                             }
