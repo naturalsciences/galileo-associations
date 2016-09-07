@@ -300,6 +300,10 @@ button.navbar-toggle {
 .rbins-menu-option {
   color: $white;
 
+  a {
+    width: 100%;
+  }
+
   i,
   span {
     display: block;

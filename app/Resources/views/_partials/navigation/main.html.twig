@@ -1,0 +1,136 @@
+{%
+set action_vars = {
+'position_class': 'pull-lg-left',
+'responsive_hidden_class': 'hidden-md-down',
+'solarize': true,
+'icon_increase': 'fa-2x',
+'dropdown_sub_menu_class': 'dropdown-menu'
+}
+%}
+
+{% block navigation_top_bar %}
+    <nav class="navbar navbar-fixed-top navbar-dark bg-inverse rbins-navbar">
+        {% block navigation_top_bar_brand %}
+            <!-- Brand -->
+            <header class="col-xs-2 col-md-3 col-lg-3 media rbins-icon-media">
+                <div class="media-left">
+                    <a class="navbar-brand" href="{{ url('app_homepage') }}">
+                        {% block branding %}
+                            <img class="media-object logo-icon"
+                                 src="{{ asset('img/logo.png') }}"
+                                 alt="Logo Museum"
+                                 title="Go to Homepage">
+                        {% endblock branding %}
+                    </a>
+                </div>
+            </header>
+        {% endblock navigation_top_bar_brand %}
+        {% block navigation_top_bar_lg %}
+            <nav class="nav nav-inline col-md-9 col-lg-9 hidden-md-down container rbins-lg-actions">
+                {% block navigation_top_bar_lg_teams %}
+                    {% include "/_partials/navigation/teams.html.twig" %}
+                {% endblock navigation_top_bar_lg_teams %}
+                {% block navigation_top_bar_lg_projects %}
+                    {% include "/_partials/navigation/projects.html.twig" %}
+                {% endblock navigation_top_bar_lg_projects %}
+                {% block navigation_top_bar_lg_ad_sync %}
+                    {% include "/_partials/navigation/adSync.html.twig" %}
+                {% endblock navigation_top_bar_lg_ad_sync %}
+                {%
+                    set action_vars = action_vars|merge(
+                        {
+                            'position_class': 'pull-lg-right',
+                            'responsive_hidden_class': 'hidden-lg-down'
+                        }
+                    )
+                %}
+                {% block navigation_top_bar_lg_logoff %}
+                    {% include "/_partials/navigation/logOff.html.twig" with action_vars %}
+                {% endblock navigation_top_bar_lg_logoff %}
+                {% block navigation_top_bar_lg_languages %}
+                    {{  locale_switcher() }}
+                {% endblock navigation_top_bar_lg_languages %}
+                {% block navigation_top_bar_lg_profile %}
+                    {% include "/_partials/navigation/profile.html.twig" with action_vars %}
+                {% endblock navigation_top_bar_lg_profile %}
+            </nav>
+        {% endblock navigation_top_bar_lg %}
+        {% block navigation_top_bar_responsive %}
+            <div class="nav-toggles hidden-xl-up">
+                {% block navigation_top_bar_responsive_close %}
+                    <div class="navmenu-close">
+                        <button type="button" class="navbar-toggle navbar-toggle-right" data-target=".rbins-menu">
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                {% endblock navigation_top_bar_responsive_close %}
+                {% block navigation_top_bar_responsive_toggle %}
+                    <div class="rbins-menu-toggle">
+                        <button type="button" class="navbar-toggle navbar-toggle-right" data-target=".rbins-menu">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                {% endblock navigation_top_bar_responsive_toggle %}
+            </div>
+        {% endblock navigation_top_bar_responsive %}
+    </nav>
+{% endblock navigation_top_bar %}
+{% block navigation_responsive_menu %}
+    <nav class="col-xs-6 col-sm-4 col-md-4 navmenu navmenu-default navmenu-fixed-right offcanvas hidden-xl-up rbins-menu">
+        <a class="navmenu-brand" href="#">{{ block('product_title') }}</a>
+        <hr />
+        <ul class="nav navmenu-nav">
+            <li>
+                {% block navigation_responsive_menu_languages %}
+                    {{  locale_switcher(null, null, "/_partials/navigation/languagesNonFloating.html.twig") }}
+                {% endblock navigation_responsive_menu_languages %}
+            </li>
+            {% set action_vars = action_vars|merge({ 'position_class': '', 'responsive_hidden_class': '' }) %}
+            <li>
+                {% block navigation_responsive_menu_profile %}
+                    {% include "/_partials/navigation/profile.html.twig" with action_vars %}
+                {% endblock navigation_responsive_menu_profile %}
+            </li>
+            {%
+                set action_vars = action_vars|merge(
+                    {
+                        'responsive_hidden_class': 'hidden-lg-up',
+                        'dropdown_sub_menu_class': 'collapse-menu'
+                    }
+                )
+            %}
+            <li class="rbins-menu-dropdown">
+                {% block navigation_responsive_menu_teams %}
+                    {% include "/_partials/navigation/teams.html.twig" with action_vars %}
+                {% endblock navigation_responsive_menu_teams %}
+            </li>
+            <li class="rbins-menu-dropdown">
+                {% block navigation_responsive_menu_projects %}
+                    {% include "/_partials/navigation/projects.html.twig" with action_vars %}
+                {% endblock navigation_responsive_menu_projects %}
+            </li>
+            <li class="rbins-menu-dropdown">
+                {% block navigation_responsive_menu_ad_sync %}
+                    {% include "/_partials/navigation/adSync.html.twig" with action_vars %}
+                {% endblock navigation_responsive_menu_ad_sync %}
+            </li>
+            {%
+                set action_vars = action_vars|merge(
+                    {
+                        'position_class': '',
+                        'responsive_hidden_class': ''
+                    }
+                )
+            %}
+            <li class="rbins-set-bottom">
+                {% block navigation_responsive_menu_logoff %}
+                    {% embed "/_partials/navigation/logOff.html.twig" with action_vars %}
+                        {% block log_out_text %}<span>Log Out</span>{% endblock log_out_text %}
+                    {% endembed %}
+                {% endblock navigation_responsive_menu_logoff %}
+            </li>
+        </ul>
+    </nav>
+{% endblock navigation_responsive_menu %}
