@@ -1,12 +1,13 @@
 <div class="panel panel-default">
     {% block search_menu_option_header %}
-        <div {% if search_vars.heading_label_id is defined %}id="{{ search_vars.heading_label_id }}"{% endif %}
+        <div id="{{ search_vars.heading_label_id }}"
              class="panel-heading"
              role="tab">
             <h4 class="panel-title">
                 <button class="btn btn-secondary bg-inverse btn-block rbins-btn-secondary text-sm-left"
-                        data-toggle="collapse" {% if search_vars.parent_id is defined %}data-parent="#{{ search_vars.parent_id }}"{% endif %}
-                        {% if search_vars.collapsable_element_id is defined %}href="#{{ search_vars.collapsable_element_id }}" aria-controls="{{ search_vars.collapsable_element_id }}"{% endif %}
+                        data-toggle="collapse" data-parent="#{{ search_vars.parent_id }}"
+                        href="#{{ search_vars.collapsable_element_id }}"
+                        aria-controls="{{ search_vars.collapsable_element_id }}"
                         aria-expanded="true">
                     {% if search_vars.heading_text is defined %}{{ search_vars.heading_text }}{% else %}Search{% endif %}
                 </button>
@@ -14,16 +15,16 @@
         </div>
     {% endblock search_menu_option_header %}
     {% block search_menu_option_body %}
-        <div {% if search_vars.collapsable_element_id is defined %}id="{{ search_vars.collapsable_element_id }}"{% endif %}
-             class="panel-collapse collapse {% if search_vars.collapsable_element_default_state is defined %}{{ search_vars.collapsable_element_default_state }}{% endif %}"
+        <div id="{{ search_vars.collapsable_element_id }}"
+             class="panel-collapse collapse {{ search_vars.collapsable_element_default_state }}"
              role="tabpanel"
-             {% if search_vars.heading_label_id is defined %}aria-labelledby="{{ search_vars.heading_label_id }}"{% endif %}>
+             aria-labelledby="{{ search_vars.heading_label_id }}">
             <form>
                 <div class="form-group">
-                    <input {% if search_vars.search_control_id is defined %}id="{{ search_vars.search_control_id }}"{% endif %}
+                    <input id="{{ search_vars.search_control_id }}"
                            class="form-control input-medium search-query rbins-search-input"
                            data-original-title="Search"
-                           {% if search_vars.search_popover_help_text_en is defined %}data-content="{{ search_vars.search_popover_help_text_en }}"{% endif %}
+                           data-content="{{ search_vars.search_popover_help_text_en }}"
                            rel="popover"
                            type="text"
                            placeholder="Search"
