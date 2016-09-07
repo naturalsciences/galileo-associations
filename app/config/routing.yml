@@ -4,3 +4,6 @@ app_homepage:
       _controller: AppBundle:Default:index
       _locale: "%locale%"
     methods: [GET]
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
