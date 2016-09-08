@@ -1,0 +1,39 @@
+AppBundle\Entity\ADSync:
+  type: entity
+  repositoryClass: AppBundle\Repository\ADSyncRepository
+  table: ad_sync
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: IDENTITY
+  fields:
+    samaccountname:
+      type: text
+      nullable: false
+      options:
+        comment: 'AD samaccountname'
+    givenname:
+      type: text
+      nullable: false
+      options:
+        comment: 'User given name in AD'
+    sn:
+      type: text
+      nullable: true
+    mail:
+      type: text
+      nullable: false
+      options:
+        comment: 'Main user mail in AD'
+    othermail:
+      type: text
+      nullable: true
+      options:
+        comment: 'Other email address in AD'
+    userprincipalname:
+      type: text
+      nullable: true
+  uniqueConstraints:
+    unq_ad_sync_uid:
+      columns: samaccountname
