@@ -6,12 +6,11 @@ AppBundle\Entity\Teams:
     id:
       type: integer
       generator:
-        strategy: AUTO
+        strategy: IDENTITY
   fields:
     international_name:
       type: string
       nullable: false
-      unique: true
       options:
         comment: 'The name to be used internationaly'
     international_description:

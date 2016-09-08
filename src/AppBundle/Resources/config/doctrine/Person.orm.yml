@@ -6,26 +6,30 @@ AppBundle\Entity\Person:
     id:
       type: integer
       generator:
-        strategy: AUTO
+        strategy: IDENTITY
   fields:
     first_name:
-      type: string
+      type: text
       options:
         comment: 'First name'
     last_name:
-      type: string
+      type: text
       options:
         comment: 'Last name'
     matricule:
-      type: string
+      type: text
+      nullable: true
       options:
+        default: ''
         comment: 'Institution internal identifier (matricule)'
     uid:
-      type: string
+      type: text
+      nullable: true
       options:
         comment: 'Unique identifier associated from AD (Active Directory)'
     email:
       type: text
+      nullable: true
       options:
         comment: 'Person main email'
   uniqueConstraints:

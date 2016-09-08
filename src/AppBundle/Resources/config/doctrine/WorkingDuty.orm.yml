@@ -6,25 +6,28 @@ AppBundle\Entity\WorkingDuty:
     id:
       type: integer
       generator:
-        strategy: AUTO
+        strategy: IDENTITY
   fields:
     percentage:
       type: integer
       length: 3
       nullable: false
-      default: 100
       options:
+        default: 100
         comment: 'Duty percentage of the person in this department'
     start_date:
       type: date
+      nullable: true
       options:
         comment: 'Start date of person in this department'
     end_date:
       type: date
+      nullable: true
       options:
         comment: 'End date of person in this department'
     comment:
       type: string
+      nullable: true
       options:
         comment: 'Associated description of this duty'
   manyToOne:
@@ -33,10 +36,12 @@ AppBundle\Entity\WorkingDuty:
       inversedBy: WorkingDuty
       joinColumn:
         name: person_ref
+        nullable: false
         referencedColumnName: id
     Department:
       targetEntity: AppBundle\Entity\Department
       inversedBy: WorkingDuty
       joinColumn:
         name: department_ref
+        nullable: false
         referencedColumnName: id

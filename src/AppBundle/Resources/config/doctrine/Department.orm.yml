@@ -6,28 +6,28 @@ AppBundle\Entity\Department:
     id:
       type: integer
       generator:
-        strategy: AUTO
+        strategy: IDENTITY
   fields:
     level:
-      type: string
+      type: text
       nullable: false
       options:
         comment: 'Level in the hierarchy of organization'
     path:
-      type: string
-      default: '/'
+      type: text
       options:
+        default: '/'
         comment: 'Hierarchic path of id in the organization'
     name_fr:
-      type: string
+      type: text
       options:
         comment: 'Name of department/service in french'
     name_en:
-      type: string
+      type: text
       options:
         comment: 'Name of department/service in english'
     name_nl:
-      type: string
+      type: text
       options:
         comment: 'Name of department/service in dutch'
   oneToMany:

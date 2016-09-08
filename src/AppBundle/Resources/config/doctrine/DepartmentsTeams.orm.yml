@@ -1,7 +1,7 @@
-AppBundle\Entity\TeamsMembers:
+AppBundle\Entity\DepartmentsTeams:
   type: entity
-  repositoryClass: AppBundle\Repository\TeamsMembers
-  table: teams_members
+  repositoryClass: AppBundle\Repository\DepartmentsTeams
+  table: departments_teams
   id:
     id:
       type: integer
@@ -12,12 +12,12 @@ AppBundle\Entity\TeamsMembers:
       type: date
       nullable: true
       options:
-        comment: 'Entry date of the person in the team'
+        comment: 'Team creation date in the given department'
     end_date:
       type: date
       nullable: true
       options:
-        comment: 'Exit date of the person in the team'
+        comment: 'Team end date in the given department'
     comment:
       type: string
       nullable: true
@@ -25,15 +25,15 @@ AppBundle\Entity\TeamsMembers:
         comment: 'Comment'
   manyToOne:
     Person:
-      targetEntity: AppBundle\Entity\Person
-      inversedBy: TeamsMembers
+      targetEntity: AppBundle\Entity\Department
+      inversedBy: DepartmentsTeams
       joinColumn:
-        name: person_ref
+        name: department_ref
         nullable: false
         referencedColumnName: id
-    Teams:
+    Projects:
       targetEntity: AppBundle\Entity\Teams
-      inversedBy: TeamsMembers
+      inversedBy: DepartmentsTeams
       joinColumn:
         name: team_ref
         nullable: false

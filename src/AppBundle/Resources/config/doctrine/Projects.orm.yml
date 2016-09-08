@@ -6,7 +6,7 @@ AppBundle\Entity\Projects:
     id:
       type: integer
       generator:
-        strategy: AUTO
+        strategy: IDENTITY
   fields:
     international_name:
       type: string

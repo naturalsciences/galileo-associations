@@ -6,7 +6,7 @@ AppBundle\Entity\TeamsProjects:
     id:
       type: integer
       generator:
-        strategy: AUTO
+        strategy: IDENTITY
   fields:
     start_date:
       type: date
@@ -29,10 +29,12 @@ AppBundle\Entity\TeamsProjects:
       inversedBy: TeamsProjects
       joinColumn:
         name: team_ref
+        nullable: false
         referencedColumnName: id
     Projects:
       targetEntity: AppBundle\Entity\Projects
       inversedBy: TeamsProjects
       joinColumn:
         name: project_ref
+        nullable: false
         referencedColumnName: id

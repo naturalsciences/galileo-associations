@@ -6,7 +6,7 @@ AppBundle\Entity\ProjectsMembers:
     id:
       type: integer
       generator:
-        strategy: AUTO
+        strategy: IDENTITY
   fields:
     start_date:
       type: date
@@ -29,10 +29,12 @@ AppBundle\Entity\ProjectsMembers:
       inversedBy: ProjectsMembers
       joinColumn:
         name: person_ref
+        nullable: false
         referencedColumnName: id
     Projects:
       targetEntity: AppBundle\Entity\Projects
       inversedBy: ProjectsMembers
       joinColumn:
         name: project_ref
+        nullable: false
         referencedColumnName: id
