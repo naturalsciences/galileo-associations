@@ -456,4 +456,43 @@ class Teams
     {
         return $this->TeamsProjects;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $DepartmentsTeams;
+
+
+    /**
+     * Add departmentsTeam
+     *
+     * @param \AppBundle\Entity\DepartmentsTeams $departmentsTeam
+     *
+     * @return Teams
+     */
+    public function addDepartmentsTeam(\AppBundle\Entity\DepartmentsTeams $departmentsTeam)
+    {
+        $this->DepartmentsTeams[] = $departmentsTeam;
+
+        return $this;
+    }
+
+    /**
+     * Remove departmentsTeam
+     *
+     * @param \AppBundle\Entity\DepartmentsTeams $departmentsTeam
+     */
+    public function removeDepartmentsTeam(\AppBundle\Entity\DepartmentsTeams $departmentsTeam)
+    {
+        $this->DepartmentsTeams->removeElement($departmentsTeam);
+    }
+
+    /**
+     * Get departmentsTeams
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDepartmentsTeams()
+    {
+        return $this->DepartmentsTeams;
+    }
 }

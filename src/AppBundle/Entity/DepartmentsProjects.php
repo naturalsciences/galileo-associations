@@ -167,5 +167,33 @@ class DepartmentsProjects
     {
         return $this->Projects;
     }
-}
+    /**
+     * @var \AppBundle\Entity\Department
+     */
+    private $Department;
 
+
+    /**
+     * Set department
+     *
+     * @param \AppBundle\Entity\Department $department
+     *
+     * @return DepartmentsProjects
+     */
+    public function setDepartment(\AppBundle\Entity\Department $department)
+    {
+        $this->Department = $department;
+
+        return $this;
+    }
+
+    /**
+     * Get department
+     *
+     * @return \AppBundle\Entity\Department
+     */
+    public function getDepartment()
+    {
+        return $this->Department;
+    }
+}

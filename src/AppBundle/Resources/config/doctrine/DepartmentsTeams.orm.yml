@@ -24,14 +24,14 @@ AppBundle\Entity\DepartmentsTeams:
       options:
         comment: 'Comment'
   manyToOne:
-    Person:
+    Department:
       targetEntity: AppBundle\Entity\Department
       inversedBy: DepartmentsTeams
       joinColumn:
         name: department_ref
         nullable: false
         referencedColumnName: id
-    Projects:
+    Teams:
       targetEntity: AppBundle\Entity\Teams
       inversedBy: DepartmentsTeams
       joinColumn:

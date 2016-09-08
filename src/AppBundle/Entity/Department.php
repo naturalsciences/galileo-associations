@@ -213,4 +213,82 @@ class Department
     {
         return $this->WorkingDuty;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $DepartmentsProjects;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $DepartmentsTeams;
+
+
+    /**
+     * Add departmentsProject
+     *
+     * @param \AppBundle\Entity\DepartmentsProjects $departmentsProject
+     *
+     * @return Department
+     */
+    public function addDepartmentsProject(\AppBundle\Entity\DepartmentsProjects $departmentsProject)
+    {
+        $this->DepartmentsProjects[] = $departmentsProject;
+
+        return $this;
+    }
+
+    /**
+     * Remove departmentsProject
+     *
+     * @param \AppBundle\Entity\DepartmentsProjects $departmentsProject
+     */
+    public function removeDepartmentsProject(\AppBundle\Entity\DepartmentsProjects $departmentsProject)
+    {
+        $this->DepartmentsProjects->removeElement($departmentsProject);
+    }
+
+    /**
+     * Get departmentsProjects
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDepartmentsProjects()
+    {
+        return $this->DepartmentsProjects;
+    }
+
+    /**
+     * Add departmentsTeam
+     *
+     * @param \AppBundle\Entity\DepartmentsTeams $departmentsTeam
+     *
+     * @return Department
+     */
+    public function addDepartmentsTeam(\AppBundle\Entity\DepartmentsTeams $departmentsTeam)
+    {
+        $this->DepartmentsTeams[] = $departmentsTeam;
+
+        return $this;
+    }
+
+    /**
+     * Remove departmentsTeam
+     *
+     * @param \AppBundle\Entity\DepartmentsTeams $departmentsTeam
+     */
+    public function removeDepartmentsTeam(\AppBundle\Entity\DepartmentsTeams $departmentsTeam)
+    {
+        $this->DepartmentsTeams->removeElement($departmentsTeam);
+    }
+
+    /**
+     * Get departmentsTeams
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDepartmentsTeams()
+    {
+        return $this->DepartmentsTeams;
+    }
 }

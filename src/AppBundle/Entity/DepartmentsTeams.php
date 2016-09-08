@@ -167,5 +167,62 @@ class DepartmentsTeams
     {
         return $this->Projects;
     }
-}
+    /**
+     * @var \AppBundle\Entity\Department
+     */
+    private $Department;
 
+    /**
+     * @var \AppBundle\Entity\Teams
+     */
+    private $Teams;
+
+
+    /**
+     * Set department
+     *
+     * @param \AppBundle\Entity\Department $department
+     *
+     * @return DepartmentsTeams
+     */
+    public function setDepartment(\AppBundle\Entity\Department $department)
+    {
+        $this->Department = $department;
+
+        return $this;
+    }
+
+    /**
+     * Get department
+     *
+     * @return \AppBundle\Entity\Department
+     */
+    public function getDepartment()
+    {
+        return $this->Department;
+    }
+
+    /**
+     * Set teams
+     *
+     * @param \AppBundle\Entity\Teams $teams
+     *
+     * @return DepartmentsTeams
+     */
+    public function setTeams(\AppBundle\Entity\Teams $teams)
+    {
+        $this->Teams = $teams;
+
+        return $this;
+    }
+
+    /**
+     * Get teams
+     *
+     * @return \AppBundle\Entity\Teams
+     */
+    public function getTeams()
+    {
+        return $this->Teams;
+    }
+}

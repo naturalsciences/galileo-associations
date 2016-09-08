@@ -24,7 +24,7 @@ AppBundle\Entity\DepartmentsProjects:
       options:
         comment: 'Comment'
   manyToOne:
-    Person:
+    Department:
       targetEntity: AppBundle\Entity\Department
       inversedBy: DepartmentsProjects
       joinColumn:

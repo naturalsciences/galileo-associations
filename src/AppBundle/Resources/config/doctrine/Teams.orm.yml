@@ -88,3 +88,10 @@ AppBundle\Entity\Teams:
         name: id
         referencedColumnName: team_ref
         nullable: false
+    DepartmentsTeams:
+      targetEntity: AppBundle\Entity\DepartmentsTeams
+      mappedBy: Teams
+      joinColumn:
+        name: id
+        referencedColumnName: team_ref
+        nullable: false

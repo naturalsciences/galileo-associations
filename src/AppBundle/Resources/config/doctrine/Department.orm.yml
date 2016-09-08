@@ -38,3 +38,17 @@ AppBundle\Entity\Department:
         name: id
         referencedColumnName: department_ref
         nullable: false
+    DepartmentsProjects:
+      targetEntity: AppBundle\Entity\DepartmentsProjects
+      mappedBy: Department
+      joinColumn:
+        name: id
+        referencedColumnName: department_ref
+        nullable: false
+    DepartmentsTeams:
+      targetEntity: AppBundle\Entity\DepartmentsTeams
+      mappedBy: Department
+      joinColumn:
+        name: id
+        referencedColumnName: department_ref
+        nullable: false

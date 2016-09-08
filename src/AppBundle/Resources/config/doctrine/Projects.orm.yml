@@ -88,3 +88,10 @@ AppBundle\Entity\Projects:
         name: id
         referencedColumnName: project_ref
         nullable: false
+    DepartmentsProjects:
+      targetEntity: AppBundle\Entity\DepartmentsProjects
+      mappedBy: Projects
+      joinColumn:
+        name: id
+        referencedColumnName: project_ref
+        nullable: false
