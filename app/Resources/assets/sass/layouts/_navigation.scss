@@ -374,6 +374,17 @@ button.navbar-toggle {
 
 #rbins-search-menu {
   overflow-x: hidden;
+
+  div.load-spinner {
+    display: none;
+    float: right;
+    margin-right: 0.5rem;
+    margin-top: -1.9rem;
+
+    i.fa-circle-o-notch {
+      font-size: 1.4rem;
+    }
+  }
 }
 
 .rbins-btn-secondary {
@@ -405,4 +416,10 @@ button.navbar-toggle {
       padding-left: 8%;
     }
   }
+}
+
+.wobble-fix {
+  -webkit-filter: blur(0);
+  -moz-filter: blur(0);
+  filter: blur(0);
 }

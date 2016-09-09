@@ -7,6 +7,8 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    locales: "en|fr|nl"
+    fast_search_types: "person|teams|projects"
 
 framework:
     #esi:             ~

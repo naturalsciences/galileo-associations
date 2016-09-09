@@ -1,10 +1,13 @@
 $(document).ready(
     function() {
 
+        // Variables for the ajax call when searching a person, a project or a team
         var xhr;
         var action = 'view';
         var search_term = '';
         var target_results;
+        var load_spinner;
+
         var toggleClose = function(elem) {
             $(elem).fadeToggle('medium', function() {
                 if ($(this).is(':visible'))
@@ -64,13 +67,14 @@ $(document).ready(
                     if(xhr) xhr.abort();
 
                     search_term = $(this).val();
+                    load_spinner = $(this).closest('form').find('div.load-spinner');
                     target_results = $(this).closest('form').find('div.search-results');
 
-                    $(target_results).addClass('loading');
+                    $(load_spinner).show();
 
                     if(search_term ==''){
                         $(target_results).find('ul').html('');
-                        $(target_results).removeClass('loading');
+                        $(load_spinner).hide();
                         return;
                     }
 
@@ -88,7 +92,7 @@ $(document).ready(
                                     items.push('<li><a class="' + person.is_active + '" href="' + Routing.generate('person', {id: person.value, action: action}) + '">' + person.label +'</a></li>');
                                 });
                                 $('#person_results ul').html(items.join(''));
-                                $('#person_results').removeClass('loading');
+                                $(load_spinner).hide();
 
                             }
                         });
