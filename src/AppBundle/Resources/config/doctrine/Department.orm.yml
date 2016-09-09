@@ -30,6 +30,12 @@ AppBundle\Entity\Department:
       type: text
       options:
         comment: 'Name of department/service in dutch'
+    is_active:
+      type: boolean
+      nullable: false
+      options:
+        default: true
+        comment: 'Flag telling if the entry is active or not'
   oneToMany:
     WorkingDuty:
       targetEntity: AppBundle\Entity\WorkingDuty
@@ -52,3 +58,15 @@ AppBundle\Entity\Department:
         name: id
         referencedColumnName: department_ref
         nullable: false
+    Children:
+      targetEntity: Department
+      mappedBy: Parent
+
+  manyToOne:
+    Parent:
+      targetEntity: Department
+      inversedBy: Children
+      joinColumn:
+        name: parent_ref
+        referencedColumnName: id
+

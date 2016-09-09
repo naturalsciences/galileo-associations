@@ -197,4 +197,3 @@ class ADSync
         return $this->userprincipalname;
     }
 }
-

@@ -291,4 +291,101 @@ class Department
     {
         return $this->DepartmentsTeams;
     }
+    /**
+     * @var boolean
+     */
+    private $is_active = true;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $Children;
+
+    /**
+     * @var \AppBundle\Entity\Department
+     */
+    private $Parent;
+
+
+    /**
+     * Set isActive
+     *
+     * @param boolean $isActive
+     *
+     * @return Department
+     */
+    public function setIsActive($isActive)
+    {
+        $this->is_active = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return boolean
+     */
+    public function getIsActive()
+    {
+        return $this->is_active;
+    }
+
+    /**
+     * Add child
+     *
+     * @param \AppBundle\Entity\Department $child
+     *
+     * @return Department
+     */
+    public function addChild(\AppBundle\Entity\Department $child)
+    {
+        $this->Children[] = $child;
+
+        return $this;
+    }
+
+    /**
+     * Remove child
+     *
+     * @param \AppBundle\Entity\Department $child
+     */
+    public function removeChild(\AppBundle\Entity\Department $child)
+    {
+        $this->Children->removeElement($child);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChildren()
+    {
+        return $this->Children;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \AppBundle\Entity\Department $parent
+     *
+     * @return Department
+     */
+    public function setParent(\AppBundle\Entity\Department $parent = null)
+    {
+        $this->Parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \AppBundle\Entity\Department
+     */
+    public function getParent()
+    {
+        return $this->Parent;
+    }
 }
