@@ -53,6 +53,8 @@ doctrine:
         charset:  UTF8
         mapping_types:
           hstore: text
+        # schema_filter: ~^(ad_sync|departments_projects|departments_teams|projects|projects_members|teams|teams_members|teams_projects)~
+        schema_filter: ~^(?!(catalogue|city|combined_job|department|document|duty_calendar|family|medical_center|person|person_address|person_contact|person_entry|phonebook|premium|tbl_|temp_perso|transport|users_tracking|working_duty|working_hist|zzz_belspo))~
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
@@ -64,6 +66,9 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
+
+doctrine_migrations:
+    dir_name: "%kernel.root_dir%/DoctrineMigrations/%kernel.environment%"
 
 # Swiftmailer Configuration
 swiftmailer:

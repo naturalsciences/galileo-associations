@@ -37,5 +37,7 @@ doctrine:
         dbname:   "%database_test_name%"
         user:     "%database_test_user%"
         password: "%database_test_password%"
+        schema_filter: ~^(?!(catalogue|city|combined_job|document|duty_calendar|family|medical_center|person_address|person_contact|person_entry|phonebook|premium|tbl_|temp_perso|transport|users_tracking|working_hist|zzz_belspo|migrations_versions))~
+        # schema_filter: ~^(ad_sync|department|departments_projects|departments_teams|person|projects|projects_members|teams|teams_members|teams_projects|working_duty)~
 #swiftmailer:
 #    delivery_address: me@example.com
