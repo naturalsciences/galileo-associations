@@ -1,0 +1,7 @@
+AppBundle\Entity\Person:
+  person_{1..10}:
+    first_name: <firstName()>
+    last_name: <lastName()>
+    matricule: <uuid()>
+    uid: <lastName()>
+    email: <email()>
