@@ -25,11 +25,11 @@ AppBundle\Entity\Teams:
         default: 'EN'
         comment: 'The language associated to the international name'
     international_cascade:
-      type: boolean
+      type: smallint
       nullable: false
       options:
-        default: true
-        comment: 'True/False - Tells if the international name and description have to be used for the translated versions'
+        default: 0
+        comment: 'Tells if the international name and description have to be used for: None of the translated versions (0), the corresponding language translated version (1) or the translated versions (2)'
     name_en:
       type: string
       nullable: true

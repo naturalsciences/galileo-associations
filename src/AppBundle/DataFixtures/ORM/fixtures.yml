@@ -1,7 +1,13 @@
 AppBundle\Entity\Person:
-  person_{1..10}:
+  person_{1..100}:
     first_name: <firstName()>
     last_name: <lastName()>
-    matricule: <uuid()>
-    uid: <lastName()>
+    matricule: <ar_SA:nationalIdNumber()>
+    uid (unique): <uid($first_name, $last_name)>
     email: <email()>
+
+AppBundle\Entity\Teams:
+  teams_{1..20}:
+    international_name (unique): <teamName()>
+    international_name_language: <randomElement(['EN', 'FR', 'NL'])>
+    international_cascade: <numberBetween(0,2)>
