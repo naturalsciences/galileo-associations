@@ -13,11 +13,13 @@ AppBundle\Entity\DepartmentsTeams:
       nullable: true
       options:
         comment: 'Team creation date in the given department'
+        check: "CONSTRAINT departments_teams_start_date CHECK (CASE WHEN end_date IS NOT NULL THEN start_date IS NOT NULL OR start_date <= end_date END)"
     end_date:
       type: date
       nullable: true
       options:
         comment: 'Team end date in the given department'
+        check: "CONSTRAINT departments_teams_end_date CHECK (CASE WHEN start_date IS NULL THEN end_date IS NULL ELSE end_date IS NULL OR end_date >= start_date END)"
     comment:
       type: string
       nullable: true

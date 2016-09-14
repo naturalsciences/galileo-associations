@@ -36,6 +36,29 @@ class LoadFixtures implements FixtureInterface
         'Herbalizers'
     ];
 
+    const PROJECTS_NAMES = [
+        'RemSEM',
+        'Antabif',
+        'Ibisca',
+        'OneGeology',
+        'BizTalk',
+        'Mammals of Antarctic',
+        'Gebouw kalkstenen',
+        'Monilog',
+        'Paloscreen',
+        'PIA',
+        'PapouFlies',
+        'Key Holes',
+        'Spy Caves',
+        'NaturaLogs',
+        'Species.be',
+        'DaRWIN',
+        'Sea sides',
+        'Rock your Bed',
+        'Tree Horses',
+        'WeedIT'
+    ];
+
     public function load(ObjectManager $manager)
     {
         Fixtures::load(__DIR__.'/fixtures.yml', $manager, ['providers' => [$this] ]);
@@ -54,5 +77,26 @@ class LoadFixtures implements FixtureInterface
             $key = $position;
         }
         return self::TEAMS_NAMES[$key];
+    }
+
+    public function projectName($position = null) {
+        if ($position === null) {
+            $key = array_rand(self::PROJECTS_NAMES);
+        }
+        else {
+            $key = $position;
+        }
+        return self::PROJECTS_NAMES[$key];
+    }
+
+    public function dateAbove($date) {
+        $result = null;
+        if ( $date instanceof \DateTime && mt_rand(0,1) ) {
+            $startDate = $date->getTimestamp();
+            $timestamp = mt_rand($startDate, $startDate + 300000);
+            $result = new \DateTime();
+            $result->setTimestamp($timestamp);
+        }
+        return $result;
     }
 }

@@ -31,12 +31,12 @@ class Version20160912160605 extends AbstractMigration
         $this->addSql('COMMENT ON COLUMN working_duty.start_date IS \'Start date of person in this department\'');
         $this->addSql('COMMENT ON COLUMN working_duty.end_date IS \'End date of person in this department\'');
         $this->addSql('COMMENT ON COLUMN working_duty.comment IS \'Associated description of this duty\'');
-        $this->addSql('CREATE TABLE teams (id SERIAL NOT NULL, international_name VARCHAR(255) NOT NULL, international_description TEXT DEFAULT NULL, international_name_language VARCHAR(255) DEFAULT \'EN\' NOT NULL, international_cascade BOOLEAN DEFAULT \'true\' NOT NULL, name_en VARCHAR(255) DEFAULT NULL, description_en TEXT DEFAULT NULL, name_fr VARCHAR(255) DEFAULT NULL, description_fr TEXT DEFAULT NULL, name_nl VARCHAR(255) DEFAULT NULL, description_nl TEXT DEFAULT NULL, start_date DATE DEFAULT NULL, end_date DATE DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE teams (id SERIAL NOT NULL, international_name VARCHAR(255) NOT NULL, international_description TEXT DEFAULT NULL, international_name_language VARCHAR(255) DEFAULT \'en\' NOT NULL, international_cascade SMALLINT DEFAULT 0 NOT NULL, name_en VARCHAR(255) DEFAULT NULL, description_en TEXT DEFAULT NULL, name_fr VARCHAR(255) DEFAULT NULL, description_fr TEXT DEFAULT NULL, name_nl VARCHAR(255) DEFAULT NULL, description_nl TEXT DEFAULT NULL, start_date DATE DEFAULT NULL, end_date DATE DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX unq_team_international_name ON teams (international_name)');
         $this->addSql('COMMENT ON COLUMN teams.international_name IS \'The name to be used internationaly\'');
         $this->addSql('COMMENT ON COLUMN teams.international_description IS \'Description of the team associated to the international language selected\'');
         $this->addSql('COMMENT ON COLUMN teams.international_name_language IS \'The language associated to the international name\'');
-        $this->addSql('COMMENT ON COLUMN teams.international_cascade IS \'True/False - Tells if the international name and description have to be used for the translated versions\'');
+        $this->addSql('COMMENT ON COLUMN teams.international_cascade IS \'Tells if the international name and description have to be used for: None of the translated versions (0), the corresponding language translated version (1) or the translated versions (2)\'');
         $this->addSql('COMMENT ON COLUMN teams.name_en IS \'Translated name in English\'');
         $this->addSql('COMMENT ON COLUMN teams.description_en IS \'Description of the team in English\'');
         $this->addSql('COMMENT ON COLUMN teams.name_fr IS \'Translated name in French\'');
@@ -70,12 +70,12 @@ class Version20160912160605 extends AbstractMigration
         $this->addSql('COMMENT ON COLUMN person.matricule IS \'Institution internal identifier (matricule)\'');
         $this->addSql('COMMENT ON COLUMN person.uid IS \'Unique identifier associated from AD (Active Directory)\'');
         $this->addSql('COMMENT ON COLUMN person.email IS \'Person main email\'');
-        $this->addSql('CREATE TABLE projects (id SERIAL NOT NULL, international_name VARCHAR(255) NOT NULL, international_description TEXT DEFAULT NULL, international_name_language VARCHAR(255) DEFAULT \'EN\' NOT NULL, international_cascade BOOLEAN DEFAULT \'true\' NOT NULL, name_en VARCHAR(255) DEFAULT NULL, description_en TEXT DEFAULT NULL, name_fr VARCHAR(255) DEFAULT NULL, description_fr TEXT DEFAULT NULL, name_nl VARCHAR(255) DEFAULT NULL, description_nl TEXT DEFAULT NULL, start_date DATE DEFAULT NULL, end_date DATE DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE projects (id SERIAL NOT NULL, international_name VARCHAR(255) NOT NULL, international_description TEXT DEFAULT NULL, international_name_language VARCHAR(255) DEFAULT \'en\' NOT NULL, international_cascade SMALLINT DEFAULT 0 NOT NULL, name_en VARCHAR(255) DEFAULT NULL, description_en TEXT DEFAULT NULL, name_fr VARCHAR(255) DEFAULT NULL, description_fr TEXT DEFAULT NULL, name_nl VARCHAR(255) DEFAULT NULL, description_nl TEXT DEFAULT NULL, start_date DATE DEFAULT NULL, end_date DATE DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX unq_project_international_name ON projects (international_name)');
         $this->addSql('COMMENT ON COLUMN projects.international_name IS \'The name to be used internationaly\'');
         $this->addSql('COMMENT ON COLUMN projects.international_description IS \'Description of the project associated to the international language selected\'');
         $this->addSql('COMMENT ON COLUMN projects.international_name_language IS \'The language associated to the international name\'');
-        $this->addSql('COMMENT ON COLUMN projects.international_cascade IS \'True/False - Tells if the international name and description have to be used for the translated versions\'');
+        $this->addSql('COMMENT ON COLUMN projects.international_cascade IS \'Tells if the international name and description have to be used for: None of the translated versions (0), the corresponding language translated version (1) or the translated versions (2)\'');
         $this->addSql('COMMENT ON COLUMN projects.name_en IS \'Translated name in English\'');
         $this->addSql('COMMENT ON COLUMN projects.description_en IS \'Description of the project in English\'');
         $this->addSql('COMMENT ON COLUMN projects.name_fr IS \'Translated name in French\'');
@@ -117,6 +117,71 @@ class Version20160912160605 extends AbstractMigration
         $this->addSql('ALTER TABLE department ADD CONSTRAINT FK_CD1DE18A2FCC5DC6 FOREIGN KEY (parent_ref) REFERENCES department (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE departments_projects ADD CONSTRAINT FK_FCB0625669791980 FOREIGN KEY (department_ref) REFERENCES department (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE departments_projects ADD CONSTRAINT FK_FCB062568614E440 FOREIGN KEY (project_ref) REFERENCES projects (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('
+            create or replace function trigger_international_naming_cascade() returns trigger as
+            $$
+                begin
+                    if new.international_cascade = 1 then
+                        case
+                            when lower(new.international_name_language) = \'fr\' then
+                                new.name_fr := new.international_name;
+                                new.description_fr := new.international_description;
+                            when lower(new.international_name_language) = \'nl\' then
+                                new.name_nl := new.international_name;
+                                new.description_nl := new.international_description;
+                            else
+                                new.name_en := new.international_name;
+                                new.description_en := new.international_description;
+                        end case;
+                    elsif new.international_cascade = 2 then
+                        new.name_en := new.international_name;
+                        new.description_en := new.international_description;
+                        new.name_fr := new.international_name;
+                        new.description_fr := new.international_description;
+                        new.name_nl := new.international_name;
+                        new.description_nl := new.international_description;
+                    end if;
+                    return new;
+                end;
+            $$
+            language plpgsql
+        ');
+        $this->addSql('
+            create or replace function trigger_department_path_composition() returns trigger as
+            $$
+                begin
+                    if new.parent_ref is not null then
+                        select parent.path || parent.id || \'/\' into new.path from department where id = new.parent_ref;
+                    end if;
+                    return new;
+                end;
+            $$
+            language plpgsql
+        ');
+        $this->addSql('
+            create trigger teams_international_naming_cascade
+            before insert or
+                    update of international_name, international_description, international_name_language, international_cascade
+            on teams
+            for each row
+            execute procedure trigger_international_naming_cascade()
+        ');
+        $this->addSql('
+            create trigger projects_international_naming_cascade
+            before insert or
+                    update of international_name, international_description, international_name_language, international_cascade
+            on projects
+            for each row
+            execute procedure trigger_international_naming_cascade()
+        ');
+        $this->addSql('
+            create trigger department_path_composition
+            before insert or
+                    update of parent_ref
+            on department
+            for each row
+            execute procedure trigger_department_path_composition()
+        ');
     }
 
     /**
@@ -127,8 +192,6 @@ class Version20160912160605 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'postgresql', 'Migration can only be executed safely on \'postgresql\'.');
 
-        $this->addSql('CREATE SCHEMA perso_test');
-        $this->addSql('CREATE SCHEMA public');
         $this->addSql('ALTER TABLE teams_members DROP CONSTRAINT FK_ED6F9E4B4EFCB407');
         $this->addSql('ALTER TABLE departments_teams DROP CONSTRAINT FK_FD62DC4EFCB407');
         $this->addSql('ALTER TABLE teams_projects DROP CONSTRAINT FK_90370B7D4EFCB407');
@@ -142,6 +205,11 @@ class Version20160912160605 extends AbstractMigration
         $this->addSql('ALTER TABLE departments_teams DROP CONSTRAINT FK_FD62DC69791980');
         $this->addSql('ALTER TABLE department DROP CONSTRAINT FK_CD1DE18A2FCC5DC6');
         $this->addSql('ALTER TABLE departments_projects DROP CONSTRAINT FK_FCB0625669791980');
+        $this->addSql('DROP TRIGGER IF EXISTS department_path_composition ON department');
+        $this->addSql('DROP TRIGGER IF EXISTS projects_international_naming_cascade ON projects');
+        $this->addSql('DROP TRIGGER IF EXISTS teams_international_naming_cascade ON teams');
+        $this->addSql('DROP FUNCTION IF EXISTS trigger_international_naming_cascade() CASCADE');
+        $this->addSql('DROP FUNCTION IF EXISTS trigger_department_path_composition() CASCADE');
         $this->addSql('DROP TABLE teams_members');
         $this->addSql('DROP TABLE working_duty');
         $this->addSql('DROP TABLE teams');
