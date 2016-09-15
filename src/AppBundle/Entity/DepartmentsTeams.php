@@ -30,12 +30,12 @@ class DepartmentsTeams
     /**
      * @var \AppBundle\Entity\Department
      */
-    private $Person;
+    private $Department;
 
     /**
      * @var \AppBundle\Entity\Teams
      */
-    private $Projects;
+    private $Teams;
 
 
     /**
@@ -121,64 +121,6 @@ class DepartmentsTeams
     }
 
     /**
-     * Set person
-     *
-     * @param \AppBundle\Entity\Department $person
-     *
-     * @return DepartmentsTeams
-     */
-    public function setPerson(\AppBundle\Entity\Department $person)
-    {
-        $this->Person = $person;
-
-        return $this;
-    }
-
-    /**
-     * Get person
-     *
-     * @return \AppBundle\Entity\Department
-     */
-    public function getPerson()
-    {
-        return $this->Person;
-    }
-
-    /**
-     * Set projects
-     *
-     * @param \AppBundle\Entity\Teams $projects
-     *
-     * @return DepartmentsTeams
-     */
-    public function setProjects(\AppBundle\Entity\Teams $projects)
-    {
-        $this->Projects = $projects;
-
-        return $this;
-    }
-
-    /**
-     * Get projects
-     *
-     * @return \AppBundle\Entity\Teams
-     */
-    public function getProjects()
-    {
-        return $this->Projects;
-    }
-    /**
-     * @var \AppBundle\Entity\Department
-     */
-    private $Department;
-
-    /**
-     * @var \AppBundle\Entity\Teams
-     */
-    private $Teams;
-
-
-    /**
      * Set department
      *
      * @param \AppBundle\Entity\Department $department
@@ -226,3 +168,4 @@ class DepartmentsTeams
         return $this->Teams;
     }
 }
+

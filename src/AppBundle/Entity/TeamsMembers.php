@@ -127,7 +127,7 @@ class TeamsMembers
      *
      * @return TeamsMembers
      */
-    public function setPerson(\AppBundle\Entity\Person $person = null)
+    public function setPerson(\AppBundle\Entity\Person $person)
     {
         $this->Person = $person;
 
@@ -151,7 +151,7 @@ class TeamsMembers
      *
      * @return TeamsMembers
      */
-    public function setTeams(\AppBundle\Entity\Teams $teams = null)
+    public function setTeams(\AppBundle\Entity\Teams $teams)
     {
         $this->Teams = $teams;
 
@@ -168,3 +168,4 @@ class TeamsMembers
         return $this->Teams;
     }
 }
+

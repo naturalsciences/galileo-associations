@@ -30,7 +30,7 @@ class DepartmentsProjects
     /**
      * @var \AppBundle\Entity\Department
      */
-    private $Person;
+    private $Department;
 
     /**
      * @var \AppBundle\Entity\Projects
@@ -121,27 +121,27 @@ class DepartmentsProjects
     }
 
     /**
-     * Set person
+     * Set department
      *
-     * @param \AppBundle\Entity\Department $person
+     * @param \AppBundle\Entity\Department $department
      *
      * @return DepartmentsProjects
      */
-    public function setPerson(\AppBundle\Entity\Department $person)
+    public function setDepartment(\AppBundle\Entity\Department $department)
     {
-        $this->Person = $person;
+        $this->Department = $department;
 
         return $this;
     }
 
     /**
-     * Get person
+     * Get department
      *
      * @return \AppBundle\Entity\Department
      */
-    public function getPerson()
+    public function getDepartment()
     {
-        return $this->Person;
+        return $this->Department;
     }
 
     /**
@@ -167,33 +167,5 @@ class DepartmentsProjects
     {
         return $this->Projects;
     }
-    /**
-     * @var \AppBundle\Entity\Department
-     */
-    private $Department;
-
-
-    /**
-     * Set department
-     *
-     * @param \AppBundle\Entity\Department $department
-     *
-     * @return DepartmentsProjects
-     */
-    public function setDepartment(\AppBundle\Entity\Department $department)
-    {
-        $this->Department = $department;
-
-        return $this;
-    }
-
-    /**
-     * Get department
-     *
-     * @return \AppBundle\Entity\Department
-     */
-    public function getDepartment()
-    {
-        return $this->Department;
-    }
 }
+

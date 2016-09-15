@@ -12,7 +12,7 @@ AppBundle\Entity\Teams:
     international_name_language: "<randomElement(['en', 'fr', 'nl'])>"
     international_cascade: "<numberBetween(0,2)>"
     start_date: "50%? <dateTime()>"
-    end_date: "<dateAbove($start_date)>"
+    end_date: "<dateAbove($start_date, 0)>"
 
 AppBundle\Entity\Projects:
   projects_{1..20}:
@@ -20,4 +20,113 @@ AppBundle\Entity\Projects:
     international_name_language: "<randomElement(['en', 'fr', 'nl'])>"
     international_cascade: "<numberBetween(0,2)>"
     start_date: "50%? <dateTime()>"
-    end_date: "<dateAbove($start_date)>"
+    end_date: "<dateAbove($start_date, 0)>"
+
+AppBundle\Entity\Department:
+  department_{1..7}:
+    level: "department"
+    name_en: "<organigramUnitName('en',$fake('current'))>"
+    name_fr: "<organigramUnitName('fr',$fake('current'))>"
+    name_nl: "<organigramUnitName('nl',$fake('current'))>"
+    path: '/'
+  section_{8..19}:
+    level: "section"
+    name_en: "<organigramUnitName('en',$fake('current'))>"
+    name_fr: "<organigramUnitName('fr',$fake('current'))>"
+    name_nl: "<organigramUnitName('nl',$fake('current'))>"
+    path: '/'
+    Parent: "@department_<organigramUnitParent($fake('current'))>"
+  subSection_{20..21}:
+    level: "sub_section"
+    name_en: "<organigramUnitName('en',$fake('current'))>"
+    name_fr: "<organigramUnitName('fr',$fake('current'))>"
+    name_nl: "<organigramUnitName('nl',$fake('current'))>"
+    path: '/'
+    Parent: "@section_<organigramUnitParent($fake('current'))>"
+
+AppBundle\Entity\WorkingDuty:
+  workingDuty_{1..100}:
+    Person: "@person_*"
+    Department: "@department_*"
+    percentage: "<numberBetween(1,100)>"
+    start_date: "<dateTime()>"
+    end_date: "<dateAbove($start_date, 1)>"
+    comment: "50%? <text(250)>"
+  workingDuty_{101..200}:
+    Person: "@person_*"
+    Department: "@section_*"
+    percentage: "<numberBetween(1,100)>"
+    start_date: "<dateTime()>"
+    end_date: "<dateAbove($start_date, 0)>"
+    comment: "50%? <text(250)>"
+  workingDuty_{201..220}:
+    Person: "@person_*"
+    Department: "@subSection_*"
+    percentage: "<numberBetween(1,100)>"
+    start_date: "<dateTime()>"
+    end_date: "<dateAbove($start_date, 0)>"
+    comment: "50%? <text(250)>"
+
+AppBundle\Entity\ProjectsMembers:
+  projectsMembers_{1..200}:
+    Person: "@person_*"
+    Projects: "@projects_*"
+    start_date: "75%? <dateTime()>"
+    end_date: "<dateAbove($start_date, 0)>"
+    comment: "50%? <text(250)>"
+
+AppBundle\Entity\TeamsMembers:
+  teamsMembers_{1..200}:
+    Person: "@person_*"
+    Teams: "@teams_*"
+    start_date: "75%? <dateTime()>"
+    end_date: "<dateAbove($start_date, 0)>"
+    comment: "50%? <text(250)>"
+
+AppBundle\Entity\TeamsProjects:
+  teamsProjects_{1..200}:
+    Projects: "@projects_*"
+    Teams: "@teams_*"
+    start_date: "75%? <dateTime()>"
+    end_date: "<dateAbove($start_date, 0)>"
+    comment: "50%? <text(250)>"
+
+AppBundle\Entity\DepartmentsProjects:
+  departmentsProjects_{1..50}:
+    Projects: "@projects_*"
+    Department: "@department_*"
+    start_date: "75%? <dateTime()>"
+    end_date: "<dateAbove($start_date, 0)>"
+    comment: "50%? <text(250)>"
+  departmentsProjects_{51..150}:
+    Projects: "@projects_*"
+    Department: "@section_*"
+    start_date: "75%? <dateTime()>"
+    end_date: "<dateAbove($start_date, 0)>"
+    comment: "50%? <text(250)>"
+  departmentsProjects_{151..200}:
+    Projects: "@projects_*"
+    Department: "@subSection_*"
+    start_date: "75%? <dateTime()>"
+    end_date: "<dateAbove($start_date, 0)>"
+    comment: "50%? <text(250)>"
+
+AppBundle\Entity\DepartmentsTeams:
+  departmentsTeams_{1..50}:
+    Teams: "@teams_*"
+    Department: "@department_*"
+    start_date: "75%? <dateTime()>"
+    end_date: "<dateAbove($start_date, 0)>"
+    comment: "50%? <text(250)>"
+  departmentsTeams_{51..150}:
+    Teams: "@teams_*"
+    Department: "@section_*"
+    start_date: "75%? <dateTime()>"
+    end_date: "<dateAbove($start_date, 0)>"
+    comment: "50%? <text(250)>"
+  departmentsTeams_{151..200}:
+    Teams: "@teams_*"
+    Department: "@subSection_*"
+    start_date: "75%? <dateTime()>"
+    end_date: "<dateAbove($start_date, 0)>"
+    comment: "50%? <text(250)>"

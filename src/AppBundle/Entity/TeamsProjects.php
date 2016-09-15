@@ -30,12 +30,12 @@ class TeamsProjects
     /**
      * @var \AppBundle\Entity\Teams
      */
-    private $Team;
+    private $Teams;
 
     /**
      * @var \AppBundle\Entity\Projects
      */
-    private $Project;
+    private $Projects;
 
 
     /**
@@ -121,71 +121,13 @@ class TeamsProjects
     }
 
     /**
-     * Set team
-     *
-     * @param \AppBundle\Entity\Teams $team
-     *
-     * @return TeamsProjects
-     */
-    public function setTeam(\AppBundle\Entity\Teams $team = null)
-    {
-        $this->Team = $team;
-
-        return $this;
-    }
-
-    /**
-     * Get team
-     *
-     * @return \AppBundle\Entity\Teams
-     */
-    public function getTeam()
-    {
-        return $this->Team;
-    }
-
-    /**
-     * Set project
-     *
-     * @param \AppBundle\Entity\Projects $project
-     *
-     * @return TeamsProjects
-     */
-    public function setProject(\AppBundle\Entity\Projects $project = null)
-    {
-        $this->Project = $project;
-
-        return $this;
-    }
-
-    /**
-     * Get project
-     *
-     * @return \AppBundle\Entity\Projects
-     */
-    public function getProject()
-    {
-        return $this->Project;
-    }
-    /**
-     * @var \AppBundle\Entity\Teams
-     */
-    private $Teams;
-
-    /**
-     * @var \AppBundle\Entity\Projects
-     */
-    private $Projects;
-
-
-    /**
      * Set teams
      *
      * @param \AppBundle\Entity\Teams $teams
      *
      * @return TeamsProjects
      */
-    public function setTeams(\AppBundle\Entity\Teams $teams = null)
+    public function setTeams(\AppBundle\Entity\Teams $teams)
     {
         $this->Teams = $teams;
 
@@ -209,7 +151,7 @@ class TeamsProjects
      *
      * @return TeamsProjects
      */
-    public function setProjects(\AppBundle\Entity\Projects $projects = null)
+    public function setProjects(\AppBundle\Entity\Projects $projects)
     {
         $this->Projects = $projects;
 
@@ -226,3 +168,4 @@ class TeamsProjects
         return $this->Projects;
     }
 }
+
