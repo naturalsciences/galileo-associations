@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class FastSearchController
+class FastSearchController extends Controller
 {
     /**
      * @var Request Complete request object
