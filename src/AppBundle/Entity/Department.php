@@ -314,7 +314,7 @@ class Department
      *
      * @return Department
      */
-    public function setIsActive($isActive)
+    public function setActive($isActive)
     {
         $this->is_active = $isActive;
 
@@ -326,7 +326,7 @@ class Department
      *
      * @return boolean
      */
-    public function getIsActive()
+    public function isActive()
     {
         return $this->is_active;
     }
