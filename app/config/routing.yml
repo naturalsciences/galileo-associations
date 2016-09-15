@@ -10,7 +10,7 @@ app_homepage:
 app_fastSearch:
     path: /{_locale}/search/{fast_search_type}
     defaults:
-      _controller: AppBundle:Default:fastSearch
+      _controller: AppBundle:FastSearch:fastSearch
       _locale: "%locale%"
     requirements:
       _locale: "%locales%"

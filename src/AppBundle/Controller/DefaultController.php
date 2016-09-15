@@ -19,20 +19,4 @@ class DefaultController extends Controller
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..'),
         ]);
     }
-
-    /**
-     * @var Request Complete request object
-     * @return JsonResponse A Response instance of the form of a json
-     */
-    public function fastSearchAction(Request $request) {
-        $results = array();
-        $response = new JsonResponse();
-        if (
-            $request->isXmlHttpRequest() &&
-            $request->get('fast_search_type') !== null
-        ){
-        }
-        $response->setData($results);
-        return $response;
-    }
 }
