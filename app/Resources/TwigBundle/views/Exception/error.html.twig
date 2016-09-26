@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+{% block content %}
+    <div class="container-fluid rbins-content">
+        <div class="row">
+            <div class="col-md-3 col-lg-3 hidden-sm-down"></div>
+            <div class="col-xs-12 col-md-9 col-lg-9">
+                <h2>You reached an error.</h2>
+                <p>
+                    {{ exception.message }}
+                </p>
+                <p>
+                    Please let us know what you were doing when this error occurred.</br>
+                    We will fix it as soon as possible. Sorry for any inconvenience caused.
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

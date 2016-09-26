@@ -19,6 +19,9 @@ class FastSearchController extends Controller
      * @return JsonResponse A Response instance of the form of a json
      */
     public function fastSearchAction(Request $request) {
+        if ( !$request->isXmlHttpRequest() ) {
+            throw $this->createNotFoundException('You\'re not authorized to execute a fastSearch aside the interface.');
+        }
         $results = array();
         $response = new JsonResponse();
         if (
