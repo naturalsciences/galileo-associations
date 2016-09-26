@@ -1,13 +1,6 @@
 $(document).ready(
     function() {
 
-        // Variables for the ajax call when searching a person, a project or a team
-        var xhr;
-        var action = 'view';
-        var search_term = '';
-        var target_results;
-        var load_spinner;
-
         var toggleClose = function(elem) {
             $(elem).fadeToggle('medium', function() {
                 if ($(this).is(':visible'))
@@ -30,7 +23,11 @@ $(document).ready(
                 'click',
                 function () {
                     $(this).parent().fadeToggle('fast');
-                    $($(this).data('target')).toggle( "slide", { direction: "right" }, 500);
+                    $($(this).data('target')).toggle(
+                            "slide",
+                            { direction: "right" },
+                            500
+                    );
                 }
         );
 
@@ -54,49 +51,6 @@ $(document).ready(
                 'click keydown',
                 function(){
                     $(this).popover('hide');
-                }
-        );
-
-        $('.rbins-search-input').on(
-                'keyup change',
-                function(e){
-
-                    if(search_term == $(this).val()) {
-                        return;
-                    }
-                    if(xhr) xhr.abort();
-
-                    search_term = $(this).val();
-                    load_spinner = $(this).closest('form').find('div.load-spinner');
-                    target_results = $(this).closest('form').find('div.search-results');
-
-                    $(load_spinner).show();
-
-                    if(search_term ==''){
-                        $(target_results).find('ul').html('');
-                        $(load_spinner).hide();
-                        return;
-                    }
-
-                    {#
-
-                        !!! Will need to reflect on how to compose this!!!
-
-                        xhr = $.ajax({
-                            url: "{{ path('search_person') }}",
-                            dataType: 'json',
-                            data: { term: search_term },
-                            success: function(data){
-                                var items = [];
-                                $.each(data, function(i, person) {
-                                    items.push('<li><a class="' + person.is_active + '" href="' + Routing.generate('person', {id: person.value, action: action}) + '">' + person.label +'</a></li>');
-                                });
-                                $('#person_results ul').html(items.join(''));
-                                $(load_spinner).hide();
-
-                            }
-                        });
-                    #}
                 }
         );
 

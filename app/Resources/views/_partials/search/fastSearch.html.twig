@@ -39,3 +39,59 @@
         </div>
     {% endblock search_menu_option_body %}
 </div>
+<script type="text/javascript">
+    $(document).ready(
+        function() {
+            $("#{{ search_vars.search_control_id }}").on(
+                'keyup change',
+                function (e) {
+
+                    // Variables for the ajax call when searching a person, a project or a team
+                    var xhr;
+                    var action = 'view';
+                    var search_term = '';
+                    var target_results;
+                    var load_spinner;
+
+                    if (search_term == $(this).val()) {
+                        return;
+                    }
+
+                    if (xhr) xhr.abort();
+
+                    search_term = $(this).val();
+                    load_spinner = $(this).closest('form').find('div.load-spinner');
+                    target_results = $(this).closest('form').find('div.search-results');
+
+                    $(load_spinner).show();
+
+                    if (search_term == '') {
+                        $(target_results).find('ul').html('');
+                        $(load_spinner).hide();
+                        return;
+                    }
+
+                    xhr = $.ajax({
+                        url: "{{ path('app_fastSearch', { 'fast_search_type': search_vars.search_type } ) }}",
+                        dataType: 'json',
+                        data: {term: search_term},
+                        success: function (data) {
+                            var items = [];
+                            $.each(
+                                    data,
+                                    function (i, fastSearchElem) {
+                                        items.push('<li><a class="' + fastSearchElem.is_active + '" href="' + Routing.generate('{{ search_vars.search_type }}', {
+                                                    id: fastSearchElem.value,
+                                                    action: action
+                                                }) + '">' + fastSearchElem.label + '</a></li>');
+                                    }
+                            );
+                            $(target_results).find('ul').html(items.join(''));
+                            $(load_spinner).hide();
+                        }
+                    });
+                }
+            );
+        }
+    );
+</script>
