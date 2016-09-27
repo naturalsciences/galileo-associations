@@ -168,4 +168,3 @@ class DepartmentsTeams
         return $this->Teams;
     }
 }
-

@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Utils\Util as Util;
+
 /**
  * PersonRepository
  *
@@ -10,4 +12,63 @@ namespace AppBundle\Repository;
  */
 class PersonRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @param string $name The person name searched
+     * @param bool $exact Tells if search for an exact match or not
+     * @return array
+     */
+    public function searchInName($name, $exact = false) {
+        $conn = $this->getEntityManager()->getConnection();
+        $qb = $conn->createQueryBuilder();
+
+        $qb->select(
+                    'p.id as "value",  
+                     p.last_name || \' \' || p.first_name as "label",
+                     COALESCE(e.exit_date, \'inactive\') as "active"'
+                   )
+            ->from(
+                'person',
+                'p'
+            )
+            ->leftJoin(
+                'p',
+                '(
+                    select distinct on (person_ref) 
+                            person_ref, 
+                            entry_date, 
+                            CASE 
+                              WHEN coalesce(exit_date,\'01/01/2999\'::timestamp) > now() THEN
+                                \'active\' 
+                              ELSE 
+                                \'inactive\' 
+                            END as exit_date
+                    from person_entry 
+                    order by person_ref,entry_date DESC
+                 )',
+                'e',
+                'e.person_ref=p.id'
+            );
+
+        $params = array();
+
+        if( $exact === true ) {
+            $qb->andwhere('p.first_name || \' \' || p.last_name ilike ?');
+            $params[] = $name;
+        }
+        else {
+            foreach(explode(' ', $name) as $term) {
+                $term = trim($term);
+                if($term == '') continue;
+                $term =  Util::unaccent($term);
+                $qb->andwhere("translate(p.first_name || ' ' || p.last_name, 'äàáëéèêöôîï','aaaeeeeooii') ilike ?");
+                $params[] = '%'.$term.'%';
+            }
+        }
+        $qb
+            ->setMaxResults(300)
+            ->orderBy('label,value');
+        $st = $conn->prepare($qb->getSQL());
+        $st->execute($params);
+        return  $st->fetchAll();
+    }
 }

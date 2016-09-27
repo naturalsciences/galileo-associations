@@ -22,13 +22,17 @@ class FastSearchController extends Controller
         if ( !$request->isXmlHttpRequest() ) {
             throw $this->createNotFoundException('You\'re not authorized to execute a fastSearch aside the interface.');
         }
+
         $results = array();
         $response = new JsonResponse();
-        if (
-            $request->isXmlHttpRequest() &&
-            $request->get('fast_search_type') !== null
-        ){
-        }
+
+        $results = $this->getDoctrine()
+            ->getRepository(ucfirst($request->get('fast_search_type')))
+            ->searchInName(
+                $request->get('term'),
+                $request->get('exact', false)
+            );
+
         $response->setData($results);
         return $response;
     }

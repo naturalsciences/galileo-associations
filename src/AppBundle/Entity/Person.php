@@ -332,4 +332,43 @@ class Person
     {
         return $this->TeamsMembers;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $PersonEntry;
+
+
+    /**
+     * Add personEntry
+     *
+     * @param \AppBundle\Entity\PersonEntry $personEntry
+     *
+     * @return Person
+     */
+    public function addPersonEntry(\AppBundle\Entity\PersonEntry $personEntry)
+    {
+        $this->PersonEntry[] = $personEntry;
+
+        return $this;
+    }
+
+    /**
+     * Remove personEntry
+     *
+     * @param \AppBundle\Entity\PersonEntry $personEntry
+     */
+    public function removePersonEntry(\AppBundle\Entity\PersonEntry $personEntry)
+    {
+        $this->PersonEntry->removeElement($personEntry);
+    }
+
+    /**
+     * Get personEntry
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPersonEntry()
+    {
+        return $this->PersonEntry;
+    }
 }

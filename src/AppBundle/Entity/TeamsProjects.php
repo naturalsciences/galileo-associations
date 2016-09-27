@@ -168,4 +168,3 @@ class TeamsProjects
         return $this->Projects;
     }
 }
-

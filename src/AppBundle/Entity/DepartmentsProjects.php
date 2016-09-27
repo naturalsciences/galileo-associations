@@ -168,4 +168,3 @@ class DepartmentsProjects
         return $this->Projects;
     }
 }
-

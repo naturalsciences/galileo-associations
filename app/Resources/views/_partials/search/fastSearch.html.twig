@@ -80,7 +80,7 @@
                             $.each(
                                     data,
                                     function (i, fastSearchElem) {
-                                        items.push('<li><a class="' + fastSearchElem.is_active + '" href="' + Routing.generate('{{ search_vars.search_type }}', {
+                                        items.push('<li><a class="' + fastSearchElem.active + '" href="' + Routing.generate('{{ search_vars.search_type }}', {
                                                     id: fastSearchElem.value,
                                                     action: action,
                                                     locale: "{{ app.request.getLocale() }}"

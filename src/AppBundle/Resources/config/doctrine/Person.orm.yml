@@ -66,3 +66,13 @@ AppBundle\Entity\Person:
       cascade: ["persist"]
       orderBy:
         start_date: asc
+    PersonEntry:
+      targetEntity: AppBundle\Entity\PersonEntry
+      mappedBy: Person
+      joinColumn:
+        name: id
+        referencedColumnName: person_ref
+        nullable: false
+      cascade: ["persist"]
+      orderBy:
+        entry_date: asc

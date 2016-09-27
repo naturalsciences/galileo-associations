@@ -1,0 +1,31 @@
+AppBundle\Entity\PersonEntry:
+  type: entity
+  repositoryClass: AppBundle\Repository\PersonEntryRepository
+  table: person_entry
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: IDENTITY
+  fields:
+    entry_date:
+      type: date
+      nullable: false
+      options:
+        default: now()
+        comment: 'Entry date of the person'
+        check: "CONSTRAINT person_entry_entry_date CHECK (CASE WHEN exit_date IS NOT NULL THEN entry_date IS NOT NULL OR entry_date <= exit_date END)"
+    exit_date:
+      type: date
+      nullable: true
+      options:
+        comment: 'Exit date of the person'
+        check: "CONSTRAINT person_entry_exit_date CHECK (CASE WHEN entry_date IS NULL THEN exit_date IS NULL ELSE exit_date IS NULL OR exit_date >= entry_date END)"
+  manyToOne:
+    Person:
+      targetEntity: Person
+      inversedBy: PersonEntry
+      joinColumn:
+        name: person_ref
+        nullable: false
+        referencedColumnName: id

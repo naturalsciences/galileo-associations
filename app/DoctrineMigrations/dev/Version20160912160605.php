@@ -70,6 +70,12 @@ class Version20160912160605 extends AbstractMigration
         $this->addSql('COMMENT ON COLUMN person.matricule IS \'Institution internal identifier (matricule)\'');
         $this->addSql('COMMENT ON COLUMN person.uid IS \'Unique identifier associated from AD (Active Directory)\'');
         $this->addSql('COMMENT ON COLUMN person.email IS \'Person main email\'');
+
+        $this->addSql('CREATE TABLE person_entry (id SERIAL NOT NULL, person_ref INT NOT NULL, entry_date DATE DEFAULT now() NOT NULL , exit_date DATE DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_871782B49722F9B8 ON person_entry (person_ref)');
+        $this->addSql('COMMENT ON COLUMN person_entry.entry_date IS \'Entry date of the person\'');
+        $this->addSql('COMMENT ON COLUMN person_entry.exit_date IS \'Exit date of the person\'');
+
         $this->addSql('CREATE TABLE projects (id SERIAL NOT NULL, international_name VARCHAR(255) NOT NULL, international_description TEXT DEFAULT NULL, international_name_language VARCHAR(255) DEFAULT \'en\' NOT NULL, international_cascade SMALLINT DEFAULT 0 NOT NULL, name_en VARCHAR(255) DEFAULT NULL, description_en TEXT DEFAULT NULL, name_fr VARCHAR(255) DEFAULT NULL, description_fr TEXT DEFAULT NULL, name_nl VARCHAR(255) DEFAULT NULL, description_nl TEXT DEFAULT NULL, start_date DATE DEFAULT NULL, end_date DATE DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX unq_project_international_name ON projects (international_name)');
         $this->addSql('COMMENT ON COLUMN projects.international_name IS \'The name to be used internationaly\'');
@@ -112,6 +118,9 @@ class Version20160912160605 extends AbstractMigration
         $this->addSql('ALTER TABLE departments_teams ADD CONSTRAINT FK_FD62DC4EFCB407 FOREIGN KEY (team_ref) REFERENCES teams (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE teams_projects ADD CONSTRAINT FK_90370B7D4EFCB407 FOREIGN KEY (team_ref) REFERENCES teams (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE teams_projects ADD CONSTRAINT FK_90370B7D8614E440 FOREIGN KEY (project_ref) REFERENCES projects (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
+
+        $this->addSql('ALTER TABLE person_entry ADD CONSTRAINT FK_871782B49722F9B8 FOREIGN KEY (person_ref) REFERENCES person (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
+
         $this->addSql('ALTER TABLE projects_members ADD CONSTRAINT FK_6863C9EE9722F9B8 FOREIGN KEY (person_ref) REFERENCES person (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE projects_members ADD CONSTRAINT FK_6863C9EE8614E440 FOREIGN KEY (project_ref) REFERENCES projects (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE department ADD CONSTRAINT FK_CD1DE18A2FCC5DC6 FOREIGN KEY (parent_ref) REFERENCES department (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
