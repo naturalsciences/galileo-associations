@@ -27,7 +27,7 @@ class FastSearchController extends Controller
         $response = new JsonResponse();
 
         $results = $this->getDoctrine()
-            ->getRepository(ucfirst($request->get('fast_search_type')))
+            ->getRepository('AppBundle:'.ucfirst($request->get('fast_search_type')))
             ->searchInName(
                 $request->get('term'),
                 $request->get('exact', false)
