@@ -53,23 +53,23 @@
                     var target_results;
                     var load_spinner;
 
-                    if (search_term == $(this).val()) {
-                        return;
-                    }
-
                     if (xhr) xhr.abort();
 
-                    search_term = $(this).val();
                     load_spinner = $(this).closest('form').find('div.load-spinner');
                     target_results = $(this).closest('form').find('div.search-results');
 
-                    $(load_spinner).show();
-
-                    if (search_term == '') {
-                        $(target_results).find('ul').html('');
-                        $(load_spinner).hide();
+                    if (search_term == $(this).val()) {
+                        if (search_term == '') {
+                            if (xhr) xhr.abort();
+                            $(target_results).find('ul').html('');
+                            $(load_spinner).hide();
+                        }
                         return;
                     }
+
+                    search_term = $(this).val();
+
+                    $(load_spinner).show();
 
                     xhr = $.ajax({
                         url: "{{ path('app_fastSearch', { 'fast_search_type': search_vars.search_type } ) }}",

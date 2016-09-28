@@ -30,6 +30,7 @@ person:
         id: \d+
     options:
         expose: true
+    methods: [GET,POST]
 
 teams:
     path: /{_locale}/teams/{action}/{id}
@@ -44,6 +45,7 @@ teams:
         id: \d+
     options:
         expose: true
+    methods: [GET,POST]
 
 projects:
     path: /{_locale}/projects/{action}/{id}
@@ -58,6 +60,7 @@ projects:
         id: \d+
     options:
         expose: true
+    methods: [GET,POST]
 
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
