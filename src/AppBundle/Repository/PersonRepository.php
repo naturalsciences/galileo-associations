@@ -17,7 +17,7 @@ class PersonRepository extends \Doctrine\ORM\EntityRepository
      * @param bool $exact Tells if search for an exact match or not
      * @return array
      */
-    public function searchInName($name, $exact = false) {
+    public function searchInName($name, $exact = false, $locale = 'en') {
         $conn = $this->getEntityManager()->getConnection();
         $qb = $conn->createQueryBuilder();
 

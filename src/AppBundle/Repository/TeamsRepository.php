@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Utils\Util as Util;
+
 /**
  * TeamsRepository
  *
@@ -10,4 +12,156 @@ namespace AppBundle\Repository;
  */
 class TeamsRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @param string $name The person name searched
+     * @param bool $exact Tells if search for an exact match or not
+     * @param string $locale The current locale used for language corresponding specific display and search
+     * @return array
+     */
+    public function searchInName($name, $exact = false, $locale = 'en') {
+
+        $em = $this->getEntityManager();
+        $conn = $em->getConnection();
+
+        $qb = $conn->createQueryBuilder();
+
+        $params = array('locale' => $locale);
+
+        $qb
+            ->select(
+                "
+                    t.id as \"value\",
+                    CASE
+                      WHEN t.international_cascade = 2 THEN
+                        t.international_name
+                      WHEN t.international_cascade = 1 AND t.international_name_language = :locale THEN
+                        t.international_name
+                      ELSE
+                        CASE
+                          WHEN :locale = 'nl' THEN
+                            CASE
+                              WHEN t.name_nl IS NULL THEN
+                                t.international_name
+                              ELSE
+                                t.name_nl
+                            END
+                          WHEN :locale = 'fr' THEN
+                            CASE
+                              WHEN t.name_fr IS NULL THEN
+                                t.international_name
+                              ELSE
+                                t.name_fr
+                            END
+                          ELSE
+                            CASE
+                              WHEN t.name_en IS NULL THEN
+                                t.international_name
+                              ELSE
+                                t.name_en
+                            END
+                        END
+                    END as \"label\",
+                 CASE
+                   WHEN COALESCE(t.end_date,'2999/01/01'::timestamp) > now() THEN
+                     'active'
+                   ELSE
+                     'inactive'
+                 END as \"active\"
+                "
+            )
+            ->from(
+                'teams',
+                't'
+            );
+
+        if ( $exact === true ) {
+            $qb->andwhere('
+                   CASE 
+                       WHEN t.international_cascade = 2 THEN
+                         t.international_name
+                       WHEN t.international_cascade = 1 AND t.international_name_language = :locale THEN
+                         t.international_name
+                       ELSE
+                         CASE
+                           WHEN :locale = \'nl\' THEN
+                             CASE
+                               WHEN t.name_nl IS NULL THEN
+                                 t.international_name
+                               ELSE
+                                 t.name_nl
+                             END
+                           WHEN :locale = \'fr\' THEN
+                             CASE
+                               WHEN t.name_fr IS NULL THEN
+                                 t.international_name
+                               ELSE
+                                 t.name_fr
+                             END
+                           ELSE
+                             CASE
+                               WHEN t.name_en IS NULL THEN
+                                 t.international_name
+                               ELSE
+                                 t.name_en
+                             END
+                         END
+                   END ilike :name'
+            );
+
+            $params['name'] = $name;
+        }
+        else {
+            foreach (explode(' ', $name) as $key => $term) {
+
+                $term = trim($term);
+                if ($term == '') continue;
+                $term = Util::unaccent($term);
+                $qb->andWhere("
+                    translate(
+                       CASE 
+                           WHEN t.international_cascade = 2 THEN
+                             t.international_name
+                           WHEN t.international_cascade = 1 AND t.international_name_language = :locale THEN
+                             t.international_name
+                           ELSE
+                             CASE
+                               WHEN :locale = 'nl' THEN
+                                 CASE
+                                   WHEN t.name_nl IS NULL THEN
+                                     t.international_name
+                                   ELSE
+                                     t.name_nl
+                                 END
+                               WHEN :locale = 'fr' THEN
+                                 CASE
+                                   WHEN t.name_fr IS NULL THEN
+                                     t.international_name
+                                   ELSE
+                                     t.name_fr
+                                 END
+                               ELSE
+                                 CASE
+                                   WHEN t.name_en IS NULL THEN
+                                     t.international_name
+                                   ELSE
+                                     t.name_en
+                                 END
+                             END
+                       END, 'äàáëéèêöôîï','aaaeeeeooii'
+                    ) ilike :term$key"
+                );
+                $params["term$key"] = '%'.$term.'%';
+            }
+        }
+
+        $qb->setParameters($params)
+            ->setMaxResults(300)
+            ->orderBy('label,value');
+
+        $query_prepared = $conn->prepare($qb->getSQL());
+        $query_prepared->execute($qb->getParameters());
+
+        return $query_prepared->fetchAll();
+
+    }
 }

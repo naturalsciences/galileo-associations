@@ -81,9 +81,9 @@
                                     data,
                                     function (i, fastSearchElem) {
                                         items.push('<li><a class="' + fastSearchElem.active + '" href="' + Routing.generate('{{ search_vars.search_type }}', {
-                                                    id: fastSearchElem.value,
+                                                    _locale: "{{ app.request.getLocale() }}",
                                                     action: action,
-                                                    locale: "{{ app.request.getLocale() }}"
+                                                    id: fastSearchElem.value
                                                 }) + '">' + fastSearchElem.label + '</a></li>');
                                     }
                             );

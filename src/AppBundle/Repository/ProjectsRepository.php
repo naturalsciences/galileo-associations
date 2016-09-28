@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Utils\Util as Util;
+
 /**
  * ProjectsRepository
  *
@@ -10,4 +12,156 @@ namespace AppBundle\Repository;
  */
 class ProjectsRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @param string $name The person name searched
+     * @param bool $exact Tells if search for an exact match or not
+     * @param string $locale The current locale used for language corresponding specific display and search
+     * @return array
+     */
+    public function searchInName($name, $exact = false, $locale = 'en') {
+
+        $em = $this->getEntityManager();
+        $conn = $em->getConnection();
+
+        $qb = $conn->createQueryBuilder();
+
+        $params = array('locale' => $locale);
+
+        $qb
+            ->select(
+                "
+                    p.id as \"value\",
+                    CASE
+                      WHEN p.international_cascade = 2 THEN
+                        p.international_name
+                      WHEN p.international_cascade = 1 AND p.international_name_language = :locale THEN
+                        p.international_name
+                      ELSE
+                        CASE
+                          WHEN :locale = 'nl' THEN
+                            CASE
+                              WHEN p.name_nl IS NULL THEN
+                                p.international_name
+                              ELSE
+                                p.name_nl
+                            END
+                          WHEN :locale = 'fr' THEN
+                            CASE
+                              WHEN p.name_fr IS NULL THEN
+                                p.international_name
+                              ELSE
+                                p.name_fr
+                            END
+                          ELSE
+                            CASE
+                              WHEN p.name_en IS NULL THEN
+                                p.international_name
+                              ELSE
+                                p.name_en
+                            END
+                        END
+                    END as \"label\",
+                 CASE
+                   WHEN COALESCE(p.end_date,'2999/01/01'::timestamp) > now() THEN
+                     'active'
+                   ELSE
+                     'inactive'
+                 END as \"active\"
+                "
+            )
+            ->from(
+                'projects',
+                'p'
+            );
+
+        if ( $exact === true ) {
+            $qb->andwhere('
+                   CASE 
+                       WHEN p.international_cascade = 2 THEN
+                         p.international_name
+                       WHEN p.international_cascade = 1 AND p.international_name_language = :locale THEN
+                         p.international_name
+                       ELSE
+                         CASE
+                           WHEN :locale = \'nl\' THEN
+                             CASE
+                               WHEN p.name_nl IS NULL THEN
+                                 p.international_name
+                               ELSE
+                                 p.name_nl
+                             END
+                           WHEN :locale = \'fr\' THEN
+                             CASE
+                               WHEN p.name_fr IS NULL THEN
+                                 p.international_name
+                               ELSE
+                                 p.name_fr
+                             END
+                           ELSE
+                             CASE
+                               WHEN p.name_en IS NULL THEN
+                                 p.international_name
+                               ELSE
+                                 p.name_en
+                             END
+                         END
+                   END ilike :name'
+            );
+
+            $params['name'] = $name;
+        }
+        else {
+            foreach (explode(' ', $name) as $key => $term) {
+
+                $term = trim($term);
+                if ($term == '') continue;
+                $term = Util::unaccent($term);
+                $qb->andWhere("
+                    translate(
+                       CASE 
+                           WHEN p.international_cascade = 2 THEN
+                             p.international_name
+                           WHEN p.international_cascade = 1 AND p.international_name_language = :locale THEN
+                             p.international_name
+                           ELSE
+                             CASE
+                               WHEN :locale = 'nl' THEN
+                                 CASE
+                                   WHEN p.name_nl IS NULL THEN
+                                     p.international_name
+                                   ELSE
+                                     p.name_nl
+                                 END
+                               WHEN :locale = 'fr' THEN
+                                 CASE
+                                   WHEN p.name_fr IS NULL THEN
+                                     p.international_name
+                                   ELSE
+                                     p.name_fr
+                                 END
+                               ELSE
+                                 CASE
+                                   WHEN p.name_en IS NULL THEN
+                                     p.international_name
+                                   ELSE
+                                     p.name_en
+                                 END
+                             END
+                       END, 'äàáëéèêöôîï','aaaeeeeooii'
+                    ) ilike :term$key"
+                );
+                $params["term$key"] = '%'.$term.'%';
+            }
+        }
+
+        $qb->setParameters($params)
+            ->setMaxResults(300)
+            ->orderBy('label,value');
+
+        $query_prepared = $conn->prepare($qb->getSQL());
+        $query_prepared->execute($qb->getParameters());
+
+        return $query_prepared->fetchAll();
+
+    }
 }
