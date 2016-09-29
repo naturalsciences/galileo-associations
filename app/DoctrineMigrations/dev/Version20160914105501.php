@@ -35,12 +35,10 @@ class Version20160914105501 extends AbstractMigration
                         ADD CONSTRAINT person_entry_entry_date 
                         CHECK (CASE WHEN exit_date IS NOT NULL THEN entry_date IS NOT NULL OR entry_date <= exit_date END)'
         );
-
         $this->addSql('ALTER TABLE person_entry
                         ADD CONSTRAINT person_entry_exit_date 
                         CHECK (CASE WHEN entry_date IS NULL THEN exit_date IS NULL ELSE exit_date IS NULL OR exit_date >= entry_date END)'
         );
-
         $this->addSql('ALTER TABLE projects 
                         ADD CONSTRAINT projects_international_name_language_list 
                         CHECK (international_name_language IN (\'en\',\'fr\',\'nl\'))'
@@ -149,6 +147,12 @@ class Version20160914105501 extends AbstractMigration
         );
         $this->addSql('ALTER TABLE teams_projects 
                         DROP CONSTRAINT IF EXISTS teams_projects_end_date'
+        );
+        $this->addSql('ALTER TABLE person_entry
+                        DROP CONSTRAINT IF EXISTS person_entry_entry_date'
+        );
+        $this->addSql('ALTER TABLE person_entry
+                        DROP CONSTRAINT IF EXISTS person_entry_exit_date'
         );
     }
 }

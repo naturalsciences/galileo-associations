@@ -70,12 +70,10 @@ class Version20160912160605 extends AbstractMigration
         $this->addSql('COMMENT ON COLUMN person.matricule IS \'Institution internal identifier (matricule)\'');
         $this->addSql('COMMENT ON COLUMN person.uid IS \'Unique identifier associated from AD (Active Directory)\'');
         $this->addSql('COMMENT ON COLUMN person.email IS \'Person main email\'');
-
         $this->addSql('CREATE TABLE person_entry (id SERIAL NOT NULL, person_ref INT NOT NULL, entry_date DATE DEFAULT now() NOT NULL , exit_date DATE DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_871782B49722F9B8 ON person_entry (person_ref)');
         $this->addSql('COMMENT ON COLUMN person_entry.entry_date IS \'Entry date of the person\'');
         $this->addSql('COMMENT ON COLUMN person_entry.exit_date IS \'Exit date of the person\'');
-
         $this->addSql('CREATE TABLE projects (id SERIAL NOT NULL, international_name VARCHAR(255) NOT NULL, international_description TEXT DEFAULT NULL, international_name_language VARCHAR(255) DEFAULT \'en\' NOT NULL, international_cascade SMALLINT DEFAULT 0 NOT NULL, name_en VARCHAR(255) DEFAULT NULL, description_en TEXT DEFAULT NULL, name_fr VARCHAR(255) DEFAULT NULL, description_fr TEXT DEFAULT NULL, name_nl VARCHAR(255) DEFAULT NULL, description_nl TEXT DEFAULT NULL, start_date DATE DEFAULT NULL, end_date DATE DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX unq_project_international_name ON projects (international_name)');
         $this->addSql('COMMENT ON COLUMN projects.international_name IS \'The name to be used internationaly\'');
@@ -90,10 +88,12 @@ class Version20160912160605 extends AbstractMigration
         $this->addSql('COMMENT ON COLUMN projects.description_nl IS \'Description of the project in Dutch\'');
         $this->addSql('COMMENT ON COLUMN projects.start_date IS \'Project start date\'');
         $this->addSql('COMMENT ON COLUMN projects.end_date IS \'Project end date\'');
-        $this->addSql('CREATE TABLE department (id SERIAL NOT NULL, parent_ref INT DEFAULT NULL, level TEXT NOT NULL, path TEXT DEFAULT \'/\' NOT NULL, name_fr TEXT NOT NULL, name_en TEXT NOT NULL, name_nl TEXT NOT NULL, is_active BOOLEAN DEFAULT \'true\' NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE department (id SERIAL NOT NULL, parent_ref INT DEFAULT NULL, level TEXT NOT NULL, path TEXT DEFAULT \'/\' NOT NULL, code VARCHAR, name_fr TEXT NOT NULL, name_en TEXT NOT NULL, name_nl TEXT NOT NULL, is_active BOOLEAN DEFAULT \'true\' NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_CD1DE18A2FCC5DC6 ON department (parent_ref)');
+        $this->addSql('CREATE UNIQUE INDEX unq_department_code ON department (code)');
         $this->addSql('COMMENT ON COLUMN department.level IS \'Level in the hierarchy of organization\'');
         $this->addSql('COMMENT ON COLUMN department.path IS \'Hierarchic path of id in the organization\'');
+        $this->addSql('COMMENT ON COLUMN department.code IS \'Unique code given to department/service\'');
         $this->addSql('COMMENT ON COLUMN department.name_fr IS \'Name of department/service in french\'');
         $this->addSql('COMMENT ON COLUMN department.name_en IS \'Name of department/service in english\'');
         $this->addSql('COMMENT ON COLUMN department.name_nl IS \'Name of department/service in dutch\'');
@@ -214,11 +214,13 @@ class Version20160912160605 extends AbstractMigration
         $this->addSql('ALTER TABLE departments_teams DROP CONSTRAINT FK_FD62DC69791980');
         $this->addSql('ALTER TABLE department DROP CONSTRAINT FK_CD1DE18A2FCC5DC6');
         $this->addSql('ALTER TABLE departments_projects DROP CONSTRAINT FK_FCB0625669791980');
+        $this->addSql('ALTER TABLE person_entry DROP CONSTRAINT FK_871782B49722F9B8');
         $this->addSql('DROP TRIGGER IF EXISTS department_path_composition ON department');
         $this->addSql('DROP TRIGGER IF EXISTS projects_international_naming_cascade ON projects');
         $this->addSql('DROP TRIGGER IF EXISTS teams_international_naming_cascade ON teams');
         $this->addSql('DROP FUNCTION IF EXISTS trigger_international_naming_cascade() CASCADE');
         $this->addSql('DROP FUNCTION IF EXISTS trigger_department_path_composition() CASCADE');
+        $this->addSql('DROP TABLE person_entry');
         $this->addSql('DROP TABLE teams_members');
         $this->addSql('DROP TABLE working_duty');
         $this->addSql('DROP TABLE teams');

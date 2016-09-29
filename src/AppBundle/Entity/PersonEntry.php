@@ -110,4 +110,3 @@ class PersonEntry
         return $this->Person;
     }
 }
-

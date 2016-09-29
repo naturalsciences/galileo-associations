@@ -18,6 +18,10 @@ AppBundle\Entity\Department:
       options:
         default: '/'
         comment: 'Hierarchic path of id in the organization'
+    code:
+      type: string
+      options:
+        comment: 'Code given to Section or Department'
     name_fr:
       type: text
       options:
@@ -36,6 +40,9 @@ AppBundle\Entity\Department:
       options:
         default: true
         comment: 'Flag telling if the entry is active or not'
+  uniqueConstraints:
+    unq_department_code:
+      columns: code
   oneToMany:
     WorkingDuty:
       targetEntity: AppBundle\Entity\WorkingDuty
