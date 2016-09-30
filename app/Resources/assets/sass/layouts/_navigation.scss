@@ -385,6 +385,14 @@ button.navbar-toggle {
       font-size: 1.4rem;
     }
   }
+
+  div form a.add_item {
+    padding-left: 3px;
+
+    i.fa-plus-circle {
+      margin-right: 3px;
+    }
+  }
 }
 
 .rbins-btn-secondary {

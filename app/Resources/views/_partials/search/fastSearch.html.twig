@@ -20,6 +20,9 @@
              role="tabpanel"
              aria-labelledby="{{ search_vars.heading_label_id }}">
             <form>
+                <p>
+                    <a class="add_item" href="{{ path( search_vars.search_type ) }}"><i class="fa fa-plus-circle" aria-hidden="true"></i>{{ 'Add ' ~ (search_vars.search_type | capitalize) }}</a>
+                </p>
                 <div class="form-group">
                     <input id="{{ search_vars.search_control_id }}"
                            class="form-control input-medium search-query rbins-search-input"

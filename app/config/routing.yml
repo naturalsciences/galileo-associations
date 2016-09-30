@@ -17,10 +17,21 @@ app_fastSearch:
         fast_search_type: "%fast_search_types%"
     methods: [GET]
 
+person_list:
+    path: /{_locale}/person/list
+    defaults:
+        _controller: AppBundle:Person:person
+        _locale: "%locale%"
+    requirements:
+        _locale: "%locales%"
+    options:
+        expose: false
+    methods: [GET]
+
 person:
     path: /{_locale}/person/{action}/{id}
     defaults:
-        _controller: AppBundle:Person:person
+        _controller: AppBundle:Person:personList
         _locale: "%locale%"
         action: "add"
         id: 0
@@ -31,6 +42,17 @@ person:
     options:
         expose: true
     methods: [GET,POST]
+
+teams_list:
+    path: /{_locale}/teams/list
+    defaults:
+        _controller: AppBundle:Teams:teamsList
+        _locale: "%locale%"
+    requirements:
+        _locale: "%locales%"
+    options:
+        expose: false
+    methods: [GET]
 
 teams:
     path: /{_locale}/teams/{action}/{id}
@@ -46,6 +68,17 @@ teams:
     options:
         expose: true
     methods: [GET,POST]
+
+projects_list:
+    path: /{_locale}/projects/list
+    defaults:
+        _controller: AppBundle:Projects:projectsList
+        _locale: "%locale%"
+    requirements:
+        _locale: "%locales%"
+    options:
+        expose: false
+    methods: [GET]
 
 projects:
     path: /{_locale}/projects/{action}/{id}
