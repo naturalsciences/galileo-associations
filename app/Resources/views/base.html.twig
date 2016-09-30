@@ -82,6 +82,10 @@
             </aside>
         {% endblock search_menu %}
         {% block content %}{% endblock %}
+
+        <!-- Return to Top -->
+        <a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up"></i></a>
+
         <script src="{{ asset('js/site-min.js'|asset_version) }}" type="text/javascript"></script>
         <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
         <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>

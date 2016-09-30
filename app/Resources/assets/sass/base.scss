@@ -7,6 +7,8 @@
 
 // Mixins
 @import 'mixins/breakpoints';
+@import 'mixins/border-radius';
+@import 'mixins/transitions';
 
 // Layout files
 @import 'layouts/images';
@@ -15,6 +17,7 @@
 
 // Module files
 @import 'modules/base';
+@import 'modules/navigation';
 
 body {
   font-size: $font-size-root;
