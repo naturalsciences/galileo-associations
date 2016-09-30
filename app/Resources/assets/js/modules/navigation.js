@@ -3,9 +3,9 @@ $(document).ready(
         // ===== Scroll to Top ====
         $(window).scroll(function () {
             if ($(this).scrollTop() >= 80) {        // If page is scrolled more than 50px
-                $('#return-to-top').fadeIn(200);    // Fade in the arrow
+                $('#return-to-top').stop().fadeIn(200);    // Fade in the arrow
             } else {
-                $('#return-to-top').fadeOut(200);   // Else fade out the arrow
+                $('#return-to-top').stop().fadeOut(200);   // Else fade out the arrow
             }
         });
 
