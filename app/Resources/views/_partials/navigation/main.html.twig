@@ -1,11 +1,11 @@
 {%
-set action_vars = {
-'position_class': 'pull-lg-left',
-'responsive_hidden_class': 'hidden-md-down',
-'solarize': true,
-'icon_increase': 'fa-2x',
-'dropdown_sub_menu_class': 'dropdown-menu'
-}
+    set action_vars = {
+        'position_class': 'pull-lg-left',
+        'responsive_hidden_class': 'hidden-md-down',
+        'solarize': true,
+        'icon_increase': 'fa-2x',
+        'dropdown_sub_menu_class': 'dropdown-menu'
+    }
 %}
 
 {% block navigation_top_bar %}
@@ -45,13 +45,13 @@ set action_vars = {
                     )
                 %}
                 {% block navigation_top_bar_lg_logoff %}
-                    {% include "/_partials/navigation/logOff.html.twig" with action_vars %}
+                    {% include "/_partials/navigation/logOff.html.twig" with { 'action_vars' : action_vars } %}
                 {% endblock navigation_top_bar_lg_logoff %}
                 {% block navigation_top_bar_lg_languages %}
                     {{  locale_switcher() }}
                 {% endblock navigation_top_bar_lg_languages %}
                 {% block navigation_top_bar_lg_profile %}
-                    {% include "/_partials/navigation/profile.html.twig" with action_vars %}
+                    {% include "/_partials/navigation/profile.html.twig" with { 'action_vars' : action_vars } %}
                 {% endblock navigation_top_bar_lg_profile %}
             </nav>
         {% endblock navigation_top_bar_lg %}
@@ -90,7 +90,7 @@ set action_vars = {
             {% set action_vars = action_vars|merge({ 'position_class': '', 'responsive_hidden_class': '' }) %}
             <li>
                 {% block navigation_responsive_menu_profile %}
-                    {% include "/_partials/navigation/profile.html.twig" with action_vars %}
+                    {% include "/_partials/navigation/profile.html.twig" with { 'action_vars' : action_vars } %}
                 {% endblock navigation_responsive_menu_profile %}
             </li>
             {%
@@ -103,17 +103,17 @@ set action_vars = {
             %}
             <li class="rbins-menu-dropdown">
                 {% block navigation_responsive_menu_teams %}
-                    {% include "/_partials/navigation/teams.html.twig" with action_vars %}
+                    {% include "/_partials/navigation/teams.html.twig" with { 'action_vars' : action_vars } %}
                 {% endblock navigation_responsive_menu_teams %}
             </li>
             <li class="rbins-menu-dropdown">
                 {% block navigation_responsive_menu_projects %}
-                    {% include "/_partials/navigation/projects.html.twig" with action_vars %}
+                    {% include "/_partials/navigation/projects.html.twig" with { 'action_vars' : action_vars } %}
                 {% endblock navigation_responsive_menu_projects %}
             </li>
             <li class="rbins-menu-dropdown">
                 {% block navigation_responsive_menu_ad_sync %}
-                    {% include "/_partials/navigation/adSync.html.twig" with action_vars %}
+                    {% include "/_partials/navigation/adSync.html.twig" with { 'action_vars' : action_vars } %}
                 {% endblock navigation_responsive_menu_ad_sync %}
             </li>
             {%
@@ -126,7 +126,7 @@ set action_vars = {
             %}
             <li class="rbins-set-bottom">
                 {% block navigation_responsive_menu_logoff %}
-                    {% embed "/_partials/navigation/logOff.html.twig" with action_vars %}
+                    {% embed "/_partials/navigation/logOff.html.twig" with { 'action_vars' : action_vars } %}
                         {% block log_out_text %}<span>Log Out</span>{% endblock log_out_text %}
                     {% endembed %}
                 {% endblock navigation_responsive_menu_logoff %}
