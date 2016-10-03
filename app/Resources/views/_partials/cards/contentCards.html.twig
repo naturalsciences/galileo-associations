@@ -1,0 +1,11 @@
+<a href="{% if add_vars.add_type is not empty %}{{ path( add_vars.add_type ) }}{% endif %}">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"><i class="fa {{ add_vars.add_icon }}"></i> {{ add_vars.add_text }}</h3>
+        </div>
+        <div class="card-block">
+            <p class="card-text">{{ add_vars.add_main_text }}</p>
+            <span class="btn pull-xs-right">Add <i class="fa fa-plus-circle"></i></span>
+        </div>
+    </div>
+</a>

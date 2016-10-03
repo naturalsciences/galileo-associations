@@ -431,6 +431,16 @@ button.navbar-toggle {
   }
 }
 
+.rbins-content .rbins-cards a {
+  color: $darkgrey;
+  text-decoration: none;
+
+  &:hover {
+    color: $black;
+    text-decoration: none;
+  }
+}
+
 .wobble-fix {
   -webkit-filter: blur(0);
   -moz-filter: blur(0);
