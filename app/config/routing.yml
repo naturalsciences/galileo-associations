@@ -33,7 +33,7 @@ person:
     defaults:
         _controller: AppBundle:Person:personList
         _locale: "%locale%"
-        action: "add"
+        action: "view"
         id: 0
     requirements:
         _locale: "%locales%"

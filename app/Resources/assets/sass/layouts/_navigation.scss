@@ -388,6 +388,11 @@ button.navbar-toggle {
 
   div form a.add_item {
     padding-left: 3px;
+    color: $darkgrey;
+
+    &:hover {
+      color: $orange;
+    }
 
     i.fa-plus-circle {
       margin-right: 3px;
