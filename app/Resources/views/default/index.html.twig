@@ -13,50 +13,52 @@
     <div class="container-fluid rbins-content">
         <div class="row">
             <div class="col-md-3 col-lg-3 hidden-sm-down"></div>
-            <div class="col-xs-12 col-md-9 col-lg-9">
-                <div class="row rbins-cards">
-                    <div class="page-header col-xs-12">
-                        <h2>Welcome to Galileo extension</h2>
-                    </div>
-                    <div class="col-sm-6 col-lg-4">
-                        {% block add_card_projects %}
-                            {% embed "/_partials/cards/contentCards.html.twig" with { 'add_vars' : add_vars } %}
-                            {% endembed %}
-                        {% endblock add_card_projects %}
-                    </div>
-                    {%
-                        set add_vars = add_vars|merge(
+            <div class="col-xs-12 col-md-9 col-lg-9 rbins-content-main">
+                {% block content_main %}
+                    <div class="row rbins-cards">
+                        <div class="page-header col-xs-12">
+                            <h2>Welcome to Galileo extension</h2>
+                        </div>
+                        <div class="col-sm-6 col-lg-4">
+                            {% block add_card_projects %}
+                                {% embed "/_partials/cards/contentCards.html.twig" with { 'add_vars' : add_vars } %}
+                                {% endembed %}
+                            {% endblock add_card_projects %}
+                        </div>
+                        {%
+                            set add_vars = add_vars|merge(
+                                    {
+                                        'add_type': 'teams',
+                                        'add_text': 'Add a Team',
+                                        'add_main_text': 'Use this quick action to add team',
+                                        'add_icon': 'fa-users'
+                                    }
+                                )
+                        %}
+                        <div class="col-sm-6 col-lg-4">
+                            {% block add_card_teams %}
+                                {% embed "/_partials/cards/contentCards.html.twig" with { 'add_vars' : add_vars } %}
+                                {% endembed %}
+                            {% endblock add_card_teams %}
+                        </div>
+                        {%
+                            set add_vars = add_vars|merge(
                                 {
-                                    'add_type': 'teams',
-                                    'add_text': 'Add a Team',
-                                    'add_main_text': 'Use this quick action to add team',
-                                    'add_icon': 'fa-users'
+                                    'add_type': '',
+                                    'add_text': 'AD Synchronization',
+                                    'add_main_text': 'Use this quick action to synchronize users with Active Directory (AD)',
+                                    'add_icon': 'fa-refresh'
                                 }
                             )
-                    %}
-                    <div class="col-sm-6 col-lg-4">
-                        {% block add_card_teams %}
-                            {% embed "/_partials/cards/contentCards.html.twig" with { 'add_vars' : add_vars } %}
-                            {% endembed %}
-                        {% endblock add_card_teams %}
+                        %}
+                        <div class="col-sm-12 col-lg-4">
+                            {% block add_card_ad_sync %}
+                                {% embed "/_partials/cards/contentCards.html.twig" with { 'add_vars' : add_vars } %}
+                                {% endembed %}
+                            {% endblock add_card_ad_sync %}
+                        </div>
                     </div>
-                    {%
-                        set add_vars = add_vars|merge(
-                            {
-                                'add_type': '',
-                                'add_text': 'AD Synchronization',
-                                'add_main_text': 'Use this quick action to synchronize users with Active Directory (AD)',
-                                'add_icon': 'fa-refresh'
-                            }
-                        )
-                    %}
-                    <div class="col-sm-12 col-lg-4">
-                        {% block add_card_ad_sync %}
-                            {% embed "/_partials/cards/contentCards.html.twig" with { 'add_vars' : add_vars } %}
-                            {% endembed %}
-                        {% endblock add_card_ad_sync %}
-                    </div>
-                </div>
+                {% endblock content_main %}
             </div>
         </div>
     </div>

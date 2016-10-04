@@ -21,6 +21,9 @@ class PersonController extends Controller
      */
     public function personAction(Request $request)
     {
+        if ( $request->get('action') === 'view' ) {
+            return $this->render('/default/tabbedContent.html.twig');
+        }
         return $this->render('');
     }
 }

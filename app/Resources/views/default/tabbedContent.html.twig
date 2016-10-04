@@ -1,0 +1,16 @@
+{% extends "/default/index.html.twig" %}
+{% block content_main %}
+    {%
+        set tabbed_content_vars = {
+            'heading_label_id': 'people-heading',
+            'heading_text': 'Main',
+            'collapsable_element_id': 'personMainContent',
+            'collapsable_element_default_state': 'in',
+            'parent_id': 'rbins-content-main'
+        }
+    %}
+    {% block tabbed_content_people %}
+        {% embed "/_partials/tabbed/tabbedContentMain.html.twig" with { 'tabbed_content_vars' : tabbed_content_vars } %}
+        {% endembed %}
+    {% endblock tabbed_content_people %}
+{%  endblock content_main %}

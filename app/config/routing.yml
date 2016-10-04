@@ -20,7 +20,7 @@ app_fastSearch:
 person_list:
     path: /{_locale}/person/list
     defaults:
-        _controller: AppBundle:Person:person
+        _controller: AppBundle:Person:personList
         _locale: "%locale%"
     requirements:
         _locale: "%locales%"
@@ -31,7 +31,7 @@ person_list:
 person:
     path: /{_locale}/person/{action}/{id}
     defaults:
-        _controller: AppBundle:Person:personList
+        _controller: AppBundle:Person:person
         _locale: "%locale%"
         action: "view"
         id: 0
