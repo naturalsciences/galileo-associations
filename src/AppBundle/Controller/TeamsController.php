@@ -8,6 +8,17 @@ use Symfony\Component\HttpFoundation\Request;
 class TeamsController extends Controller
 {
     /**
+     * @param $id
+     * @return mixed
+     */
+    private function findPerson($id) {
+        $team = $this->getDoctrine()
+            ->getRepository('AppBundle:Teams')
+            ->findOneById($id);
+        return $team;
+    }
+
+    /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */

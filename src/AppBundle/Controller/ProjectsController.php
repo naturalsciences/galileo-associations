@@ -8,6 +8,17 @@ use Symfony\Component\HttpFoundation\Request;
 class ProjectsController extends Controller
 {
     /**
+     * @param $id
+     * @return mixed
+     */
+    private function findProject($id) {
+        $project = $this->getDoctrine()
+            ->getRepository('AppBundle:Projects')
+            ->findOneById($id);
+        return $project;
+    }
+
+    /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
