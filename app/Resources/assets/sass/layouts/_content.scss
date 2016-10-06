@@ -1,0 +1,95 @@
+@charset "UTF-8";
+
+.rbins-tab {
+  padding-left: 0;
+  padding-right: 0;
+  @include media-breakpoint-up(md) {
+    margin-left: .9rem;
+  }
+}
+
+#personContent,
+#projectsContent,
+#teamsContent {
+  margin-top: 1px;
+  padding-left: .3rem;
+  padding-right: .3rem;
+
+  @include media-breakpoint-up(md) {
+    border: 1px solid $graylight2;
+    padding: .5rem;
+  }
+}
+
+#rbins-content-main {
+  padding-top: .4rem;
+
+  .nav-tabs {
+    position:absolute;
+    top: 3.75rem;
+    float: right;
+    border-bottom: 0;
+    text-align: center;
+    width: 6%;
+
+    @include media-breakpoint-down(xl) {
+      padding-right:0;
+    }
+
+    @include media-breakpoint-up(xl) {
+      text-align: left;
+      width: 15%;
+    }
+
+    li {
+      min-height: 3rem;
+      padding-top: .5rem;
+      padding-bottom: .5rem;
+      background-color: $darkgrey;
+
+      @include media-breakpoint-up(xl) {
+        padding-left: .5rem;
+      }
+
+      a {
+        color: $white;
+      }
+
+      i.fa-cog {
+        font-size: 2.5em;
+      }
+
+      span {
+        vertical-align: super;
+      }
+
+      &:hover {
+        a,
+        i {
+          color: $orange;
+        }
+      }
+    }
+
+    li.active {
+      background-color: $graylight2;
+
+      a,
+      i {
+        color: $darkgrey;
+      }
+    }
+
+    a {
+      display: block;
+      text-decoration: none;
+    }
+
+  }
+
+  .nav-tabs>li.active>a,
+  .nav-tabs>li.active>a:hover,
+  .nav-tabs>li.active>a:focus {
+    border:0;
+  }
+}

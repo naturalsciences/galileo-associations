@@ -5,30 +5,43 @@
             'parent_id': 'rbins-content-main'
         }
     %}
+{#
     {% dump(tabs) %}
-    {%  for tab in tabs %}
-        <div class="panel panel-default">
-            <div id="{{ tab.id }}-heading"
-                 class="panel-heading"
-                 role="tab">
-                <h4 class="panel-title">
-                    <button class="btn btn-secondary bg-inverse btn-block rbins-btn-secondary text-sm-left"
-                            data-toggle="collapse" data-parent="#{{ tabbed_content_vars.parent_id }}"
-                            href="#{{ tab.collapseElementId }}"
-                            aria-controls="{{ tab.collapseElementId }}"
-                            aria-expanded="true">
-                        <i class="fa {{ tab.headingIcon }}"></i> {{ tab.headingText }}
-                    </button>
-                </h4>
-            </div>
-            <div id="{{ tab.collapseElementId }}"
-                 class="panel-collapse collapse {{ tab.collapseElementDefaultState }}"
-                 role="tabpanel"
-                 aria-labelledby="{{ tab.id }}-heading">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam suscipit ligula ut nibh blandit dictum. Ut at mollis ligula. In sit amet ipsum ac dolor placerat mattis. Curabitur euismod sagittis elit nec rutrum. Nam pharetra enim non semper dapibus. Pellentesque fermentum consectetur egestas. Vestibulum laoreet velit dapibus magna aliquet, vel ornare elit blandit. Nulla facilisi. Proin convallis velit mollis imperdiet aliquam. Proin lacinia venenatis ultricies. Aliquam eu metus vulputate, accumsan ligula at, tristique lectus. Aliquam et suscipit metus, egestas vestibulum dui. Vestibulum tempus, erat at ullamcorper hendrerit, nisl ipsum sagittis massa, ac finibus nisl elit in nisl. Nullam fringilla metus quis mattis pellentesque.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam suscipit ligula ut nibh blandit dictum. Ut at mollis ligula. In sit amet ipsum ac dolor placerat mattis. Curabitur euismod sagittis elit nec rutrum. Nam pharetra enim non semper dapibus. Pellentesque fermentum consectetur egestas. Vestibulum laoreet velit dapibus magna aliquet, vel ornare elit blandit. Nulla facilisi. Proin convallis velit mollis imperdiet aliquam. Proin lacinia venenatis ultricies. Aliquam eu metus vulputate, accumsan ligula at, tristique lectus. Aliquam et suscipit metus, egestas vestibulum dui. Vestibulum tempus, erat at ullamcorper hendrerit, nisl ipsum sagittis massa, ac finibus nisl elit in nisl. Nullam fringilla metus quis mattis pellentesque.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam suscipit ligula ut nibh blandit dictum. Ut at mollis ligula. In sit amet ipsum ac dolor placerat mattis. Curabitur euismod sagittis elit nec rutrum. Nam pharetra enim non semper dapibus. Pellentesque fermentum consectetur egestas. Vestibulum laoreet velit dapibus magna aliquet, vel ornare elit blandit. Nulla facilisi. Proin convallis velit mollis imperdiet aliquam. Proin lacinia venenatis ultricies. Aliquam eu metus vulputate, accumsan ligula at, tristique lectus. Aliquam et suscipit metus, egestas vestibulum dui. Vestibulum tempus, erat at ullamcorper hendrerit, nisl ipsum sagittis massa, ac finibus nisl elit in nisl. Nullam fringilla metus quis mattis pellentesque.</p>
-            </div>
+#}
+    <div class="row">
+        <div class="page-header col-xs-12 tabbed-content-title">
+            <h2 class="content-title">{{ 'Person' }}: {{  person_name }}</h2>
         </div>
-    {% endfor %}
+        {%  for key,tab in tabs %}
+            <div class="col-xs-12 col-md-11 col-xl-10 rbins-tab">
+                <div class="panel panel-default">
+                    <div id="{{ tab.id }}-heading"
+                         class="panel-heading hidden-md-up"
+                         role="tab">
+                        <h4 class="panel-title">
+                            <button class="btn btn-secondary bg-inverse btn-block rbins-btn-secondary text-sm-left"
+                                    data-toggle="collapse" data-collapse-parent="#{{ tabbed_content_vars.parent_id }}"
+                                    href="#{{ tab.collapseElementId }}"
+                                    data-target="#{{ tab.collapseElementId }}"
+                                    aria-controls="{{ tab.collapseElementId }}"
+                                    aria-expanded="true">
+                                <i class="fa {{ tab.headingIcon }}"></i> {{ tab.headingText }}
+                            </button>
+                        </h4>
+                    </div>
+                    <div id="{{ tab.collapseElementId }}"
+                         class="tab-pane panel-collapse collapse {{ tab.collapseElementDefaultState }} {% if key == 'main' %}active{% endif %}"
+                         role="tabpanel"
+                         aria-labelledby="{{ tab.id }}-heading">
+                        {% include tab.template_path ignore missing with { 'items': tab.items } %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <ul class="nav nav-tabs hidden-sm-down col-lg-2">
+            {% for key,tab in tabs %}
+                <li class="{% if key == 'main' %}active{% endif %}"><a class="{% if key == 'main' %}active{% endif %}" href="#{{ tab.collapseElementId }}" data-toggle="tab" role="tab"><i class="fa fa-2x {{ tab.headingIcon }}"></i><span class="hidden-lg-down"> {{ tab.headingText }}</span></a></li>
+            {% endfor %}
+        </ul>
+    </div>
 {%  endblock content_main %}

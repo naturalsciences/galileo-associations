@@ -3,12 +3,29 @@
 .rbins-content {
   h2 {
     font-size: 1.4rem;
-    margin-top: 0.8rem;
+    margin-top: .7rem;
     margin-bottom: 1rem;
     border-bottom: solid 1px $linedgray;
+    width: 100%;
   }
+
+  .tabbed-content-title {
+    padding-right: 0;
+
+    @include media-breakpoint-down(sm) {
+      padding-left: 0;
+    }
+
+    h2 {
+      @include media-breakpoint-down(sm) {
+        padding-left: .2rem;
+        padding-right: .2rem;
+      }
+    }
+  }
+
   h3 {
     font-size: 1.2rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: .5rem;
   }
 }

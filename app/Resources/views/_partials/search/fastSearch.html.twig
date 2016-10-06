@@ -5,8 +5,9 @@
              role="tab">
             <h4 class="panel-title">
                 <button class="btn btn-secondary bg-inverse btn-block rbins-btn-secondary text-sm-left"
-                        data-toggle="collapse" data-parent="#{{ search_vars.parent_id }}"
+                        data-toggle="collapse" data-collapse-parent="#{{ search_vars.parent_id }}"
                         href="#{{ search_vars.collapsable_element_id }}"
+                        data-target="#{{ search_vars.collapsable_element_id }}"
                         aria-controls="{{ search_vars.collapsable_element_id }}"
                         aria-expanded="true">
                     {% if search_vars.heading_text is defined %}{{ search_vars.heading_text }}{% else %}Search{% endif %}
@@ -19,85 +20,7 @@
              class="panel-collapse collapse {{ search_vars.collapsable_element_default_state }}"
              role="tabpanel"
              aria-labelledby="{{ search_vars.heading_label_id }}">
-            <form>
-                {% if search_vars.search_type != 'person' %}
-                <p>
-                    <a class="add_item" href="{{ path( search_vars.search_type ) }}"><i class="fa fa-plus-circle" aria-hidden="true"></i>{{ 'Add ' ~ (search_vars.search_type | capitalize) }}</a>
-                </p>
-                {% endif %}
-                <div class="form-group">
-                    <input id="{{ search_vars.search_control_id }}"
-                           class="form-control input-medium search-query rbins-search-input"
-                           data-original-title="Search"
-                           data-content="{{ search_vars.search_popover_help_text_en }}"
-                           rel="popover"
-                           type="text"
-                           placeholder="Search"
-                           autocomplete="off">
-                    <div class="load-spinner"><i class="fa wobble-fix fa-circle-o-notch fa-spin fa-1x"></i></div>
-                </div>
-                <div class="search-results">
-                    <ul>
-                    </ul>
-                </div>
-            </form>
+            {% include "_partials/search/fastSearchFormAndResults.html.twig" with { 'search_vars': search_vars } %}
         </div>
     {% endblock search_menu_option_body %}
 </div>
-<script type="text/javascript">
-    $(document).ready(
-        function() {
-            $("#{{ search_vars.search_control_id }}").on(
-                'keyup change',
-                function (e) {
-
-                    // Variables for the ajax call when searching a person, a project or a team
-                    var xhr;
-                    var action = 'view';
-                    var search_term = '';
-                    var target_results;
-                    var load_spinner;
-
-                    if (xhr) xhr.abort();
-
-                    load_spinner = $(this).closest('form').find('div.load-spinner');
-                    target_results = $(this).closest('form').find('div.search-results');
-
-                    if (search_term == $(this).val()) {
-                        if (search_term == '') {
-                            if (xhr) xhr.abort();
-                            $(target_results).find('ul').html('');
-                            $(load_spinner).hide();
-                        }
-                        return;
-                    }
-
-                    search_term = $(this).val();
-
-                    $(load_spinner).show();
-
-                    xhr = $.ajax({
-                        url: "{{ path('app_fastSearch', { 'fast_search_type': search_vars.search_type } ) }}",
-                        dataType: 'json',
-                        data: {term: search_term},
-                        success: function (data) {
-                            var items = [];
-                            $.each(
-                                    data,
-                                    function (i, fastSearchElem) {
-                                        items.push('<li><a class="' + fastSearchElem.active + '" href="' + Routing.generate('{{ search_vars.search_type }}', {
-                                                    _locale: "{{ app.request.getLocale() }}",
-                                                    action: action,
-                                                    id: fastSearchElem.value
-                                                }) + '">' + fastSearchElem.label + '</a></li>');
-                                    }
-                            );
-                            $(target_results).find('ul').html(items.join(''));
-                            $(load_spinner).hide();
-                        }
-                    });
-                }
-            );
-        }
-    );
-</script>

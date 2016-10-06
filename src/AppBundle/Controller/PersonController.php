@@ -47,39 +47,35 @@ class PersonController extends Controller
             return $this->render(
                 '/default/tabbedContent.html.twig',
                 array(
+                    'type' => 'person',
+                    'person_name' => trim($person->getFirstName().' '.$person->getLastName()),
                     'tabs' => array(
                         'main' => array(
-                            'id' => 'person',
+                            'id' => 'person-tab',
                             'collapseElementId' => 'personContent',
                             'collapseElementDefaultState' => 'in',
                             'headingText' => 'Main',
                             'headingIcon' => 'fa-cog',
                             'items' => $person,
-                            'items-displayed-fields' => array(
-                                'First name' =>'first_name',
-                                'Last name' => 'last_name',
-                                'Email' => 'email'
-                            )
+                            'template_path' => '_partials/tabbedContent/mainTab/view/person.html.twig'
                         ),
                         'related-teams' => array(
-                            'id' => 'teams',
+                            'id' => 'teams-tab',
                             'collapseElementId' => 'teamsContent',
                             'collapseElementDefaultState' => '',
                             'headingText' => 'Related Teams',
                             'headingIcon' => 'fa-users',
                             'items' => $person->getTeamsMembers(),
-                            'items-displayed-fields' => array(
-                            )
+                            'template_path' => '_partials/tabbedContent/relatedTabs/view/teams.html.twig'
                         ),
                         'related-projects' => array(
-                            'id' => 'projects',
+                            'id' => 'projects-tab',
                             'collapseElementId' => 'projectsContent',
                             'collapseElementDefaultState' => '',
                             'headingText' => 'Related Projects',
                             'headingIcon' => 'fa-suitcase',
                             'items' => $person->getProjectsMembers(),
-                            'items-displayed-fields' => array(
-                            )
+                            'template_path' => '_partials/tabbedContent/relatedTabs/view/projects.html.twig'
                         )
                     )
                 )

@@ -37,13 +37,12 @@
     </head>
     <body>
         {% block navigation %}
-            {% include "/_partials/navigation/main.html.twig" %}
+            {% include "_partials/navigation/main.html.twig" %}
         {%  endblock navigation %}
         {% block search_menu %}
             <aside id="rbins-search-menu" class="col-md-3 col-lg-3 hidden-sm-down navmenu navmenu-default navmenu-fixed-left rbins-searches">
                 {% block search_menu_option_people %}
-                    {% embed "/_partials/search/fastSearch.html.twig" with { 'search_vars' : search_vars } %}
-                    {% endembed %}
+                    {% include "_partials/search/fastSearch.html.twig" with { 'search_vars' : search_vars } %}
                 {% endblock search_menu_option_people %}
                 {%
                     set search_vars = search_vars|merge(
@@ -59,8 +58,7 @@
                     )
                 %}
                 {% block search_menu_option_teams %}
-                    {% embed "/_partials/search/fastSearch.html.twig" with { 'search_vars' : search_vars } %}
-                    {% endembed %}
+                    {% include "_partials/search/fastSearch.html.twig" with { 'search_vars' : search_vars } %}
                 {% endblock search_menu_option_teams %}
                 {%
                     set search_vars = search_vars|merge(
@@ -76,8 +74,7 @@
                     )
                 %}
                 {% block search_menu_option_projects %}
-                    {% embed "/_partials/search/fastSearch.html.twig" with { 'search_vars' : search_vars } %}
-                    {% endembed %}
+                    {% include "_partials/search/fastSearch.html.twig" with { 'search_vars' : search_vars } %}
                 {% endblock search_menu_option_projects %}
             </aside>
         {% endblock search_menu %}
@@ -92,7 +89,7 @@
         {% block javascripts %}
             <script type="text/javascript">
                 {% block javascript_navigation %}
-                    {% include "/_partials/javascripts/navigation.js.twig" %}
+                    {% include "_partials/javascripts/navigation.js.twig" %}
                 {% endblock javascript_navigation %}
             </script>
         {% endblock javascripts %}
