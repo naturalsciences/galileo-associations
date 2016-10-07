@@ -48,7 +48,8 @@ class PersonController extends Controller
                 '/default/tabbedContent.html.twig',
                 array(
                     'type' => 'person',
-                    'person_name' => trim($person->getFirstName().' '.$person->getLastName()),
+                    'name_label' => 'Person',
+                    'name' => trim($person->getFirstName().' '.$person->getLastName()),
                     'tabs' => array(
                         'main' => array(
                             'id' => 'person-tab',

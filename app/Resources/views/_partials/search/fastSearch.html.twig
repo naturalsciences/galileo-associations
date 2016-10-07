@@ -4,7 +4,7 @@
              class="panel-heading"
              role="tab">
             <h4 class="panel-title">
-                <button class="btn btn-secondary bg-inverse btn-block rbins-btn-secondary text-sm-left"
+                <button class="btn btn-secondary bg-inverse btn-block rbins-btn-secondary text-sm-left rbins-search-collapse"
                         data-toggle="collapse" data-collapse-parent="#{{ search_vars.parent_id }}"
                         href="#{{ search_vars.collapsable_element_id }}"
                         data-target="#{{ search_vars.collapsable_element_id }}"
@@ -17,7 +17,7 @@
     {% endblock search_menu_option_header %}
     {% block search_menu_option_body %}
         <div id="{{ search_vars.collapsable_element_id }}"
-             class="panel-collapse collapse {{ search_vars.collapsable_element_default_state }}"
+             class="panel-collapse collapse {{ search_vars.collapsable_element_default_state }} rbins-search-content"
              role="tabpanel"
              aria-labelledby="{{ search_vars.heading_label_id }}">
             {% include "_partials/search/fastSearchFormAndResults.html.twig" with { 'search_vars': search_vars } %}

@@ -10,17 +10,17 @@
 #}
     <div class="row">
         <div class="page-header col-xs-12 tabbed-content-title">
-            <h2 class="content-title">{{ 'Person' }}: {{  person_name }}</h2>
+            <h2 class="content-title">{{ name_label }}: {{  name }}</h2>
         </div>
         {%  for key,tab in tabs %}
-            <div class="col-xs-12 col-md-11 col-xl-10 rbins-tab">
+            <div id="rbins-tab-{{ loop.index }}" class="col-xs-12 col-md-11 col-xl-10 rbins-tab">
                 <div class="panel panel-default">
                     <div id="{{ tab.id }}-heading"
-                         class="panel-heading hidden-md-up"
-                         role="tab">
+                         class="panel-heading hidden-md-up">
                         <h4 class="panel-title">
-                            <button class="btn btn-secondary bg-inverse btn-block rbins-btn-secondary text-sm-left"
+                            <button class="btn btn-secondary bg-inverse btn-block rbins-btn-secondary text-sm-left rbins-content-collapse"
                                     data-toggle="collapse" data-collapse-parent="#{{ tabbed_content_vars.parent_id }}"
+                                    data-tab-id="#{{ tab.id }}"
                                     href="#{{ tab.collapseElementId }}"
                                     data-target="#{{ tab.collapseElementId }}"
                                     aria-controls="{{ tab.collapseElementId }}"
@@ -30,7 +30,8 @@
                         </h4>
                     </div>
                     <div id="{{ tab.collapseElementId }}"
-                         class="tab-pane panel-collapse collapse {{ tab.collapseElementDefaultState }} {% if key == 'main' %}active{% endif %}"
+                         class="panel-collapse collapse {{ tab.collapseElementDefaultState }} fade rbins-tab-content"
+                         data-collapse-parent="#{{ tabbed_content_vars.parent_id }}"
                          role="tabpanel"
                          aria-labelledby="{{ tab.id }}-heading">
                         {% include tab.template_path ignore missing with { 'items': tab.items } %}
@@ -38,9 +39,9 @@
                 </div>
             </div>
         {% endfor %}
-        <ul class="nav nav-tabs hidden-sm-down col-lg-2">
+        <ul class="nav nav-tabs hidden-sm-down col-lg-2 rbins-lateral-tabs">
             {% for key,tab in tabs %}
-                <li class="{% if key == 'main' %}active{% endif %}"><a class="{% if key == 'main' %}active{% endif %}" href="#{{ tab.collapseElementId }}" data-toggle="tab" role="tab"><i class="fa fa-2x {{ tab.headingIcon }}"></i><span class="hidden-lg-down"> {{ tab.headingText }}</span></a></li>
+                <li id="{{ tab.id }}" class="{% if key == 'main' %}active{% endif %}" data-target="#{{ tab.collapseElementId }}"><a class="{% if key == 'main' %}active{% endif %}" href="#"><i class="fa fa-2x {{ tab.headingIcon }}"></i><span class="hidden-lg-down"> {{ tab.headingText }}</span></a></li>
             {% endfor %}
         </ul>
     </div>

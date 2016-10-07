@@ -6,6 +6,16 @@
   @include media-breakpoint-up(md) {
     margin-left: .9rem;
   }
+
+  .rbins-tab-content {
+    min-height: 16rem;
+  }
+}
+
+
+#rbins-tab-1,
+#rbins-tab-2 {
+  margin-bottom: -0.1rem;
 }
 
 #personContent,
@@ -26,7 +36,7 @@
 
   .nav-tabs {
     position:absolute;
-    top: 3.75rem;
+    top: 3.76rem;
     float: right;
     border-bottom: 0;
     text-align: center;
