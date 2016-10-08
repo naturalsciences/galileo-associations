@@ -8,6 +8,46 @@ use Symfony\Component\HttpFoundation\Request;
 
 class TeamsController extends Controller
 {
+
+    /**
+     * @var array $tabDefinition Defines the default tab structure and feed
+     */
+    private $tabDefinition = array(
+        'type' => 'teams',
+        'name_label' => 'Team',
+        'name' => '',
+        'id' => null,
+        'tabs' => array(
+            'main' => array(
+                'id' => 'teams-tab',
+                'collapseElementId' => 'teamsContent',
+                'collapseElementDefaultState' => 'in',
+                'headingText' => 'Main',
+                'headingIcon' => 'fa-cog',
+                'items' => null,
+                'template_path' => '_partials/tabbedContent/mainTab/view/teams.html.twig'
+            ),
+            'related-people' => array(
+                'id' => 'person-tab',
+                'collapseElementId' => 'personContent',
+                'collapseElementDefaultState' => '',
+                'headingText' => 'Related People',
+                'headingIcon' => 'fa-user',
+                'items' => null,
+                'template_path' => '_partials/tabbedContent/relatedTabs/view/person.html.twig'
+            ),
+            'related-projects' => array(
+                'id' => 'projects-tab',
+                'collapseElementId' => 'projectsContent',
+                'collapseElementDefaultState' => '',
+                'headingText' => 'Related Projects',
+                'headingIcon' => 'fa-suitcase',
+                'items' => null,
+                'template_path' => '_partials/tabbedContent/relatedTabs/view/projects.html.twig'
+            )
+        )
+    );
+
     /**
      * @param $id
      * @return mixed
@@ -43,42 +83,16 @@ class TeamsController extends Controller
         }
 
         if ($request->get('action') === 'view') {
+
+            $this->tabDefinition['name']=trim($team->getInternationalName());
+            $this->tabDefinition['id']=$team->getId();
+            $this->tabDefinition['tabs']['main']['items']=$team;
+            $this->tabDefinition['tabs']['related-people']['items']=$team->getTeamsMembers();
+            $this->tabDefinition['tabs']['related-projects']['items']=$team->getTeamsProjects();
+
             return $this->render(
-                '/default/tabbedContent.html.twig',
-                array(
-                    'type' => 'teams',
-                    'name_label' => 'Team',
-                    'name' => trim($team->getInternationalName()),
-                    'tabs' => array(
-                        'main' => array(
-                            'id' => 'teams-tab',
-                            'collapseElementId' => 'teamsContent',
-                            'collapseElementDefaultState' => 'in',
-                            'headingText' => 'Main',
-                            'headingIcon' => 'fa-cog',
-                            'items' => $team,
-                            'template_path' => '_partials/tabbedContent/mainTab/view/teams.html.twig'
-                        ),
-                        'related-people' => array(
-                            'id' => 'person-tab',
-                            'collapseElementId' => 'personContent',
-                            'collapseElementDefaultState' => '',
-                            'headingText' => 'Related People',
-                            'headingIcon' => 'fa-user',
-                            'items' => $team->getTeamsMembers(),
-                            'template_path' => '_partials/tabbedContent/relatedTabs/view/person.html.twig'
-                        ),
-                        'related-projects' => array(
-                            'id' => 'projects-tab',
-                            'collapseElementId' => 'projectsContent',
-                            'collapseElementDefaultState' => '',
-                            'headingText' => 'Related Projects',
-                            'headingIcon' => 'fa-suitcase',
-                            'items' => $team->getTeamsProjects(),
-                            'template_path' => '_partials/tabbedContent/relatedTabs/view/projects.html.twig'
-                        )
-                    )
-                )
+                'default/tabbedContent.html.twig',
+                $this->tabDefinition
             );
         }
 
