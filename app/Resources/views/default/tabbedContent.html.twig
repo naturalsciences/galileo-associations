@@ -5,9 +5,6 @@
             'parent_id': 'rbins-content-main'
         }
     %}
-{#
-    {% dump(tabs) %}
-#}
     <div class="row">
         <div class="page-header col-xs-12 tabbed-content-title">
             <h2 class="content-title">{{ name_label }}: {{  name }}</h2>
@@ -34,7 +31,7 @@
                          data-collapse-parent="#{{ tabbed_content_vars.parent_id }}"
                          role="tabpanel"
                          aria-labelledby="{{ tab.id }}-heading">
-                        {% include tab.template_path ignore missing with { 'items': tab.items } %}
+                        {% include tab.template_path ignore missing with { 'id': id, 'items': tab.items } %}
                     </div>
                 </div>
             </div>
