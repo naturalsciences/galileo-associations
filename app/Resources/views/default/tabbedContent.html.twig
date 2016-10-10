@@ -42,4 +42,7 @@
             {% endfor %}
         </ul>
     </div>
-{%  endblock content_main %}
+{% endblock content_main %}
+{% block javascript_content %}
+    {% include "_partials/javascripts/tabbed_content.js.twig" %}
+{% endblock %}
