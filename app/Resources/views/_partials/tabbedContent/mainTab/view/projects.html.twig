@@ -1,4 +1,82 @@
-<h3>Project</h3>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam suscipit ligula ut nibh blandit dictum. Ut at mollis ligula. In sit amet ipsum ac dolor placerat mattis. Curabitur euismod sagittis elit nec rutrum. Nam pharetra enim non semper dapibus. Pellentesque fermentum consectetur egestas. Vestibulum laoreet velit dapibus magna aliquet, vel ornare elit blandit. Nulla facilisi. Proin convallis velit mollis imperdiet aliquam. Proin lacinia venenatis ultricies. Aliquam eu metus vulputate, accumsan ligula at, tristique lectus. Aliquam et suscipit metus, egestas vestibulum dui. Vestibulum tempus, erat at ullamcorper hendrerit, nisl ipsum sagittis massa, ac finibus nisl elit in nisl. Nullam fringilla metus quis mattis pellentesque.</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam suscipit ligula ut nibh blandit dictum. Ut at mollis ligula. In sit amet ipsum ac dolor placerat mattis. Curabitur euismod sagittis elit nec rutrum. Nam pharetra enim non semper dapibus. Pellentesque fermentum consectetur egestas. Vestibulum laoreet velit dapibus magna aliquet, vel ornare elit blandit. Nulla facilisi. Proin convallis velit mollis imperdiet aliquam. Proin lacinia venenatis ultricies. Aliquam eu metus vulputate, accumsan ligula at, tristique lectus. Aliquam et suscipit metus, egestas vestibulum dui. Vestibulum tempus, erat at ullamcorper hendrerit, nisl ipsum sagittis massa, ac finibus nisl elit in nisl. Nullam fringilla metus quis mattis pellentesque.</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam suscipit ligula ut nibh blandit dictum. Ut at mollis ligula. In sit amet ipsum ac dolor placerat mattis. Curabitur euismod sagittis elit nec rutrum. Nam pharetra enim non semper dapibus. Pellentesque fermentum consectetur egestas. Vestibulum laoreet velit dapibus magna aliquet, vel ornare elit blandit. Nulla facilisi. Proin convallis velit mollis imperdiet aliquam. Proin lacinia venenatis ultricies. Aliquam eu metus vulputate, accumsan ligula at, tristique lectus. Aliquam et suscipit metus, egestas vestibulum dui. Vestibulum tempus, erat at ullamcorper hendrerit, nisl ipsum sagittis massa, ac finibus nisl elit in nisl. Nullam fringilla metus quis mattis pellentesque.</p>
+{% include '_partials/action_switch/toggle_view_edit_top.html.twig' %}
+
+<dl class="row rbins-main-tab-content">
+    <dt class="col-xs-4 col-md-3 col-lg-2" title="Language">
+        Language&nbsp;:
+    </dt>
+    <dd class="col-xs-8 col-md-9 col-lg-10">
+        {{ items.internationalNameLanguage }}
+    </dd>
+    {% if items.internationalDescription is not empty %}
+        <dt class="col-xs-4 col-md-3 col-lg-2" title="International description">
+            Description (Int.)&nbsp;:
+        </dt>
+        <dd class="col-xs-8 col-md-9 col-lg-10">
+            {{ items.internationalDescription }}
+        </dd>
+    {% endif %}
+    {% if items.nameEn is not empty %}
+        <dt class="col-xs-4 col-md-3 col-lg-2" title="Name in english">
+            Name (EN)&nbsp;:
+        </dt>
+        <dd class="col-xs-8 col-md-9 {% if items.descriptionEn is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
+            {{ items.nameEn }}
+        </dd>
+    {% endif %}
+    {% if items.descriptionEn is not empty %}
+        <dt class="col-xs-4 col-md-3 col-lg-2" title="Description in english">
+            Description (EN)&nbsp;:
+        </dt>
+        <dd class="col-xs-8 col-md-9 {% if items.nameEn is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
+            {{ items.descriptionEn }}
+        </dd>
+    {% endif %}
+    {% if items.nameNl is not empty %}
+        <dt class="col-xs-4 col-md-3 col-lg-2" title="Name in dutch">
+            Name (NL)&nbsp;:
+        </dt>
+        <dd class="col-xs-8 col-md-9 {% if items.descriptionNl is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
+            {{ items.nameNl }}
+        </dd>
+    {% endif %}
+    {% if items.descriptionNl is not empty %}
+        <dt class="col-xs-4 col-md-3 col-lg-2" title="Description in dutch">
+            Description (NL)&nbsp;:
+        </dt>
+        <dd class="col-xs-8 col-md-9 {% if items.nameNl is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
+            {{ items.descriptionNl }}
+        </dd>
+    {% endif %}
+    {% if items.nameFr is not empty %}
+        <dt class="col-xs-4 col-md-3 col-lg-2" title="Name in french">
+            Name (FR)&nbsp;:
+        </dt>
+        <dd class="col-xs-8 col-md-9 {% if items.descriptionFr is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
+            {{ items.nameFr }}
+        </dd>
+    {% endif %}
+    {% if items.descriptionFr is not empty %}
+        <dt class="col-xs-4 col-md-3 col-lg-2" title="Description in french">
+            Description (FR)&nbsp;:
+        </dt>
+        <dd class="col-xs-8 col-md-9 {% if items.nameFr is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
+            {{ items.descriptionFr }}
+        </dd>
+    {% endif %}
+    {% if items.startDate is not empty %}
+        <dt class="col-xs-4 col-md-3 col-lg-2" title="Project start date">
+            Start date&nbsp;:
+        </dt>
+        <dd class="col-xs-8 col-md-9 {% if items.endDate is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
+            {{ items.startDate|date('d/m/Y') }}
+        </dd>
+    {% endif %}
+    {% if items.endDate is not empty %}
+        <dt class="col-xs-4 col-md-3 col-lg-2" title="Project end date">
+            End date&nbsp;:
+        </dt>
+        <dd class="col-xs-8 col-md-9 {% if items.startDate is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
+            {{ items.endDate|date('d/m/Y') }}
+        </dd>
+    {% endif %}
+</dl>

@@ -103,3 +103,48 @@
     border:0;
   }
 }
+
+.toggle_view_edit_container {
+  background-color: $graylight2;
+  margin-top: -8px;
+  text-align: center;
+  width: 30%;
+  height: 1.8rem;
+  vertical-align: middle;
+
+  @include media-breakpoint-up(lg) {
+    width: 25%;
+  }
+
+  @include border-bottom-radius(5px);
+
+  a.toggle_view_edit_view_link {
+    display: none;
+  }
+
+  a {
+    display: inline-block;
+    margin-top: .2rem;
+    color: $darkgrey;
+
+    &:hover {
+      text-decoration: none;
+      color: $black;
+    }
+  }
+
+  span.toggle_view_edit_view_link_prefix,
+  span.toggle_view_edit_edit_link_prefix {
+    @include media-breakpoint-down(sm) {
+      display: none;
+    }
+  }
+}
+
+.rbins-main-tab-content {
+  padding-top: 1.8rem;
+
+  dt {
+    text-align: right;
+  }
+}
