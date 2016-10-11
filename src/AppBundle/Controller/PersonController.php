@@ -64,7 +64,7 @@ class PersonController extends Controller
      * @param $id
      * @return mixed
      */
-    private function getIsActive($id) {
+    private function isActive($id) {
         $personEntry = $this->getDoctrine()
             ->getRepository('AppBundle:PersonEntry')
             ->isActive($id);
@@ -94,7 +94,7 @@ class PersonController extends Controller
             if ( $person === null ) {
                 throw $this->createNotFoundException('The person does not exists.');
             }
-            $isActive = $this->getIsActive($person->getId());
+            $isActive = $this->isActive($person->getId());
         }
 
         if ( $request->get('action') === 'view' ) {
