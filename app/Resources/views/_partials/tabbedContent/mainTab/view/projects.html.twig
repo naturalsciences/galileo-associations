@@ -5,7 +5,7 @@
         Language&nbsp;:
     </dt>
     <dd class="col-xs-8 col-md-9 col-lg-10">
-        {{ item.internationalNameLanguage }}
+        {{ item.internationalNameLanguage|trans({}, 'content-db') }}
     </dd>
     {% if item.internationalDescription is not empty %}
         <dt class="col-xs-4 col-md-3 col-lg-2" title="International description">

@@ -1,0 +1,56 @@
+[main]
+host = https://www.transifex.com
+
+[galileo-extension.content-db]
+file_filter = app/Resources/translations/content-db.<lang>.xlf
+source_file = app/Resources/translations/content-db.en.xlf
+source_lang = en
+type = XLIFF
+
+[galileo-extension.content-edit]
+file_filter = app/Resources/translations/content-edit.<lang>.xlf
+source_file = app/Resources/translations/content-edit.en.xlf
+source_lang = en
+type = XLIFF
+
+[galileo-extension.content-view]
+file_filter = app/Resources/translations/content-view.<lang>.xlf
+source_file = app/Resources/translations/content-view.en.xlf
+source_lang = en
+type = XLIFF
+
+[galileo-extension.navigation]
+file_filter = app/Resources/translations/navigation.<lang>.xlf
+source_file = app/Resources/translations/navigation.en.xlf
+source_lang = en
+type = XLIFF
+
+[galileo-extension.messages]
+file_filter = app/Resources/translations/messages.<lang>.xlf
+source_file = app/Resources/translations/messages.en.xlf
+source_lang = en
+type = XLIFF
+
+[galileo-extension.search]
+file_filter = app/Resources/translations/search.<lang>.xlf
+source_file = app/Resources/translations/search.en.xlf
+source_lang = en
+type = XLIFF
+
+[galileo-extension.tabs]
+file_filter = app/Resources/translations/tabs.<lang>.xlf
+source_file = app/Resources/translations/tabs.en.xlf
+source_lang = en
+type = XLIFF
+
+[galileo-extension.flash]
+file_filter = app/Resources/translations/flash.<lang>.xlf
+source_file = app/Resources/translations/flash.en.xlf
+source_lang = en
+type = XLIFF
+
+[galileo-extension.validations]
+file_filter = app/Resources/translations/validations.<lang>.xlf
+source_file = app/Resources/translations/validations.en.xlf
+source_lang = en
+type = XLIFF
