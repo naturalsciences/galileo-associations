@@ -84,6 +84,7 @@ AppBundle\Entity\Projects:
         name: id
         referencedColumnName: project_ref
         nullable: false
+        onDelete: CASCADE
     TeamsProjects:
       targetEntity: AppBundle\Entity\TeamsProjects
       mappedBy: Projects
@@ -91,6 +92,7 @@ AppBundle\Entity\Projects:
         name: id
         referencedColumnName: project_ref
         nullable: false
+        onDelete: CASCADE
     DepartmentsProjects:
       targetEntity: AppBundle\Entity\DepartmentsProjects
       mappedBy: Projects
@@ -98,3 +100,4 @@ AppBundle\Entity\Projects:
         name: id
         referencedColumnName: project_ref
         nullable: false
+        onDelete: CASCADE

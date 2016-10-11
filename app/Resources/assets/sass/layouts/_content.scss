@@ -105,7 +105,8 @@
 }
 
 .toggle_view_edit_container {
-  background-color: $graylight2;
+  background-color: $darkgrey;
+  color: $white;
   margin-top: -8px;
   text-align: center;
   width: 30%;
@@ -125,11 +126,11 @@
   a {
     display: inline-block;
     margin-top: .2rem;
-    color: $darkgrey;
+    color: $white;
 
     &:hover {
       text-decoration: none;
-      color: $black;
+      color: $orange;
     }
   }
 

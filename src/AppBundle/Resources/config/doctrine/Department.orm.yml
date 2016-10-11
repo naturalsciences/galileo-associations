@@ -51,6 +51,7 @@ AppBundle\Entity\Department:
         name: id
         referencedColumnName: department_ref
         nullable: false
+        onDelete: CASCADE
     DepartmentsProjects:
       targetEntity: AppBundle\Entity\DepartmentsProjects
       mappedBy: Department
@@ -58,6 +59,7 @@ AppBundle\Entity\Department:
         name: id
         referencedColumnName: department_ref
         nullable: false
+        onDelete: CASCADE
     DepartmentsTeams:
       targetEntity: AppBundle\Entity\DepartmentsTeams
       mappedBy: Department
@@ -65,10 +67,15 @@ AppBundle\Entity\Department:
         name: id
         referencedColumnName: department_ref
         nullable: false
+        onDelete: CASCADE
     Children:
       targetEntity: Department
       mappedBy: Parent
-
+      joinColumn:
+        name: id
+        referencedColumnName: parent_ref
+        nullable: true
+        onDelete: CASCADE
   manyToOne:
     Parent:
       targetEntity: Department
@@ -76,4 +83,3 @@ AppBundle\Entity\Department:
       joinColumn:
         name: parent_ref
         referencedColumnName: id
-

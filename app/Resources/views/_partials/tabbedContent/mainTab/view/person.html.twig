@@ -1,22 +1,29 @@
+{#
+    For the moment disable the inclusion of the edit/view switch for person
+    because galileo and phonebook remain the central modification entries for person
+ #}
+
+{#
 {% include '_partials/action_switch/toggle_view_edit_top.html.twig' %}
+ #}
 
 <dl class="row rbins-main-tab-content">
     <dt class="col-xs-4 col-md-3 col-lg-2" title="First name">
         First name&nbsp;:
     </dt>
     <dd class="col-xs-8 col-md-9 col-lg-4">
-        {{ items.firstName }}
+        {{ item.firstName }}
     </dd>
     <dt class="col-xs-4 col-md-3 col-lg-2" title="Last name">
         Last name&nbsp;:
     </dt>
     <dd class="col-xs-8 col-md-9 col-lg-4">
-        {{ items.lastName }}
+        {{ item.lastName }}
     </dd>
     <dt class="col-xs-4 col-md-3 col-lg-2" title="E-mail">
         E-mail&nbsp;:
     </dt>
     <dd class="col-xs-8 col-md-9 col-lg-8">
-        {{ items.email }}
+        {{ item.email }}
     </dd>
 </dl>

@@ -17,6 +17,7 @@ class PersonController extends Controller
         'name_label' => 'Person',
         'name' => '',
         'id' => null,
+        'active' => true,
         'tabs' => array(
             'main' => array(
                 'id' => 'person-tab',
@@ -24,7 +25,7 @@ class PersonController extends Controller
                 'collapseElementDefaultState' => 'in',
                 'headingText' => 'Main',
                 'headingIcon' => 'fa-cog',
-                'items' => null,
+                'item' => null,
                 'template_path' => '_partials/tabbedContent/mainTab/view/person.html.twig'
             ),
             'related-teams' => array(
@@ -33,7 +34,7 @@ class PersonController extends Controller
                 'collapseElementDefaultState' => '',
                 'headingText' => 'Related Teams',
                 'headingIcon' => 'fa-users',
-                'items' => null,
+                'item' => null,
                 'template_path' => '_partials/tabbedContent/relatedTabs/view/teams.html.twig'
             ),
             'related-projects' => array(
@@ -42,7 +43,7 @@ class PersonController extends Controller
                 'collapseElementDefaultState' => '',
                 'headingText' => 'Related Projects',
                 'headingIcon' => 'fa-suitcase',
-                'items' => null,
+                'item' => null,
                 'template_path' => '_partials/tabbedContent/relatedTabs/view/projects.html.twig'
             )
         )
@@ -60,6 +61,17 @@ class PersonController extends Controller
     }
 
     /**
+     * @param $id
+     * @return mixed
+     */
+    private function getIsActive($id) {
+        $personEntry = $this->getDoctrine()
+            ->getRepository('AppBundle:PersonEntry')
+            ->isActive($id);
+        return $personEntry;
+    }
+
+    /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -73,6 +85,7 @@ class PersonController extends Controller
      */
     public function personAction(Request $request)
     {
+        $isActive = true;
         if ( $request->get('action') === 'add' ) {
             $person = new Person();
         }
@@ -81,16 +94,16 @@ class PersonController extends Controller
             if ( $person === null ) {
                 throw $this->createNotFoundException('The person does not exists.');
             }
+            $isActive = $this->getIsActive($person->getId());
         }
 
         if ( $request->get('action') === 'view' ) {
 
             $this->tabDefinition['name']=trim($person->getFirstName().' '.$person->getLastName());
             $this->tabDefinition['id']=$person->getId();
-            $this->tabDefinition['tabs']['main']['items']=$person;
-            $this->tabDefinition['tabs']['related-teams']['items']=$person->getTeamsMembers();
-            $this->tabDefinition['tabs']['related-projects']['items']=$person->getProjectsMembers();
-            
+            $this->tabDefinition['active']=$isActive;
+            $this->tabDefinition['tabs']['main']['item']=$person;
+
             return $this->render(
                 '/default/tabbedContent.html.twig',
                 $this->tabDefinition

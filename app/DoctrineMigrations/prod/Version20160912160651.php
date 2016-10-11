@@ -83,15 +83,15 @@ class Version20160912160651 extends AbstractMigration
         $this->addSql('COMMENT ON COLUMN departments_projects.end_date IS \'Project end date in the given department\'');
         $this->addSql('COMMENT ON COLUMN departments_projects.comment IS \'Comment\'');
         $this->addSql('ALTER TABLE teams_members ADD CONSTRAINT FK_ED6F9E4B9722F9B8 FOREIGN KEY (person_ref) REFERENCES person (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE teams_members ADD CONSTRAINT FK_ED6F9E4B4EFCB407 FOREIGN KEY (team_ref) REFERENCES teams (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE departments_teams ADD CONSTRAINT FK_FD62DC69791980 FOREIGN KEY (department_ref) REFERENCES department (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE departments_teams ADD CONSTRAINT FK_FD62DC4EFCB407 FOREIGN KEY (team_ref) REFERENCES teams (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE teams_projects ADD CONSTRAINT FK_90370B7D4EFCB407 FOREIGN KEY (team_ref) REFERENCES teams (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE teams_projects ADD CONSTRAINT FK_90370B7D8614E440 FOREIGN KEY (project_ref) REFERENCES projects (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE teams_members ADD CONSTRAINT FK_ED6F9E4B4EFCB407 FOREIGN KEY (team_ref) REFERENCES teams (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE departments_teams ADD CONSTRAINT FK_FD62DC69791980 FOREIGN KEY (department_ref) REFERENCES department (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE departments_teams ADD CONSTRAINT FK_FD62DC4EFCB407 FOREIGN KEY (team_ref) REFERENCES teams (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE teams_projects ADD CONSTRAINT FK_90370B7D4EFCB407 FOREIGN KEY (team_ref) REFERENCES teams (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE teams_projects ADD CONSTRAINT FK_90370B7D8614E440 FOREIGN KEY (project_ref) REFERENCES projects (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE projects_members ADD CONSTRAINT FK_6863C9EE9722F9B8 FOREIGN KEY (person_ref) REFERENCES person (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE projects_members ADD CONSTRAINT FK_6863C9EE8614E440 FOREIGN KEY (project_ref) REFERENCES projects (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE departments_projects ADD CONSTRAINT FK_FCB0625669791980 FOREIGN KEY (department_ref) REFERENCES department (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE departments_projects ADD CONSTRAINT FK_FCB062568614E440 FOREIGN KEY (project_ref) REFERENCES projects (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE projects_members ADD CONSTRAINT FK_6863C9EE8614E440 FOREIGN KEY (project_ref) REFERENCES projects (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE departments_projects ADD CONSTRAINT FK_FCB0625669791980 FOREIGN KEY (department_ref) REFERENCES department (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE departments_projects ADD CONSTRAINT FK_FCB062568614E440 FOREIGN KEY (project_ref) REFERENCES projects (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('
             create or replace function trigger_international_naming_cascade() returns trigger as
             $$

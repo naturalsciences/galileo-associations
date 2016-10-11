@@ -17,6 +17,7 @@ class TeamsController extends Controller
         'name_label' => 'Team',
         'name' => '',
         'id' => null,
+        'active' => true,
         'tabs' => array(
             'main' => array(
                 'id' => 'teams-tab',
@@ -24,7 +25,7 @@ class TeamsController extends Controller
                 'collapseElementDefaultState' => 'in',
                 'headingText' => 'Main',
                 'headingIcon' => 'fa-cog',
-                'items' => null,
+                'item' => null,
                 'template_path' => '_partials/tabbedContent/mainTab/view/teams.html.twig'
             ),
             'related-people' => array(
@@ -33,7 +34,7 @@ class TeamsController extends Controller
                 'collapseElementDefaultState' => '',
                 'headingText' => 'Related People',
                 'headingIcon' => 'fa-user',
-                'items' => null,
+                'item' => null,
                 'template_path' => '_partials/tabbedContent/relatedTabs/view/person.html.twig'
             ),
             'related-projects' => array(
@@ -42,7 +43,7 @@ class TeamsController extends Controller
                 'collapseElementDefaultState' => '',
                 'headingText' => 'Related Projects',
                 'headingIcon' => 'fa-suitcase',
-                'items' => null,
+                'item' => null,
                 'template_path' => '_partials/tabbedContent/relatedTabs/view/projects.html.twig'
             )
         )
@@ -73,6 +74,7 @@ class TeamsController extends Controller
      */
     public function teamsAction(Request $request)
     {
+        $isActive = true;
         if ($request->get('action') === 'add') {
             $team = new Teams();
         } else {
@@ -80,15 +82,18 @@ class TeamsController extends Controller
             if ($team === null) {
                 throw $this->createNotFoundException('The person does not exists.');
             }
+            $currentTimestamp = new \DateTime();
+            if ( $team->getEndDate() !== null && $team->getEndDate() < $currentTimestamp) {
+                $isActive = false;
+            }
         }
 
         if ($request->get('action') === 'view') {
 
             $this->tabDefinition['name']=trim($team->getInternationalName());
             $this->tabDefinition['id']=$team->getId();
-            $this->tabDefinition['tabs']['main']['items']=$team;
-            $this->tabDefinition['tabs']['related-people']['items']=$team->getTeamsMembers();
-            $this->tabDefinition['tabs']['related-projects']['items']=$team->getTeamsProjects();
+            $this->tabDefinition['active']=$isActive;
+            $this->tabDefinition['tabs']['main']['item']=$team;
 
             return $this->render(
                 'default/tabbedContent.html.twig',

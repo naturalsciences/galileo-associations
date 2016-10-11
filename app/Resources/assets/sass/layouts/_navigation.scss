@@ -442,6 +442,11 @@ button.navbar-toggle {
   }
 }
 
+.rbins-search-content .search-results a.inactive {
+  text-decoration: line-through;
+  color: $gray;
+}
+
 .wobble-fix {
   -webkit-filter: blur(0);
   -moz-filter: blur(0);

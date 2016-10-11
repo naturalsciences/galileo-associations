@@ -5,78 +5,78 @@
         Language&nbsp;:
     </dt>
     <dd class="col-xs-8 col-md-9 col-lg-10">
-        {{ items.internationalNameLanguage }}
+        {{ item.internationalNameLanguage }}
     </dd>
-    {% if items.internationalDescription is not empty %}
+    {% if item.internationalDescription is not empty %}
         <dt class="col-xs-4 col-md-3 col-lg-2" title="International description">
             Description (Int.)&nbsp;:
         </dt>
         <dd class="col-xs-8 col-md-9 col-lg-10">
-            {{ items.internationalDescription }}
+            {{ item.internationalDescription }}
         </dd>
     {% endif %}
-    {% if items.nameEn is not empty %}
+    {% if item.nameEn is not empty %}
         <dt class="col-xs-4 col-md-3 col-lg-2" title="Name in english">
             Name (EN)&nbsp;:
         </dt>
-        <dd class="col-xs-8 col-md-9 {% if items.descriptionEn is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
-            {{ items.nameEn }}
+        <dd class="col-xs-8 col-md-9 {% if item.descriptionEn is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
+            {{ item.nameEn }}
         </dd>
     {% endif %}
-    {% if items.descriptionEn is not empty %}
+    {% if item.descriptionEn is not empty %}
         <dt class="col-xs-4 col-md-3 col-lg-2" title="Description in english">
             Description (EN)&nbsp;:
         </dt>
-        <dd class="col-xs-8 col-md-9 {% if items.nameEn is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
-            {{ items.descriptionEn }}
+        <dd class="col-xs-8 col-md-9 {% if item.nameEn is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
+            {{ item.descriptionEn }}
         </dd>
     {% endif %}
-    {% if items.nameNl is not empty %}
+    {% if item.nameNl is not empty %}
         <dt class="col-xs-4 col-md-3 col-lg-2" title="Name in dutch">
             Name (NL)&nbsp;:
         </dt>
-        <dd class="col-xs-8 col-md-9 {% if items.descriptionNl is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
-            {{ items.nameNl }}
+        <dd class="col-xs-8 col-md-9 {% if item.descriptionNl is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
+            {{ item.nameNl }}
         </dd>
     {% endif %}
-    {% if items.descriptionNl is not empty %}
+    {% if item.descriptionNl is not empty %}
         <dt class="col-xs-4 col-md-3 col-lg-2" title="Description in dutch">
             Description (NL)&nbsp;:
         </dt>
-        <dd class="col-xs-8 col-md-9 {% if items.nameNl is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
-            {{ items.descriptionNl }}
+        <dd class="col-xs-8 col-md-9 {% if item.nameNl is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
+            {{ item.descriptionNl }}
         </dd>
     {% endif %}
-    {% if items.nameFr is not empty %}
+    {% if item.nameFr is not empty %}
         <dt class="col-xs-4 col-md-3 col-lg-2" title="Name in french">
             Name (FR)&nbsp;:
         </dt>
-        <dd class="col-xs-8 col-md-9 {% if items.descriptionFr is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
-            {{ items.nameFr }}
+        <dd class="col-xs-8 col-md-9 {% if item.descriptionFr is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
+            {{ item.nameFr }}
         </dd>
     {% endif %}
-    {% if items.descriptionFr is not empty %}
+    {% if item.descriptionFr is not empty %}
         <dt class="col-xs-4 col-md-3 col-lg-2" title="Description in french">
             Description (FR)&nbsp;:
         </dt>
-        <dd class="col-xs-8 col-md-9 {% if items.nameFr is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
-            {{ items.descriptionFr }}
+        <dd class="col-xs-8 col-md-9 {% if item.nameFr is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
+            {{ item.descriptionFr }}
         </dd>
     {% endif %}
-    {% if items.startDate is not empty %}
+    {% if item.startDate is not empty %}
         <dt class="col-xs-4 col-md-3 col-lg-2" title="Team start date">
             Start date&nbsp;:
         </dt>
-        <dd class="col-xs-8 col-md-9 {% if items.endDate is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
-            {{ items.startDate|date('d/m/Y') }}
+        <dd class="col-xs-8 col-md-9 {% if item.endDate is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
+            {{ item.startDate|date('d/m/Y') }}
         </dd>
     {% endif %}
-    {% if items.endDate is not empty %}
+    {% if item.endDate is not empty %}
         <dt class="col-xs-4 col-md-3 col-lg-2" title="Team end date">
             End date&nbsp;:
         </dt>
-        <dd class="col-xs-8 col-md-9 {% if items.startDate is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
-            {{ items.endDate|date('d/m/Y') }}
+        <dd class="col-xs-8 col-md-9 {% if item.startDate is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
+            {{ item.endDate|date('d/m/Y') }}
         </dd>
     {% endif %}
 </dl>

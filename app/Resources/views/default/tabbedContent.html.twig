@@ -7,7 +7,7 @@
     %}
     <div class="row">
         <div class="page-header col-xs-12 tabbed-content-title">
-            <h2 class="content-title">{{ name_label }}: {{  name }}</h2>
+            <h2 class="content-title {{ active?'active' }}">{{ name_label }}: {{  name }} <i class="fa {{ active?'fa-toggle-on':'fa-toggle-off' }}" data-toggle="tooltip" data-placement="right" title="{{ active?(name_label~' active'):(name_label~' non active') }}"></i></h2>
         </div>
         {%  for key,tab in tabs %}
             <div id="rbins-tab-{{ loop.index }}" class="col-xs-12 col-md-11 col-xl-10 rbins-tab">
@@ -31,7 +31,7 @@
                          data-collapse-parent="#{{ tabbed_content_vars.parent_id }}"
                          role="tabpanel"
                          aria-labelledby="{{ tab.id }}-heading">
-                        {% include tab.template_path ignore missing with { 'id': id, 'items': tab.items } %}
+                        {% include tab.template_path ignore missing with { 'id': id, 'item': tab.item } %}
                     </div>
                 </div>
             </div>

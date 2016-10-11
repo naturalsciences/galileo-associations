@@ -17,6 +17,7 @@ class ProjectsController extends Controller
         'name_label' => 'Project',
         'name' => '',
         'id' => null,
+        'active' => true,
         'tabs' => array(
             'main' => array(
                 'id' => 'projects-tab',
@@ -24,7 +25,7 @@ class ProjectsController extends Controller
                 'collapseElementDefaultState' => 'in',
                 'headingText' => 'Main',
                 'headingIcon' => 'fa-cog',
-                'items' => null,
+                'item' => null,
                 'template_path' => '_partials/tabbedContent/mainTab/view/projects.html.twig'
             ),
             'related-people' => array(
@@ -33,7 +34,7 @@ class ProjectsController extends Controller
                 'collapseElementDefaultState' => '',
                 'headingText' => 'Related People',
                 'headingIcon' => 'fa-user',
-                'items' => null,
+                'item' => null,
                 'template_path' => '_partials/tabbedContent/relatedTabs/view/person.html.twig'
             ),
             'related-teams' => array(
@@ -42,7 +43,7 @@ class ProjectsController extends Controller
                 'collapseElementDefaultState' => '',
                 'headingText' => 'Related Teams',
                 'headingIcon' => 'fa-users',
-                'items' => null,
+                'item' => null,
                 'template_path' => '_partials/tabbedContent/relatedTabs/view/teams.html.twig'
             )
         )
@@ -73,6 +74,7 @@ class ProjectsController extends Controller
      */
     public function projectsAction(Request $request)
     {
+        $isActive = true;
         if ( $request->get('action') === 'add' ) {
             $project = new Projects();
         }
@@ -81,15 +83,18 @@ class ProjectsController extends Controller
             if ( $project === null ) {
                 throw $this->createNotFoundException('The person does not exists.');
             }
+            $currentTimestamp = new \DateTime();
+            if ( $project->getEndDate() !== null && $project->getEndDate() < $currentTimestamp) {
+                $isActive = false;
+            }
         }
 
         if ( $request->get('action') === 'view' ) {
 
             $this->tabDefinition['name']=trim($project->getInternationalName());
             $this->tabDefinition['id']=$project->getId();
-            $this->tabDefinition['tabs']['main']['items']=$project;
-            $this->tabDefinition['tabs']['related-people']['items']=$project->getProjectsMembers();
-            $this->tabDefinition['tabs']['related-teams']['items']=$project->getTeamsProjects();
+            $this->tabDefinition['active']=$isActive;
+            $this->tabDefinition['tabs']['main']['item']=$project;
 
             return $this->render(
                 '/default/tabbedContent.html.twig',
