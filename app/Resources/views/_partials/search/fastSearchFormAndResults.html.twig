@@ -1,17 +1,17 @@
 <form>
     {% if search_vars.search_type != 'person' %}
         <p>
-            <a class="add_item" href="{{ path( search_vars.search_type ) }}"><i class="fa fa-plus-circle" aria-hidden="true"></i>{{ 'Add ' ~ (search_vars.search_type | capitalize) }}</a>
+            <a class="add_item" href="{{ path( search_vars.search_type ) }}"><i class="fa fa-plus-circle" aria-hidden="true"></i>{{ ('Add ' ~ (search_vars.search_type | capitalize)) }}</a>
         </p>
     {% endif %}
     <div class="form-group">
         <input id="{{ search_vars.search_control_id }}"
                class="form-control input-medium search-query rbins-search-input"
-               data-original-title="Search"
+               data-original-title="{% trans from "messages" %}app.message.search{% endtrans %}"
                data-content="{{ search_vars.search_popover_help_text_en }}"
                rel="popover"
                type="text"
-               placeholder="Search"
+               placeholder="{% trans from "messages" %}app.message.search{% endtrans %}"
                autocomplete="off">
         <div class="load-spinner"><i class="fa wobble-fix fa-circle-o-notch fa-spin fa-1x"></i></div>
     </div>

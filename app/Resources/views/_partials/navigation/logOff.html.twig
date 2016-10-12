@@ -1,5 +1,5 @@
 <div class="{% if action_vars.position_class is defined %}{{ action_vars.position_class }}{% endif %} row flex-items-xs-middle {% if action_vars.responsive_hidden_class is defined %}{{ action_vars.responsive_hidden_class }}{% endif %} rbins-lg-actions-logout">
-    <a class="nav-link" href="#" title="Log out">
+    <a class="nav-link" href="#" title="{% trans from "messages" %}app.meta.title.nav.menu.logout{% endtrans %}">
         {% block log_out_icon %}<i class="fa fa-sign-out {% if action_vars.solarize is defined %}{% if action_vars.solarize == true %}fa-inverse{% endif %}{% endif %} {% if action_vars.icon_increase is defined %}{{ action_vars.icon_increase }}{% endif %}" aria-hidden="true"></i>{% endblock log_out_icon %}
         {% block log_out_text %}{% endblock log_out_text %}
     </a>

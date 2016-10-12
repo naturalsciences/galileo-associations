@@ -1,0 +1,71 @@
+<?xml version="1.0" ?><xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file datatype="plaintext" original="global" source-language="en" target-language="nl">
+        <body>
+            <group id="app-meta">
+                <group id="app-meta-title">
+                    <trans-unit id="app-meta-title-greeting" resname="app.meta.title.greeting">
+                        <source xml:lang="en">Welcome !</source>
+                        <target xml:lang="nl">Welkom !</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-product" resname="app.meta.title.product">
+                        <source xml:lang="en">Galileo Extension</source>
+                        <target xml:lang="nl">Galileo Extensie</target>
+                        
+                    </trans-unit>
+                </group>
+                <group id="app-meta-description">
+                    <group id="app-meta-description-home">
+                    </group>
+                    <group id="app-meta-description-fastsearch">
+                    </group>
+                </group>
+            </group>
+            <group id="app-title">
+                <group id="app-title-home">
+                    <trans-unit id="app-title-home" resname="app.title.home.welcome">
+                        <source xml:lang="en">Welcome to Galileo extension</source>
+                        <target xml:lang="nl">Welkom op Galileo extensie</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-title-home-project" resname="app.title.home.project">
+                        <source xml:lang="en">Add a Project</source>
+                        <target xml:lang="nl">Voeg een Project toe</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-title-home-team" resname="app.title.home.team">
+                        <source xml:lang="en">Add a Team</source>
+                        <target xml:lang="nl">Voeg een Team toe</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-title-home-adsync" resname="app.title.home.adsync">
+                        <source xml:lang="en">AD Synchronization</source>
+                        <target xml:lang="nl">AD Synchronisatie</target>
+                        
+                    </trans-unit>
+                </group>
+                <group id="app-title-fastsearch">
+                    <trans-unit id="app-title-fastsearch-people" resname="app.title.fastsearch.people">
+                        <source xml:lang="en">Search People</source>
+                        <target xml:lang="nl">Zoek Mensen</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-title-fastsearch-projects" resname="app.title.fastsearch.projects">
+                        <source xml:lang="en">Search Projects</source>
+                        <target xml:lang="nl">Zoek Projecten</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-title-fastsearch-teams" resname="app.title.fastsearch.teams">
+                        <source xml:lang="en">Search Teams</source>
+                        <target xml:lang="nl">Zoek Teams</target>
+                        
+                    </trans-unit>
+                </group>
+            </group>
+            <group id="app-nav">
+                <group id="app-nav-menu">
+                </group>
+            </group>
+        </body>
+    </file>
+</xliff>

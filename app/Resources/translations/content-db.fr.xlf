@@ -1,18 +1,20 @@
-<?xml version="1.0"?>
-<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-    <file source-language="en" target-language="fr" datatype="plaintext" original="global">
+<?xml version="1.0" ?><xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file datatype="plaintext" original="global" source-language="en" target-language="fr">
         <body>
             <trans-unit id="language_abbrev_english" resname="en">
                 <source xml:lang="en">en</source>
-                <target xml:lang="en">Anglais</target>
+                <target xml:lang="fr">Anglais</target>
+                
             </trans-unit>
             <trans-unit id="language_abbrev_dutch" resname="nl">
                 <source xml:lang="en">nl</source>
-                <target xml:lang="en">Néerlandais</target>
+                <target xml:lang="fr">Néeralndais</target>
+                
             </trans-unit>
             <trans-unit id="language_abbrev_french" resname="fr">
                 <source xml:lang="en">fr</source>
-                <target xml:lang="en">Français</target>
+                <target xml:lang="fr">Français</target>
+                
             </trans-unit>
         </body>
     </file>

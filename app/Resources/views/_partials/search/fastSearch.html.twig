@@ -10,7 +10,7 @@
                         data-target="#{{ search_vars.collapsable_element_id }}"
                         aria-controls="{{ search_vars.collapsable_element_id }}"
                         aria-expanded="true">
-                    {% if search_vars.heading_text is defined %}{{ search_vars.heading_text }}{% else %}Search{% endif %}
+                    {% if search_vars.heading_text is defined %}{{ search_vars.heading_text }}{% else %}{% trans from "messages" %}app.message.search{% endtrans %}{% endif %}
                 </button>
             </h4>
         </div>

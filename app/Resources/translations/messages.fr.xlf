@@ -1,0 +1,160 @@
+<?xml version="1.0" ?><xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file datatype="plaintext" original="global" source-language="en" target-language="fr">
+        <body>
+            <group id="app-meta">
+                <group id="app-meta-title">
+                    <trans-unit id="app-meta-title-greeting" resname="app.meta.title.greeting">
+                        <source xml:lang="en">Welcome !</source>
+                        <target xml:lang="fr">Bienvenue !</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-product" resname="app.meta.title.product">
+                        <source xml:lang="en">Galileo Extension</source>
+                        <target xml:lang="fr">Galileo Extension</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-home-logo" resname="app.meta.title.home.logo">
+                        <source xml:lang="en">Go to Homepage</source>
+                        <target xml:lang="fr">Retour à la page d'accueil</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-nav-menu-logout" resname="app.meta.title.nav.menu.logout">
+                        <source xml:lang="en">Log out</source>
+                        <target xml:lang="fr">Déconnexion</target>
+                        
+                    </trans-unit>
+                </group>
+                <group id="app-meta-description">
+                    <group id="app-meta-description-home">
+                        <trans-unit id="app-meta-description-home-project" resname="app.meta.description.home.project">
+                            <source xml:lang="en">Use this quick action to add project</source>
+                            <target xml:lang="fr">Utilisez cette action pour ajouter rapidement un projet</target>
+                            
+                        </trans-unit>
+                        <trans-unit id="app-meta-description-home-team" resname="app.meta.description.home.team">
+                            <source xml:lang="en">Use this quick action to add team</source>
+                            <target xml:lang="fr">Utilisez cette action pour ajouter rapidement une équipe</target>
+                            
+                        </trans-unit>
+                        <trans-unit id="app-meta-description-home-adsync" resname="app.meta.description.home.adsync">
+                            <source xml:lang="en">Use this quick action to synchronize users with Active Directory (AD)</source>
+                            <target xml:lang="fr">Utilisez cette action pour accéder rapidement à l'écran de synchronisation avec l'Active Directory (AD)</target>
+                            
+                        </trans-unit>
+                    </group>
+                    <group id="app-meta-description-fastsearch">
+                        <trans-unit id="app-meta-description-fastsearch-people" resname="app.meta.description.fastsearch.people">
+                            <source xml:lang="en">Type here the start of fist name or last name</source>
+                            <target xml:lang="fr">Tapez ici le début du nom ou du prénom recherché</target>
+                            
+                        </trans-unit>
+                        <trans-unit id="app-meta-description-fastsearch-projects" resname="app.meta.description.fastsearch.projects">
+                            <source xml:lang="en">Type here the start of project name</source>
+                            <target xml:lang="fr">Tapez ici le début du nom du projet</target>
+                            
+                        </trans-unit>
+                        <trans-unit id="app-meta-description-fastsearch-teams" resname="app.meta.description.fastsearch.teams">
+                            <source xml:lang="en">Type here the start of team name</source>
+                            <target xml:lang="fr">Tapez ici le début du nom de l'équipe</target>
+                            
+                        </trans-unit>
+                    </group>
+                    <group id="app-meta-description-menu">
+                        <trans-unit id="app-meta-description-menu-adsync" resname="app.meta.description.menu.adsync">
+                            <source xml:lang="en">Synchronize user with active directory</source>
+                            <target xml:lang="fr">Synchroniser les utilisateurs avec l'active directory</target>
+                            
+                        </trans-unit>
+                    </group>
+                </group>
+            </group>
+            <group id="app-title">
+                <group id="app-title-home">
+                    <trans-unit id="app-title-home" resname="app.title.home.welcome">
+                        <source xml:lang="en">Welcome to Galileo extension</source>
+                        <target xml:lang="fr">Tapez ici le début du nom de l'équipe recherchée</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-title-home-project" resname="app.title.home.project">
+                        <source xml:lang="en">Add a Project</source>
+                        <target xml:lang="fr">Ajouter un Projet</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-title-home-team" resname="app.title.home.team">
+                        <source xml:lang="en">Add a Team</source>
+                        <target xml:lang="fr">Ajouter une équipe</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-title-home-adsync" resname="app.title.home.adsync">
+                        <source xml:lang="en">AD Synchronization</source>
+                        <target xml:lang="fr">Synchronisation AD</target>
+                        
+                    </trans-unit>
+                </group>
+                <group id="app-title-fastsearch">
+                    <trans-unit id="app-title-fastsearch-people" resname="app.title.fastsearch.people">
+                        <source xml:lang="en">Search People</source>
+                        <target xml:lang="fr">Recherche de Personnes</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-title-fastsearch-projects" resname="app.title.fastsearch.projects">
+                        <source xml:lang="en">Search Projects</source>
+                        <target xml:lang="fr">Recherche de Projets</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-title-fastsearch-teams" resname="app.title.fastsearch.teams">
+                        <source xml:lang="en">Search Teams</source>
+                        <target xml:lang="fr">Recherche d'Équipe</target>
+                        
+                    </trans-unit>
+                </group>
+            </group>
+            <group id="app-nav">
+                <group id="app-nav-menu">
+                    <trans-unit id="app-nav-menu-teams" resname="app.nav.menu.teams">
+                        <source xml:lang="en">Teams</source>
+                        <target xml:lang="fr">Équipes</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-nav-menu-teams-add" resname="app.nav.menu.teams.add">
+                        <source xml:lang="en">Add a team</source>
+                        <target xml:lang="fr">Ajouter une équipe</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-nav-menu-teams-list" resname="app.nav.menu.teams.list">
+                        <source xml:lang="en">List all teams</source>
+                        <target xml:lang="fr">Liste des équipes</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-nav-menu-projects" resname="app.nav.menu.projects">
+                        <source xml:lang="en">Projects</source>
+                        <target xml:lang="fr">Projets</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-nav-menu-projects-add" resname="app.nav.menu.projects.add">
+                        <source xml:lang="en">Add a project</source>
+                        <target xml:lang="fr">Ajouter un projet</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-nav-menu-projects-list" resname="app.nav.menu.projects.list">
+                        <source xml:lang="en">List all projects</source>
+                        <target xml:lang="fr">Liste des projets</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-nav-menu-adsync" resname="app.nav.menu.adsync">
+                        <source xml:lang="en">AD Synchronization</source>
+                        <target xml:lang="fr">Synchronisation AD</target>
+                        
+                    </trans-unit>
+                </group>
+            </group>
+            <group id="app-message">
+                <trans-unit id="app-message-search" resname="app.message.search">
+                    <source xml:lang="en">Search</source>
+                    <target xml:lang="fr">Rechercher</target>
+                    
+                </trans-unit>
+            </group>
+        </body>
+    </file>
+</xliff>

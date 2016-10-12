@@ -3,8 +3,8 @@
 {%
     set add_vars = {
         'add_type': 'projects',
-        'add_text': 'Add a Project',
-        'add_main_text': 'Use this quick action to add project',
+        'add_text': ('app.title.home.project'|trans({}, 'messages')),
+        'add_main_text': ('app.meta.description.home.project'|trans({}, 'messages')),
         'add_icon': 'fa-briefcase'
     }
 %}
@@ -17,7 +17,7 @@
                 {% block content_main %}
                     <div class="row rbins-cards">
                         <div class="page-header col-xs-12">
-                            <h2>Welcome to Galileo extension</h2>
+                            <h2>{% trans from 'messages' %}app.title.home.welcome{% endtrans %}</h2>
                         </div>
                         <div class="col-sm-6 col-lg-4">
                             {% block add_card_projects %}
@@ -29,8 +29,8 @@
                             set add_vars = add_vars|merge(
                                     {
                                         'add_type': 'teams',
-                                        'add_text': 'Add a Team',
-                                        'add_main_text': 'Use this quick action to add team',
+                                        'add_text': ('app.title.home.team'|trans({}, 'messages')),
+                                        'add_main_text': ('app.meta.description.home.team'|trans({}, 'messages')),
                                         'add_icon': 'fa-users'
                                     }
                                 )
@@ -45,8 +45,8 @@
                             set add_vars = add_vars|merge(
                                 {
                                     'add_type': '',
-                                    'add_text': 'AD Synchronization',
-                                    'add_main_text': 'Use this quick action to synchronize users with Active Directory (AD)',
+                                    'add_text': ('app.title.home.adsync'|trans({}, 'messages')),
+                                    'add_main_text': ('app.meta.description.home.adsync'|trans({}, 'messages')),
                                     'add_icon': 'fa-refresh'
                                 }
                             )
