@@ -1,0 +1,7 @@
+{% if related_people|length == 0 %}
+    {% trans from "messages" %}app.message.noRelatedPeople{% endtrans %}
+{% else %}
+    {% for person in related_people %}
+        <p>test</p>
+    {% endfor %}
+{% endif %}

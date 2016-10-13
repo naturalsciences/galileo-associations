@@ -41,7 +41,7 @@ person:
         id: \d+
     options:
         expose: true
-    methods: [GET,POST]
+    methods: [GET]
 
 teams_list:
     path: /{_locale}/teams/list

@@ -1,4 +1,15 @@
-<h3>People</h3>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam suscipit ligula ut nibh blandit dictum. Ut at mollis ligula. In sit amet ipsum ac dolor placerat mattis. Curabitur euismod sagittis elit nec rutrum. Nam pharetra enim non semper dapibus. Pellentesque fermentum consectetur egestas. Vestibulum laoreet velit dapibus magna aliquet, vel ornare elit blandit. Nulla facilisi. Proin convallis velit mollis imperdiet aliquam. Proin lacinia venenatis ultricies. Aliquam eu metus vulputate, accumsan ligula at, tristique lectus. Aliquam et suscipit metus, egestas vestibulum dui. Vestibulum tempus, erat at ullamcorper hendrerit, nisl ipsum sagittis massa, ac finibus nisl elit in nisl. Nullam fringilla metus quis mattis pellentesque.</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam suscipit ligula ut nibh blandit dictum. Ut at mollis ligula. In sit amet ipsum ac dolor placerat mattis. Curabitur euismod sagittis elit nec rutrum. Nam pharetra enim non semper dapibus. Pellentesque fermentum consectetur egestas. Vestibulum laoreet velit dapibus magna aliquet, vel ornare elit blandit. Nulla facilisi. Proin convallis velit mollis imperdiet aliquam. Proin lacinia venenatis ultricies. Aliquam eu metus vulputate, accumsan ligula at, tristique lectus. Aliquam et suscipit metus, egestas vestibulum dui. Vestibulum tempus, erat at ullamcorper hendrerit, nisl ipsum sagittis massa, ac finibus nisl elit in nisl. Nullam fringilla metus quis mattis pellentesque.</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam suscipit ligula ut nibh blandit dictum. Ut at mollis ligula. In sit amet ipsum ac dolor placerat mattis. Curabitur euismod sagittis elit nec rutrum. Nam pharetra enim non semper dapibus. Pellentesque fermentum consectetur egestas. Vestibulum laoreet velit dapibus magna aliquet, vel ornare elit blandit. Nulla facilisi. Proin convallis velit mollis imperdiet aliquam. Proin lacinia venenatis ultricies. Aliquam eu metus vulputate, accumsan ligula at, tristique lectus. Aliquam et suscipit metus, egestas vestibulum dui. Vestibulum tempus, erat at ullamcorper hendrerit, nisl ipsum sagittis massa, ac finibus nisl elit in nisl. Nullam fringilla metus quis mattis pellentesque.</p>
+<div class="row">
+    <div class="hidden-xs-down col-sm-12 col-lg-4">Left</div>
+    <div class="col-xs-12 col-lg-8">
+        {{ render(
+                controller(
+                    'AppBundle:Person:renderRelatedPeople',
+                    {
+                        'type': type,
+                        'id': id
+                    }
+                )
+            )
+        }}
+    </div>
+</div>

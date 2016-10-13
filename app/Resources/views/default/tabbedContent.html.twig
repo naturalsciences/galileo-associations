@@ -47,7 +47,7 @@
                          data-collapse-parent="#{{ tabbed_content_vars.parent_id }}"
                          role="tabpanel"
                          aria-labelledby="{{ tab.id }}-heading">
-                        {% include tab.template_path ignore missing with { 'id': id, 'item': tab.item } %}
+                        {% include tab.template_path ignore missing with { 'id': id, 'type': type, 'item': tab.item } %}
                     </div>
                 </div>
             </div>

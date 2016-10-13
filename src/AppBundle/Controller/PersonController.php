@@ -129,33 +129,38 @@ class PersonController extends Controller
     {
         return $this->render('');
     }
+
     /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function personAction(Request $request)
     {
-        $isActive = true;
-        if ( $request->get('action') === 'add' ) {
-            $person = new Person();
+        $this->translateTabDefinition();
+        $person = $this->findPerson( $request->get('id') );
+
+        if ( $person === null ) {
+            throw $this->createNotFoundException('The person does not exists.');
         }
-        else {
-            $person = $this->findPerson( $request->get('id') );
-            if ( $person === null ) {
-                throw $this->createNotFoundException('The person does not exists.');
-            }
-            $isActive = $this->isActive($person->getId());
+        $isActive = $this->isActive($person->getId());
+
+        $this->fillInTabDefinition($person, $isActive);
+        return $this->render(
+            'default/tabbedContent.html.twig',
+            $this->tabDefinition
+        );
+    }
+
+    public function renderRelatedPeopleAction($type, $id){
+        if ( $type !== 'teams' && $type !== 'projects') {
+            throw $this->createNotFoundException('There is no related people to the type you ask: '.$type);
         }
 
-        if ( $request->get('action') === 'view' ) {
-            $this->fillInTabDefinition($person, $isActive);
-            $this->translateTabDefinition();
-            return $this->render(
-                '/default/tabbedContent.html.twig',
-                $this->tabDefinition
-            );
-        }
+        $related_people = array();
 
-        return $this->render('');
+        return $this->render(
+            '_partials/tabbedContent/relatedTabs/view/personContent.html.twig',
+            array('related_people' =>$related_people,)
+        );
     }
 }

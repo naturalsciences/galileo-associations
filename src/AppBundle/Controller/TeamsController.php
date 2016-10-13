@@ -14,7 +14,7 @@ class TeamsController extends Controller
      */
     private $tabDefinition = array(
         'type' => 'teams',
-        'name_label' => 'app.meta.title.tab.project',
+        'name_label' => 'app.meta.title.tab.team',
         'name' => '',
         'id' => null,
         'active' => true,
@@ -125,6 +125,7 @@ class TeamsController extends Controller
     public function teamsAction(Request $request)
     {
         $isActive = true;
+        $this->translateTabDefinition();
         if ($request->get('action') === 'add') {
             $team = new Teams();
         } else {
@@ -140,7 +141,6 @@ class TeamsController extends Controller
 
         if ($request->get('action') === 'view') {
             $this->fillInTabDefinition($team, $isActive);
-            $this->translateTabDefinition();
             return $this->render(
                 'default/tabbedContent.html.twig',
                 $this->tabDefinition

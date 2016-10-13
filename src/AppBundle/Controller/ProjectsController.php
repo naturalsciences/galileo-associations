@@ -125,6 +125,7 @@ class ProjectsController extends Controller
     public function projectsAction(Request $request)
     {
         $isActive = true;
+        $this->translateTabDefinition();
         if ( $request->get('action') === 'add' ) {
             $project = new Projects();
         }
@@ -141,7 +142,6 @@ class ProjectsController extends Controller
 
         if ( $request->get('action') === 'view' ) {
             $this->fillInTabDefinition($project, $isActive);
-            $this->translateTabDefinition();
             return $this->render(
                 'default/tabbedContent.html.twig',
                 $this->tabDefinition
