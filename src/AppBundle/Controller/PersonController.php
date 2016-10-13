@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Person;
+use AppBundle\Entity\Person as Person;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -14,7 +14,7 @@ class PersonController extends Controller
      */
     private $tabDefinition = array(
         'type' => 'person',
-        'name_label' => 'Person',
+        'name_label' => 'app.meta.title.tab.person',
         'name' => '',
         'id' => null,
         'active' => true,
@@ -23,7 +23,7 @@ class PersonController extends Controller
                 'id' => 'person-tab',
                 'collapseElementId' => 'personContent',
                 'collapseElementDefaultState' => 'in',
-                'headingText' => 'Main',
+                'headingText' => 'app.action.tab.main',
                 'headingIcon' => 'fa-cog',
                 'item' => null,
                 'template_path' => '_partials/tabbedContent/mainTab/view/person.html.twig'
@@ -32,7 +32,7 @@ class PersonController extends Controller
                 'id' => 'teams-tab',
                 'collapseElementId' => 'teamsContent',
                 'collapseElementDefaultState' => '',
-                'headingText' => 'Related Teams',
+                'headingText' => 'app.action.tab.relatedTeams',
                 'headingIcon' => 'fa-users',
                 'item' => null,
                 'template_path' => '_partials/tabbedContent/relatedTabs/view/teams.html.twig'
@@ -41,7 +41,7 @@ class PersonController extends Controller
                 'id' => 'projects-tab',
                 'collapseElementId' => 'projectsContent',
                 'collapseElementDefaultState' => '',
-                'headingText' => 'Related Projects',
+                'headingText' => 'app.action.tab.relatedProjects',
                 'headingIcon' => 'fa-suitcase',
                 'item' => null,
                 'template_path' => '_partials/tabbedContent/relatedTabs/view/projects.html.twig'
@@ -50,8 +50,58 @@ class PersonController extends Controller
     );
 
     /**
-     * @param $id
-     * @return mixed
+     * @return array Return the tab definition array with the necessary parts translated
+     */
+    private function translateTabDefinition() {
+
+        $this->tabDefinition['name_label'] = $this
+            ->get('translator')
+            ->trans(
+                $this->tabDefinition['name_label'],
+                array(),
+                "messages"
+            );
+        $this->tabDefinition['tabs']['main']['headingText'] = $this
+            ->get('translator')
+            ->trans(
+                $this->tabDefinition['tabs']['main']['headingText'],
+                array(),
+                "messages"
+            );
+        $this->tabDefinition['tabs']['related-teams']['headingText'] = $this
+            ->get('translator')
+            ->trans(
+                $this->tabDefinition['tabs']['related-teams']['headingText'],
+                array(),
+                "messages"
+            );
+        $this->tabDefinition['tabs']['related-projects']['headingText'] = $this
+            ->get('translator')
+            ->trans(
+                $this->tabDefinition['tabs']['related-projects']['headingText'],
+                array(),
+                "messages"
+            );
+
+        return $this->tabDefinition;
+    }
+
+    /**
+     * @param Person $person Person Entity Object
+     * @param bool $isActive Pass the boolean that tells if person active or not
+     */
+    private function fillInTabDefinition(Person $person, $isActive) {
+        $this->tabDefinition['name']=trim($person->getFirstName().' '.$person->getLastName());
+        $this->tabDefinition['id']=$person->getId();
+        $this->tabDefinition['active']=$isActive;
+        $this->tabDefinition['tabs']['main']['item']=$person;
+
+        return $this->tabDefinition;
+    }
+
+    /**
+     * @param int $id Identifier of person
+     * @return mixed Return the person object if found
      */
     private function findPerson($id) {
         $person = $this->getDoctrine()
@@ -61,8 +111,8 @@ class PersonController extends Controller
     }
 
     /**
-     * @param $id
-     * @return mixed
+     * @param int $id Identifier of Person
+     * @return mixed Return data from person entry table if the person is active, otherwise null
      */
     private function isActive($id) {
         $personEntry = $this->getDoctrine()
@@ -98,12 +148,8 @@ class PersonController extends Controller
         }
 
         if ( $request->get('action') === 'view' ) {
-
-            $this->tabDefinition['name']=trim($person->getFirstName().' '.$person->getLastName());
-            $this->tabDefinition['id']=$person->getId();
-            $this->tabDefinition['active']=$isActive;
-            $this->tabDefinition['tabs']['main']['item']=$person;
-
+            $this->fillInTabDefinition($person, $isActive);
+            $this->translateTabDefinition();
             return $this->render(
                 '/default/tabbedContent.html.twig',
                 $this->tabDefinition

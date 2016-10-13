@@ -4,13 +4,14 @@
 {%
     set search_vars = {
                         'heading_label_id': 'people-heading',
-                        'heading_text': ('app.title.fastsearch.people'|trans({}, 'messages')),
+                        'heading_text': ('app.title.fastsearch.people'|trans({}, "messages")),
                         'collapsable_element_id': 'collapseOne',
                         'collapsable_element_default_state': 'in',
                         'search_control_id': 'person-search',
-                        'search_popover_help_text_en': ('app.meta.description.fastsearch.people'|trans({}, 'messages')),
+                        'search_popover_help_text_en': ('app.meta.description.fastsearch.people'|trans({}, "messages")),
                         'parent_id': 'rbins-search-menu',
-                        'search_type': 'person'
+                        'search_type': 'person',
+                        'search_add_link_text': '',
                       }
 %}
 <!DOCTYPE html>
@@ -22,7 +23,7 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
         <!-- Title and favicon part -->
-        <title>{% block title %}{% block product_title %}{% trans from "messages" %}app.meta.title.product{% endtrans %}{% endblock product_title %}{% block page_title %} - {% trans from 'messages' %}app.meta.title.greeting{% endtrans %}{% endblock page_title %}{% endblock title %}</title>
+        <title>{% block title %}{% block product_title %}{% trans from "messages" %}app.meta.title.product{% endtrans %}{% endblock product_title %}{% block page_title %} - {% trans from "messages" %}app.meta.title.greeting{% endtrans %}{% endblock page_title %}{% endblock title %}</title>
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
@@ -48,12 +49,13 @@
                     set search_vars = search_vars|merge(
                         {
                             'heading_label_id': 'teams-heading',
-                            'heading_text': ('app.title.fastsearch.teams'|trans({}, 'messages')),
+                            'heading_text': ('app.title.fastsearch.teams'|trans({}, "messages")),
                             'collapsable_element_id': 'collapseTwo',
                             'collapsable_element_default_state': '',
                             'search_control_id': 'team-search',
-                            'search_popover_help_text_en': ('app.meta.description.fastsearch.teams'|trans({}, 'messages')),
-                            'search_type': 'teams'
+                            'search_popover_help_text_en': ('app.meta.description.fastsearch.teams'|trans({}, "messages")),
+                            'search_type': 'teams',
+                            'search_add_link_text': ('app.action.fastsearch.add.team'|trans({}, "messages")),
                         }
                     )
                 %}
@@ -64,13 +66,13 @@
                     set search_vars = search_vars|merge(
                         {
                             'heading_label_id': 'projects-heading',
-                            'heading_text': ('app.title.fastsearch.projects'|trans({}, 'messages')),
+                            'heading_text': ('app.title.fastsearch.projects'|trans({}, "messages")),
                             'collapsable_element_id': 'collapseThree',
                             'collapsable_element_default_state': '',
                             'search_control_id': 'project-search',
-                            'search_popover_help_text_en': ('app.meta.description.fastsearch.teams'|trans({}, 'messages')),
-                            'search_type': 'projects'
-                        }
+                            'search_popover_help_text_en': ('app.meta.description.fastsearch.projects'|trans({}, "messages")),
+                            'search_type': 'projects',
+                            'search_add_link_text': ('app.action.fastsearch.add.project'|trans({}, "messages")),                        }
                     )
                 %}
                 {% block search_menu_option_projects %}

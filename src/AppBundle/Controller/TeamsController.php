@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Teams;
+use AppBundle\Entity\Teams as Teams;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -14,7 +14,7 @@ class TeamsController extends Controller
      */
     private $tabDefinition = array(
         'type' => 'teams',
-        'name_label' => 'Team',
+        'name_label' => 'app.meta.title.tab.project',
         'name' => '',
         'id' => null,
         'active' => true,
@@ -23,7 +23,7 @@ class TeamsController extends Controller
                 'id' => 'teams-tab',
                 'collapseElementId' => 'teamsContent',
                 'collapseElementDefaultState' => 'in',
-                'headingText' => 'Main',
+                'headingText' => 'app.action.tab.main',
                 'headingIcon' => 'fa-cog',
                 'item' => null,
                 'template_path' => '_partials/tabbedContent/mainTab/view/teams.html.twig'
@@ -32,7 +32,7 @@ class TeamsController extends Controller
                 'id' => 'person-tab',
                 'collapseElementId' => 'personContent',
                 'collapseElementDefaultState' => '',
-                'headingText' => 'Related People',
+                'headingText' => 'app.action.tab.relatedPeople',
                 'headingIcon' => 'fa-user',
                 'item' => null,
                 'template_path' => '_partials/tabbedContent/relatedTabs/view/person.html.twig'
@@ -41,13 +41,63 @@ class TeamsController extends Controller
                 'id' => 'projects-tab',
                 'collapseElementId' => 'projectsContent',
                 'collapseElementDefaultState' => '',
-                'headingText' => 'Related Projects',
+                'headingText' => 'app.action.tab.relatedProjects',
                 'headingIcon' => 'fa-suitcase',
                 'item' => null,
                 'template_path' => '_partials/tabbedContent/relatedTabs/view/projects.html.twig'
             )
         )
     );
+
+    /**
+     * @return array Return the tab definition array with the necessary parts translated
+     */
+    private function translateTabDefinition() {
+
+        $this->tabDefinition['name_label'] = $this
+            ->get('translator')
+            ->trans(
+                $this->tabDefinition['name_label'],
+                array(),
+                "messages"
+            );
+        $this->tabDefinition['tabs']['main']['headingText'] = $this
+            ->get('translator')
+            ->trans(
+                $this->tabDefinition['tabs']['main']['headingText'],
+                array(),
+                "messages"
+            );
+        $this->tabDefinition['tabs']['related-projects']['headingText'] = $this
+            ->get('translator')
+            ->trans(
+                $this->tabDefinition['tabs']['related-projects']['headingText'],
+                array(),
+                "messages"
+            );
+        $this->tabDefinition['tabs']['related-people']['headingText'] = $this
+            ->get('translator')
+            ->trans(
+                $this->tabDefinition['tabs']['related-people']['headingText'],
+                array(),
+                "messages"
+            );
+
+        return $this->tabDefinition;
+    }
+
+    /**
+     * @param Teams $team Team Entity Object
+     * @param bool $isActive Pass the boolean that tells if team active or not
+     */
+    private function fillInTabDefinition(Teams $team, $isActive) {
+        $this->tabDefinition['name']=trim($team->getInternationalName());
+        $this->tabDefinition['id']=$team->getId();
+        $this->tabDefinition['active']=$isActive;
+        $this->tabDefinition['tabs']['main']['item']=$team;
+
+        return $this->tabDefinition;
+    }
 
     /**
      * @param $id
@@ -89,12 +139,8 @@ class TeamsController extends Controller
         }
 
         if ($request->get('action') === 'view') {
-
-            $this->tabDefinition['name']=trim($team->getInternationalName());
-            $this->tabDefinition['id']=$team->getId();
-            $this->tabDefinition['active']=$isActive;
-            $this->tabDefinition['tabs']['main']['item']=$team;
-
+            $this->fillInTabDefinition($team, $isActive);
+            $this->translateTabDefinition();
             return $this->render(
                 'default/tabbedContent.html.twig',
                 $this->tabDefinition

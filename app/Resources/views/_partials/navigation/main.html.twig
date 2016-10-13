@@ -127,7 +127,7 @@
             <li class="rbins-set-bottom">
                 {% block navigation_responsive_menu_logoff %}
                     {% embed "/_partials/navigation/logOff.html.twig" with { 'action_vars' : action_vars } %}
-                        {% block log_out_text %}<span>Log Out</span>{% endblock log_out_text %}
+                        {% block log_out_text %}<span>{% trans from "messages" %}app.meta.title.nav.menu.logout{% endtrans %}</span>{% endblock log_out_text %}
                     {% endembed %}
                 {% endblock navigation_responsive_menu_logoff %}
             </li>

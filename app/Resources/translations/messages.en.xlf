@@ -20,6 +20,22 @@
                         <source xml:lang="en">Log out</source>
                         <target xml:lang="en">Log out</target>
                     </trans-unit>
+                    <trans-unit id="app-meta-title-nav-menu-profile" resname="app.meta.title.nav.menu.profile">
+                        <source xml:lang="en">Access your profile</source>
+                        <target xml:lang="en">Access your profile</target>
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-tab-person" resname="app.meta.title.tab.person">
+                        <source xml:lang="en">Person</source>
+                        <target xml:lang="en">Person</target>
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-tab-team" resname="app.meta.title.tab.team">
+                        <source xml:lang="en">Team</source>
+                        <target xml:lang="en">Team</target>
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-tab-project" resname="app.meta.title.tab.project">
+                        <source xml:lang="en">Project</source>
+                        <target xml:lang="en">Project</target>
+                    </trans-unit>
                 </group>
                 <group id="app-meta-description">
                     <group id="app-meta-description-home">
@@ -125,10 +141,42 @@
                 </group>
             </group>
             <group id="app-action">
+                <group id="app-action-home">
+                    <group id="app-action-home-add">
+                        <trans-unit id="app-action-home-add-common" resname="app.action.home.add.common">
+                            <source xml:lang="en">Add</source>
+                            <target xml:lang="en">Add</target>
+                        </trans-unit>
+                    </group>
+                </group>
                 <group id="app-action-fastsearch">
-                    <trans-unit id="app-action-fastsearch-add" resname="Add %search_type%">
-                        <source xml:lang="en">Add %search_type%</source>
-                        <target xml:lang="en">Add %search_type%</target>
+                    <group id="app-action-fastsearch-add">
+                        <trans-unit id="app-action-fastsearch-add-team" resname="app.action.fastsearch.add.team">
+                            <source xml:lang="en">Add Team</source>
+                            <target xml:lang="en">Add Team</target>
+                        </trans-unit>
+                        <trans-unit id="app-action-fastsearch-add-project" resname="app.action.fastsearch.add.project">
+                            <source xml:lang="en">Add Project</source>
+                            <target xml:lang="en">Add Project</target>
+                        </trans-unit>
+                    </group>
+                </group>
+                <group id="app-action-tab">
+                    <trans-unit id="app-action-tab-main" resname="app.action.tab.main">
+                        <source xml:lang="en">Main</source>
+                        <target xml:lang="en">Main</target>
+                    </trans-unit>
+                    <trans-unit id="app-action-tab-relatedPeople" resname="app.action.tab.relatedPeople">
+                        <source xml:lang="en">Related People</source>
+                        <target xml:lang="en">Related People</target>
+                    </trans-unit>
+                    <trans-unit id="app-action-tab-relatedTeams" resname="app.action.tab.relatedTeams">
+                        <source xml:lang="en">Related Teams</source>
+                        <target xml:lang="en">Related Teams</target>
+                    </trans-unit>
+                    <trans-unit id="app-action-tab-relatedProjects" resname="app.action.tab.relatedProjects">
+                        <source xml:lang="en">Related Projects</source>
+                        <target xml:lang="en">Related Projects</target>
                     </trans-unit>
                 </group>
             </group>
