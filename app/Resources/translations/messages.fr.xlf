@@ -23,6 +23,101 @@
                         <target xml:lang="fr">Déconnexion</target>
                         
                     </trans-unit>
+                    <trans-unit id="app-meta-title-nav-menu-profile" resname="app.meta.title.nav.menu.profile">
+                        <source xml:lang="en">Access your profile</source>
+                        <target xml:lang="fr">Accédez à votre profil</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-tab-person" resname="app.meta.title.tab.person">
+                        <source xml:lang="en">Person</source>
+                        <target xml:lang="fr">Personne</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-tab-team" resname="app.meta.title.tab.team">
+                        <source xml:lang="en">Team</source>
+                        <target xml:lang="fr">Équipe</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-tab-project" resname="app.meta.title.tab.project">
+                        <source xml:lang="en">Project</source>
+                        <target xml:lang="fr">Projet</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-form-teamsAndProjects-view-language" resname="app.meta.title.form.teamsAndProjects.view.language">
+                        <source xml:lang="en">Language</source>
+                        <target xml:lang="fr">Langue</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-form-teamsAndProjects-view-descriptionInt" resname="app.meta.title.form.teamsAndProjects.view.descriptionInt">
+                        <source xml:lang="en">International description</source>
+                        <target xml:lang="fr">Description générique</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-form-teamsAndProjects-view-nameEn" resname="app.meta.title.form.teamsAndProjects.view.nameEn">
+                        <source xml:lang="en">Name in english</source>
+                        <target xml:lang="fr">Nom en anglais</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-form-teamsAndProjects-view-nameFr" resname="app.meta.title.form.teamsAndProjects.view.nameFr">
+                        <source xml:lang="en">Name in french</source>
+                        <target xml:lang="fr">Nom en français</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-form-teamsAndProjects-view-nameNl" resname="app.meta.title.form.teamsAndProjects.view.nameNl">
+                        <source xml:lang="en">Name in dutch</source>
+                        <target xml:lang="fr">Nom en néerlandais</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-form-teamsAndProjects-view-descriptionEn" resname="app.meta.title.form.teamsAndProjects.view.descriptionEn">
+                        <source xml:lang="en">Description in english</source>
+                        <target xml:lang="fr">Description en anglais</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-form-teamsAndProjects-view-descriptionFr" resname="app.meta.title.form.teamsAndProjects.view.descriptionFr">
+                        <source xml:lang="en">Description in french</source>
+                        <target xml:lang="fr">Description en français</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-form-teamsAndProjects-view-descriptionNl" resname="app.meta.title.form.teamsAndProjects.view.descriptionNl">
+                        <source xml:lang="en">Description in dutch</source>
+                        <target xml:lang="fr">Description en néerlandais</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-form-teamsAndProjects-view-teamStartDate" resname="app.meta.title.form.teamsAndProjects.view.teamStartDate">
+                        <source xml:lang="en">Team start date</source>
+                        <target xml:lang="fr">Date de début</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-form-teamsAndProjects-view-teamEndDate" resname="app.meta.title.form.teamsAndProjects.view.teamEndDate">
+                        <source xml:lang="en">Team end date</source>
+                        <target xml:lang="fr">Date de fin</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-form-teamsAndProjects-view-projectStartDate" resname="app.meta.title.form.teamsAndProjects.view.projectStartDate">
+                        <source xml:lang="en">Project start date</source>
+                        <target xml:lang="fr">Date de début</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-form-teamsAndProjects-view-projectEndDate" resname="app.meta.title.form.teamsAndProjects.view.projectEndDate">
+                        <source xml:lang="en">Project end date</source>
+                        <target xml:lang="fr">Date de fin</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-form-person-view-firstName" resname="app.meta.title.form.person.view.firstName">
+                        <source xml:lang="en">First name</source>
+                        <target xml:lang="fr">Prénom</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-form-person-view-lastName" resname="app.meta.title.form.person.view.lastName">
+                        <source xml:lang="en">Last name</source>
+                        <target xml:lang="fr">Nom de famille</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-form-person-view-projectEndDate" resname="app.meta.title.form.person.view.email">
+                        <source xml:lang="en">Email</source>
+                        <target xml:lang="fr">Email</target>
+                        
+                    </trans-unit>
                 </group>
                 <group id="app-meta-description">
                     <group id="app-meta-description-home">
@@ -63,6 +158,28 @@
                         <trans-unit id="app-meta-description-menu-adsync" resname="app.meta.description.menu.adsync">
                             <source xml:lang="en">Synchronize user with active directory</source>
                             <target xml:lang="fr">Synchroniser les utilisateurs avec l'active directory</target>
+                            
+                        </trans-unit>
+                    </group>
+                    <group id="app-meta-description-content">
+                        <trans-unit id="app-meta-description-content-activeToggle-active" resname="app.meta.description.content.activeToggle.active">
+                            <source xml:lang="en">active</source>
+                            <target xml:lang="fr">actif</target>
+                            
+                        </trans-unit>
+                        <trans-unit id="app-meta-description-content-activeToggle-nonActive" resname="app.meta.description.content.activeToggle.nonActive">
+                            <source xml:lang="en">non active</source>
+                            <target xml:lang="fr">non actif</target>
+                            
+                        </trans-unit>
+                        <trans-unit id="app-meta-description-content-activeToggle-active-female" resname="app.meta.description.content.activeToggle.active.female">
+                            <source xml:lang="en">active</source>
+                            <target xml:lang="fr">active</target>
+                            
+                        </trans-unit>
+                        <trans-unit id="app-meta-description-content-activeToggle-nonActive-female" resname="app.meta.description.content.activeToggle.nonActive.female">
+                            <source xml:lang="en">non active</source>
+                            <target xml:lang="fr">non active</target>
                             
                         </trans-unit>
                     </group>
@@ -146,6 +263,132 @@
                         <target xml:lang="fr">Synchronisation AD</target>
                         
                     </trans-unit>
+                </group>
+            </group>
+            <group id="app-action">
+                <group id="app-action-home">
+                    <group id="app-action-home-add">
+                        <trans-unit id="app-action-home-add-common" resname="app.action.home.add.common">
+                            <source xml:lang="en">Add</source>
+                            <target xml:lang="fr">Ajouter</target>
+                            
+                        </trans-unit>
+                    </group>
+                </group>
+                <group id="app-action-fastsearch">
+                    <group id="app-action-fastsearch-add">
+                        <trans-unit id="app-action-fastsearch-add-team" resname="app.action.fastsearch.add.team">
+                            <source xml:lang="en">Add Team</source>
+                            <target xml:lang="fr">Ajouter une équipe</target>
+                            
+                        </trans-unit>
+                        <trans-unit id="app-action-fastsearch-add-project" resname="app.action.fastsearch.add.project">
+                            <source xml:lang="en">Add Project</source>
+                            <target xml:lang="fr">Ajouter un projet</target>
+                            
+                        </trans-unit>
+                    </group>
+                </group>
+                <group id="app-action-tab">
+                    <trans-unit id="app-action-tab-main" resname="app.action.tab.main">
+                        <source xml:lang="en">Main</source>
+                        <target xml:lang="fr">Principal</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-action-tab-relatedPeople" resname="app.action.tab.relatedPeople">
+                        <source xml:lang="en">Related People</source>
+                        <target xml:lang="fr">Personnes liées</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-action-tab-relatedTeams" resname="app.action.tab.relatedTeams">
+                        <source xml:lang="en">Related Teams</source>
+                        <target xml:lang="fr">Équipes liées</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-action-tab-relatedProjects" resname="app.action.tab.relatedProjects">
+                        <source xml:lang="en">Related Projects</source>
+                        <target xml:lang="fr">Projets liés</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-action-switch-prefix" resname="app.action.switch.prefix">
+                        <source xml:lang="en">Switch to</source>
+                        <target xml:lang="fr">Basculer vers</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-action-switchback-prefix" resname="app.action.switchback.prefix">
+                        <source xml:lang="en">Switch back to</source>
+                        <target xml:lang="fr">Rebasculer vers</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-action-switch-edit" resname="app.action.switch.edit">
+                        <source xml:lang="en">edit</source>
+                        <target xml:lang="fr">édition</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-action-switch-view" resname="app.action.switch.view">
+                        <source xml:lang="en">view</source>
+                        <target xml:lang="fr">vue</target>
+                        
+                    </trans-unit>
+                </group>
+            </group>
+            <group id="app_form">
+                <group id="app-form-person">
+                    <group id="app-form-person-view">
+                        <group id="app-form-person-view-label">
+                            <trans-unit id="app-form-person-view-label-firstName" resname="app.form.person.view.label.firstName">
+                                <source xml:lang="en">First name</source>
+                                <target xml:lang="fr">Prénom</target>
+                                
+                            </trans-unit>
+                            <trans-unit id="app-form-person-view-label-lastName" resname="app.form.person.view.label.lastName">
+                                <source xml:lang="en">Last name</source>
+                                <target xml:lang="fr">Nom</target>
+                                
+                            </trans-unit>
+                            <trans-unit id="app-form-person-view-label-email" resname="app.form.person.view.label.email">
+                                <source xml:lang="en">Email</source>
+                                <target xml:lang="fr">Email</target>
+                                
+                            </trans-unit>
+                        </group>
+                    </group>
+                </group>
+                <group id="app-form-teamsAndProjects">
+                    <group id="app-form-teamsAndProjects-view">
+                        <group id="app-form-teamsAndProjects-view-label">
+                            <trans-unit id="app-form-teamsAndProjects-view-label-language" resname="app.form.teamsAndProjects.view.label.language">
+                                <source xml:lang="en">Language</source>
+                                <target xml:lang="fr">Langue</target>
+                                
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-view-label-description" resname="app.form.teamsAndProjects.view.label.description">
+                                <source xml:lang="en">Description (%locale%)</source>
+                                <target xml:lang="fr">Description (%locale%)</target>
+                                
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-view-label-descriptionInt" resname="app.form.teamsAndProjects.view.label.descriptionInt">
+                                <source xml:lang="en">Description (Int.)</source>
+                                <target xml:lang="fr">Description (Int.)</target>
+                                
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-view-label-name" resname="app.form.teamsAndProjects.view.label.name">
+                                <source xml:lang="en">Name (%locale%)</source>
+                                <target xml:lang="fr">Nom (%locale%)</target>
+                                
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-view-label-startDate" resname="app.form.teamsAndProjects.view.label.startDate">
+                                <source xml:lang="en">Start date</source>
+                                <target xml:lang="fr">Date de début</target>
+                                
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-view-label-endDate" resname="app.form.teamsAndProjects.view.label.endDate">
+                                <source xml:lang="en">End date</source>
+                                <target xml:lang="fr">Date de fin</target>
+                                
+                            </trans-unit>
+                        </group>
+                    </group>
                 </group>
             </group>
             <group id="app-message">

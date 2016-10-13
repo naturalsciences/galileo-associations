@@ -5,9 +5,25 @@
             'parent_id': 'rbins-content-main'
         }
     %}
+    {%
+        set translation_vars = {
+            'active': 'app.meta.description.content.activeToggle.active',
+            'non_active': 'app.meta.description.content.activeToggle.nonActive'
+        }
+    %}
+    {% if type == 'person' %}
+        {%
+            set translation_vars = translation_vars|merge(
+                {
+                    'active': 'app.meta.description.content.activeToggle.active.female',
+                    'non_active': 'app.meta.description.content.activeToggle.nonActive.female'
+                }
+            )
+        %}
+    {% endif %}
     <div class="row">
         <div class="page-header col-xs-12 tabbed-content-title">
-            <h2 class="content-title {{ active?'active' }}">{{ name_label }}: {{  name }} <i class="fa {{ active?'fa-toggle-on':'fa-toggle-off' }}" data-toggle="tooltip" data-placement="right" title="{{ active?(name_label~' active'):(name_label~' non active') }}"></i></h2>
+            <h2 class="content-title {{ active?'active' }}">{{ name_label }}: {{  name }} <i class="fa {{ active?'fa-toggle-on':'fa-toggle-off' }}" data-toggle="tooltip" data-placement="right" title="{{ active?(name_label~' '~(translation_vars.active|trans({}, "messages"))):(name_label~' '~(translation_vars.non_active|trans({}, "messages"))) }}"></i></h2>
         </div>
         {%  for key,tab in tabs %}
             <div id="rbins-tab-{{ loop.index }}" class="col-xs-12 col-md-11 col-xl-10 rbins-tab">

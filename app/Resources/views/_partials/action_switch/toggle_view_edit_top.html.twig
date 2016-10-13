@@ -1,4 +1,4 @@
 <div class="toggle_view_edit_container m-x-auto">
-        <a class="toggle_view_edit_edit_link" href="{{ path( type , { '_locale': app.request.getLocale(), 'id': id, 'action': 'edit' } ) }}"><i class="fa fa-pencil"></i>&nbsp;<span class="toggle_view_edit_edit_link_prefix">Switch to </span><span>edit</span></a>
-        <a class="toggle_view_edit_view_link" href="{{ path( type , { '_locale': app.request.getLocale(), 'id': id, 'action': 'view' } ) }}"><i class="fa fa-eye"></i>&nbsp;<span class="toggle_view_edit_view_link_prefix">Switch back to </span><span>view</span></a>
+        <a class="toggle_view_edit_edit_link" href="{{ path( type , { '_locale': app.request.getLocale(), 'id': id, 'action': 'edit' } ) }}"><i class="fa fa-pencil"></i>&nbsp;<span class="toggle_view_edit_edit_link_prefix">{% trans from "messages" %}app.action.switch.prefix{% endtrans %}</span> <span>{% trans from "messages" %}app.action.switch.edit{% endtrans %}</span></a>
+        <a class="toggle_view_edit_view_link" href="{{ path( type , { '_locale': app.request.getLocale(), 'id': id, 'action': 'view' } ) }}"><i class="fa fa-eye"></i>&nbsp;<span class="toggle_view_edit_view_link_prefix">{% trans from "messages" %}app.action.switchback.prefix{% endtrans %}</span> <span>{% trans from "messages" %}app.action.switch.view{% endtrans %}</span></a>
 </div>
