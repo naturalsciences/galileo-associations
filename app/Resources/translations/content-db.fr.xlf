@@ -8,7 +8,7 @@
             </trans-unit>
             <trans-unit id="language_abbrev_dutch" resname="nl">
                 <source xml:lang="en">nl</source>
-                <target xml:lang="fr">Néeralndais</target>
+                <target xml:lang="fr">Néerlandais</target>
                 
             </trans-unit>
             <trans-unit id="language_abbrev_french" resname="fr">
