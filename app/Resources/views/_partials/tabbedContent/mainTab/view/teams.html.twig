@@ -5,78 +5,78 @@
         {% trans from "messages" %}app.form.teamsAndProjects.view.label.language{% endtrans %}&nbsp;:
     </dt>
     <dd class="col-xs-8 col-md-9 col-lg-10">
-        {{ item.internationalNameLanguage|trans({}, 'content-db') }}
+        {{ tabs.main.item.internationalNameLanguage|trans({}, 'content-db') }}
     </dd>
-    {% if item.internationalDescription is not empty %}
+    {% if tabs.main.item.internationalDescription is not empty %}
         <dt class="col-xs-4 col-md-3 col-lg-2" title="{% trans from "messages" %}app.meta.title.form.teamsAndProjects.view.descriptionInt{% endtrans %}">
             {% trans from "messages" %}app.form.teamsAndProjects.view.label.descriptionInt{% endtrans %}&nbsp;:
         </dt>
         <dd class="col-xs-8 col-md-9 col-lg-10">
-            {{ item.internationalDescription }}
+            {{ tabs.main.item.internationalDescription }}
         </dd>
     {% endif %}
-    {% if item.nameEn is not empty %}
+    {% if tabs.main.item.nameEn is not empty %}
         <dt class="col-xs-4 col-md-3 col-lg-2" title="{% trans from "messages" %}app.meta.title.form.teamsAndProjects.view.nameEn{% endtrans %}">
             {% trans with {'%locale%': 'EN'} from "messages" %}app.form.teamsAndProjects.view.label.name{% endtrans %}&nbsp;:
         </dt>
-        <dd class="col-xs-8 col-md-9 {% if item.descriptionEn is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
-            {{ item.nameEn }}
+        <dd class="col-xs-8 col-md-9 {% if tabs.main.item.descriptionEn is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
+            {{ tabs.main.item.nameEn }}
         </dd>
     {% endif %}
-    {% if item.descriptionEn is not empty %}
+    {% if tabs.main.item.descriptionEn is not empty %}
         <dt class="col-xs-4 col-md-3 col-lg-2" title="{% trans from "messages" %}app.meta.title.form.teamsAndProjects.view.descriptionEn{% endtrans %}">
             {% trans with {'%locale%': 'EN'} from "messages" %}app.form.teamsAndProjects.view.label.description{% endtrans %}&nbsp;:
         </dt>
-        <dd class="col-xs-8 col-md-9 {% if item.nameEn is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
-            {{ item.descriptionEn }}
+        <dd class="col-xs-8 col-md-9 {% if tabs.main.item.nameEn is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
+            {{ tabs.main.item.descriptionEn }}
         </dd>
     {% endif %}
-    {% if item.nameNl is not empty %}
+    {% if tabs.main.item.nameNl is not empty %}
         <dt class="col-xs-4 col-md-3 col-lg-2" title="{% trans from "messages" %}app.meta.title.form.teamsAndProjects.view.nameNl{% endtrans %}">
             {% trans with {'%locale%': 'NL'} from "messages" %}app.form.teamsAndProjects.view.label.name{% endtrans %}&nbsp;:
         </dt>
-        <dd class="col-xs-8 col-md-9 {% if item.descriptionNl is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
-            {{ item.nameNl }}
+        <dd class="col-xs-8 col-md-9 {% if tabs.main.item.descriptionNl is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
+            {{ tabs.main.item.nameNl }}
         </dd>
     {% endif %}
-    {% if item.descriptionNl is not empty %}
+    {% if tabs.main.item.descriptionNl is not empty %}
         <dt class="col-xs-4 col-md-3 col-lg-2" title="{% trans from "messages" %}app.meta.title.form.teamsAndProjects.view.descriptionNl{% endtrans %}">
             {% trans with {'%locale%': 'NL'} from "messages" %}app.form.teamsAndProjects.view.label.description{% endtrans %}&nbsp;:
         </dt>
-        <dd class="col-xs-8 col-md-9 {% if item.nameNl is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
-            {{ item.descriptionNl }}
+        <dd class="col-xs-8 col-md-9 {% if tabs.main.item.nameNl is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
+            {{ tabs.main.item.descriptionNl }}
         </dd>
     {% endif %}
-    {% if item.nameFr is not empty %}
+    {% if tabs.main.item.nameFr is not empty %}
         <dt class="col-xs-4 col-md-3 col-lg-2" title="{% trans from "messages" %}app.meta.title.form.teamsAndProjects.view.nameFr{% endtrans %}">
             {% trans with {'%locale%': 'FR'} from "messages" %}app.form.teamsAndProjects.view.label.name{% endtrans %}&nbsp;:
         </dt>
-        <dd class="col-xs-8 col-md-9 {% if item.descriptionFr is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
-            {{ item.nameFr }}
+        <dd class="col-xs-8 col-md-9 {% if tabs.main.item.descriptionFr is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
+            {{ tabs.main.item.nameFr }}
         </dd>
     {% endif %}
-    {% if item.descriptionFr is not empty %}
+    {% if tabs.main.item.descriptionFr is not empty %}
         <dt class="col-xs-4 col-md-3 col-lg-2" title="{% trans from "messages" %}app.meta.title.form.teamsAndProjects.view.descriptionFr{% endtrans %}">
             {% trans with {'%locale%': 'FR'} from "messages" %}app.form.teamsAndProjects.view.label.description{% endtrans %}&nbsp;:
         </dt>
-        <dd class="col-xs-8 col-md-9 {% if item.nameFr is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
-            {{ item.descriptionFr }}
+        <dd class="col-xs-8 col-md-9 {% if tabs.main.item.nameFr is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
+            {{ tabs.main.item.descriptionFr }}
         </dd>
     {% endif %}
-    {% if item.startDate is not empty %}
+    {% if tabs.main.item.startDate is not empty %}
         <dt class="col-xs-4 col-md-3 col-lg-2" title="{% trans from "messages" %}app.meta.title.form.teamsAndProjects.view.teamStartDate{% endtrans %}">
             {% trans from "messages" %}app.form.teamsAndProjects.view.label.startDate{% endtrans %}&nbsp;:
         </dt>
-        <dd class="col-xs-8 col-md-9 {% if item.endDate is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
-            {{ item.startDate|date('d/m/Y') }}
+        <dd class="col-xs-8 col-md-9 {% if tabs.main.item.endDate is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
+            {{ tabs.main.item.startDate|date('d/m/Y') }}
         </dd>
     {% endif %}
-    {% if item.endDate is not empty %}
+    {% if tabs.main.item.endDate is not empty %}
         <dt class="col-xs-4 col-md-3 col-lg-2" title="{% trans from "messages" %}app.meta.title.form.teamsAndProjects.view.teamEndDate{% endtrans %}">
             {% trans from "messages" %}app.form.teamsAndProjects.view.label.endDate{% endtrans %}&nbsp;:
         </dt>
-        <dd class="col-xs-8 col-md-9 {% if item.startDate is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
-            {{ item.endDate|date('d/m/Y') }}
+        <dd class="col-xs-8 col-md-9 {% if tabs.main.item.startDate is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
+            {{ tabs.main.item.endDate|date('d/m/Y') }}
         </dd>
     {% endif %}
 </dl>

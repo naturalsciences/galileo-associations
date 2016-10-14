@@ -18,6 +18,7 @@ class PersonController extends Controller
         'name' => '',
         'id' => null,
         'active' => true,
+        'action' => 'view',
         'tabs' => array(
             'main' => array(
                 'id' => 'person-tab',
@@ -26,7 +27,11 @@ class PersonController extends Controller
                 'headingText' => 'app.action.tab.main',
                 'headingIcon' => 'fa-cog',
                 'item' => null,
-                'template_path' => '_partials/tabbedContent/mainTab/view/person.html.twig'
+                'view_container_controller' => 'AppBundle:Person:renderPersonView',
+                'view_controller' => 'AppBundle:Person:renderPersonView',
+                'view_route' => 'person_fragment_view',
+                'edit_controller' => 'AppBundle:Person:renderPersonEdit',
+                'edit_route' => 'person_fragment_edit',
             ),
             'related-teams' => array(
                 'id' => 'teams-tab',
@@ -35,7 +40,11 @@ class PersonController extends Controller
                 'headingText' => 'app.action.tab.relatedTeams',
                 'headingIcon' => 'fa-users',
                 'item' => null,
-                'template_path' => '_partials/tabbedContent/relatedTabs/view/teams.html.twig'
+                'view_container_controller' => 'AppBundle:Teams:renderRelatedTeamsViewContainer',
+                'view_controller' => 'AppBundle:Teams:renderRelatedTeamsView',
+                'view_route' => 'related_teams_fragment_view',
+                'edit_controller' => 'AppBundle:Teams:renderTeamEdit',
+                'edit_route' => 'team_fragment_edit',
             ),
             'related-projects' => array(
                 'id' => 'projects-tab',
@@ -44,10 +53,18 @@ class PersonController extends Controller
                 'headingText' => 'app.action.tab.relatedProjects',
                 'headingIcon' => 'fa-suitcase',
                 'item' => null,
-                'template_path' => '_partials/tabbedContent/relatedTabs/view/projects.html.twig'
+                'view_container_controller' => 'AppBundle:Projects:renderRelatedProjectsViewContainer',
+                'view_controller' => 'AppBundle:Projects:renderRelatedProjectsView',
+                'view_route' => 'related_projects_fragment_view',
+                'edit_controller' => 'AppBundle:Projects:renderProjectEdit',
+                'edit_route' => 'project_fragment_edit',
             )
         )
     );
+
+    private $person;
+    private $personActive = true;
+    private $personActionMode = 'view';
 
     /**
      * @return array Return the tab definition array with the necessary parts translated
@@ -87,14 +104,15 @@ class PersonController extends Controller
     }
 
     /**
-     * @param Person $person Person Entity Object
-     * @param bool $isActive Pass the boolean that tells if person active or not
+     * @return array The tab definition array
      */
-    private function fillInTabDefinition(Person $person, $isActive) {
-        $this->tabDefinition['name']=trim($person->getFirstName().' '.$person->getLastName());
-        $this->tabDefinition['id']=$person->getId();
-        $this->tabDefinition['active']=$isActive;
-        $this->tabDefinition['tabs']['main']['item']=$person;
+    private function fillInTabDefinition() {
+
+        $this->tabDefinition['name']=trim($this->person->getFirstName().' '.$this->person->getLastName());
+        $this->tabDefinition['id']=$this->person->getId();
+        $this->tabDefinition['active']=$this->personActive;
+        $this->tabDefinition['action']=$this->personActionMode;
+        $this->tabDefinition['tabs']['main']['item']=$this->person;
 
         return $this->tabDefinition;
     }
@@ -123,6 +141,26 @@ class PersonController extends Controller
 
     /**
      * @param Request $request
+     * @return bool
+     */
+    private function fillPersonInfos(Request $request) {
+
+        $this->translateTabDefinition();
+        $this->person = $this->findPerson( $request->get('id') );
+
+        if ( $this->person === null ) {
+            throw $this->createNotFoundException('The person does not exists.');
+        }
+        $this->personActive = $this->isActive($this->person->getId());
+        $this->personActionMode = $request->get('action');
+
+        $this->fillInTabDefinition();
+
+        return true;
+    }
+
+    /**
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function personListAction(Request $request)
@@ -136,30 +174,62 @@ class PersonController extends Controller
      */
     public function personAction(Request $request)
     {
-        $this->translateTabDefinition();
-        $person = $this->findPerson( $request->get('id') );
-
-        if ( $person === null ) {
-            throw $this->createNotFoundException('The person does not exists.');
+        if ( $this->fillPersonInfos($request) === false ) {
+            throw $this->createNotFoundException('A problem occured initiating the person object.');
         }
-        $isActive = $this->isActive($person->getId());
 
-        $this->fillInTabDefinition($person, $isActive);
         return $this->render(
             'default/tabbedContent.html.twig',
             $this->tabDefinition
         );
     }
 
-    public function renderRelatedPeopleAction($type, $id){
-        if ( $type !== 'teams' && $type !== 'projects') {
-            throw $this->createNotFoundException('There is no related people to the type you ask: '.$type);
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function renderPersonViewAction(Request $request) {
+        if ( $this->fillPersonInfos($request) === false ) {
+            throw $this->createNotFoundException('A problem occured initiating the person object.');
+        }
+
+        return $this->render(
+            '_partials/tabbedContent/mainTab/view/person.html.twig',
+            $this->tabDefinition
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function renderRelatedPeopleViewContainerAction(Request $request) {
+        return $this->render(
+            '_partials/tabbedContent/relatedTabs/view/people.html.twig',
+            array (
+                'id' => $request->get('id'),
+                'view_controller' => $request->get('view_controller'),
+                'view_route' => $request->get('view_route'),
+                'edit_controller' => $request->get('edit_controller'),
+                'edit_route' => $request->get('edit_route'),
+                'type' => $request->get('type'),
+            )
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function renderRelatedPeopleViewAction(Request $request) {
+        if( $request->get('type') != 'teams' && $request->get('type') != 'projects' ) {
+            throw $this->createNotFoundException('You cannot ask for related people to something else than a team or a project');
         }
 
         $related_people = array();
 
         return $this->render(
-            '_partials/tabbedContent/relatedTabs/view/personContent.html.twig',
+            '_partials/tabbedContent/relatedTabs/view/person.html.twig',
             array('related_people' =>$related_people,)
         );
     }

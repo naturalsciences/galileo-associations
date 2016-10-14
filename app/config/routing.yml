@@ -28,6 +28,37 @@ person_list:
         expose: false
     methods: [GET]
 
+person_fragment_view:
+    path: /{_locale}/person/fragment/{action}/{id}
+    defaults:
+        _controller: AppBundle:Person:renderPersonView
+        _locale: "%locale%"
+        action: "view"
+        id: 0
+    requirements:
+        _locale: "%locales%"
+        action: "view"
+        id: \d+
+    options:
+        expose: true
+    methods: [GET]
+
+related_people_fragment_view:
+    path: /{_locale}/related_people/fragment/{action}/{type}/{id}
+    defaults:
+        _controller: AppBundle:Person:renderRelatedPeopleView
+        _locale: "%locale%"
+        action: "view"
+        id: 0
+    requirements:
+        _locale: "%locales%"
+        action: "view"
+        type: "teams|projects"
+        id: \d+
+    options:
+        expose: true
+    methods: [GET]
+
 person:
     path: /{_locale}/person/{action}/{id}
     defaults:
@@ -54,6 +85,37 @@ teams_list:
         expose: false
     methods: [GET]
 
+teams_fragment_view:
+    path: /{_locale}/teams/fragment/{action}/{id}
+    defaults:
+        _controller: AppBundle:Teams:renderTeamView
+        _locale: "%locale%"
+        action: "view"
+        id: 0
+    requirements:
+        _locale: "%locales%"
+        action: "view"
+        id: \d+
+    options:
+        expose: true
+    methods: [GET]
+
+related_teams_fragment_view:
+    path: /{_locale}/related_teams/fragment/{action}/{type}/{id}
+    defaults:
+        _controller: AppBundle:Teams:renderRelatedTeamsView
+        _locale: "%locale%"
+        action: "view"
+        id: 0
+    requirements:
+        _locale: "%locales%"
+        action: "view"
+        type: "projects|person"
+        id: \d+
+    options:
+        expose: true
+    methods: [GET]
+
 teams:
     path: /{_locale}/teams/{action}/{id}
     defaults:
@@ -78,6 +140,37 @@ projects_list:
         _locale: "%locales%"
     options:
         expose: false
+    methods: [GET]
+
+projects_fragment_view:
+    path: /{_locale}/projects/fragment/{action}/{id}
+    defaults:
+        _controller: AppBundle:Projects:renderProjectView
+        _locale: "%locale%"
+        action: "view"
+        id: 0
+    requirements:
+        _locale: "%locales%"
+        action: "view"
+        id: \d+
+    options:
+        expose: true
+    methods: [GET]
+
+related_projects_fragment_view:
+    path: /{_locale}/related_projects/fragment/{action}/{type}/{id}
+    defaults:
+        _controller: AppBundle:Projects:renderRelatedProjectsView
+        _locale: "%locale%"
+        action: "view"
+        id: 0
+    requirements:
+        _locale: "%locales%"
+        action: "view"
+        type: "teams|person"
+        id: \d+
+    options:
+        expose: true
     methods: [GET]
 
 projects:

@@ -47,7 +47,33 @@
                          data-collapse-parent="#{{ tabbed_content_vars.parent_id }}"
                          role="tabpanel"
                          aria-labelledby="{{ tab.id }}-heading">
-                        {% include tab.template_path ignore missing with { 'id': id, 'type': type, 'item': tab.item } %}
+                        {% set parameter_bag =
+                            {
+                                'id': id,
+                                'view_controller': tab.view_controller,
+                                'view_route': tab.view_route,
+                                'edit_controller': tab.edit_controller,
+                                'edit_route': tab.edit_route,
+                                'type': type,
+                            }
+                        %}
+                        {% if action == 'edit' and key == 'main' %}
+                            {{ render_esi(
+                                controller(
+                                    tab.edit_controller,
+                                    parameter_bag
+                                )
+                               )
+                            }}
+                        {% else %}
+                            {{ render_esi(
+                                   controller(
+                                       tab.view_container_controller,
+                                       parameter_bag
+                                   )
+                               )
+                            }}
+                        {% endif %}
                     </div>
                 </div>
             </div>

@@ -18,6 +18,7 @@ class ProjectsController extends Controller
         'name' => '',
         'id' => null,
         'active' => true,
+        'action' => 'view',
         'tabs' => array(
             'main' => array(
                 'id' => 'projects-tab',
@@ -26,7 +27,11 @@ class ProjectsController extends Controller
                 'headingText' => 'app.action.tab.main',
                 'headingIcon' => 'fa-cog',
                 'item' => null,
-                'template_path' => '_partials/tabbedContent/mainTab/view/projects.html.twig'
+                'view_container_controller' => 'AppBundle:Projects:renderProjectView',
+                'view_controller' => 'AppBundle:Projects:renderProjectView',
+                'view_route' => 'project_fragment_view',
+                'edit_controller' => 'AppBundle:Projects:renderProjectEdit',
+                'edit_route' => 'project_fragment_edit',
             ),
             'related-people' => array(
                 'id' => 'person-tab',
@@ -35,7 +40,11 @@ class ProjectsController extends Controller
                 'headingText' => 'app.action.tab.relatedPeople',
                 'headingIcon' => 'fa-user',
                 'item' => null,
-                'template_path' => '_partials/tabbedContent/relatedTabs/view/person.html.twig'
+                'view_container_controller' => 'AppBundle:Person:renderRelatedPeopleViewContainer',
+                'view_controller' => 'AppBundle:Person:renderRelatedPeopleView',
+                'view_route' => 'related_people_fragment_view',
+                'edit_controller' => 'AppBundle:Person:renderPersonEdit',
+                'edit_route' => 'person_fragment_edit',
             ),
             'related-teams' => array(
                 'id' => 'teams-tab',
@@ -44,10 +53,18 @@ class ProjectsController extends Controller
                 'headingText' => 'app.action.tab.relatedTeams',
                 'headingIcon' => 'fa-users',
                 'item' => null,
-                'template_path' => '_partials/tabbedContent/relatedTabs/view/teams.html.twig'
+                'view_container_controller' => 'AppBundle:Teams:renderRelatedTeamsViewContainer',
+                'view_controller' => 'AppBundle:Teams:renderRelatedTeamsView',
+                'view_route' => 'related_teams_fragment_view',
+                'edit_controller' => 'AppBundle:Teams:renderTeamEdit',
+                'edit_route' => 'team_fragment_edit',
             )
         )
     );
+
+    private $project;
+    private $projectActive;
+    private $projectActionMode;
 
     /**
      * @return array Return the tab definition array with the necessary parts translated
@@ -87,14 +104,15 @@ class ProjectsController extends Controller
     }
 
     /**
-     * @param Projects $project Project Entity Object
-     * @param bool $isActive Pass the boolean that tells if project active or not
+     * @return array The tab definition array
      */
-    private function fillInTabDefinition(Projects $project, $isActive) {
-        $this->tabDefinition['name']=trim($project->getInternationalName());
-        $this->tabDefinition['id']=$project->getId();
-        $this->tabDefinition['active']=$isActive;
-        $this->tabDefinition['tabs']['main']['item']=$project;
+    private function fillInTabDefinition() {
+
+        $this->tabDefinition['name']=$this->project->getInternationalName();
+        $this->tabDefinition['id']=$this->project->getId();
+        $this->tabDefinition['active']=$this->projectActive;
+        $this->tabDefinition['action']=$this->projectActionMode;
+        $this->tabDefinition['tabs']['main']['item']=$this->project;
 
         return $this->tabDefinition;
     }
@@ -112,36 +130,51 @@ class ProjectsController extends Controller
 
     /**
      * @param Request $request
+     * @return bool
+     */
+    private function fillProjectInfos(Request $request) {
+
+        $this->translateTabDefinition();
+        $this->projectActive = true;
+        $this->project = $this->findProject( $request->get('id') );
+
+        if ( $this->project === null ) {
+            throw $this->createNotFoundException('The project does not exists.');
+        }
+        $currentTimestamp = new \DateTime();
+        if ( $this->project->getEndDate() !== null && $this->project->getEndDate() < $currentTimestamp) {
+            $this->projectActive = false;
+        }
+        $this->projectActionMode = $request->get('action');
+
+        $this->fillInTabDefinition();
+
+        return true;
+    }
+
+    /**
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function projectsListAction(Request $request)
     {
         return $this->render('');
     }
+
     /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function projectsAction(Request $request)
     {
-        $isActive = true;
-        $this->translateTabDefinition();
         if ( $request->get('action') === 'add' ) {
-            $project = new Projects();
+            $this->project = new Projects();
         }
-        else {
-            $project = $this->findProject( $request->get('id') );
-            if ( $project === null ) {
-                throw $this->createNotFoundException('The person does not exists.');
-            }
-            $currentTimestamp = new \DateTime();
-            if ( $project->getEndDate() !== null && $project->getEndDate() < $currentTimestamp) {
-                $isActive = false;
-            }
+        elseif ( $this->fillProjectInfos($request) === false ) {
+            throw $this->createNotFoundException('A problem occured initiating the project object.');
         }
 
         if ( $request->get('action') === 'view' ) {
-            $this->fillInTabDefinition($project, $isActive);
             return $this->render(
                 'default/tabbedContent.html.twig',
                 $this->tabDefinition
@@ -149,5 +182,55 @@ class ProjectsController extends Controller
         }
 
         return $this->render('');
+    }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function renderProjectViewAction(Request $request) {
+        if ( $this->fillProjectInfos($request) === false ) {
+            throw $this->createNotFoundException('A problem occured initating the project object.');
+        }
+
+        return $this->render(
+            '_partials/tabbedContent/mainTab/view/projects.html.twig',
+            $this->tabDefinition
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function renderRelatedProjectsViewContainerAction(Request $request) {
+        return $this->render(
+            '_partials/tabbedContent/relatedTabs/view/projects.html.twig',
+            array(
+                'id' => $request->get('id'),
+                'view_controller' => $request->get('view_controller'),
+                'view_route' => $request->get('view_route'),
+                'edit_controller' => $request->get('edit_controller'),
+                'edit_route' => $request->get('edit_route'),
+                'type' => $request->get('type'),
+            )
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function renderRelatedProjectsViewAction(Request $request) {
+        if( $request->get('type') != 'teams' && $request->get('type') != 'person' ) {
+            throw $this->createNotFoundException('You cannot ask for related projects to something else than a team or a person');
+        }
+
+        $related_projects = array();
+
+        return $this->render(
+            '_partials/tabbedContent/relatedTabs/view/project.html.twig',
+            array('related_projects' =>$related_projects,)
+        );
     }
 }

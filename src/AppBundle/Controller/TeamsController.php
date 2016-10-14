@@ -18,6 +18,7 @@ class TeamsController extends Controller
         'name' => '',
         'id' => null,
         'active' => true,
+        'action' => 'view',
         'tabs' => array(
             'main' => array(
                 'id' => 'teams-tab',
@@ -26,7 +27,11 @@ class TeamsController extends Controller
                 'headingText' => 'app.action.tab.main',
                 'headingIcon' => 'fa-cog',
                 'item' => null,
-                'template_path' => '_partials/tabbedContent/mainTab/view/teams.html.twig'
+                'view_container_controller' => 'AppBundle:Teams:renderTeamView',
+                'view_controller' => 'AppBundle:Teams:renderTeamView',
+                'view_route' => 'team_fragment_view',
+                'edit_controller' => 'AppBundle:Teams:renderTeamEdit',
+                'edit_route' => 'team_fragment_edit',
             ),
             'related-people' => array(
                 'id' => 'person-tab',
@@ -35,7 +40,11 @@ class TeamsController extends Controller
                 'headingText' => 'app.action.tab.relatedPeople',
                 'headingIcon' => 'fa-user',
                 'item' => null,
-                'template_path' => '_partials/tabbedContent/relatedTabs/view/person.html.twig'
+                'view_container_controller' => 'AppBundle:Person:renderRelatedPeopleViewContainer',
+                'view_controller' => 'AppBundle:Person:renderRelatedPeopleView',
+                'view_route' => 'related_people_fragment_view',
+                'edit_controller' => 'AppBundle:Person:renderPersonEdit',
+                'edit_route' => 'person_fragment_edit',
             ),
             'related-projects' => array(
                 'id' => 'projects-tab',
@@ -44,10 +53,18 @@ class TeamsController extends Controller
                 'headingText' => 'app.action.tab.relatedProjects',
                 'headingIcon' => 'fa-suitcase',
                 'item' => null,
-                'template_path' => '_partials/tabbedContent/relatedTabs/view/projects.html.twig'
+                'view_container_controller' => 'AppBundle:Projects:renderRelatedProjectsViewContainer',
+                'view_controller' => 'AppBundle:Projects:renderRelatedProjectsView',
+                'view_route' => 'related_projects_fragment_view',
+                'edit_controller' => 'AppBundle:Projects:renderProjectEdit',
+                'edit_route' => 'project_fragment_edit',
             )
         )
     );
+
+    private $team;
+    private $teamActive = true;
+    private $teamActionMode = 'view';
 
     /**
      * @return array Return the tab definition array with the necessary parts translated
@@ -87,14 +104,15 @@ class TeamsController extends Controller
     }
 
     /**
-     * @param Teams $team Team Entity Object
-     * @param bool $isActive Pass the boolean that tells if team active or not
+     * @return array The tab definition array
      */
-    private function fillInTabDefinition(Teams $team, $isActive) {
-        $this->tabDefinition['name']=trim($team->getInternationalName());
-        $this->tabDefinition['id']=$team->getId();
-        $this->tabDefinition['active']=$isActive;
-        $this->tabDefinition['tabs']['main']['item']=$team;
+    private function fillInTabDefinition() {
+
+        $this->tabDefinition['name']=$this->team->getInternationalName();
+        $this->tabDefinition['id']=$this->team->getId();
+        $this->tabDefinition['active']=$this->teamActive;
+        $this->tabDefinition['action']=$this->teamActionMode;
+        $this->tabDefinition['tabs']['main']['item']=$this->team;
 
         return $this->tabDefinition;
     }
@@ -112,6 +130,30 @@ class TeamsController extends Controller
 
     /**
      * @param Request $request
+     * @return bool
+     */
+    private function fillTeamInfos(Request $request) {
+
+        $this->translateTabDefinition();
+        $this->teamActive = true;
+        $this->team = $this->findTeam( $request->get('id') );
+
+        if ( $this->team === null ) {
+            throw $this->createNotFoundException('The team does not exists.');
+        }
+        $currentTimestamp = new \DateTime();
+        if ( $this->team->getEndDate() !== null && $this->team->getEndDate() < $currentTimestamp) {
+            $this->teamActive = false;
+        }
+        $this->teamActionMode = $request->get('action');
+
+        $this->fillInTabDefinition();
+
+        return true;
+    }
+
+    /**
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function teamsListAction(Request $request)
@@ -124,23 +166,14 @@ class TeamsController extends Controller
      */
     public function teamsAction(Request $request)
     {
-        $isActive = true;
-        $this->translateTabDefinition();
-        if ($request->get('action') === 'add') {
-            $team = new Teams();
-        } else {
-            $team = $this->findTeam($request->get('id'));
-            if ($team === null) {
-                throw $this->createNotFoundException('The person does not exists.');
-            }
-            $currentTimestamp = new \DateTime();
-            if ( $team->getEndDate() !== null && $team->getEndDate() < $currentTimestamp) {
-                $isActive = false;
-            }
+        if ( $request->get('action') === 'add' ) {
+            $this->team = new Teams();
+        }
+        elseif ( $this->fillTeamInfos($request) === false ) {
+            throw $this->createNotFoundException('A problem occured initiating the team object.');
         }
 
-        if ($request->get('action') === 'view') {
-            $this->fillInTabDefinition($team, $isActive);
+        if ( $request->get('action') === 'view' ) {
             return $this->render(
                 'default/tabbedContent.html.twig',
                 $this->tabDefinition
@@ -148,5 +181,55 @@ class TeamsController extends Controller
         }
 
         return $this->render('');
+    }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function renderTeamViewAction(Request $request) {
+        if ( $this->fillTeamInfos($request) === false ) {
+            throw $this->createNotFoundException('A problem occured initating the team object.');
+        }
+
+        return $this->render(
+            '_partials/tabbedContent/mainTab/view/teams.html.twig',
+            $this->tabDefinition
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function renderRelatedTeamsViewContainerAction(Request $request) {
+        return $this->render(
+            '_partials/tabbedContent/relatedTabs/view/teams.html.twig',
+            array(
+                'id' => $request->get('id'),
+                'view_controller' => $request->get('view_controller'),
+                'view_route' => $request->get('view_route'),
+                'edit_controller' => $request->get('edit_controller'),
+                'edit_route' => $request->get('edit_route'),
+                'type' => $request->get('type'),
+            )
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function renderRelatedTeamsViewAction(Request $request) {
+        if( $request->get('type') != 'projects' && $request->get('type') != 'person' ) {
+            throw $this->createNotFoundException('You cannot ask for related teams to something else than a project or a person');
+        }
+
+        $related_teams = array();
+
+        return $this->render(
+            '_partials/tabbedContent/relatedTabs/view/team.html.twig',
+            array('related_teams' =>$related_teams,)
+        );
     }
 }

@@ -397,6 +397,21 @@
                     <target xml:lang="fr">Rechercher</target>
                     
                 </trans-unit>
+                <trans-unit id="app-message-noRelatedPeople" resname="app.message.noRelatedPeople">
+                    <source xml:lang="en">There's no related people for the moment</source>
+                    <target xml:lang="fr">Il n'y a aucune personne liée pour le moment</target>
+                    
+                </trans-unit>
+                <trans-unit id="app-message-noRelatedTeams" resname="app.message.noRelatedTeams">
+                    <source xml:lang="en">There's no related teams for the moment</source>
+                    <target xml:lang="fr">Il n'y a aucune équipe liée pour le moment</target>
+                    
+                </trans-unit>
+                <trans-unit id="app-message-noRelatedProjects" resname="app.message.noRelatedProjects">
+                    <source xml:lang="en">There's no related projects for the moment</source>
+                    <target xml:lang="fr">Il n'y a aucun projet lié pour le moment</target>
+                    
+                </trans-unit>
             </group>
         </body>
     </file>
