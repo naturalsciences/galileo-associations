@@ -1,0 +1,17 @@
+{% if related_people|length == 0 %}
+    {% trans from "messages" %}app.message.noRelatedPeople{% endtrans %}
+{% else %}
+    <dl class="row">
+        <dt class="col-xs-8" title="{% trans from "messages" %}app.meta.title.form.relatedPeople.view.name{% endtrans %}">{% trans from "messages" %}app.form.relatedPeople.view.label.name{% endtrans %}</dt>
+        <dt class="col-xs-2" title="{% trans from "messages" %}app.meta.title.form.relatedPeople.view.startDate{% endtrans %}">{% trans from "messages" %}app.form.relatedPeople.view.label.startDate{% endtrans %}</dt>
+        <dt class="col-xs-2" title="{% trans from "messages" %}app.meta.title.form.relatedPeople.view.endDate{% endtrans %}">{% trans from "messages" %}app.form.relatedPeople.view.label.endDate{% endtrans %}</dt>
+    </dl>
+    <hr>
+    <dl class="row">
+        {% for person in related_people %}
+            <dd class="col-xs-8"><a href="{{ path('person', { 'id':person.id, 'action': 'view' }) }}" target="_blank">{{ person.name }}</a></dd>
+            <dd class="col-xs-2">{{ person.start_date|date('d/m/Y') }}</dd>
+            <dd class="col-xs-2">{{ person.end_date|date('d/m/Y') }}</dd>
+        {% endfor %}
+    </dl>
+{% endif %}

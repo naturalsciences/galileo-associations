@@ -71,29 +71,26 @@ class ProjectsController extends Controller
      */
     private function translateTabDefinition() {
 
-        $this->tabDefinition['name_label'] = $this
-            ->get('translator')
+        $translatorService = $this->get('translator');
+        $this->tabDefinition['name_label'] = $translatorService
             ->trans(
                 $this->tabDefinition['name_label'],
                 array(),
                 "messages"
             );
-        $this->tabDefinition['tabs']['main']['headingText'] = $this
-            ->get('translator')
+        $this->tabDefinition['tabs']['main']['headingText'] = $translatorService
             ->trans(
                 $this->tabDefinition['tabs']['main']['headingText'],
                 array(),
                 "messages"
             );
-        $this->tabDefinition['tabs']['related-teams']['headingText'] = $this
-            ->get('translator')
+        $this->tabDefinition['tabs']['related-teams']['headingText'] = $translatorService
             ->trans(
                 $this->tabDefinition['tabs']['related-teams']['headingText'],
                 array(),
                 "messages"
             );
-        $this->tabDefinition['tabs']['related-people']['headingText'] = $this
-            ->get('translator')
+        $this->tabDefinition['tabs']['related-people']['headingText'] = $translatorService
             ->trans(
                 $this->tabDefinition['tabs']['related-people']['headingText'],
                 array(),
@@ -229,7 +226,7 @@ class ProjectsController extends Controller
         $related_projects = array();
 
         return $this->render(
-            '_partials/tabbedContent/relatedTabs/view/project.html.twig',
+            '_partials/tabbedContent/relatedTabs/view/related_projects.html.twig',
             array('related_projects' =>$related_projects,)
         );
     }

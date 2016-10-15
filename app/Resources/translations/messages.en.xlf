@@ -96,6 +96,34 @@
                         <source xml:lang="en">Email</source>
                         <target xml:lang="en">Email</target>
                     </trans-unit>
+                    <trans-unit id="app-meta-title-form-relatedPeople-view-name" resname="app.meta.title.form.relatedPeople.view.name">
+                        <source xml:lang="en">Person name</source>
+                        <target xml:lang="en">Person name</target>
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-form-relatedPeople-view-startDate" resname="app.meta.title.form.relatedPeople.view.startDate">
+                        <source xml:lang="en">Membership start date</source>
+                        <target xml:lang="en">Membership start date</target>
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-form-relatedPeople-view-endDate" resname="app.meta.title.form.relatedPeople.view.endDate">
+                        <source xml:lang="en">Membership end date</source>
+                        <target xml:lang="en">Membership end date</target>
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-form-relatedProjects-view-name" resname="app.meta.title.form.relatedProjects.view.name">
+                        <source xml:lang="en">Project name</source>
+                        <target xml:lang="en">Project name</target>
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-form-relatedTeamsAndProjects-view-startDate" resname="app.meta.title.form.relatedTeamsAndProjects.view.startDate">
+                        <source xml:lang="en">Relationship start date</source>
+                        <target xml:lang="en">Relationship start date</target>
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-form-relatedTeamsAndProjects-view-endDate" resname="app.meta.title.form.relatedTeamsAndProjects.view.endDate">
+                        <source xml:lang="en">Relationship end date</source>
+                        <target xml:lang="en">Relationship end date</target>
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-form-relatedTeams-view-name" resname="app.meta.title.form.relatedTeams.view.name">
+                        <source xml:lang="en">Team name</source>
+                        <target xml:lang="en">Team name</target>
+                    </trans-unit>
                 </group>
                 <group id="app-meta-description">
                     <group id="app-meta-description-home">
@@ -323,6 +351,42 @@
                         </group>
                     </group>
                 </group>
+                <group id="app-form-relatedPeople">
+                    <group id="app-form-relatedPeople-view">
+                        <group id="app-form-relatedPeople-view-label">
+                            <trans-unit id="app-form-relatedPeople-view-label-name" resname="app.form.relatedPeople.view.label.name">
+                                <source xml:lang="en">Name</source>
+                                <target xml:lang="en">Name</target>
+                            </trans-unit>
+                            <trans-unit id="app-form-relatedPeople-view-label-startDate" resname="app.form.relatedPeople.view.label.startDate">
+                                <source xml:lang="en">Start date</source>
+                                <target xml:lang="en">Start date</target>
+                            </trans-unit>
+                            <trans-unit id="app-form-relatedPeople-view-label-endDate" resname="app.form.relatedPeople.view.label.endDate">
+                                <source xml:lang="en">End date</source>
+                                <target xml:lang="en">End date</target>
+                            </trans-unit>
+                        </group>
+                    </group>
+                </group>
+                <group id="app-form-relatedTeamsAndProjects">
+                    <group id="app-form-relatedTeamsAndProjects-view">
+                        <group id="app-form-relatedTeamsAndProjects-view-label">
+                            <trans-unit id="app-form-relatedTeamsAndProjects-view-label-name" resname="app.form.relatedTeamsAndProjects.view.label.name">
+                                <source xml:lang="en">Name (Int.)</source>
+                                <target xml:lang="en">Name (Int.)</target>
+                            </trans-unit>
+                            <trans-unit id="app-form-relatedTeamsAndProjects-view-label-startDate" resname="app.form.relatedTeamsAndProjects.view.label.startDate">
+                                <source xml:lang="en">Start date</source>
+                                <target xml:lang="en">Start date</target>
+                            </trans-unit>
+                            <trans-unit id="app-form-relatedTeamsAndProjects-view-label-endDate" resname="app.form.relatedTeamsAndProjects.view.label.endDate">
+                                <source xml:lang="en">End date</source>
+                                <target xml:lang="en">End date</target>
+                            </trans-unit>
+                        </group>
+                    </group>
+                </group>    
             </group>
             <group id="app-message">
                 <trans-unit id="app-message-search" resname="app.message.search">

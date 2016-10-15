@@ -71,29 +71,26 @@ class PersonController extends Controller
      */
     private function translateTabDefinition() {
 
-        $this->tabDefinition['name_label'] = $this
-            ->get('translator')
+        $translatorService = $this->get('translator');
+        $this->tabDefinition['name_label'] = $translatorService
             ->trans(
                 $this->tabDefinition['name_label'],
                 array(),
                 "messages"
             );
-        $this->tabDefinition['tabs']['main']['headingText'] = $this
-            ->get('translator')
+        $this->tabDefinition['tabs']['main']['headingText'] = $translatorService
             ->trans(
                 $this->tabDefinition['tabs']['main']['headingText'],
                 array(),
                 "messages"
             );
-        $this->tabDefinition['tabs']['related-teams']['headingText'] = $this
-            ->get('translator')
+        $this->tabDefinition['tabs']['related-teams']['headingText'] = $translatorService
             ->trans(
                 $this->tabDefinition['tabs']['related-teams']['headingText'],
                 array(),
                 "messages"
             );
-        $this->tabDefinition['tabs']['related-projects']['headingText'] = $this
-            ->get('translator')
+        $this->tabDefinition['tabs']['related-projects']['headingText'] = $translatorService
             ->trans(
                 $this->tabDefinition['tabs']['related-projects']['headingText'],
                 array(),
@@ -228,8 +225,21 @@ class PersonController extends Controller
 
         $related_people = array();
 
+        if ( $request->get('id', 0) !== 0 ) {
+            if ($request->get('type') === 'teams') {
+                $related_people = $this->getDoctrine()
+                    ->getRepository('AppBundle:TeamsMembers')
+                    ->listMembers($request->get('id'));
+            }
+            else {
+                $related_people = $this->getDoctrine()
+                    ->getRepository('AppBundle:ProjectsMembers')
+                    ->listMembers($request->get('id'));
+            }
+        }
+
         return $this->render(
-            '_partials/tabbedContent/relatedTabs/view/person.html.twig',
+            '_partials/tabbedContent/relatedTabs/view/related_people.html.twig',
             array('related_people' =>$related_people,)
         );
     }

@@ -1,0 +1,17 @@
+{% if related_projects|length == 0 %}
+    {% trans from "messages" %}app.message.noRelatedProjects{% endtrans %}
+{% else %}
+    <dl class="row">
+        <dt class="col-xs-8" title="{% trans from "messages" %}app.meta.title.form.relatedProjects.view.name{% endtrans %}">{% trans from "messages" %}app.form.relatedTeamsAndProjects.view.label.name{% endtrans %}</dt>
+        <dt class="col-xs-2" title="{% trans from "messages" %}app.meta.title.form.relatedTeamsAndProjects.view.startDate{% endtrans %}">{% trans from "messages" %}app.form.relatedTeamsAndProjects.view.label.startDate{% endtrans %}</dt>
+        <dt class="col-xs-2" title="{% trans from "messages" %}app.meta.title.form.relatedTeamsAndProjects.view.endDate{% endtrans %}">{% trans from "messages" %}app.form.relatedTeamsAndProjects.view.label.endDate{% endtrans %}</dt>
+    </dl>
+    <hr>
+    <dl class="row">
+        {% for project in related_projects %}
+            <dd class="col-xs-8">{{ project.name }}</dd>
+            <dd class="col-xs-2">{{ project.start_date|date('d/m/Y') }}</dd>
+            <dd class="col-xs-2">{{ project.end_date|date('d/m/Y') }}</dd>
+        {% endfor %}
+    </dl>
+{% endif %}

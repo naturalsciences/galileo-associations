@@ -10,4 +10,20 @@ namespace AppBundle\Repository;
  */
 class ProjectsMembers extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @param int $projectId The identifier of the project
+     * @return array The array of members with activity date
+     */
+    public function listMembers($projectId) {
+        return $this->createQueryBuilder('pm')
+            ->select('p.id')
+            ->addSelect('TRIM(CONCAT(p.first_name,CONCAT(\' \', p.last_name))) as name')
+            ->addSelect('pm.start_date')
+            ->addSelect('pm.end_date')
+            ->innerJoin('pm.Person', 'p')
+            ->where('pm.Projects = :project_id')
+            ->setParameter('project_id', $projectId)
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -10,4 +10,20 @@ namespace AppBundle\Repository;
  */
 class TeamsMembers extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @param int $teamId The identifier of the team
+     * @return array The array of members with activity date
+     */
+    public function listMembers($teamId) {
+        return $this->createQueryBuilder('tm')
+            ->select('p.id')
+            ->addSelect('TRIM(CONCAT(p.first_name,CONCAT(\' \', p.last_name))) as name')
+            ->addSelect('tm.start_date')
+            ->addSelect('tm.end_date')
+            ->innerJoin('tm.Person', 'p')
+            ->where('tm.Teams = :team_id')
+            ->setParameter('team_id', $teamId)
+            ->getQuery()
+            ->getResult();
+    }
 }
