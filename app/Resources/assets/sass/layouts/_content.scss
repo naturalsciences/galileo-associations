@@ -92,6 +92,22 @@
       padding-right: 0;
     }
 
+    @include media-breakpoint-up(xxxl) {
+      width: 15.4%;
+    }
+
+    @include media-breakpoint-up(xlxl) {
+      width: 15.5%;
+    }
+
+    @include media-breakpoint-up(xxlxl) {
+      width: 15.6%;
+    }
+
+    @include media-breakpoint-up(xxxlxl) {
+      width: 15.7%;
+    }
+
     li {
       min-height: 3rem;
       padding-top: .5rem;
