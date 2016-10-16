@@ -15,15 +15,117 @@ class TeamsMembers extends \Doctrine\ORM\EntityRepository
      * @return array The array of members with activity date
      */
     public function listMembers($teamId) {
-        return $this->createQueryBuilder('tm')
-            ->select('p.id')
-            ->addSelect('TRIM(CONCAT(p.first_name,CONCAT(\' \', p.last_name))) as name')
-            ->addSelect('tm.start_date')
-            ->addSelect('tm.end_date')
-            ->innerJoin('tm.Person', 'p')
-            ->where('tm.Teams = :team_id')
-            ->setParameter('team_id', $teamId)
-            ->getQuery()
-            ->getResult();
+        $em = $this->getEntityManager();
+        $conn = $em->getConnection();
+        $qb = $conn->createQueryBuilder();
+        $qb->select("p.id as id,
+                     tm.id as teamsMembersId,
+                     p.last_name,
+                     TRIM(CONCAT(p.first_name,CONCAT(' ', p.last_name))) as name,
+                     CASE WHEN EXISTS
+                     (
+                        SELECT CASE 
+                                    WHEN pe.exit_date IS NULL OR pe.exit_date > CURRENT_TIMESTAMP THEN
+                                        'active'
+                                    ELSE
+                                        'inactive'
+                               END
+                        FROM person_entry pe
+                        WHERE pe.person_ref = p.id
+                        ORDER BY pe.entry_date DESC
+                        LIMIT 1
+                     ) THEN
+                     (
+                        SELECT CASE 
+                                    WHEN pe.exit_date IS NULL OR pe.exit_date > CURRENT_TIMESTAMP THEN
+                                        'active'
+                                    ELSE
+                                        'inactive'
+                               END
+                        FROM person_entry pe
+                        WHERE pe.person_ref = p.id
+                        ORDER BY pe.entry_date DESC
+                        LIMIT 1
+                     )
+                     ELSE
+                       'active'
+                     END as active,
+                     tm.start_date,
+                     tm.end_date")
+            ->from('teams_members', 'tm')
+            ->innerJoin('tm', 'person', 'p', 'tm.person_ref = p.id')
+            ->where('tm.team_ref = :team_id')
+            ->orderBy('tm.end_date DESC, tm.start_date DESC, p.last_name')
+            ->setParameter('team_id', $teamId);
+
+        $query_prepared = $conn->prepare($qb->getSQL());
+        $query_prepared->execute($qb->getParameters());
+
+        return $query_prepared->fetchAll();
+
     }
+
+    /**
+     * @param int $personId The identifier of the person
+     * @param string $locale The identifier of the locale
+     * @return array The array of teams with activity date
+     */
+    public function listTeams($personId, $locale='en') {
+        $em = $this->getEntityManager();
+        $conn = $em->getConnection();
+        $qb = $conn->createQueryBuilder();
+        $qb->select("t.id as id,
+                     tm.id as teamMembersId,
+                     CASE
+                        WHEN t.international_cascade = 2 THEN
+                            t.international_name
+                        WHEN t.international_cascade = 1 AND t.international_name_language = :locale THEN
+                            t.international_name
+                        ELSE
+                            CASE
+                              WHEN :locale = 'nl' THEN
+                                CASE
+                                  WHEN t.name_nl IS NULL THEN
+                                    t.international_name
+                                  ELSE
+                                    t.name_nl
+                                END
+                              WHEN :locale = 'fr' THEN
+                                CASE
+                                  WHEN t.name_fr IS NULL THEN
+                                    t.international_name
+                                  ELSE
+                                    t.name_fr
+                                END
+                              ELSE
+                                CASE
+                                  WHEN t.name_en IS NULL THEN
+                                    t.international_name
+                                  ELSE
+                                    t.name_en
+                                END
+                            END
+                     END as name,
+                     CASE 
+                        WHEN t.end_date IS NULL OR t.end_date > CURRENT_TIMESTAMP then
+                            'active'
+                        ELSE
+                            'inactive'
+                     END as active,
+                     tm.start_date,
+                     tm.end_date")
+            ->from('teams_members', 'tm')
+            ->innerJoin('tm', 'teams', 't', 'tm.team_ref = t.id')
+            ->where('tm.person_ref = :person_id')
+            ->orderBy('tm.end_date DESC, tm.start_date DESC, name')
+            ->setParameter('person_id', $personId)
+            ->setParameter('locale', $locale);
+
+        $query_prepared = $conn->prepare($qb->getSQL());
+        $query_prepared->execute($qb->getParameters());
+
+        return $query_prepared->fetchAll();
+
+    }
+
 }

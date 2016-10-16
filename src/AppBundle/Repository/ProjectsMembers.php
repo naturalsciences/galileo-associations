@@ -75,7 +75,7 @@ class ProjectsMembers extends \Doctrine\ORM\EntityRepository
         $conn = $em->getConnection();
         $qb = $conn->createQueryBuilder();
         $qb->select("p.id as id,
-                     pm.id as projectMembersId,
+                     pm.id as projectsMembersId,
                      CASE
                         WHEN p.international_cascade = 2 THEN
                             p.international_name

@@ -224,6 +224,19 @@ class TeamsController extends Controller
 
         $related_teams = array();
 
+        if ( $request->get('id', 0) !== 0 ) {
+            if ($request->get('type') === 'person') {
+                $related_teams = $this->getDoctrine()
+                                    ->getRepository('AppBundle:TeamsMembers')
+                                    ->listTeams($request->get('id'), $request->getLocale());
+            }
+            else {
+/*                $related_teams = $this->getDoctrine()
+                    ->getRepository('AppBundle:ProjectsMembers')
+                    ->listProjects($request->get('id'),$request->getLocale());*/
+            }
+        }
+
         return $this->render(
             '_partials/tabbedContent/relatedTabs/view/related_teams.html.twig',
             array('related_teams' =>$related_teams,)
