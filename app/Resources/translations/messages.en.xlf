@@ -213,6 +213,18 @@
                         <target xml:lang="en">Search Teams</target>
                     </trans-unit>
                 </group>
+                <group id="app-title-content">
+                    <group id="app-title-content-related">
+                        <trans-unit id="app-title-content-related-active" resname="app.title.content.related.active">
+                            <source xml:lang="en">active</source>
+                            <target xml:lang="en">active</target>
+                        </trans-unit>
+                        <trans-unit id="app-title-content-related-inactive" resname="app.title.content.related.inactive">
+                            <source xml:lang="en">non active</source>
+                            <target xml:lang="en">non active</target>
+                        </trans-unit>
+                    </group>
+                </group>
             </group>
             <group id="app-nav">
                 <group id="app-nav-menu">

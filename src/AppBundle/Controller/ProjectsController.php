@@ -225,6 +225,19 @@ class ProjectsController extends Controller
 
         $related_projects = array();
 
+        if ( $request->get('id', 0) !== 0 ) {
+            if ($request->get('type') === 'teams') {
+/*                $related_projects = $this->getDoctrine()
+                    ->getRepository('AppBundle:TeamsMembers')
+                    ->listMembers($request->get('id'));*/
+            }
+            else {
+                $related_projects = $this->getDoctrine()
+                    ->getRepository('AppBundle:ProjectsMembers')
+                    ->listProjects($request->get('id'),$request->getLocale());
+            }
+        }
+
         return $this->render(
             '_partials/tabbedContent/relatedTabs/view/related_projects.html.twig',
             array('related_projects' =>$related_projects,)

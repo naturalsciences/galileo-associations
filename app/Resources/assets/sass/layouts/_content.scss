@@ -32,6 +32,25 @@
 
   div.row {
     width: 100%;
+
+    hr {
+      width: 100%;
+    }
+
+    dl a:hover {
+      text-decoration: none;
+    }
+
+    dl a.inactive,
+    dl a.inactive:hover {
+      text-decoration: line-through;
+      color: $gray;
+    }
+
+    dl a.inactive:hover {
+      color: $black;
+    }
+
   }
 }
 

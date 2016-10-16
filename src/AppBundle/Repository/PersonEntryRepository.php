@@ -12,27 +12,27 @@ class PersonEntryRepository extends \Doctrine\ORM\EntityRepository
 {
     /**
      * @param int $id Identifier of person
-     * @return bool $result Return true if person is active, false if not
+     * @return bool Return true if person is active, false if not
      */
     public function isActive($id){
-        $result = true;
         $q = $this->createQueryBuilder('pe')
-            ->where('pe.Person = :person_id')
-            ->andWhere('CASE 
-                            WHEN (pe.exit_date IS NULL) THEN
-                                true
-                            WHEN pe.exit_date > CURRENT_TIMESTAMP() THEN
-                                true 
-                            ELSE 
-                                false 
-                       END = true'
+            ->select(
+                'CASE 
+                    WHEN pe.exit_date IS NULL THEN true 
+                    WHEN pe.exit_date > CURRENT_TIMESTAMP() THEN true 
+                    ELSE false 
+                 END as active'
             )
+            ->where('pe.Person = :person_id')
+            ->orderBy('pe.entry_date','DESC')
+            ->setMaxResults(1)
             ->setParameter('person_id', $id)
             ->getQuery()
             ->getResult();
-        if( count($q) === 0 ) {
-            $result = false;
+        if ( count($q) === 0 ) {
+            return true;
         }
-        return $result;
+
+        return $q[0]['active'];
     }
 }
