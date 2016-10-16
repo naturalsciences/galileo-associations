@@ -385,8 +385,8 @@
                     <group id="app-form-relatedTeamsAndProjects-view">
                         <group id="app-form-relatedTeamsAndProjects-view-label">
                             <trans-unit id="app-form-relatedTeamsAndProjects-view-label-name" resname="app.form.relatedTeamsAndProjects.view.label.name">
-                                <source xml:lang="en">Name (Int.)</source>
-                                <target xml:lang="en">Name (Int.)</target>
+                                <source xml:lang="en">Name</source>
+                                <target xml:lang="en">Name</target>
                             </trans-unit>
                             <trans-unit id="app-form-relatedTeamsAndProjects-view-label-startDate" resname="app.form.relatedTeamsAndProjects.view.label.startDate">
                                 <source xml:lang="en">Start date</source>

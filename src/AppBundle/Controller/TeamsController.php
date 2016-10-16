@@ -231,9 +231,9 @@ class TeamsController extends Controller
                                     ->listTeams($request->get('id'), $request->getLocale());
             }
             else {
-/*                $related_teams = $this->getDoctrine()
-                    ->getRepository('AppBundle:ProjectsMembers')
-                    ->listProjects($request->get('id'),$request->getLocale());*/
+                $related_teams = $this->getDoctrine()
+                    ->getRepository('AppBundle:TeamsProjects')
+                    ->listTeams($request->get('id'),$request->getLocale());
             }
         }
 

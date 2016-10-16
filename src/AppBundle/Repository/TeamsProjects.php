@@ -10,4 +10,123 @@ namespace AppBundle\Repository;
  */
 class TeamsProjects extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @param int $teamId the team identifier
+     * @param string $locale the current locale
+     * @return array The list of related People for a given team
+     */
+    public function listProjects($teamId, $locale) {
+        return $this->createQueryBuilder('tp')
+            ->select('p.id')
+            ->addSelect('tp.id as teamsProjectsId')
+            ->addSelect(
+                'CASE
+                    WHEN p.international_cascade = 2 THEN
+                        p.international_name
+                    WHEN p.international_cascade = 1 AND p.international_name_language = :locale THEN
+                        p.international_name
+                    ELSE
+                        CASE
+                          WHEN :locale = \'nl\' THEN
+                            CASE
+                              WHEN p.name_nl IS NULL THEN
+                                p.international_name
+                              ELSE
+                                p.name_nl
+                            END
+                          WHEN :locale = \'fr\' THEN
+                            CASE
+                              WHEN p.name_fr IS NULL THEN
+                                p.international_name
+                              ELSE
+                                p.name_fr
+                            END
+                          ELSE
+                            CASE
+                              WHEN p.name_en IS NULL THEN
+                                p.international_name
+                              ELSE
+                                p.name_en
+                            END
+                        END
+                END as name'
+            )
+            ->addSelect(
+                'CASE 
+                    WHEN p.end_date IS NULL OR p.end_date > CURRENT_TIMESTAMP() then
+                        \'active\'
+                    ELSE
+                        \'inactive\'
+                 END as active'
+            )
+            ->addSelect('tp.start_date')
+            ->addSelect('tp.end_date')
+            ->innerJoin('tp.Projects', 'p')
+            ->where('tp.Teams = :teamId')
+            ->orderBy('tp.end_date DESC, active, name')
+            ->setParameter('locale',$locale)
+            ->setParameter('teamId',$teamId)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param int $projectId the project identifier
+     * @param string $locale the current locale
+     * @return array The list of related People for a given project
+     */
+    public function listTeams($projectId, $locale) {
+        return $this->createQueryBuilder('tp')
+            ->select('t.id')
+            ->addSelect('tp.id as teamsProjectsId')
+            ->addSelect(
+                'CASE
+                    WHEN t.international_cascade = 2 THEN
+                        t.international_name
+                    WHEN t.international_cascade = 1 AND t.international_name_language = :locale THEN
+                        t.international_name
+                    ELSE
+                        CASE
+                          WHEN :locale = \'nl\' THEN
+                            CASE
+                              WHEN t.name_nl IS NULL THEN
+                                t.international_name
+                              ELSE
+                                t.name_nl
+                            END
+                          WHEN :locale = \'fr\' THEN
+                            CASE
+                              WHEN t.name_fr IS NULL THEN
+                                t.international_name
+                              ELSE
+                                t.name_fr
+                            END
+                          ELSE
+                            CASE
+                              WHEN t.name_en IS NULL THEN
+                                t.international_name
+                              ELSE
+                                t.name_en
+                            END
+                        END
+                END as name'
+            )
+            ->addSelect(
+                'CASE 
+                    WHEN t.end_date IS NULL OR t.end_date > CURRENT_TIMESTAMP() then
+                        \'active\'
+                    ELSE
+                        \'inactive\'
+                 END as active'
+            )
+            ->addSelect('tp.start_date')
+            ->addSelect('tp.end_date')
+            ->innerJoin('tp.Teams', 't')
+            ->where('tp.Projects = :projectId')
+            ->orderBy('tp.end_date DESC, active, name')
+            ->setParameter('locale',$locale)
+            ->setParameter('projectId',$projectId)
+            ->getQuery()
+            ->getResult();
+    }
 }

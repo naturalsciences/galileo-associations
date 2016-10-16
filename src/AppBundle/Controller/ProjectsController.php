@@ -227,9 +227,9 @@ class ProjectsController extends Controller
 
         if ( $request->get('id', 0) !== 0 ) {
             if ($request->get('type') === 'teams') {
-/*                $related_projects = $this->getDoctrine()
-                    ->getRepository('AppBundle:TeamsMembers')
-                    ->listMembers($request->get('id'));*/
+                $related_projects = $this->getDoctrine()
+                    ->getRepository('AppBundle:TeamsProjects')
+                    ->listProjects($request->get('id'), $request->getLocale());
             }
             else {
                 $related_projects = $this->getDoctrine()

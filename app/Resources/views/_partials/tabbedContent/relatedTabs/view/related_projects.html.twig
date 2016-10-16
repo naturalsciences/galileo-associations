@@ -2,14 +2,16 @@
     {% trans from "messages" %}app.message.noRelatedProjects{% endtrans %}
 {% else %}
     <dl class="row">
-        <dt class="col-xs-8" title="{% trans from "messages" %}app.meta.title.form.relatedProjects.view.name{% endtrans %}">{% trans from "messages" %}app.form.relatedTeamsAndProjects.view.label.name{% endtrans %}</dt>
+        <dt class="col-xs-6" title="{% trans from "messages" %}app.meta.title.form.relatedProjects.view.name{% endtrans %}">{% trans from "messages" %}app.form.relatedTeamsAndProjects.view.label.name{% endtrans %}</dt>
         <dt class="col-xs-2" title="{% trans from "messages" %}app.meta.title.form.relatedTeamsAndProjects.view.startDate{% endtrans %}">{% trans from "messages" %}app.form.relatedTeamsAndProjects.view.label.startDate{% endtrans %}</dt>
         <dt class="col-xs-2" title="{% trans from "messages" %}app.meta.title.form.relatedTeamsAndProjects.view.endDate{% endtrans %}">{% trans from "messages" %}app.form.relatedTeamsAndProjects.view.label.endDate{% endtrans %}</dt>
+        <dt class="col-xs-2"></dt>
         <hr>
         {% for project in related_projects %}
-            <dd class="col-xs-8"><a title="{% if project.active == 'active' %}{% trans from 'messages' %}app.title.content.related.active{% endtrans %}{% else %}{% trans from 'messages' %}app.title.content.related.inactive{% endtrans %}{% endif %}" class="{{ project.active }}" href="{{ path('projects', { 'id':project.id, 'action': 'view' }) }}" target="_blank">{{ project.name }}</a></dd>
+            <dd class="col-xs-6"><a title="{% if project.active == 'active' %}{% trans from 'messages' %}app.title.content.related.active{% endtrans %}{% else %}{% trans from 'messages' %}app.title.content.related.inactive{% endtrans %}{% endif %}" class="{{ project.active }}" href="{{ path('projects', { 'id':project.id, 'action': 'view' }) }}">{{ project.name }}</a></dd>
             <dd class="col-xs-2">{{ project.start_date is empty ? '-' : project.start_date|date('d/m/Y') }}</dd>
             <dd class="col-xs-2">{{ project.end_date is empty ? '-' : project.end_date|date('d/m/Y') }}</dd>
+            <dd class="col-xs-2"><i class="fa fa-pencil"></i> <i class="fa fa-times"></i></dd>
         {% endfor %}
     </dl>
 {% endif %}
