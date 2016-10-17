@@ -1,0 +1,82 @@
+{% extends 'bootstrap_3_layout.html.twig' %}
+
+{% block form_row %}
+    {% spaceless %}
+        <div class="row input-prepend {{ rowclass|default('col-xs-12') }}  {% if errors|length > 0 %}with_error{% endif %}">
+            <span class="add-on">{{ form_label(form)}}</span>
+            {{ form_widget(form) }}
+        </div>
+    {% endspaceless %}
+{% endblock form_row %}
+
+
+{#
+{% block form_label %}
+    {% spaceless %}
+        {% trans_default_domain "messages" %}
+
+        {% if required %}
+            {% set required_add %}
+                {% spaceless %}
+                    <span class="required">*</span>
+                {% endspaceless %}
+            {% endset %}
+        {% endif %}
+        {% set lbl = 'form' ~ unique_block_prefix %}
+        <label for="{{ id }}" {% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+        {% if multiple|default(false) %}
+            {{ [lbl,'name']|join|replace({'_':'.'}) |trans }}
+        {% else %}
+            {{ lbl|replace({'_':'.'})|trans }}
+        {% endif %}
+        {{required_add|default('')}}</label>
+    {% endspaceless %}
+{% endblock form_label %}
+#}
+
+{% block date_widget %}
+    {% spaceless %}
+        {% if widget == 'single_text'%}
+            {{ parent() }}
+            <script>
+                $(function() {
+                    $( "#{{ id }}" ).datepicker({
+                        dateFormat: 'dd/mm/yy'
+                    });
+                    $( "#{{ id }}" ).datepicker("option", $.datepicker.regional[ "{{app.request.getLocale()}}" ] );
+                });
+            </script>
+        {% else %}
+            {{ parent() }}
+        {% endif %}
+    {% endspaceless %}
+{% endblock date_widget %}
+
+{% block choice_widget_collapsed %}
+    {% spaceless %}
+        {{ parent() }}
+        <script>
+            $(function() {
+                $( "#{{ id }}" ).combobox();
+            });
+        </script>
+    {% endspaceless %}
+{% endblock choice_widget_collapsed %}
+
+{#
+{% block form_errors %}
+    {% spaceless %}
+        {% if errors|length > 0 %}
+            <ul class="errors_list">
+                {% for error in errors %}
+                    <li class="alert alert-error">{{
+                        error.messagePluralization is null
+                        ? error.messageTemplate|trans(error.messageParameters, 'validators')
+                        : error.messageTemplate|transchoice(error.messagePluralization, error.messageParameters, 'validators')
+                        }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_errors %}
+#}

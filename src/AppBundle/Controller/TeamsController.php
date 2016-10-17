@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Teams as Teams;
+use AppBundle\Form\TeamsFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -155,7 +156,7 @@ class TeamsController extends Controller
      */
     public function teamsListAction(Request $request)
     {
-        return $this->render('');
+        return $this->render('default/projectsAndTeamsList.html.twig');
     }
     /**
      * @param Request $request
@@ -170,14 +171,48 @@ class TeamsController extends Controller
             throw $this->createNotFoundException('A problem occured initiating the team object.');
         }
 
-        if ( $request->get('action') === 'view' ) {
-            return $this->render(
-                'default/tabbedContent.html.twig',
-                $this->tabDefinition
+        if ( $request->get('action') != 'view' ) {
+            $form = $this->createForm(
+                TeamsFormType::class,
+                $this->team
             );
+
+            $form->handleRequest($request);
+
+            $this->team = $form->getData();
+
+            if ( $form->isSubmitted() && $form->isValid() ) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($this->team);
+                $em->flush();
+
+                return $this->redirectToRoute(
+                    'projects',
+                    array(
+                        'id' => $this->team->getId(),
+                        'action' => 'view',
+                        '_locale' => $request->getLocale()
+                    )
+                );
+            }
+
+            if ( $request->get('action') === 'add' ) {
+                return $this->render(
+                    'default/teamsNew.html.twig',
+                    array(
+                        'form' => $form->createView(),
+                    )
+                );
+            }
+            else {
+                $this->tabDefinition['tabs']['main']['form'] = $form->createView();
+            }
         }
 
-        return $this->render('');
+        return $this->render(
+            'default/tabbedContent.html.twig',
+            $this->tabDefinition
+        );
     }
 
     /**

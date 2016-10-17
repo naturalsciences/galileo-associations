@@ -1,0 +1,21 @@
+{% extends "default/index.html.twig" %}
+
+{% block content_main %}
+    <div class="row">
+        <div class="col-xs-12">
+            <h2 class="content-title">Add a new Project</h2>
+        </div>
+        <div class="col-xs-12">
+            {{ form_errors(form) }}
+        </div>
+        <div class="col-xs-12">
+            {{ form_start(form) }}
+
+                {{ form_widget(form) }}
+
+                <button type="submit" class="btn btn-primary">Save</button>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock content_main %}

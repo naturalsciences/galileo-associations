@@ -315,6 +315,12 @@
                 </group>
             </group>
             <group id="app_form">
+                <group id="app-form-flash">
+                    <trans-unit id="app-form-flash-success" resname="app.form.flash.success">
+                        <source xml:lang="en">The record "%name%" has been well saved</source>
+                        <target xml:lang="en">The record "%name%" has been well saved</target>
+                    </trans-unit>
+                </group>
                 <group id="app-form-person">
                     <group id="app-form-person-view">
                         <group id="app-form-person-view-label">

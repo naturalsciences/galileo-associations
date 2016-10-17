@@ -25,12 +25,12 @@ class Projects
     /**
      * @var string
      */
-    private $international_name_language = 'EN';
+    private $international_name_language = 'en';
 
     /**
-     * @var boolean
+     * @var integer
      */
-    private $international_cascade = true;
+    private $international_cascade = 0;
 
     /**
      * @var string

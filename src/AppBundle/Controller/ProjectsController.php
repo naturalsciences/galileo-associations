@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Projects as Projects;
+use AppBundle\Form\ProjectsFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -27,6 +28,7 @@ class ProjectsController extends Controller
                 'headingText' => 'app.action.tab.main',
                 'headingIcon' => 'fa-cog',
                 'item' => null,
+                'form' => null,
                 'view_container_controller' => 'AppBundle:Projects:renderProjectView',
                 'view_controller' => 'AppBundle:Projects:renderProjectView',
                 'view_route' => 'project_fragment_view',
@@ -131,7 +133,6 @@ class ProjectsController extends Controller
      */
     private function fillProjectInfos(Request $request) {
 
-        $this->translateTabDefinition();
         $this->projectActive = true;
         $this->project = $this->findProject( $request->get('id') );
 
@@ -145,6 +146,7 @@ class ProjectsController extends Controller
         $this->projectActionMode = $request->get('action');
 
         $this->fillInTabDefinition();
+        $this->translateTabDefinition();
 
         return true;
     }
@@ -155,7 +157,7 @@ class ProjectsController extends Controller
      */
     public function projectsListAction(Request $request)
     {
-        return $this->render('');
+        return $this->render('default/projectsAndTeamsList.html.twig');
     }
 
     /**
@@ -164,6 +166,7 @@ class ProjectsController extends Controller
      */
     public function projectsAction(Request $request)
     {
+
         if ( $request->get('action') === 'add' ) {
             $this->project = new Projects();
         }
@@ -171,14 +174,48 @@ class ProjectsController extends Controller
             throw $this->createNotFoundException('A problem occured initiating the project object.');
         }
 
-        if ( $request->get('action') === 'view' ) {
-            return $this->render(
-                'default/tabbedContent.html.twig',
-                $this->tabDefinition
+        if ( $request->get('action') != 'view' ) {
+            $form = $this->createForm(
+                ProjectsFormType::class,
+                $this->project
             );
+
+            $form->handleRequest($request);
+
+            $this->project = $form->getData();
+
+            if ( $form->isSubmitted() && $form->isValid() ) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($this->project);
+                $em->flush();
+
+                return $this->redirectToRoute(
+                    'projects',
+                    array(
+                        'id' => $this->project->getId(),
+                        'action' => 'view',
+                        '_locale' => $request->getLocale()
+                    )
+                );
+            }
+
+            if ( $request->get('action') === 'add' ) {
+                return $this->render(
+                    'default/projectsNew.html.twig',
+                    array(
+                        'form' => $form->createView(),
+                    )
+                );
+            }
+            else {
+                $this->tabDefinition['tabs']['main']['form'] = $form->createView();
+            }
         }
 
-        return $this->render('');
+        return $this->render(
+            'default/tabbedContent.html.twig',
+            $this->tabDefinition
+        );
     }
 
     /**
