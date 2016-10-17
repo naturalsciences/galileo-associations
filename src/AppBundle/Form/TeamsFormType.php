@@ -4,6 +4,7 @@ namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -23,7 +24,9 @@ class TeamsFormType extends AbstractType
                 'choice_translation_domain' => 'content-db'
             )
         )
-            ->add('international_name')
+            ->add(
+                'international_name'
+            )
             ->add('international_description')
             ->add(
                 'international_cascade',
@@ -42,8 +45,36 @@ class TeamsFormType extends AbstractType
             ->add('description_fr')
             ->add('name_nl')
             ->add('description_nl')
-            ->add('start_date')
-            ->add('end_date')
+            ->add(
+                'start_date',
+                DateType::class,
+                array(
+                    'choice_translation_domain' => 'messages',
+                    'required' => false,
+                    'widget' => 'single_text',
+                    'html5' => false,
+                    'placeholder' => 'app.form.teams.startDate.placeholder',
+                    'format' => 'dd/MM/yyyy',
+                    'attr' => array(
+                        'class' => 'js-datepicker'
+                    ),
+                )
+            )
+            ->add(
+                'end_date',
+                DateType::class,
+                array(
+                    'choice_translation_domain' => 'messages',
+                    'required' => false,
+                    'widget' => 'single_text',
+                    'html5' => false,
+                    'placeholder' => 'app.form.teams.startDate.placeholder',
+                    'format' => 'dd/MM/yyyy',
+                    'attr' => array(
+                        'class' => 'js-datepicker'
+                    ),
+                )
+            )
         ;
     }
 

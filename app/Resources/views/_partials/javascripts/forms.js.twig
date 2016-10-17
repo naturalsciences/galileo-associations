@@ -1,0 +1,10 @@
+$(document).ready(
+    function() {
+        $('.js-datepicker').datepicker(
+                $.datepicker.regional[ "{{ app.request.getLocale() }}" ],
+                {
+                    dateFormat: 'dd/mm/yyyy'
+                }
+        );
+    }
+);

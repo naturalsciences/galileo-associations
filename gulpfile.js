@@ -101,6 +101,7 @@ gulp.task('styles', function() {
     pipeline.add([
         config.bowerDir+'/fontawesome/css/font-awesome.css',
         config.bowerDir+'/tether/dist/css/tether-theme-arrows.css',
+        config.bowerDir+'/jquery-ui/themes/smoothness/jquery-ui.css',
         config.assetsDir+'/sass/base.scss'
     ], 'site-min.css');
 
@@ -121,6 +122,8 @@ gulp.task('scripts', function() {
         [
             config.bowerDir+'/jquery-ui/jquery-ui.js',
             config.bowerDir+'/tether/dist/js/tether.js',
+            config.bowerDir+'/jquery-ui/ui/i18n/datepicker-fr.js',
+            config.bowerDir+'/jquery-ui/ui/i18n/datepicker-nl.js',
             config.bowerDir+'/bootstrap/dist/js/bootstrap.js',
             config.assetsDir+'/js/**/*.js'
         ],
