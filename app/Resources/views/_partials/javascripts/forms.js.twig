@@ -1,9 +1,11 @@
 $(document).ready(
     function() {
+        $.datepicker.setDefaults(
+                $.datepicker.regional[ "{{ app.request.getLocale() }}" ]
+        );
         $('.js-datepicker').datepicker(
-                $.datepicker.regional[ "{{ app.request.getLocale() }}" ],
                 {
-                    dateFormat: 'dd/mm/yyyy'
+                    dateFormat: 'dd/mm/yy'
                 }
         );
     }
