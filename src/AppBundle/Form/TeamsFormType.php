@@ -212,7 +212,7 @@ class TeamsFormType extends AbstractType
                 array(
                     'label' => 'app.form.teamsAndProjects.edit.reset',
                     'attr' => array(
-                        'class' => 'reset rbins-reset-btn'
+                        'class' => 'reset rbins-reset-btn pull-right'
                     ),
                 )
             )
@@ -222,7 +222,7 @@ class TeamsFormType extends AbstractType
                 array(
                     'label' => 'app.form.teamsAndProjects.edit.save',
                     'attr' => array(
-                        'class' => 'save rbins-save-btn'
+                        'class' => 'save rbins-save-btn pull-right'
                     ),
                 )
             )
