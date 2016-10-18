@@ -82,8 +82,10 @@
         {% endblock search_menu %}
         {% block content %}{% endblock %}
 
-        <!-- Return to Top -->
-        <a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up"></i></a>
+        {% block return_to_top %}
+            <!-- Return to Top -->
+            <a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up"></i></a>
+        {% endblock return_to_top %}
 
         <script src="{{ asset('js/site-min.js'|asset_version) }}" type="text/javascript"></script>
         <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
