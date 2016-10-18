@@ -366,6 +366,14 @@
                                 <source xml:lang="en">End date</source>
                                 <target xml:lang="en">End date</target>
                             </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-view-button-removeProject" resname="app.form.teamsAndProjects.view.button.removeProject">
+                                <source xml:lang="en">Remove project</source>
+                                <target xml:lang="en">Remove project</target>
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-view-button-removeTeam" resname="app.form.teamsAndProjects.view.button.removeTeam">
+                                <source xml:lang="en">Remove team</source>
+                                <target xml:lang="en">Remove team</target>
+                            </trans-unit>
                         </group>
                     </group>
                     <group id="app-form-teamsAndProjects-edit">
@@ -488,6 +496,10 @@
                 <trans-unit id="app-message-noRelatedProjects" resname="app.message.noRelatedProjects">
                     <source xml:lang="en">There's no related projects for the moment</source>
                     <target xml:lang="en">There's no related projects for the moment</target>
+                </trans-unit>
+                <trans-unit id="app-message-main-removeConfirmation" resname="app.message.main.removeConfirmation">
+                    <source xml:lang="en">Are you sure you want to remove this entry</source>
+                    <target xml:lang="en">Are you sure you want to remove this entry</target>
                 </trans-unit>
                 <trans-unit id="app-message-related-removeConfirmation" resname="app.message.related.removeConfirmation">
                     <source xml:lang="en">Are you sure you want to remove this related entry</source>

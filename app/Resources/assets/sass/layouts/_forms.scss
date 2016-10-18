@@ -26,7 +26,8 @@ textarea.required:focus {
 }
 
 button.btn.rbins-save-btn,
-button.btn.rbins-reset-btn {
+button.btn.rbins-reset-btn,
+a.btn.rbins-remove-btn {
   background-color: $white;
   border-color: $black;
   color: $black;

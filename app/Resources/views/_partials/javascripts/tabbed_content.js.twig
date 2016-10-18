@@ -61,5 +61,16 @@ $(document).ready(
                     return false;
                 }
         );
+
+        $('.rbins-remove-btn').on(
+                'click',
+                function(event) {
+                    event.preventDefault();
+                    if ( !confirm("{{ 'app.message.main.removeConfirmation'|trans({}, "messages") }}")) {
+                        return false;
+                    }
+                    return false;
+                }
+        );
     }
 );
