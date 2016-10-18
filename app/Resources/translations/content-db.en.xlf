@@ -2,18 +2,36 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" target-language="en" datatype="plaintext" original="global">
         <body>
-            <trans-unit id="language_abbrev_english" resname="en">
-                <source xml:lang="en">en</source>
-                <target xml:lang="en">English</target>
-            </trans-unit>
-            <trans-unit id="language_abbrev_dutch" resname="nl">
-                <source xml:lang="en">nl</source>
-                <target xml:lang="en">Dutch</target>
-            </trans-unit>
-            <trans-unit id="language_abbrev_french" resname="fr">
-                <source xml:lang="en">fr</source>
-                <target xml:lang="en">French</target>
-            </trans-unit>
+            <group id="global">
+                <trans-unit id="language_abbrev_english" resname="en">
+                    <source xml:lang="en">en</source>
+                    <target xml:lang="en">English</target>
+                </trans-unit>
+                <trans-unit id="language_abbrev_dutch" resname="nl">
+                    <source xml:lang="en">nl</source>
+                    <target xml:lang="en">Dutch</target>
+                </trans-unit>
+                <trans-unit id="language_abbrev_french" resname="fr">
+                    <source xml:lang="en">fr</source>
+                    <target xml:lang="en">French</target>
+                </trans-unit>
+            </group>
+            <group id="form">
+                <group id="form-teamsAndProjects">
+                    <trans-unit id="form-teamsAndProjects-internationalCascade.0" resname="form.teamsAndProjects.internationalCascade.0">
+                        <source xml:lang="en">None of the translated versions</source>
+                        <target xml:lang="en">None of the translated versions</target>
+                    </trans-unit>
+                    <trans-unit id="form-teamsAndProjects-internationalCascade.1" resname="form.teamsAndProjects.internationalCascade.1">
+                        <source xml:lang="en">The corresponding language translated version</source>
+                        <target xml:lang="en">The corresponding language translated version</target>
+                    </trans-unit>
+                    <trans-unit id="form-teamsAndProjects-internationalCascade.2" resname="form.teamsAndProjects.internationalCascade.2">
+                        <source xml:lang="en">All translated versions</source>
+                        <target xml:lang="en">All translated versions</target>
+                    </trans-unit>
+                </group>
+            </group>
         </body>
     </file>
 </xliff>

@@ -5,6 +5,10 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\ResetType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -21,30 +25,149 @@ class ProjectsFormType extends AbstractType
                         'fr' => 'fr',
                         'nl' => 'nl',
                     ),
-                    'choice_translation_domain' => 'content-db'
+                    'choice_translation_domain' => 'content-db',
+                    'label' => 'app.form.teamsAndProjects.edit.internationalNameLanguage',
+                    'label_attr' => array(
+                        'class' => 'col-xs-4 col-sm-3 col-xl-2 col-form-label text-xs-right',
+                    ),
+                    'attr' => array(
+                        'class' => 'form-control col-xs-5 required',
+                    ),
+                    'required' => true,
                 )
             )
             ->add(
-                'international_name'
+                'international_name',
+                TextType::class,
+                array(
+                    'label' => 'app.form.teamsAndProjects.edit.internationalName',
+                    'label_attr' => array(
+                        'class' => 'col-xs-4 col-sm-3 col-xl-2 col-form-label text-xs-right',
+                    ),
+                    'attr' => array(
+                        'class' => 'form-control col-xs-11 required',
+                    ),
+                    'required' => true,
+                )
             )
-            ->add('international_description')
+            ->add(
+                'international_description',
+                TextareaType::class,
+                array(
+                    'label' => 'app.form.teamsAndProjects.edit.internationalDescription',
+                    'label_attr' => array(
+                        'class' => 'col-xs-4 col-sm-3 col-xl-2 col-form-label text-xs-right',
+                    ),
+                    'attr' => array(
+                        'class' => 'form-control col-xs-11',
+                    ),
+                    'required' => false,
+                )
+            )
             ->add(
                 'international_cascade',
                 ChoiceType::class,
                 array(
                     'choices' => array(
-                        'None of the translated versions' => 0,
-                        'The corresponding language translated version' => 1,
-                        'The translated versions' => 2,
-                    )
+                        'form.teamsAndProjects.internationalCascade.0' => 0,
+                        'form.teamsAndProjects.internationalCascade.1' => 1,
+                        'form.teamsAndProjects.internationalCascade.2' => 2,
+                    ),
+                    'choice_translation_domain' => 'content-db',
+                    'label' => 'app.form.teamsAndProjects.edit.internationalCascade',
+                    'label_attr' => array(
+                        'class' => 'col-xs-11 col-form-label text-xs-left',
+                    ),
+                    'attr' => array(
+                        'class' => 'form-control col-xs-11 required',
+                    ),
+                    'required' => true,
                 )
             )
-            ->add('name_en')
-            ->add('description_en')
-            ->add('name_fr')
-            ->add('description_fr')
-            ->add('name_nl')
-            ->add('description_nl')
+            ->add(
+                'name_en',
+                TextType::class,
+                array(
+                    'label' => 'app.form.teamsAndProjects.edit.nameEn',
+                    'label_attr' => array(
+                        'class' => 'col-xs-4 col-sm-3 col-xl-2 col-form-label text-xs-right',
+                    ),
+                    'attr' => array(
+                        'class' => 'form-control col-xs-11',
+                    ),
+                    'required' => false,
+                )
+            )
+            ->add(
+                'description_en',
+                TextareaType::class,
+                array(
+                    'label' => 'app.form.teamsAndProjects.edit.descriptionEn',
+                    'label_attr' => array(
+                        'class' => 'col-xs-4 col-sm-3 col-xl-2 col-form-label text-xs-right',
+                    ),
+                    'attr' => array(
+                        'class' => 'form-control col-xs-11',
+                    ),
+                    'required' => false,
+                )
+            )
+            ->add(
+                'name_nl',
+                TextType::class,
+                array(
+                    'label' => 'app.form.teamsAndProjects.edit.nameNl',
+                    'label_attr' => array(
+                        'class' => 'col-xs-4 col-sm-3 col-xl-2 col-form-label text-xs-right',
+                    ),
+                    'attr' => array(
+                        'class' => 'form-control col-xs-11',
+                    ),
+                    'required' => false,
+                )
+            )
+            ->add(
+                'description_nl',
+                TextareaType::class,
+                array(
+                    'label' => 'app.form.teamsAndProjects.edit.descriptionNl',
+                    'label_attr' => array(
+                        'class' => 'col-xs-4 col-sm-3 col-xl-2 col-form-label text-xs-right',
+                    ),
+                    'attr' => array(
+                        'class' => 'form-control col-xs-11',
+                    ),
+                    'required' => false,
+                )
+            )
+            ->add(
+                'name_fr',
+                TextType::class,
+                array(
+                    'label' => 'app.form.teamsAndProjects.edit.nameFr',
+                    'label_attr' => array(
+                        'class' => 'col-xs-4 col-sm-3 col-xl-2 col-form-label text-xs-right',
+                    ),
+                    'attr' => array(
+                        'class' => 'form-control col-xs-11',
+                    ),
+                    'required' => false,
+                )
+            )
+            ->add(
+                'description_fr',
+                TextareaType::class,
+                array(
+                    'label' => 'app.form.teamsAndProjects.edit.descriptionFr',
+                    'label_attr' => array(
+                        'class' => 'col-xs-4 col-sm-3 col-xl-2 col-form-label text-xs-right',
+                    ),
+                    'attr' => array(
+                        'class' => 'form-control col-xs-11',
+                    ),
+                    'required' => false,
+                )
+            )
             ->add(
                 'start_date',
                 DateType::class,
@@ -53,10 +176,14 @@ class ProjectsFormType extends AbstractType
                     'required' => false,
                     'widget' => 'single_text',
                     'html5' => false,
-                    'placeholder' => 'app.form.teams.startDate.placeholder',
+                    'placeholder' => 'app.form.teamsAndProjects.edit.date.placeholder',
                     'format' => 'dd/MM/yyyy',
+                    'label' => 'app.form.teamsAndProjects.edit.startDate',
+                    'label_attr' => array(
+                        'class' => 'col-xs-4 col-sm-3 col-xl-2 col-form-label text-xs-right',
+                    ),
                     'attr' => array(
-                        'class' => 'js-datepicker'
+                        'class' => 'js-datepicker form-control'
                     ),
                 )
             )
@@ -68,10 +195,34 @@ class ProjectsFormType extends AbstractType
                     'required' => false,
                     'widget' => 'single_text',
                     'html5' => false,
-                    'placeholder' => 'app.form.teams.startDate.placeholder',
+                    'placeholder' => 'app.form.teamsAndProjects.edit.date.placeholder',
                     'format' => 'dd/MM/yyyy',
+                    'label' => 'app.form.teamsAndProjects.edit.endDate',
+                    'label_attr' => array(
+                        'class' => 'col-xs-4 col-sm-3 col-md-2 col-form-label text-xs-right',
+                    ),
                     'attr' => array(
-                        'class' => 'js-datepicker'
+                        'class' => 'js-datepicker form-control'
+                    ),
+                )
+            )
+            ->add(
+                'reset',
+                ResetType::class,
+                array(
+                    'label' => 'app.form.teamsAndProjects.edit.reset',
+                    'attr' => array(
+                        'class' => 'reset rbins-reset-btn'
+                    ),
+                )
+            )
+            ->add(
+                'save',
+                SubmitType::class,
+                array(
+                    'label' => 'app.form.teamsAndProjects.edit.save',
+                    'attr' => array(
+                        'class' => 'save rbins-save-btn'
                     ),
                 )
             )

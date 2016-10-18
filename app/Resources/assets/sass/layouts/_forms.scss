@@ -1,0 +1,76 @@
+@charset "UTF-8";
+
+label {
+  font-weight: bold;
+
+  &.required:after {
+    content: ' *';
+    color: $orange;
+  }
+}
+
+input.required:focus,
+select.required:focus,
+textarea.required:focus {
+  border: 1px solid $orange;
+}
+
+.rbins-left-offset {
+  > label {
+    margin-left: .5rem;
+  }
+
+  > select {
+    margin-left: 1rem;
+  }
+}
+
+button.btn.rbins-save-btn,
+button.btn.rbins-reset-btn {
+  background-color: $white;
+  border-color: $black;
+  color: $black;
+
+  &:hover {
+    background-color: $orange;
+    border-color: $orange;
+    color: $white;
+  }
+}
+
+button.btn.rbins-reset-btn {
+  margin-right: 1rem;
+}
+
+fieldset {
+  border: 1px solid $graylight2;
+  padding-bottom: 1rem;
+
+  legend {
+    font-size: .9rem;
+    font-weight: bold;
+    margin-left: .3rem;
+    padding-left: .2rem;
+    padding-top: .3rem;
+
+    @include media-breakpoint-up(xs){
+      width: 70%;
+    }
+    @include media-breakpoint-up(sm){
+      width: 44%;
+    }
+    @include media-breakpoint-up(lg){
+      width: 30%;
+    }
+    @include media-breakpoint-up(xl){
+      width: 25%;
+    }
+    @include media-breakpoint-up(xlxl){
+      width: 20%;
+    }
+  }
+}
+
+.rbins-form-dates {
+  padding: 0;
+}

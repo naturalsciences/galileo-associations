@@ -3,18 +3,122 @@
 {% block content_main %}
     <div class="row">
         <div class="col-xs-12">
-            <h2 class="content-title">Add a new Team</h2>
-        </div>
-        <div class="col-xs-12">
-            {{ form_errors(form) }}
+            <h2 class="content-title">{% trans from "messages" %}app.title.home.team{% endtrans %}</h2>
         </div>
         <div class="col-xs-12">
             {{ form_start(form) }}
-
-                {{ form_widget(form) }}
-
-                <button type="submit" class="btn btn-primary">Save</button>
-
+            {% if not form.vars.valid %}<div class="alert alert-danger" role="alert">{{ form_errors(form) }}</div>{% endif %}
+            <div class="form-group row">
+                {{ form_label(form.international_name_language) }}
+                <div class="col-xs-8 col-md-9 col-xl-10">
+                    <div class="row">
+                        {{ form_widget(form.international_name_language) }}
+                        <div class="form-control-feedback">{{ form_errors(form.international_name_language) }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                {{ form_label(form.international_name) }}
+                <div class="col-xs-8 col-md-9 col-xl-10">
+                    <div class="row">
+                        {{ form_widget(form.international_name) }}
+                        <div class="form-control-feedback">{{ form_errors(form.international_name) }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                {{ form_label(form.international_description) }}
+                <div class="col-xs-8 col-md-9 col-xl-10">
+                    <div class="row">
+                        {{ form_widget(form.international_description) }}
+                        <div class="form-control-feedback">{{ form_errors(form.international_description) }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row rbins-left-offset">
+                {{ form_label(form.international_cascade) }}
+                {{ form_widget(form.international_cascade) }}
+                <div class="form-control-feedback col-xs-11">{{ form_errors(form.international_cascade) }}</div>
+            </div>
+            <fieldset class="form-group">
+                <legend>{% trans from "messages" %}app.form.teamsAndProjects.edit.fieldsetLegend{% endtrans %}</legend>
+                <div class="row">
+                    {{ form_label(form.name_en) }}
+                    <div class="col-xs-8 col-md-9 col-xl-10">
+                        <div class="row">
+                            {{ form_widget(form.name_en) }}
+                            <div class="form-control-feedback">{{ form_errors(form.name_en) }}</div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    {{ form_label(form.description_en) }}
+                    <div class="col-xs-8 col-md-9 col-xl-10">
+                        <div class="row">
+                            {{ form_widget(form.description_en) }}
+                            <div class="form-control-feedback">{{ form_errors(form.description_en) }}</div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    {{ form_label(form.name_nl) }}
+                    <div class="col-xs-8 col-md-9 col-xl-10">
+                        <div class="row">
+                            {{ form_widget(form.name_nl) }}
+                            <div class="form-control-feedback">{{ form_errors(form.name_nl) }}</div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    {{ form_label(form.description_nl) }}
+                    <div class="col-xs-8 col-md-9 col-xl-10">
+                        <div class="row">
+                            {{ form_widget(form.description_nl) }}
+                            <div class="form-control-feedback">{{ form_errors(form.description_nl) }}</div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    {{ form_label(form.name_fr) }}
+                    <div class="col-xs-8 col-md-9 col-xl-10">
+                        <div class="row">
+                            {{ form_widget(form.name_fr) }}
+                            <div class="form-control-feedback">{{ form_errors(form.name_fr) }}</div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    {{ form_label(form.description_fr) }}
+                    <div class="col-xs-8 col-md-9 col-xl-10">
+                        <div class="row">
+                            {{ form_widget(form.description_fr) }}
+                            <div class="form-control-feedback">{{ form_errors(form.description_fr) }}</div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-group row">
+                {{ form_label(form.start_date) }}
+                <div class="col-xs-7 col-sm-8 col-md-3 rbins-form-dates">
+                    {{ form_widget(form.start_date) }}
+                    <div class="form-control-feedback">{{ form_errors(form.start_date) }}</div>
+                </div>
+                {{ form_label(form.end_date) }}
+                <div class="col-xs-7 col-sm-8 col-md-3 rbins-form-dates">
+                    {{ form_widget(form.end_date) }}
+                    <div class="form-control-feedback">{{ form_errors(form.end_date) }}</div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-xs-12 offset-xs-10">
+                    {{ form_widget(form.reset) }}{{ form_widget(form.save) }}
+                </div>
+            </div>
             {{ form_end(form) }}
         </div>
     </div>
