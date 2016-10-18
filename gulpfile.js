@@ -140,6 +140,13 @@ gulp.task('fonts', function() {
     );
 });
 
+gulp.task('ui-images', function() {
+    return app.copy(
+        config.bowerDir+'/jquery-ui/themes/smoothness/images/*',
+        'web/css/images'
+    );
+});
+
 gulp.task('clean', function() {
     del.sync(config.revManifestPath);
     del.sync('web/css/*');
