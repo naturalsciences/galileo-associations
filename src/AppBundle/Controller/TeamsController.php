@@ -187,7 +187,7 @@ class TeamsController extends Controller
                 $em->flush();
 
                 return $this->redirectToRoute(
-                    'projects',
+                    'teams',
                     array(
                         'id' => $this->team->getId(),
                         'action' => 'view',
