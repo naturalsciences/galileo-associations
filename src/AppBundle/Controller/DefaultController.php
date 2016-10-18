@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -36,12 +37,15 @@ class DefaultController extends Controller
                 }*/
 
         $response = new JsonResponse();
+        $response->setData(array('response' => 'ok'));
+
         $em = $this->getDoctrine()->getManager();
 
         $results = $em->find('AppBundle:'.$request->get('type'), $request->get('id'));
 
         if (  !$results ) {
             $response->setData(array('response' => 'No entity found'));
+            $response->setStatusCode(419);
         }
 
         try {
@@ -50,9 +54,9 @@ class DefaultController extends Controller
         }
         catch (\Exception $e) {
             $response->setData(array('response'=>$e->getMessage()));
+            $response->setStatusCode(419);
         }
 
-        $response->setData(array('response' => 'ok'));
         return $response;
     }
 }
