@@ -21,27 +21,32 @@ class DefaultController extends Controller
     }
 
     /**
-     * @param Request $request The request passed composed of a type (TeamsMembers, ProjectsMembers or TeamsProjects) and of an id
+     * @param Request $request The request passed composed of a type and of an id
      * @return JsonResponse $response A Json containing the result of delete tentative
      */
     public function removeAction(Request $request)
     {
-        /*        if (
-                    !$request->isXmlHttpRequest() ||
-                    (
-                        $request->get('type', '') != 'person' &&
-                        $request->get('type', '') != 'teams'
-                    )
-                ) {
-                    throw $this->createNotFoundException('You\'re not authorized to execute a fastSearch aside the interface.');
-                }*/
+        $type = $request->get('type', '');
+        if (
+            !$request->isXmlHttpRequest() ||
+            (
+                $type != 'person' &&
+                $type != 'teams' &&
+                $type != 'projects' &&
+                $type != 'TeamsMembers' &&
+                $type != 'ProjectsMembers' &&
+                $type != 'TeamsProjects'
+            )
+        ) {
+            throw $this->createNotFoundException('You\'re not authorized to execute a remove aside the interface.');
+        }
 
         $response = new JsonResponse();
         $response->setData(array('response' => 'ok'));
 
         $em = $this->getDoctrine()->getManager();
 
-        $results = $em->find('AppBundle:'.$request->get('type'), $request->get('id'));
+        $results = $em->find('AppBundle:'.ucfirst($type), $request->get('id'));
 
         if (  !$results ) {
             $response->setData(array('response' => 'No entity found'));
