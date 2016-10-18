@@ -18,7 +18,7 @@ class TeamsProjects extends \Doctrine\ORM\EntityRepository
     public function listProjects($teamId, $locale) {
         return $this->createQueryBuilder('tp')
             ->select('p.id')
-            ->addSelect('tp.id as teamsProjectsId')
+            ->addSelect('tp.id as related_id')
             ->addSelect(
                 'CASE
                     WHEN p.international_cascade = 2 THEN
@@ -78,7 +78,7 @@ class TeamsProjects extends \Doctrine\ORM\EntityRepository
     public function listTeams($projectId, $locale) {
         return $this->createQueryBuilder('tp')
             ->select('t.id')
-            ->addSelect('tp.id as teamsProjectsId')
+            ->addSelect('tp.id as related_id')
             ->addSelect(
                 'CASE
                     WHEN t.international_cascade = 2 THEN

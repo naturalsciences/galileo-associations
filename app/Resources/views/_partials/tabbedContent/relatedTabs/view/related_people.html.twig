@@ -11,7 +11,7 @@
             <dd class="col-xs-6"><a title="{% if person.active == 'active' %}{% trans from 'messages' %}app.title.content.related.active{% endtrans %}{% else %}{% trans from 'messages' %}app.title.content.related.inactive{% endtrans %}{% endif %}" class="{{ person.active }}" href="{{ path('person', { 'id':person.id, 'action': 'view' }) }}">{{ person.name }}</a></dd>
             <dd class="col-xs-2">{{ person.start_date is empty ? "-" : person.start_date|date('d/m/Y') }}</dd>
             <dd class="col-xs-2">{{ person.end_date is empty ? "-" : person.end_date|date('d/m/Y') }}</dd>
-            <dd class="col-xs-2"><i class="fa fa-pencil"></i> <i class="fa fa-times"></i></dd>
+            <dd class="col-xs-2 rbins-related-actions"><a class="rbins-edit-related" href="#"><i class="fa fa-pencil"></i></a><a class="rbins-remove-related" href="{{ path('app_remove_related', { 'type': type, 'id': person.related_id }) }}"><i class="fa fa-times"></i></a></dd>
         {% endfor %}
     </dl>
 {% endif %}

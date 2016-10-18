@@ -258,6 +258,7 @@ class TeamsController extends Controller
         }
 
         $related_teams = array();
+        ($request->get('type')=='projects')?$type='TeamsProjects':$type='TeamsMembers';
 
         if ( $request->get('id', 0) !== 0 ) {
             if ($request->get('type') === 'person') {
@@ -274,7 +275,7 @@ class TeamsController extends Controller
 
         return $this->render(
             '_partials/tabbedContent/relatedTabs/view/related_teams.html.twig',
-            array('related_teams' =>$related_teams,)
+            array( 'related_teams' => $related_teams, 'type' => $type )
         );
     }
 }

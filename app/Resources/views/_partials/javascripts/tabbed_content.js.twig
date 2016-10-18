@@ -51,5 +51,15 @@ $(document).ready(
                 }
         );
 
+        $('.rbins-remove-related').on(
+                'click',
+                function(event) {
+                    event.preventDefault();
+                    if ( !confirm("{{ 'app.message.related.removeConfirmation'|trans({}, "messages") }}")) {
+                        return false;
+                    }
+                    return false;
+                }
+        );
     }
 );

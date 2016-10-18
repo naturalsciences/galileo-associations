@@ -489,6 +489,10 @@
                     <source xml:lang="en">There's no related projects for the moment</source>
                     <target xml:lang="en">There's no related projects for the moment</target>
                 </trans-unit>
+                <trans-unit id="app-message-related-removeConfirmation" resname="app.message.related.removeConfirmation">
+                    <source xml:lang="en">Are you sure you want to remove this related entry</source>
+                    <target xml:lang="en">Are you sure you want to remove this related entry</target>
+                </trans-unit>
             </group>
         </body>
     </file>

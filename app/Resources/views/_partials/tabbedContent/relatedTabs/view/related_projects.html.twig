@@ -7,11 +7,12 @@
         <dt class="col-xs-2" title="{% trans from "messages" %}app.meta.title.form.relatedTeamsAndProjects.view.endDate{% endtrans %}">{% trans from "messages" %}app.form.relatedTeamsAndProjects.view.label.endDate{% endtrans %}</dt>
         <dt class="col-xs-2"></dt>
         <hr>
+        {% dump(related_projects) %}
         {% for project in related_projects %}
             <dd class="col-xs-6"><a title="{% if project.active == 'active' %}{% trans from 'messages' %}app.title.content.related.active{% endtrans %}{% else %}{% trans from 'messages' %}app.title.content.related.inactive{% endtrans %}{% endif %}" class="{{ project.active }}" href="{{ path('projects', { 'id':project.id, 'action': 'view' }) }}">{{ project.name }}</a></dd>
             <dd class="col-xs-2">{{ project.start_date is empty ? '-' : project.start_date|date('d/m/Y') }}</dd>
             <dd class="col-xs-2">{{ project.end_date is empty ? '-' : project.end_date|date('d/m/Y') }}</dd>
-            <dd class="col-xs-2"><i class="fa fa-pencil"></i> <i class="fa fa-times"></i></dd>
+            <dd class="col-xs-2 rbins-related-actions"><a class="rbins-edit-related" href="#"><i class="fa fa-pencil"></i></a><a class="rbins-remove-related" href="{{ path('app_remove_related', { 'type': type, 'id': project.related_id }) }}"><i class="fa fa-times"></i></a></dd>
         {% endfor %}
     </dl>
 {% endif %}

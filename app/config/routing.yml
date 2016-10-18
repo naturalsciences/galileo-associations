@@ -17,6 +17,15 @@ app_fastSearch:
         fast_search_type: "%fast_search_types%"
     methods: [GET]
 
+app_remove_related:
+    path: /remove/{type}/{id}
+    defaults:
+        _controller: AppBundle:Default:remove
+    requirements:
+        type: "TeamsMembers|ProjectsMembers|TeamsProjects"
+        id: \d+
+    methods: [GET]
+
 person_list:
     path: /{_locale}/person/list
     defaults:

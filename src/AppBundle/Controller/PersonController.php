@@ -224,6 +224,7 @@ class PersonController extends Controller
         }
 
         $related_people = array();
+        ($request->get('type')=='teams')?$type='TeamsMembers':$type='ProjectsMembers';
 
         if ( $request->get('id', 0) !== 0 ) {
             if ($request->get('type') === 'teams') {
@@ -240,7 +241,7 @@ class PersonController extends Controller
 
         return $this->render(
             '_partials/tabbedContent/relatedTabs/view/related_people.html.twig',
-            array('related_people' =>$related_people,)
+            array( 'related_people' => $related_people, 'type' => $type )
         );
     }
 }

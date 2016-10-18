@@ -19,7 +19,7 @@ class TeamsMembers extends \Doctrine\ORM\EntityRepository
         $conn = $em->getConnection();
         $qb = $conn->createQueryBuilder();
         $qb->select("p.id as id,
-                     tm.id as teamsMembersId,
+                     tm.id as related_id,
                      p.last_name,
                      TRIM(CONCAT(p.first_name,CONCAT(' ', p.last_name))) as name,
                      CASE WHEN EXISTS
@@ -75,7 +75,7 @@ class TeamsMembers extends \Doctrine\ORM\EntityRepository
         $conn = $em->getConnection();
         $qb = $conn->createQueryBuilder();
         $qb->select("t.id as id,
-                     tm.id as teamMembersId,
+                     tm.id as related_id,
                      CASE
                         WHEN t.international_cascade = 2 THEN
                             t.international_name

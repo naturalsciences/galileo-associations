@@ -226,3 +226,21 @@
     text-align: right;
   }
 }
+
+.rbins-related-actions {
+  a {
+    color: $black;
+
+    &:hover {
+      color: $orange;
+    }
+
+    i {
+      font-size: 1.3rem;
+    }
+  }
+
+  a:first-child {
+    margin-right: .5rem;
+  }
+}
