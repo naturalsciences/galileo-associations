@@ -22,7 +22,7 @@ app_remove_related:
     defaults:
         _controller: AppBundle:Default:remove
     requirements:
-        type: "TeamsMembers|ProjectsMembers|TeamsProjects"
+        type: "TeamsMembers|ProjectsMembers|TeamsProjects|teams|projects"
         id: \d+
     methods: [GET]
 

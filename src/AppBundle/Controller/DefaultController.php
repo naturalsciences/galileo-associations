@@ -30,7 +30,6 @@ class DefaultController extends Controller
         if (
             !$request->isXmlHttpRequest() ||
             (
-                $type != 'person' &&
                 $type != 'teams' &&
                 $type != 'projects' &&
                 $type != 'TeamsMembers' &&
