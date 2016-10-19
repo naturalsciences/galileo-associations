@@ -27,6 +27,9 @@ class DefaultController extends Controller
     public function removeAction(Request $request)
     {
         $type = $request->get('type', '');
+        $translator = $this->get('translator');
+        $response = new JsonResponse();
+
         if (
             !$request->isXmlHttpRequest() ||
             (
@@ -37,27 +40,38 @@ class DefaultController extends Controller
                 $type != 'TeamsProjects'
             )
         ) {
-            throw $this->createNotFoundException('You\'re not authorized to execute a remove aside the interface.');
+            $this->addFlash('error', $translator->trans('app.message.remove.failure.403', array(), 'messages'));
+            $this->createAccessDeniedException('You cannot access this action aside from the application');
         }
 
-        $response = new JsonResponse();
-        $response->setData(array('response' => 'ok'));
+        $nameInt = '';
+        $route = 'app_homepage';
 
         $em = $this->getDoctrine()->getManager();
-
         $results = $em->find('AppBundle:'.ucfirst($type), $request->get('id'));
 
         if (  !$results ) {
-            $response->setData(array('response' => 'No entity found'));
-            $response->setStatusCode(419);
+            $this->addFlash('error', $translator->trans('app.message.remove.failure.404', array(), 'messages'));
+            throw $this->createNotFoundException('The record you try to remove seems to have already been deleted. Please check again.');
+        }
+
+        if ( $type === 'teams' || $type === 'projects' ) {
+            $nameInt = $results->getInternationalName();
+            $route = $type."_list";
         }
 
         try {
             $em->remove($results);
             $em->flush();
+            $response->setData(array('response' => 'ok', 'route' => $route));
+            if ( $type === 'teams' || $type === 'projects' ) {
+                $messageVar = $translator->trans($type,array('%name%'=>$nameInt),'content-db');
+                $this->addFlash('notice', $this->get('translator')->trans('app.flash.remove.teamsAndProjects', array('%detail%'=>$messageVar), 'messages'));
+            }
         }
         catch (\Exception $e) {
             $response->setData(array('response'=>$e->getMessage()));
+            $response->setContent($e->getMessage());
             $response->setStatusCode(419);
         }
 

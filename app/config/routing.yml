@@ -5,6 +5,8 @@ app_homepage:
         _locale: "%locale%"
     requirements:
         _locale: "%locales%"
+    options:
+        expose: true
     methods: [GET]
 
 app_fastSearch:
@@ -91,7 +93,7 @@ teams_list:
     requirements:
         _locale: "%locales%"
     options:
-        expose: false
+        expose: true
     methods: [GET]
 
 teams_fragment_view:
@@ -148,7 +150,7 @@ projects_list:
     requirements:
         _locale: "%locales%"
     options:
-        expose: false
+        expose: true
     methods: [GET]
 
 projects_fragment_view:

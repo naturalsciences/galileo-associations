@@ -15,6 +15,14 @@
                     <source xml:lang="en">fr</source>
                     <target xml:lang="en">French</target>
                 </trans-unit>
+                <trans-unit id="flash_parameter_project" resname="projects">
+                    <source xml:lang="en">project "%name%"</source>
+                    <target xml:lang="en">project "%name%"</target>
+                </trans-unit>
+                <trans-unit id="flash_parameter_team" resname="teams">
+                    <source xml:lang="en">team "%name%"</source>
+                    <target xml:lang="en">team "%name%"</target>
+                </trans-unit>
             </group>
             <group id="form">
                 <group id="form-teamsAndProjects">

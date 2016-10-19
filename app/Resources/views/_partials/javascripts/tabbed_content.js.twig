@@ -66,9 +66,39 @@ $(document).ready(
                 'click',
                 function(event) {
                     event.preventDefault();
-                    if ( !confirm("{{ 'app.message.main.removeConfirmation'|trans({}, "messages") }}")) {
+                    if ( !confirm("{{ 'app.message.main.removeConfirmation'|trans({}, "messages", app.request.getLocale()) }}")) {
                         return false;
                     }
+
+                    $.ajax(
+                            {
+                                url: $(this).attr('href'),
+                                success: function(data){
+                                    window.location.href = Routing.generate(
+                                            data.route,
+                                            {
+                                                _locale: "{{ app.request.getLocale() }}"
+                                            });
+                                },
+                                error: function(jqXHR){
+                                    var routeName = '';
+                                    if ( jqXHR.status == '404' ) {
+                                        routeName = 'app_homepage';
+                                    }
+                                    else if ( jqXHR.status == '419' ) {
+                                        alert('An error occured: '+jqXHR.responseText);
+                                    }
+                                    if ( routeName != '' ) {
+                                        window.location.href = Routing.generate(
+                                                routeName,
+                                                {
+                                                    _locale: "{{ app.request.getLocale() }}"
+                                                });
+                                    }
+                                }
+                            }
+                    );
+
                     return false;
                 }
         );

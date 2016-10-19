@@ -14,6 +14,18 @@
         <div class="row">
             <div class="col-md-3 col-lg-3 hidden-sm-down"></div>
             <div id="rbins-content-main" class="col-xs-12 col-md-9 col-lg-9">
+                {% block flash_messages %}
+                    {% for flash_message in app.session.flashBag.get('error') %}
+                        <div class="alert alert-danger flash-error">
+                            {{ flash_message }}
+                        </div>
+                    {% endfor %}
+                    {% for flash_message in app.session.flashBag.get('notice') %}
+                        <div class="alert alert-info flash-notice">
+                            {{ flash_message }}
+                        </div>
+                    {% endfor %}
+                {% endblock flash_messages %}
                 {% block content_main %}
                     <div class="row rbins-cards">
                         <div class="page-header col-xs-12">

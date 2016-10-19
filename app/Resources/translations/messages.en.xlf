@@ -314,6 +314,12 @@
                     </trans-unit>
                 </group>
             </group>
+            <group id="app_flash">
+                <trans-unit id="app-flash-remove-teamsAndProjects" resname="app.flash.remove.teamsAndProjects">
+                    <source xml:lang="en">The %detail% has been well removed</source>
+                    <target xml:lang="en">The %detail% has been well removed</target>
+                </trans-unit>
+            </group>
             <group id="app_form">
                 <group id="app-form-flash">
                     <trans-unit id="app-form-flash-success" resname="app.form.flash.success">
@@ -504,6 +510,14 @@
                 <trans-unit id="app-message-related-removeConfirmation" resname="app.message.related.removeConfirmation">
                     <source xml:lang="en">Are you sure you want to remove this related entry</source>
                     <target xml:lang="en">Are you sure you want to remove this related entry</target>
+                </trans-unit>
+                <trans-unit id="app-message-remove-failure-404" resname="app.message.remove.failure.404">
+                    <source xml:lang="en">It seems the item you try to remove does not exists anymore</source>
+                    <target xml:lang="en">It seems the item you try to remove does not exists anymore</target>
+                </trans-unit>
+                <trans-unit id="app-message-remove-failure-403" resname="app.message.remove.failure.403">
+                    <source xml:lang="en">You are not authorized to perform this operation</source>
+                    <target xml:lang="en">You are not authorized to perform this operation</target>
                 </trans-unit>
             </group>
         </body>
