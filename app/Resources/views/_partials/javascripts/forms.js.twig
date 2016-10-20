@@ -8,5 +8,38 @@ $(document).ready(
                     dateFormat: 'dd/mm/yy'
                 }
         );
+
+        $('.rbins-name-cascade').on(
+                'change',
+                function() {
+                    var fieldsetControl = $($(this).data('target'));
+                    var language = $($(this).data('language-source')).val();
+                    var formName = $(this).parents('form').attr('name');
+
+                    switch ($(this).val()) {
+                        case '1':
+                            fieldsetControl.prop('disabled',false);
+                            $('#'+formName+'_name_'+language).prop('disabled',true);
+                            $('#'+formName+'_description_'+language).prop('disabled',true);
+                            fieldsetControl.find('input').not('#'+formName+'_name_'+language).prop('disabled',false);
+                            fieldsetControl.find('textarea').not('#'+formName+'_description_'+language).prop('disabled',false);
+                            break;
+                        case '2':
+                            fieldsetControl.prop('disabled',true);
+                            break;
+                        default:
+                            fieldsetControl.prop('disabled',false);
+                            fieldsetControl.find('input').prop('disabled',false) ;
+                            fieldsetControl.find('textarea').prop('disabled',false) ;
+                    }
+                }
+        );
+
+        $('.rbins-language-source').on(
+                'change',
+                function () {
+                    $($(this).data('cascade-field-class')).trigger('change');
+                }
+        );
     }
 );

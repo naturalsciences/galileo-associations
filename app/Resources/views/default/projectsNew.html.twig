@@ -40,7 +40,7 @@
                     {{ form_widget(form.international_cascade) }}
                     <div class="form-control-feedback col-xs-11">{{ form_errors(form.international_cascade) }}</div>
                 </div>
-                <fieldset class="form-group">
+                <fieldset id="rbins-localized-names" class="form-group">
                     <legend>{% trans from "messages" %}app.form.teamsAndProjects.edit.fieldsetLegend{% endtrans %}</legend>
                     <div class="row">
                         {{ form_label(form.name_en) }}
