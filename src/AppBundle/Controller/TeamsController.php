@@ -182,18 +182,28 @@ class TeamsController extends Controller
             $this->team = $form->getData();
 
             if ( $form->isSubmitted() && $form->isValid() ) {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($this->team);
-                $em->flush();
+                try {
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($this->team);
+                    $em->flush();
 
-                return $this->redirectToRoute(
-                    'teams',
-                    array(
-                        'id' => $this->team->getId(),
-                        'action' => 'view',
-                        '_locale' => $request->getLocale()
-                    )
-                );
+                    return $this->redirectToRoute(
+                        'teams',
+                        array(
+                            'id' => $this->team->getId(),
+                            'action' => 'view',
+                            '_locale' => $request->getLocale()
+                        )
+                    );
+                }
+                catch (\Exception $e) {
+                    $translator = $this->get('translator');
+                    $message = $e->getMessage();
+                    if (strpos($message, 'SQLSTATE[23505]') !== false) {
+                        $message = $translator->trans('app.errors.insert.uniqueViolation', array(), 'messages');
+                    }
+                    $this->addFlash('error', $message);
+                }
             }
 
             if ( $request->get('action') === 'add' ) {
