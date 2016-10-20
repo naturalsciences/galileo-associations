@@ -28,9 +28,11 @@ class FastSearchController extends Controller
         $results = $this->getDoctrine()
             ->getRepository('AppBundle:'.ucfirst($request->get('fast_search_type')))
             ->searchInName(
-                $request->get('term'),
-                $request->get('exact', false),
-                $request->get('_locale', $request->getLocale())
+                    $request->get('term'),
+                    $request->get('exact', false),
+                    $request->get('_locale', $request->getLocale()),
+                    $request->get('exclusion_table', 'none'),
+                    $request->get('exclusion_id', 0)
             );
 
         $response->setData($results);

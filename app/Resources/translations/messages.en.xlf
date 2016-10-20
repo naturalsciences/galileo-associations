@@ -497,6 +497,18 @@
                     <source xml:lang="en">Search</source>
                     <target xml:lang="en">Search</target>
                 </trans-unit>
+                <trans-unit id="app-message-search-person" resname="app.message.search.person">
+                    <source xml:lang="en">Search people</source>
+                    <target xml:lang="en">Search people</target>
+                </trans-unit>
+                <trans-unit id="app-message-search-teams" resname="app.message.search.teams">
+                    <source xml:lang="en">Search teams</source>
+                    <target xml:lang="en">Search teams</target>
+                </trans-unit>
+                <trans-unit id="app-message-search-projects" resname="app.message.search.projects">
+                    <source xml:lang="en">Search projects</source>
+                    <target xml:lang="en">Search projects</target>
+                </trans-unit>
                 <trans-unit id="app-message-noRelatedPeople" resname="app.message.noRelatedPeople">
                     <source xml:lang="en">There's no related people for the moment</source>
                     <target xml:lang="en">There's no related people for the moment</target>

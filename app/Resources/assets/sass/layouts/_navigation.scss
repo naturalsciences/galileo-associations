@@ -442,9 +442,13 @@ button.navbar-toggle {
   }
 }
 
-.rbins-search-content .search-results a.inactive {
-  text-decoration: line-through;
-  color: $gray;
+.rbins-search-content {
+  margin-bottom: 4px;
+
+  .search-results a.inactive {
+    text-decoration: line-through;
+    color: $gray;
+  }
 }
 
 .wobble-fix {
@@ -459,4 +463,35 @@ button.navbar-toggle {
 
 .panel {
   outline: 0;
+}
+
+ul.rbins-fast-search {
+  list-style: none;
+  padding-left: 4px;
+
+  @include media-breakpoint-between(sm,blg) {
+    li.rbins-related-add {
+      width: 33.3%;
+      float: left;
+    }
+  }
+
+  .rbins-related-add a {
+    text-decoration: none;
+    color: $black;
+
+    &:hover {
+      color: $orange;
+      text-decoration: none;
+    }
+
+    &.inactive:hover {
+      color: $orange;
+      text-decoration: line-through;
+    }
+
+    i {
+      margin-right: .3rem;
+    }
+  }
 }

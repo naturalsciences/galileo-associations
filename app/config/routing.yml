@@ -10,13 +10,16 @@ app_homepage:
     methods: [GET]
 
 app_fastSearch:
-    path: /{_locale}/search/{fast_search_type}
+    path: /{_locale}/search/{fast_search_type}/{exclusion_table}/{exclusion_id}
     defaults:
         _controller: AppBundle:FastSearch:fastSearch
         _locale: "%locale%"
+        exclusion_table: "none"
+        exclusion_id: 0
     requirements:
         _locale: "%locales%"
         fast_search_type: "%fast_search_types%"
+        exclusion_id: \d+
     methods: [GET]
 
 app_remove_related:

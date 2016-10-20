@@ -1,5 +1,5 @@
 <form>
-    {% if search_vars.search_type != 'person' %}
+    {% if search_vars.search_type != 'person' and search_vars.parent == 'base' %}
         <p>
             <a class="add_item" href="{{ path( search_vars.search_type ) }}"><i class="fa fa-plus-circle" aria-hidden="true"></i>{{ search_vars.search_add_link_text }}</a>
         </p>
@@ -11,12 +11,12 @@
                data-content="{{ search_vars.search_popover_help_text_en }}"
                rel="popover"
                type="text"
-               placeholder="{% trans from "messages" %}app.message.search{% endtrans %}"
+               placeholder="{{ search_vars.search_placeholder_id|trans({}, 'messages') }}"
                autocomplete="off">
         <div class="load-spinner"><i class="fa wobble-fix fa-circle-o-notch fa-spin fa-1x"></i></div>
     </div>
     <div class="search-results">
-        <ul>
+        <ul class="rbins-fast-search">
         </ul>
     </div>
 </form>
@@ -53,7 +53,15 @@
                             $(load_spinner).show();
 
                             xhr = $.ajax({
-                                url: "{{ path('app_fastSearch', { 'fast_search_type': search_vars.search_type } ) }}",
+                                url: "{{ path(
+                                        'app_fastSearch',
+                                        {
+                                            'fast_search_type': search_vars.search_type,
+                                            'exclusion_table': search_vars.search_related_main_type,
+                                            'exclusion_id': search_vars.search_related_main_id,
+                                        }
+                                    )
+                                }}",
                                 dataType: 'json',
                                 data: {term: search_term},
                                 success: function (data) {
@@ -61,11 +69,11 @@
                                     $.each(
                                             data,
                                             function (i, fastSearchElem) {
-                                                items.push('<li><a class="' + fastSearchElem.active + '" href="' + Routing.generate('{{ search_vars.search_type }}', {
+                                                items.push('<li class="{% if search_vars.parent == 'related' %}rbins-related-add{% endif %}"><a class="' + fastSearchElem.active + '" href="' + Routing.generate('{{ search_vars.search_type }}', {
                                                             _locale: "{{ app.request.getLocale() }}",
                                                             action: action,
                                                             id: fastSearchElem.value
-                                                        }) + '">' + fastSearchElem.label + '</a></li>');
+                                                        }) + '">{% if search_vars.parent == 'related' %}<i class="fa fa-plus-circle"></i>{% endif %}' + fastSearchElem.label + '</a></li>');
                                             }
                                     );
                                     $(target_results).find('ul').html(items.join(''));

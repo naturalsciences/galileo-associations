@@ -18,7 +18,7 @@ class TeamsRepository extends \Doctrine\ORM\EntityRepository
      * @param string $locale The current locale used for language corresponding specific display and search
      * @return array
      */
-    public function searchInName($name, $exact = false, $locale = 'en') {
+    public function searchInName($name, $exact = false, $locale = 'en', $exclusionTable = 'none', $exclusionId = 0) {
 
         $em = $this->getEntityManager();
         $conn = $em->getConnection();

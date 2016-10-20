@@ -15,14 +15,20 @@ class PersonRepository extends \Doctrine\ORM\EntityRepository
     /**
      * @param string $name The person name searched
      * @param bool $exact Tells if search for an exact match or not
+     * @param string $locale
      * @return array
      */
-    public function searchInName($name, $exact = false, $locale = 'en') {
+    public function searchInName($name, $exact = false, $locale = 'en', $exclusionTable = 'none', $exclusionId = 0) {
         $conn = $this->getEntityManager()->getConnection();
         $qb = $conn->createQueryBuilder();
+        $distinct = '';
+
+        if( $exclusionTable === 'teams' || $exclusionTable === 'projects' ) {
+            $distinct = 'DISTINCT ';
+        }
 
         $qb->select(
-                    'p.id as "value",  
+                    $distinct.'p.id as "value",  
                      p.last_name || \' \' || p.first_name as "label",
                      COALESCE(e.exit_date, \'inactive\') as "active"'
                    )
@@ -50,6 +56,27 @@ class PersonRepository extends \Doctrine\ORM\EntityRepository
             );
 
         $params = array();
+
+        if ( $exclusionTable === 'teams' ) {
+            $qb->leftJoin(
+                'p',
+                'teams_members',
+                'tm',
+                'p.id = tm.person_ref'
+            );
+            /* ToDo: write an exclusion where here */
+            //$params[] = $exclusionId;
+        }
+        elseif ( $exclusionTable === 'projects' ) {
+            $qb->leftJoin(
+                'p',
+                'projects_members',
+                'pm',
+                'p.id = pm.person_ref'
+            );
+            /* ToDo: write an exclusion where here */
+            //$params[] = $exclusionId;
+        }
 
         if( $exact === true ) {
             $qb->andwhere('p.first_name || \' \' || p.last_name ilike ?');
