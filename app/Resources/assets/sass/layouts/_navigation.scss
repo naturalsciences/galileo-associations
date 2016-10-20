@@ -485,6 +485,11 @@ ul.rbins-fast-search {
       text-decoration: none;
     }
 
+    &.inactive {
+      color: $gray;
+      text-decoration: line-through;
+    }
+
     &.inactive:hover {
       color: $orange;
       text-decoration: line-through;

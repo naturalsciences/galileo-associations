@@ -30,7 +30,7 @@ class PersonRepository extends \Doctrine\ORM\EntityRepository
         $qb->select(
                     $distinct.'p.id as "value",  
                      p.last_name || \' \' || p.first_name as "label",
-                     COALESCE(e.exit_date, \'inactive\') as "active"'
+                     COALESCE(e.exit_date, \'active\') as "active"'
                    )
             ->from(
                 'person',
@@ -58,24 +58,30 @@ class PersonRepository extends \Doctrine\ORM\EntityRepository
         $params = array();
 
         if ( $exclusionTable === 'teams' ) {
-            $qb->leftJoin(
-                'p',
-                'teams_members',
-                'tm',
-                'p.id = tm.person_ref'
+            $qb->where(
+                'NOT EXISTS (
+                    SELECT 1 
+                    FROM teams_members 
+                    WHERE person_ref = p.id 
+                      AND team_ref = ? 
+                      AND start_date IS NULL 
+                      AND end_date IS NULL
+                 )'
             );
-            /* ToDo: write an exclusion where here */
-            //$params[] = $exclusionId;
+            $params[] = $exclusionId;
         }
         elseif ( $exclusionTable === 'projects' ) {
-            $qb->leftJoin(
-                'p',
-                'projects_members',
-                'pm',
-                'p.id = pm.person_ref'
+           $qb->where(
+                'NOT EXISTS (
+                    SELECT 1 
+                    FROM projects_members 
+                    WHERE person_ref = p.id 
+                      AND project_ref = ? 
+                      AND start_date IS NULL 
+                      AND end_date IS NULL
+                 )'
             );
-            /* ToDo: write an exclusion where here */
-            //$params[] = $exclusionId;
+            $params[] = $exclusionId;
         }
 
         if( $exact === true ) {

@@ -25,11 +25,17 @@ class ProjectsRepository extends \Doctrine\ORM\EntityRepository
 
         $qb = $conn->createQueryBuilder();
 
+        $distinct = '';
+
+        if( $exclusionTable === 'person' || $exclusionTable === 'teams' ) {
+            $distinct = 'DISTINCT ';
+        }
+
         $params = array('locale' => $locale);
 
         $qb
             ->select(
-                "
+                "   $distinct
                     p.id as \"value\",
                     CASE
                       WHEN p.international_cascade = 2 THEN
@@ -73,6 +79,33 @@ class ProjectsRepository extends \Doctrine\ORM\EntityRepository
                 'projects',
                 'p'
             );
+
+        if ( $exclusionTable === 'teams' ) {
+            $qb->where(
+                'NOT EXISTS (
+                    SELECT 1 
+                    FROM teams_projects 
+                    WHERE project_ref = p.id 
+                      AND team_ref = :team_id 
+                      AND start_date IS NULL 
+                      AND end_date IS NULL
+                 )'
+            );
+            $params['team_id'] = $exclusionId;
+        }
+        elseif ( $exclusionTable === 'person' ) {
+            $qb->where(
+                'NOT EXISTS (
+                    SELECT 1 
+                    FROM projects_members 
+                    WHERE project_ref = p.id 
+                      AND person_ref = :person_id 
+                      AND start_date IS NULL 
+                      AND end_date IS NULL
+                 )'
+            );
+            $params['person_id'] = $exclusionId;
+        }
 
         if ( $exact === true ) {
             $qb->andwhere('

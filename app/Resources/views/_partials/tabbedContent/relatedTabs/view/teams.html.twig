@@ -1,5 +1,20 @@
+{%
+set search_vars = {
+'search_control_id': 'teams-related-search',
+'search_popover_help_text_en': ('app.meta.description.fastsearch.teams'|trans({}, "messages")),
+'search_type': 'teams',
+'search_add_link_text': '',
+'search_placeholder_id': 'app.message.search.teams',
+'search_related_main_type': type,
+'search_related_main_id': id,
+'parent': 'related',
+}
+%}
+
 <div class="row">
-    <div class="hidden-xs-down col-sm-12 col-lg-4">Left</div>
+    <div class="hidden-xs-down col-sm-12 col-lg-4">
+        {% include '_partials/search/fastSearchFormAndResults.html.twig' with {'search_vars': search_vars} %}
+    </div>
     <div class="col-xs-12 col-lg-8">
         {{
             render_esi(
