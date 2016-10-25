@@ -2,6 +2,9 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\ProjectsMembers;
+use AppBundle\Entity\TeamsMembers;
+use AppBundle\Entity\TeamsProjects;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -76,5 +79,115 @@ class DefaultController extends Controller
         }
 
         return $response;
+    }
+
+    public function addAction(Request $request) {
+        $mainType = $request->get('type', '');
+        $mainTypeId = $request->get('id', '');
+        $relatedType = $request->get('related', '');
+        $relatedTypeId = $request->get('related_id', '');
+        $translator = $this->get('translator');
+        $em = $this->getDoctrine()->getManager();
+        $response = new Response();
+
+        if (!$request->isXmlHttpRequest()) {
+            $this->addFlash('error', $translator->trans('app.message.remove.failure.403', array(), 'messages'));
+            $this->createAccessDeniedException('You cannot access this action aside from the application');
+        }
+
+        try {
+            $item = null;
+            switch ($mainType) {
+                case 'person':
+                    $person = $em->getRepository('AppBundle:Person')->find($mainTypeId);
+                    switch ($relatedType) {
+                        case 'projects':
+                            $project = $em->getRepository('AppBundle:Projects')->find($relatedTypeId);
+                            $item = new ProjectsMembers();
+                            $item->setPerson($person);
+                            $item->setProjects($project);
+                            break;
+                        case 'teams':
+                            $team = $em->getRepository('AppBundle:Teams')->find($relatedTypeId);
+                            $item = new TeamsMembers();
+                            $item->setPerson($person);
+                            $item->setTeams($team);
+                            break;
+                    }
+                    break;
+                case 'teams':
+                    $team = $em->getRepository('AppBundle:Teams')->find($mainTypeId);
+                    switch ($relatedType) {
+                        case 'person':
+                            $person = $em->getRepository('AppBundle:Person')->find($relatedTypeId);
+                            $item = new TeamsMembers();
+                            $item->setTeams($team);
+                            $item->setPerson($person);
+                            break;
+                        case 'projects':
+                            $project = $em->getRepository('AppBundle:Projects')->find($relatedTypeId);
+                            $item = new TeamsProjects();
+                            $item->setTeams($team);
+                            $item->setProjects($project);
+                            break;
+                    }
+                    break;
+                case 'projects':
+                    $project = $em->getRepository('AppBundle:Projects')->find($mainTypeId);
+                    switch ($relatedType) {
+                        case 'person':
+                            $person = $em->getRepository('AppBundle:Person')->find($relatedTypeId);
+                            $item = new ProjectsMembers();
+                            $item->setProjects($project);
+                            $item->setPerson($person);
+                            break;
+                        case 'teams':
+                            $team = $em->getRepository('AppBundle:Teams')->find($relatedTypeId);
+                            $item = new TeamsProjects();
+                            $item->setProjects($project);
+                            $item->setTeams($team);
+                            break;
+                    }
+                    break;
+            }
+
+            if ( !is_null($item) ) {
+                $em->persist($item);
+                $em->flush();
+            }
+
+            $targetAction = '';
+            switch ( $mainType ) {
+                case 'person':
+                    $targetAction = 'AppBundle:Person:renderRelatedPeopleView';
+                    break;
+                case 'teams':
+                    $targetAction = 'AppBundle:Teams:renderRelatedTeamsView';
+                    break;
+                case 'projects':
+                    $targetAction = 'AppBundle:Projects:renderRelatedProjectsView';
+                    break;
+            }
+            if ( $targetAction !== '' ) {
+                $response->setContent(
+                    $this->forward(
+                        $targetAction,
+                        array(),
+                        array(
+                            'type' => $relatedType,
+                            'id' => $mainTypeId
+                        )
+                    )->getContent()
+                );
+                $response->setStatusCode(200);
+            }
+        }
+        catch (\Exception $e) {
+            $response->setContent($e->getMessage());
+            $response->setStatusCode(419);
+        }
+
+        return $response;
+
     }
 }

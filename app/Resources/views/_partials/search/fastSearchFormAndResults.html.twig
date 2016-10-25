@@ -73,7 +73,7 @@
                                                             _locale: "{{ app.request.getLocale() }}",
                                                             action: action,
                                                             id: fastSearchElem.value
-                                                        }) + '">{% if search_vars.parent == 'related' %}<i class="fa fa-plus-circle"></i>{% endif %}' + fastSearchElem.label + '</a></li>');
+                                                        }) + '" data-main-id="{{ search_vars.search_related_main_id }}" data-related-id="' + fastSearchElem.value + '" data-main-type="{{ search_vars.search_related_main_type }}" data-related-type="{{ search_vars.search_type }}">{% if search_vars.parent == 'related' %}<i class="fa fa-plus-circle"></i>{% endif %}' + fastSearchElem.label + '</a></li>');
                                             }
                                     );
                                     $(target_results).find('ul').html(items.join(''));

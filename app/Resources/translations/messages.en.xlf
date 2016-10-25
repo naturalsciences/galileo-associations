@@ -491,6 +491,10 @@
                     <source xml:lang="en">The record you try to insert already exists</source>
                     <target xml:lang="en">The record you try to insert already exists</target>
                 </trans-unit>
+                <trans-unit id="app-errors-custom" resname="app.errors.custom">
+                    <source xml:lang="en">An error occured: %message%</source>
+                    <target xml:lang="en">an error occured: %message%</target>
+                </trans-unit>
             </group>
             <group id="app-message">
                 <trans-unit id="app-message-search" resname="app.message.search">

@@ -29,7 +29,7 @@ class PersonRepository extends \Doctrine\ORM\EntityRepository
 
         $qb->select(
                     $distinct.'p.id as "value",  
-                     p.last_name || \' \' || p.first_name as "label",
+                     p.first_name || \' \' || p.last_name as "label",
                      COALESCE(e.exit_date, \'active\') as "active"'
                    )
             ->from(

@@ -31,6 +31,19 @@ app_remove_related:
         id: \d+
     methods: [GET]
 
+app_add_related:
+    path: /add/{type}/{id}/{related}/{related_id}
+    defaults:
+        _controller: AppBundle:Default:add
+    requirements:
+        type: "person|teams|projects"
+        id: \d+
+        related: "person|teams|projects"
+        related_id: \d+
+    options:
+        expose: true
+    methods: [GET]
+
 person_list:
     path: /{_locale}/person/list
     defaults:

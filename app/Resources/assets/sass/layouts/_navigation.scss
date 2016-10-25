@@ -372,7 +372,8 @@ button.navbar-toggle {
   position: absolute;
 }
 
-#rbins-search-menu {
+#rbins-search-menu,
+.rbins-search-content {
   overflow-x: hidden;
 
   div.load-spinner {

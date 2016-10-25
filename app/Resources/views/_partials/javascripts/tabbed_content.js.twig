@@ -102,5 +102,38 @@ $(document).ready(
                     return false;
                 }
         );
+
+        $('.rbins-fast-search').on(
+                'click',
+                '.rbins-related-add a',
+                function (event) {
+                    event.preventDefault();
+
+                    var target = $(this).parents('.rbins-search-content').next();
+
+                    $.ajax(
+                            {
+                                url: Routing.generate(
+                                        'app_add_related',
+                                        {
+                                            'type': $(this).data('main-type'),
+                                            'id': $(this).data('main-id'),
+                                            'related': $(this).data('related-type'),
+                                            'related_id': $(this).data('related-id')
+                                        }
+                                     ),
+                                success: function(data) {
+                                         //target.html(data);
+                               },
+                                error: function(jqXHR) {
+                                   $('.content-add-error').html(jqXHR.responseText).show();
+                                }
+                            }
+                    );
+
+                    return false;
+                }
+        );
+
     }
 );

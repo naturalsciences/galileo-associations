@@ -1,3 +1,4 @@
+<div class="content-add-error alert alert-danger"></div>
 {% if related_projects|length == 0 %}
     {% trans from "messages" %}app.message.noRelatedProjects{% endtrans %}
 {% else %}
@@ -6,7 +7,7 @@
         <dt class="col-xs-2" title="{% trans from "messages" %}app.meta.title.form.relatedTeamsAndProjects.view.startDate{% endtrans %}">{% trans from "messages" %}app.form.relatedTeamsAndProjects.view.label.startDate{% endtrans %}</dt>
         <dt class="col-xs-2" title="{% trans from "messages" %}app.meta.title.form.relatedTeamsAndProjects.view.endDate{% endtrans %}">{% trans from "messages" %}app.form.relatedTeamsAndProjects.view.label.endDate{% endtrans %}</dt>
         <dt class="col-xs-2"></dt>
-        <hr>
+        <hr class="rbins-related-title-separator"/>
         {% for project in related_projects %}
             <dd class="col-xs-6"><a title="{% if project.active == 'active' %}{% trans from 'messages' %}app.title.content.related.active{% endtrans %}{% else %}{% trans from 'messages' %}app.title.content.related.inactive{% endtrans %}{% endif %}" class="{{ project.active }}" href="{{ path('projects', { 'id':project.id, 'action': 'view' }) }}">{{ project.name }}</a></dd>
             <dd class="col-xs-2">{{ project.start_date is empty ? '-' : project.start_date|date('d/m/Y') }}</dd>
