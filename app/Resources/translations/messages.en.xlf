@@ -541,6 +541,14 @@
                     <source xml:lang="en">You are not authorized to perform this operation</source>
                     <target xml:lang="en">You are not authorized to perform this operation</target>
                 </trans-unit>
+                <trans-unit id="app-message-remove-success" resname="app.message.remove.success">
+                    <source xml:lang="en">The item has been well removed</source>
+                    <target xml:lang="en">The item has been well removed</target>
+                </trans-unit>
+                <trans-unit id="app-message-add-success" resname="app.message.add.success">
+                    <source xml:lang="en">The item has been well added</source>
+                    <target xml:lang="en">The item has been well added</target>
+                </trans-unit>
             </group>
         </body>
     </file>

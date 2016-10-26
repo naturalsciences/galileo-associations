@@ -249,6 +249,15 @@
   margin-left: 1rem;
 }
 
-.content-add-error {
+.flash-error,
+.flash-warning,
+.flash-success {
   display: none;
+
+  .flash-error-text,
+  .flash-warning-text,
+  .flash-success-text {
+    position: relative;
+    vertical-align: middle;
+  }
 }

@@ -157,7 +157,7 @@ class DefaultController extends Controller
             }
 
             $targetAction = '';
-            switch ( $mainType ) {
+            switch ( $relatedType ) {
                 case 'person':
                     $targetAction = 'AppBundle:Person:renderRelatedPeopleView';
                     break;
@@ -174,7 +174,7 @@ class DefaultController extends Controller
                         $targetAction,
                         array(),
                         array(
-                            'type' => $relatedType,
+                            'type' => $mainType,
                             'id' => $mainTypeId
                         )
                     )->getContent()

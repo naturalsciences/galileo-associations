@@ -1,0 +1,20 @@
+{% block flash_messages %}
+    <div class="flash-error alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="flash-error-text"></div>
+    </div>
+    <div class="flash-warning alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="flash-warning-text"></div>
+    </div>
+    <div class="flash-success alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="flash-success-text"></div>
+    </div>
+{% endblock flash_messages %}

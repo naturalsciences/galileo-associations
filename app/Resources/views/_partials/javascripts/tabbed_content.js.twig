@@ -51,13 +51,48 @@ $(document).ready(
                 }
         );
 
-        $('.rbins-remove-related').on(
+        $('.rbins-related-content').on(
                 'click',
+                '.rbins-remove-related',
                 function(event) {
                     event.preventDefault();
-                    if ( !confirm("{{ 'app.message.related.removeConfirmation'|trans({}, "messages") }}")) {
+                    if ( !confirm("{{ 'app.message.related.removeConfirmation'|trans({}, 'messages') }}")) {
                         return false;
                     }
+
+                    var target = $(this);
+                    var target_class = $(this).data('target-class');
+
+                    $.ajax(
+                            {
+                                url: $(this).attr('href'),
+                                success: function() {
+                                    target.parents('.rbins-related-content').find('.alert').fadeOut();
+                                    target.parents('.rbins-related-content').find('.flash-success-text').html("{{ 'app.message.remove.success'|trans({}, 'messages', app.request.getLocale()) }}").parent('.flash-success').fadeIn();
+                                    target.parents('.rbins-tab-content').find('.rbins-search-content .rbins-search-input').trigger('change');
+                                    target.parents('.rbins-related-content').find('dd.'+target_class).fadeOut().remove();
+                                },
+                                error: function(jqXHR) {
+                                    target.parents('.rbins-related-content').find('.alert').fadeOut();
+                                    if ( jqXHR.status == '404' ) {
+                                        target.parents('.rbins-related-content').find('.flash-warning-text').html("{{ 'app.message.remove.failure.404'|trans({}, 'messages', app.request.getLocale()) }}").parent('.flash-warning').fadeIn();
+                                        target.parents('.rbins-tab-content').find('.rbins-search-content .rbins-search-input').trigger('change');
+                                        target.parents('.rbins-related-content').find('dd.'+target_class).fadeOut().remove();
+                                    }
+                                    else if ( jqXHR.status == '419' ) {
+                                        target.parents('.rbins-related-content').find('.flash-warning-text').html('An error occured: '+jqXHR.responseText).parent('.flash-warning').fadeIn();
+                                    }
+                                    else {
+                                        target.parents('.rbins-related-content').find('.flash-error-text').html('An error occured: '+jqXHR.responseText).parent('.flash-error').fadeIn();
+                                    }
+                                }
+                            }
+                    ).done(
+                            function() {
+                                {# Will need to check if line remove was last - if yes remove title and hr also #}
+                            }
+                    );
+
                     return false;
                 }
         );
@@ -66,7 +101,7 @@ $(document).ready(
                 'click',
                 function(event) {
                     event.preventDefault();
-                    if ( !confirm("{{ 'app.message.main.removeConfirmation'|trans({}, "messages", app.request.getLocale()) }}")) {
+                    if ( !confirm("{{ 'app.message.main.removeConfirmation'|trans({}, 'messages', app.request.getLocale()) }}")) {
                         return false;
                     }
 
@@ -110,6 +145,7 @@ $(document).ready(
                     event.preventDefault();
 
                     var target = $(this).parents('.rbins-search-content').next();
+                    var search_input = $(this).parents('.rbins-search-content').find('.rbins-search-input');
 
                     $.ajax(
                             {
@@ -123,10 +159,13 @@ $(document).ready(
                                         }
                                      ),
                                 success: function(data) {
-                                         //target.html(data);
+                                    search_input.trigger('change');
+                                    target.html(data);
+                                    target.find('.flash-success-text').html("{{ 'app.message.add.success'|trans({}, 'messages', app.request.getLocale()) }}").parent('.flash-success').fadeIn();
                                },
                                 error: function(jqXHR) {
-                                   $('.content-add-error').html(jqXHR.responseText).show();
+                                    target.find('.alert').fadeOut();
+                                    target.find('.flash-error-text').html(jqXHR.responseText).parent('.flash-error').fadeIn();
                                 }
                             }
                     );
