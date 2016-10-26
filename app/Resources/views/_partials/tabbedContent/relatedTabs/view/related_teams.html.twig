@@ -1,6 +1,6 @@
 {% include "_partials/flash/flashMessages.html.twig" %}
 {% if related_teams|length == 0 %}
-    {% trans from "messages" %}app.message.noRelatedTeams{% endtrans %}
+    <p class="no-related-content-message">{% trans from "messages" %}app.message.noRelatedTeams{% endtrans %}</p>
 {% else %}
     <dl class="row">
         <dt class="col-xs-6" title="{% trans from "messages" %}app.meta.title.form.relatedTeams.view.name{% endtrans %}">{% trans from "messages" %}app.form.relatedTeamsAndProjects.view.label.name{% endtrans %}</dt>

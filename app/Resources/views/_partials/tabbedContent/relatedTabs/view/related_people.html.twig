@@ -1,6 +1,6 @@
 {% include "_partials/flash/flashMessages.html.twig" %}
 {% if related_people|length == 0 %}
-    {% trans from "messages" %}app.message.noRelatedPeople{% endtrans %}
+    <p class="no-related-content-message">{% trans from "messages" %}app.message.noRelatedPeople{% endtrans %}</p>
 {% else %}
     <dl class="row">
         <dt class="col-xs-6" title="{% trans from "messages" %}app.meta.title.form.relatedPeople.view.name{% endtrans %}">{% trans from "messages" %}app.form.relatedPeople.view.label.name{% endtrans %}</dt>

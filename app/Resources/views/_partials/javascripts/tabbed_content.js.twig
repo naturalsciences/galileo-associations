@@ -61,35 +61,39 @@ $(document).ready(
                     }
 
                     var target = $(this);
+                    var target_parent_related_content = $(this).parents('.rbins-related-content');
                     var target_class = $(this).data('target-class');
 
                     $.ajax(
                             {
                                 url: $(this).attr('href'),
                                 success: function() {
-                                    target.parents('.rbins-related-content').find('.alert').fadeOut();
-                                    target.parents('.rbins-related-content').find('.flash-success-text').html("{{ 'app.message.remove.success'|trans({}, 'messages', app.request.getLocale()) }}").parent('.flash-success').fadeIn();
+                                    target_parent_related_content.find('.alert').fadeOut();
+                                    target_parent_related_content.find('.flash-success-text').html("{{ 'app.message.remove.success'|trans({}, 'messages', app.request.getLocale()) }}").parent('.flash-success').fadeIn();
                                     target.parents('.rbins-tab-content').find('.rbins-search-content .rbins-search-input').trigger('change');
-                                    target.parents('.rbins-related-content').find('dd.'+target_class).fadeOut().remove();
+                                    target_parent_related_content.find('dd.'+target_class).fadeOut().remove();
                                 },
                                 error: function(jqXHR) {
-                                    target.parents('.rbins-related-content').find('.alert').fadeOut();
+                                    target_parent_related_content.find('.alert').fadeOut();
                                     if ( jqXHR.status == '404' ) {
-                                        target.parents('.rbins-related-content').find('.flash-warning-text').html("{{ 'app.message.remove.failure.404'|trans({}, 'messages', app.request.getLocale()) }}").parent('.flash-warning').fadeIn();
+                                        target_parent_related_content.find('.flash-warning-text').html("{{ 'app.message.remove.failure.404'|trans({}, 'messages', app.request.getLocale()) }}").parent('.flash-warning').fadeIn();
                                         target.parents('.rbins-tab-content').find('.rbins-search-content .rbins-search-input').trigger('change');
-                                        target.parents('.rbins-related-content').find('dd.'+target_class).fadeOut().remove();
+                                        target_parent_related_content.find('dd.'+target_class).fadeOut().remove();
                                     }
                                     else if ( jqXHR.status == '419' ) {
-                                        target.parents('.rbins-related-content').find('.flash-warning-text').html('An error occured: '+jqXHR.responseText).parent('.flash-warning').fadeIn();
+                                        target_parent_related_content.find('.flash-warning-text').html('An error occured: '+jqXHR.responseText).parent('.flash-warning').fadeIn();
                                     }
                                     else {
-                                        target.parents('.rbins-related-content').find('.flash-error-text').html('An error occured: '+jqXHR.responseText).parent('.flash-error').fadeIn();
+                                        target_parent_related_content.find('.flash-error-text').html('An error occured: '+jqXHR.responseText).parent('.flash-error').fadeIn();
                                     }
                                 }
                             }
                     ).done(
                             function() {
-                                {# Will need to check if line remove was last - if yes remove title and hr also #}
+                                if ( target_parent_related_content.find('dd').length == 0 ) {
+                                    target_parent_related_content.find('dl').remove();
+                                    target_parent_related_content.append('<p class='+'"no-related-content-message"'+">{% trans from 'messages' into app.request.getLocale() %}app.message.noRelatedItems{% endtrans %}</p>");
+                                }
                             }
                     );
 

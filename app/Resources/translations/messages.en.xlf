@@ -525,6 +525,10 @@
                     <source xml:lang="en">There's no related projects for the moment</source>
                     <target xml:lang="en">There's no related projects for the moment</target>
                 </trans-unit>
+                <trans-unit id="app-message-noRelatedItems" resname="app.message.noRelatedItems">
+                    <source xml:lang="en">There's no related items for the moment</source>
+                    <target xml:lang="en">There's no related items for the moment</target>
+                </trans-unit>
                 <trans-unit id="app-message-main-removeConfirmation" resname="app.message.main.removeConfirmation">
                     <source xml:lang="en">Are you sure you want to remove this entry</source>
                     <target xml:lang="en">Are you sure you want to remove this entry</target>
