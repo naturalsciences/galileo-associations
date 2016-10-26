@@ -21,15 +21,15 @@ $(document).ready(
                     switch ($(this).val()) {
                         case '1':
                             fieldsetControl.prop('disabled',false);
-                            $('#'+formName+'_name_'+language).val(intName).text(intName).prop('disabled',true);
-                            $('#'+formName+'_description_'+language).val(intDescr).text(intDescr).prop('disabled',true);
+                            $('#'+formName+'_name_'+language).val(intName).prop('disabled',true);
+                            $('#'+formName+'_description_'+language).val(intDescr).prop('disabled',true);
                             fieldsetControl.find('input').not('#'+formName+'_name_'+language).prop('disabled',false);
                             fieldsetControl.find('textarea').not('#'+formName+'_description_'+language).prop('disabled',false);
                             break;
                         case '2':
                             fieldsetControl.prop('disabled',true);
-                            fieldsetControl.find('input').val(intName).text(intName);
-                            fieldsetControl.find('textarea').val(intDescr).text(intDescr);
+                            fieldsetControl.find('input').val(intName);
+                            fieldsetControl.find('textarea').val(intDescr);
                             break;
                         default:
                             fieldsetControl.prop('disabled',false);
