@@ -32,7 +32,7 @@ class ProjectsFormType extends AbstractType
                     ),
                     'attr' => array(
                         'class' => 'form-control col-xs-6 col-sm-5 required rbins-language-source',
-                        'data-cascade-field-class' => '.rbins-name-cascade'
+                        'data-cascade-field-class' => '.rbins-name-cascade',
                     ),
                     'required' => true,
                 )
@@ -46,7 +46,8 @@ class ProjectsFormType extends AbstractType
                         'class' => 'col-xs-4 col-sm-3 col-xl-2 col-form-label text-xs-right',
                     ),
                     'attr' => array(
-                        'class' => 'form-control col-xs-11 required',
+                        'class' => 'form-control col-xs-11 required rbins-int-name',
+                        'data-cascade-field-class' => '.rbins-name-cascade',
                     ),
                     'required' => true,
                 )
@@ -60,7 +61,8 @@ class ProjectsFormType extends AbstractType
                         'class' => 'col-xs-4 col-sm-3 col-xl-2 col-form-label text-xs-right',
                     ),
                     'attr' => array(
-                        'class' => 'form-control col-xs-11',
+                        'class' => 'form-control col-xs-11 rbins-int-descr',
+                        'data-cascade-field-class' => '.rbins-name-cascade',
                     ),
                     'required' => false,
                 )
