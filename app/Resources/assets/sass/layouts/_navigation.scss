@@ -404,6 +404,10 @@ button.navbar-toggle {
 .rbins-btn-secondary {
   color: $white;
   text-align: left;
+
+  &:hover {
+    color: $orange;
+  }
 }
 
 #people-heading {
@@ -500,4 +504,12 @@ ul.rbins-fast-search {
       margin-right: .3rem;
     }
   }
+}
+
+.pull-lg-left {
+  float: left;
+}
+
+.pull-lg-right {
+  float: right;
 }
