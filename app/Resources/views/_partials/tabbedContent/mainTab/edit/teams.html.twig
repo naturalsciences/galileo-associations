@@ -1,0 +1,120 @@
+{% include '_partials/action_switch/toggle_view_edit_top.html.twig' %}
+
+<div class="row rbins-main-tab-content">
+    <div class="col-xs-12">
+        {{ form_start(tabs.main.form) }}
+        {% if not tabs.main.form.vars.valid %}<div class="alert alert-danger" role="alert">{{ form_errors(tabs.main.form) }}</div>{% endif %}
+        <div class="form-group row">
+            {{ form_label(tabs.main.form.international_name_language) }}
+            <div class="col-xs-8 col-md-9 col-xl-10">
+                <div class="row">
+                    {{ form_widget(tabs.main.form.international_name_language) }}
+                    <div class="form-control-feedback">{{ form_errors(tabs.main.form.international_name_language) }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            {{ form_label(tabs.main.form.international_name) }}
+            <div class="col-xs-8 col-md-9 col-xl-10">
+                <div class="row">
+                    {{ form_widget(tabs.main.form.international_name) }}
+                    <div class="form-control-feedback">{{ form_errors(tabs.main.form.international_name) }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            {{ form_label(tabs.main.form.international_description) }}
+            <div class="col-xs-8 col-md-9 col-xl-10">
+                <div class="row">
+                    {{ form_widget(tabs.main.form.international_description) }}
+                    <div class="form-control-feedback">{{ form_errors(tabs.main.form.international_description) }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row rbins-left-offset">
+            {{ form_label(tabs.main.form.international_cascade) }}
+            {{ form_widget(tabs.main.form.international_cascade) }}
+            <div class="form-control-feedback col-xs-11">{{ form_errors(tabs.main.form.international_cascade) }}</div>
+        </div>
+        <fieldset id="rbins-localized-names" class="form-group">
+            <legend>{% trans from "messages" %}app.form.teamsAndProjects.edit.fieldsetLegend{% endtrans %}</legend>
+            <div class="row">
+                {{ form_label(tabs.main.form.name_en) }}
+                <div class="col-xs-8 col-md-9 col-xl-10">
+                    <div class="row">
+                        {{ form_widget(tabs.main.form.name_en) }}
+                        <div class="form-control-feedback">{{ form_errors(tabs.main.form.name_en) }}</div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                {{ form_label(tabs.main.form.description_en) }}
+                <div class="col-xs-8 col-md-9 col-xl-10">
+                    <div class="row">
+                        {{ form_widget(tabs.main.form.description_en) }}
+                        <div class="form-control-feedback">{{ form_errors(tabs.main.form.description_en) }}</div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                {{ form_label(tabs.main.form.name_nl) }}
+                <div class="col-xs-8 col-md-9 col-xl-10">
+                    <div class="row">
+                        {{ form_widget(tabs.main.form.name_nl) }}
+                        <div class="form-control-feedback">{{ form_errors(tabs.main.form.name_nl) }}</div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                {{ form_label(tabs.main.form.description_nl) }}
+                <div class="col-xs-8 col-md-9 col-xl-10">
+                    <div class="row">
+                        {{ form_widget(tabs.main.form.description_nl) }}
+                        <div class="form-control-feedback">{{ form_errors(tabs.main.form.description_nl) }}</div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                {{ form_label(tabs.main.form.name_fr) }}
+                <div class="col-xs-8 col-md-9 col-xl-10">
+                    <div class="row">
+                        {{ form_widget(tabs.main.form.name_fr) }}
+                        <div class="form-control-feedback">{{ form_errors(tabs.main.form.name_fr) }}</div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                {{ form_label(tabs.main.form.description_fr) }}
+                <div class="col-xs-8 col-md-9 col-xl-10">
+                    <div class="row">
+                        {{ form_widget(tabs.main.form.description_fr) }}
+                        <div class="form-control-feedback">{{ form_errors(tabs.main.form.description_fr) }}</div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <div class="form-group row">
+            {{ form_label(tabs.main.form.start_date) }}
+            <div class="col-xs-7 col-sm-8 col-md-3 rbins-form-dates">
+                {{ form_widget(tabs.main.form.start_date) }}
+                <div class="form-control-feedback">{{ form_errors(tabs.main.form.start_date) }}</div>
+            </div>
+            {{ form_label(tabs.main.form.end_date) }}
+            <div class="col-xs-7 col-sm-8 col-md-3 rbins-form-dates">
+                {{ form_widget(tabs.main.form.end_date) }}
+                <div class="form-control-feedback">{{ form_errors(tabs.main.form.end_date) }}</div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-xs-12 pull-right">
+                {{ form_widget(tabs.main.form.save) }}{{ form_widget(tabs.main.form.reset) }}
+            </div>
+        </div>
+        {{ form_end(tabs.main.form) }}
+    </div>
+</div>

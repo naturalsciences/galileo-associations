@@ -28,6 +28,7 @@ class TeamsController extends Controller
                 'headingText' => 'app.action.tab.main',
                 'headingIcon' => 'fa-cog',
                 'item' => null,
+                'form' => null,
                 'view_container_controller' => 'AppBundle:Teams:renderTeamView',
                 'view_controller' => 'AppBundle:Teams:renderTeamView',
                 'view_route' => 'team_fragment_view',
@@ -41,6 +42,7 @@ class TeamsController extends Controller
                 'headingText' => 'app.action.tab.relatedPeople',
                 'headingIcon' => 'fa-user',
                 'item' => null,
+                'form' => null,
                 'view_container_controller' => 'AppBundle:Person:renderRelatedPeopleViewContainer',
                 'view_controller' => 'AppBundle:Person:renderRelatedPeopleView',
                 'view_route' => 'related_people_fragment_view',
@@ -54,6 +56,7 @@ class TeamsController extends Controller
                 'headingText' => 'app.action.tab.relatedProjects',
                 'headingIcon' => 'fa-suitcase',
                 'item' => null,
+                'form' => null,
                 'view_container_controller' => 'AppBundle:Projects:renderRelatedProjectsViewContainer',
                 'view_controller' => 'AppBundle:Projects:renderRelatedProjectsView',
                 'view_route' => 'related_projects_fragment_view',
@@ -234,8 +237,28 @@ class TeamsController extends Controller
             throw $this->createNotFoundException('A problem occured initating the team object.');
         }
 
+        $this->tabDefinition['action'] = 'view';
+
         return $this->render(
             '_partials/tabbedContent/mainTab/view/teams.html.twig',
+            $this->tabDefinition
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function renderTeamEditAction(Request $request) {
+        if ( $this->fillTeamInfos($request) === false ) {
+            throw $this->createNotFoundException('A problem occured initating the project object.');
+        }
+
+        $this->tabDefinition['action'] = 'edit';
+        $this->tabDefinition['tabs']['main']['form'] = $request->get('form', null);
+
+        return $this->render(
+            '_partials/tabbedContent/mainTab/edit/projects.html.twig',
             $this->tabDefinition
         );
     }

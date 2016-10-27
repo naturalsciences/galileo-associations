@@ -55,10 +55,11 @@
                                 'edit_controller': tab.edit_controller,
                                 'edit_route': tab.edit_route,
                                 'type': type,
+                                'form': tab.form,
                             }
                         %}
                         {% if action == 'edit' and key == 'main' %}
-                            {{ render_esi(
+                            {{ render(
                                 controller(
                                     tab.edit_controller,
                                     parameter_bag
@@ -66,7 +67,7 @@
                                )
                             }}
                         {% else %}
-                            {{ render_esi(
+                            {{ render(
                                    controller(
                                        tab.view_container_controller,
                                        parameter_bag
@@ -87,4 +88,7 @@
 {% endblock content_main %}
 {% block javascript_content %}
     {% include "_partials/javascripts/tabbed_content.js.twig" %}
+    {% if action == 'edit' %}
+        {% include '_partials/javascripts/forms.js.twig' %}
+    {% endif %}
 {% endblock %}

@@ -27,6 +27,7 @@ class PersonController extends Controller
                 'headingText' => 'app.action.tab.main',
                 'headingIcon' => 'fa-cog',
                 'item' => null,
+                'form' => null,
                 'view_container_controller' => 'AppBundle:Person:renderPersonView',
                 'view_controller' => 'AppBundle:Person:renderPersonView',
                 'view_route' => 'person_fragment_view',
@@ -40,6 +41,7 @@ class PersonController extends Controller
                 'headingText' => 'app.action.tab.relatedTeams',
                 'headingIcon' => 'fa-users',
                 'item' => null,
+                'form' => null,
                 'view_container_controller' => 'AppBundle:Teams:renderRelatedTeamsViewContainer',
                 'view_controller' => 'AppBundle:Teams:renderRelatedTeamsView',
                 'view_route' => 'related_teams_fragment_view',
@@ -53,6 +55,7 @@ class PersonController extends Controller
                 'headingText' => 'app.action.tab.relatedProjects',
                 'headingIcon' => 'fa-suitcase',
                 'item' => null,
+                'form' => null,
                 'view_container_controller' => 'AppBundle:Projects:renderRelatedProjectsViewContainer',
                 'view_controller' => 'AppBundle:Projects:renderRelatedProjectsView',
                 'view_route' => 'related_projects_fragment_view',
@@ -189,6 +192,8 @@ class PersonController extends Controller
         if ( $this->fillPersonInfos($request) === false ) {
             throw $this->createNotFoundException('A problem occured initiating the person object.');
         }
+
+        $this->tabDefinition['action'] = 'view';
 
         return $this->render(
             '_partials/tabbedContent/mainTab/view/person.html.twig',

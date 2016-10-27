@@ -42,6 +42,7 @@ class ProjectsController extends Controller
                 'headingText' => 'app.action.tab.relatedPeople',
                 'headingIcon' => 'fa-user',
                 'item' => null,
+                'form' => null,
                 'view_container_controller' => 'AppBundle:Person:renderRelatedPeopleViewContainer',
                 'view_controller' => 'AppBundle:Person:renderRelatedPeopleView',
                 'view_route' => 'related_people_fragment_view',
@@ -55,6 +56,7 @@ class ProjectsController extends Controller
                 'headingText' => 'app.action.tab.relatedTeams',
                 'headingIcon' => 'fa-users',
                 'item' => null,
+                'form' => null,
                 'view_container_controller' => 'AppBundle:Teams:renderRelatedTeamsViewContainer',
                 'view_controller' => 'AppBundle:Teams:renderRelatedTeamsView',
                 'view_route' => 'related_teams_fragment_view',
@@ -237,8 +239,28 @@ class ProjectsController extends Controller
             throw $this->createNotFoundException('A problem occured initating the project object.');
         }
 
+        $this->tabDefinition['action'] = 'view';
+
         return $this->render(
             '_partials/tabbedContent/mainTab/view/projects.html.twig',
+            $this->tabDefinition
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function renderProjectEditAction(Request $request) {
+        if ( $this->fillProjectInfos($request) === false ) {
+            throw $this->createNotFoundException('A problem occured initating the project object.');
+        }
+
+        $this->tabDefinition['action'] = 'edit';
+        $this->tabDefinition['tabs']['main']['form'] = $request->get('form', null);
+
+        return $this->render(
+            '_partials/tabbedContent/mainTab/edit/projects.html.twig',
             $this->tabDefinition
         );
     }
