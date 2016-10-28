@@ -213,7 +213,7 @@ class ProjectsController extends Controller
 
             if ( $request->get('action') === 'add' ) {
                 return $this->render(
-                    'default/projectsNew.html.twig',
+                    'default/teamsProjectsNew.html.twig',
                     array(
                         'form' => $form->createView(),
                     )

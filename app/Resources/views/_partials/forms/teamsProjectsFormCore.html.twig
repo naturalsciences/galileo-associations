@@ -1,0 +1,176 @@
+<div class="col-xs-12">
+    {{ form_start(form) }}
+    {% include '_partials/errors/_formsErrors.html.twig' %}
+    <div class="form-group row">
+        {{ form_label(form.international_name_language) }}
+        <div class="col-xs-8 col-md-9 col-xl-10">
+            <div class="row {% if form_errors(form.international_name_language) is not empty %}rbins-in-error{% endif %}">
+                {{ form_widget(form.international_name_language) }}
+            </div>
+            {% if form_errors(form.international_name_language) is not empty %}
+                <div class="row rbins-row-error-message">
+                    <div class="form-control-feedback col-xs-6 col-sm-5">
+                        {{ form_errors(form.international_name_language) }}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="form-group row">
+        {{ form_label(form.international_name) }}
+        <div class="col-xs-8 col-md-9 col-xl-10">
+            <div class="row {% if form_errors(form.international_name) is not empty %}rbins-in-error{% endif %}">
+                {{ form_widget(form.international_name) }}
+            </div>
+            {% if form_errors(form.international_name) is not empty %}
+                <div class="row rbins-row-error-message">
+                    <div class="form-control-feedback col-xs-11">
+                        {{ form_errors(form.international_name) }}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="form-group row">
+        {{ form_label(form.international_description) }}
+        <div class="col-xs-8 col-md-9 col-xl-10">
+            <div class="row {% if form_errors(form.international_description) is not empty %}rbins-in-error{% endif %}">
+                {{ form_widget(form.international_description) }}
+            </div>
+            {% if form_errors(form.international_description) is not empty %}
+                <div class="row rbins-row-error-message">
+                    <div class="form-control-feedback col-xs-11">
+                        {{ form_errors(form.international_description) }}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="form-group row rbins-left-offset {% if form_errors(form.international_cascade) is not empty %}rbins-in-error{% endif %}">
+        {{ form_label(form.international_cascade) }}
+        {{ form_widget(form.international_cascade) }}
+    </div>
+    {% if form_errors(form.international_cascade) is not empty %}
+        <div class="row rbins-row-error-message rbins-row-error-cascade-field">
+            <div class="form-control-feedback col-xs-11">
+                {{ form_errors(form.international_cascade) }}
+            </div>
+        </div>
+    {% endif %}
+    <fieldset id="rbins-localized-names" class="form-group">
+        <legend>{% trans from "messages" %}app.form.teamsAndProjects.edit.fieldsetLegend{% endtrans %}</legend>
+        <div class="row">
+            {{ form_label(form.name_en) }}
+            <div class="col-xs-8 col-md-9 col-xl-10">
+                <div class="row {% if form_errors(form.name_en) is not empty %}rbins-in-error{% endif %}">
+                    {{ form_widget(form.name_en) }}
+                </div>
+                {% if form_errors(form.name_en) is not empty %}
+                    <div class="row rbins-row-error-message">
+                        <div class="form-control-feedback col-xs-11">
+                            {{ form_errors(form.name_en) }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            {{ form_label(form.description_en) }}
+            <div class="col-xs-8 col-md-9 col-xl-10">
+                <div class="row {% if form_errors(form.description_en) is not empty %}rbins-in-error{% endif %}">
+                    {{ form_widget(form.description_en) }}
+                </div>
+                {% if form_errors(form.description_en) is not empty %}
+                    <div class="row rbins-row-error-message">
+                        <div class="form-control-feedback col-xs-11">
+                            {{ form_errors(form.description_en) }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            {{ form_label(form.name_nl) }}
+            <div class="col-xs-8 col-md-9 col-xl-10">
+                <div class="row {% if form_errors(form.name_nl) is not empty %}rbins-in-error{% endif %}">
+                    {{ form_widget(form.name_nl) }}
+                </div>
+                {% if form_errors(form.name_nl) is not empty %}
+                    <div class="row rbins-row-error-message">
+                        <div class="form-control-feedback col-xs-11">
+                            {{ form_errors(form.name_nl) }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            {{ form_label(form.description_nl) }}
+            <div class="col-xs-8 col-md-9 col-xl-10">
+                <div class="row {% if form_errors(form.description_nl) is not empty %}rbins-in-error{% endif %}">
+                    {{ form_widget(form.description_nl) }}
+                </div>
+                {% if form_errors(form.description_nl) is not empty %}
+                    <div class="row rbins-row-error-message">
+                        <div class="form-control-feedback col-xs-11">
+                            {{ form_errors(form.description_nl) }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            {{ form_label(form.name_fr) }}
+            <div class="col-xs-8 col-md-9 col-xl-10">
+                <div class="row {% if form_errors(form.name_fr) is not empty %}rbins-in-error{% endif %}">
+                    {{ form_widget(form.name_fr) }}
+                </div>
+                {% if form_errors(form.name_fr) is not empty %}
+                    <div class="row rbins-row-error-message">
+                        <div class="form-control-feedback col-xs-11">
+                            {{ form_errors(form.name_fr) }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            {{ form_label(form.description_fr) }}
+            <div class="col-xs-8 col-md-9 col-xl-10">
+                <div class="row {% if form_errors(form.description_fr) is not empty %}rbins-in-error{% endif %}">
+                    {{ form_widget(form.description_fr) }}
+                </div>
+                {% if form_errors(form.description_fr) is not empty %}
+                    <div class="row rbins-row-error-message">
+                        <div class="form-control-feedback col-xs-11">
+                            {{ form_errors(form.description_fr) }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </fieldset>
+    <div class="form-group row">
+        {{ form_label(form.start_date) }}
+        <div class="col-xs-7 col-md-3 rbins-form-dates {% if form_errors(form.start_date) is not empty %}rbins-in-error{% endif %}">
+            {{ form_widget(form.start_date) }}
+            <div class="form-control-feedback">{{ form_errors(form.start_date) }}</div>
+        </div>
+        {{ form_label(form.end_date) }}
+        <div class="col-xs-7 col-md-3 rbins-form-dates {% if form_errors(form.end_date) is not empty %}rbins-in-error{% endif %}">
+            {{ form_widget(form.end_date) }}
+            <div class="form-control-feedback">{{ form_errors(form.end_date) }}</div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-xs-12 pull-right">
+            {{ form_widget(form.save) }}{{ form_widget(form.reset) }}
+        </div>
+    </div>
+    {{ form_end(form) }}
+</div>

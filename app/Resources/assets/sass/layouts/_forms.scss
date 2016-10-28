@@ -76,6 +76,14 @@ fieldset {
   padding: 0;
 }
 
+.rbins-in-error {
+  input,
+  textarea,
+  select {
+    border-color: $error-text;
+  }
+}
+
 .form-control-feedback {
   background-color: $error-background;
   border-color: $error-border;
@@ -85,5 +93,20 @@ fieldset {
 
   li {
     padding-left: .3rem;
+    padding-right: .3rem;
+  }
+}
+
+.rbins-row-error-message {
+  padding-left: 0;
+  padding-right: 0;
+
+  ul {
+    margin-bottom: 0;
+  }
+
+  &.rbins-row-error-cascade-field {
+    margin-left: 2px;
+    margin-top: -1rem;
   }
 }

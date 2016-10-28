@@ -21,7 +21,7 @@
             <ul>
                 {% for msg, messages in err_msg %}
                     <li>
-                        {{ msg|trans({}, "messages", app.request.getLocale()) }}:
+                        {{ 'app.errors.labeling'|trans({}, 'messages', app.request.getLocale()) }} "{{ msg|trans({}, 'messages', app.request.getLocale()) }}":
                         <ul>
                             {% for message in messages %}
                                 <li>{{ message }}</li>

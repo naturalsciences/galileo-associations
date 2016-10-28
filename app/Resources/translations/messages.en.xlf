@@ -383,70 +383,82 @@
                         </group>
                     </group>
                     <group id="app-form-teamsAndProjects-edit">
-                        <trans-unit id="app-form-teamsAndProjects-edit-internationalNameLanguage" resname="app.form.teamsAndProjects.edit.internationalNameLanguage">
-                            <source xml:lang="en">Language (Int.)</source>
-                            <target xml:lang="en">Language (Int.)</target>
-                        </trans-unit>
-                        <trans-unit id="app-form-teamsAndProjects-edit-internationalName" resname="app.form.teamsAndProjects.edit.internationalName">
-                            <source xml:lang="en">Name (Int.)</source>
-                            <target xml:lang="en">Name (Int.)</target>
-                        </trans-unit>
-                        <trans-unit id="app-form-teamsAndProjects-edit-internationalDescription" resname="app.form.teamsAndProjects.edit.internationalDescription">
-                            <source xml:lang="en">Description (Int.)</source>
-                            <target xml:lang="en">Description (Int.)</target>
-                        </trans-unit>
-                        <trans-unit id="app-form-teamsAndProjects-edit-internationalCascade" resname="app.form.teamsAndProjects.edit.internationalCascade">
-                            <source xml:lang="en">Use international name and description for</source>
-                            <target xml:lang="en">Use international name and description for</target>
-                        </trans-unit>
-                        <trans-unit id="app-form-teamsAndProjects-edit-nameEn" resname="app.form.teamsAndProjects.edit.nameEn">
-                            <source xml:lang="en">Name (EN)</source>
-                            <target xml:lang="en">Name (EN)</target>
-                        </trans-unit>
-                        <trans-unit id="app-form-teamsAndProjects-edit-descriptionEn" resname="app.form.teamsAndProjects.edit.descriptionEn">
-                            <source xml:lang="en">Description (EN)</source>
-                            <target xml:lang="en">Description (EN)</target>
-                        </trans-unit>
-                        <trans-unit id="app-form-teamsAndProjects-edit-nameNl" resname="app.form.teamsAndProjects.edit.nameNl">
-                            <source xml:lang="en">Name (NL)</source>
-                            <target xml:lang="en">Name (NL)</target>
-                        </trans-unit>
-                        <trans-unit id="app-form-teamsAndProjects-edit-descriptionNl" resname="app.form.teamsAndProjects.edit.descriptionNl">
-                            <source xml:lang="en">Description (NL)</source>
-                            <target xml:lang="en">Description (NL)</target>
-                        </trans-unit>
-                        <trans-unit id="app-form-teamsAndProjects-edit-nameFr" resname="app.form.teamsAndProjects.edit.nameFr">
-                            <source xml:lang="en">Name (FR)</source>
-                            <target xml:lang="en">Name (FR)</target>
-                        </trans-unit>
-                        <trans-unit id="app-form-teamsAndProjects-edit-descriptionFr" resname="app.form.teamsAndProjects.edit.descriptionFr">
-                            <source xml:lang="en">Description (FR)</source>
-                            <target xml:lang="en">Description (FR)</target>
-                        </trans-unit>
-                        <trans-unit id="app-form-teamsAndProjects-edit-startDate" resname="app.form.teamsAndProjects.edit.startDate">
-                            <source xml:lang="en">Start date</source>
-                            <target xml:lang="en">Start date</target>
-                        </trans-unit>
-                        <trans-unit id="app-form-teamsAndProjects-edit-endDate" resname="app.form.teamsAndProjects.edit.endDate">
-                            <source xml:lang="en">End date</source>
-                            <target xml:lang="en">End date</target>
-                        </trans-unit>
-                        <trans-unit id="app-form-teamsAndProjects-edit-fieldsetLegend" resname="app.form.teamsAndProjects.edit.fieldsetLegend">
-                            <source xml:lang="en">Localized names / descriptions</source>
-                            <target xml:lang="en">Localized names / descriptions</target>
-                        </trans-unit>
-                        <trans-unit id="app-form-teamsAndProjects-edit-date-placeholder" resname="app.form.teamsAndProjects.edit.date.placeholder">
-                            <source xml:lang="en">Enter a date in the format dd/mm/yyyy</source>
-                            <target xml:lang="en">Enter a date in the format dd/mm/yyyy</target>
-                        </trans-unit>
-                        <trans-unit id="app-form-teamsAndProjects-edit-save" resname="app.form.teamsAndProjects.edit.save">
-                            <source xml:lang="en">Save</source>
-                            <target xml:lang="en">Save</target>
-                        </trans-unit>
-                        <trans-unit id="app-form-teamsAndProjects-edit-reset" resname="app.form.teamsAndProjects.edit.reset">
-                            <source xml:lang="en">Reset</source>
-                            <target xml:lang="en">Reset</target>
-                        </trans-unit>
+                        <group id="app-form-teamsAndProjects-edit-label">
+                            <trans-unit id="app-form-teamsAndProjects-edit-internationalNameLanguage" resname="app.form.teamsAndProjects.edit.internationalNameLanguage">
+                                <source xml:lang="en">Language (Int.)</source>
+                                <target xml:lang="en">Language (Int.)</target>
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-internationalName" resname="app.form.teamsAndProjects.edit.internationalName">
+                                <source xml:lang="en">Name (Int.)</source>
+                                <target xml:lang="en">Name (Int.)</target>
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-internationalDescription" resname="app.form.teamsAndProjects.edit.internationalDescription">
+                                <source xml:lang="en">Description (Int.)</source>
+                                <target xml:lang="en">Description (Int.)</target>
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-internationalCascade" resname="app.form.teamsAndProjects.edit.internationalCascade">
+                                <source xml:lang="en">Use international name and description for</source>
+                                <target xml:lang="en">Use international name and description for</target>
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-nameEn" resname="app.form.teamsAndProjects.edit.nameEn">
+                                <source xml:lang="en">Name (EN)</source>
+                                <target xml:lang="en">Name (EN)</target>
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-descriptionEn" resname="app.form.teamsAndProjects.edit.descriptionEn">
+                                <source xml:lang="en">Description (EN)</source>
+                                <target xml:lang="en">Description (EN)</target>
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-nameNl" resname="app.form.teamsAndProjects.edit.nameNl">
+                                <source xml:lang="en">Name (NL)</source>
+                                <target xml:lang="en">Name (NL)</target>
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-descriptionNl" resname="app.form.teamsAndProjects.edit.descriptionNl">
+                                <source xml:lang="en">Description (NL)</source>
+                                <target xml:lang="en">Description (NL)</target>
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-nameFr" resname="app.form.teamsAndProjects.edit.nameFr">
+                                <source xml:lang="en">Name (FR)</source>
+                                <target xml:lang="en">Name (FR)</target>
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-descriptionFr" resname="app.form.teamsAndProjects.edit.descriptionFr">
+                                <source xml:lang="en">Description (FR)</source>
+                                <target xml:lang="en">Description (FR)</target>
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-startDate" resname="app.form.teamsAndProjects.edit.startDate">
+                                <source xml:lang="en">Start date</source>
+                                <target xml:lang="en">Start date</target>
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-endDate" resname="app.form.teamsAndProjects.edit.endDate">
+                                <source xml:lang="en">End date</source>
+                                <target xml:lang="en">End date</target>
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-fieldsetLegend" resname="app.form.teamsAndProjects.edit.fieldsetLegend">
+                                <source xml:lang="en">Localized names / descriptions</source>
+                                <target xml:lang="en">Localized names / descriptions</target>
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-date-placeholder" resname="app.form.teamsAndProjects.edit.date.placeholder">
+                                <source xml:lang="en">Enter a date in the format dd/mm/yyyy</source>
+                                <target xml:lang="en">Enter a date in the format dd/mm/yyyy</target>
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-save" resname="app.form.teamsAndProjects.edit.save">
+                                <source xml:lang="en">Save</source>
+                                <target xml:lang="en">Save</target>
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-reset" resname="app.form.teamsAndProjects.edit.reset">
+                                <source xml:lang="en">Reset</source>
+                                <target xml:lang="en">Reset</target>
+                            </trans-unit>
+                        </group>
+                        <group id="app-form-teamsAndProjects-edit-validation">
+                            <trans-unit id="app-form-teamsAndProjects-edit-validation-internationalNameLanguage-choice" resname="app.form.teamsAndProjects.edit.validation.internationalNameLanguage.choice">
+                                <source xml:lang="en">The language provided must be one of these: English, Dutch or French</source>
+                                <target xml:lang="en">The language provided must be one of these: English, Dutch or French</target>
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-validation-internationalNameCascade-choice" resname="app.form.teamsAndProjects.edit.validation.internationalNameCascade.choice">
+                                <source xml:lang="en">The language provided must be one of these: None of the translated versions, The corresponding language translated version or All translated version</source>
+                                <target xml:lang="en">The language provided must be one of these: None of the translated versions, The corresponding language translated version or All translated version</target>
+                            </trans-unit>
+                        </group>
                     </group>
                 </group>
                 <group id="app-form-relatedPeople">
@@ -490,6 +502,10 @@
                 <trans-unit id="app-errors-title" resname="app.errors.title">
                     <source xml:lang="en">Some errors occured</source>
                     <target xml:lang="en">Some errors occured</target>
+                </trans-unit>
+                <trans-unit id="app-errors-labeling" resname="app.errors.labeling">
+                    <source xml:lang="en">For the field</source>
+                    <target xml:lang="en">For the field</target>
                 </trans-unit>
                 <trans-unit id="app-errors-insert-uniqueViolation" resname="app.errors.insert.uniqueViolation">
                     <source xml:lang="en">The record you try to insert already exists</source>

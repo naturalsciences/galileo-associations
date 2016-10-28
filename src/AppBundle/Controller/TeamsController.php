@@ -211,7 +211,7 @@ class TeamsController extends Controller
 
             if ( $request->get('action') === 'add' ) {
                 return $this->render(
-                    'default/teamsNew.html.twig',
+                    'default/teamsProjectsNew.html.twig',
                     array(
                         'form' => $form->createView(),
                     )

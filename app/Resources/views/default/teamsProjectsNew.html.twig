@@ -1,0 +1,17 @@
+{% extends "default/index.html.twig" %}
+
+{% block content_main %}
+    <div class="row">
+        <div class="col-xs-12">
+            <h2 class="content-title">{% trans from "messages" %}app.title.home.team{% endtrans %}</h2>
+        </div>
+        {% include '_partials/forms/teamsProjectsFormCore.html.twig' %}
+    </div>
+{% endblock content_main %}
+
+{% block return_to_top %}
+{% endblock return_to_top %}
+
+{% block javascript_content %}
+    {% include '_partials/javascripts/forms.js.twig' %}
+{% endblock javascript_content %}

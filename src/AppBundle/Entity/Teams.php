@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Teams
  */
@@ -14,6 +16,7 @@ class Teams
 
     /**
      * @var string
+     * @Assert\NotBlank()
      */
     private $international_name;
 
@@ -24,11 +27,13 @@ class Teams
 
     /**
      * @var string
+     * @Assert\Choice(callback={"AppBundle\Validator\Generic", "getAllowedLanguages"}, message="app.form.teamsAndProjects.edit.validation.internationalNameLanguage.choice")
      */
     private $international_name_language = 'en';
 
     /**
      * @var integer
+     * @Assert\Choice(callback={"AppBundle\Validator\Generic", "getAllowedIntNameCascade"}, message="app.form.teamsAndProjects.edit.validation.internationalNameCascade.choice")
      */
     private $international_cascade = 0;
 
