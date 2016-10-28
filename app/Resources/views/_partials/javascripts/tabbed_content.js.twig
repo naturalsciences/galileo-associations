@@ -69,6 +69,10 @@ $(document).ready(
                     $.ajax(
                             {
                                 url: $(this).attr('href'),
+                                type: 'POST',
+                                data: {
+
+                                },
                                 success: function() {
                                     target_parent_related_content.find('.alert').fadeOut();
                                     target_parent_related_content.find('.flash-success-text').html("{{ 'app.message.remove.success'|trans({}, 'messages', app.request.getLocale()) }}").parent('.flash-success').fadeIn();
@@ -114,6 +118,10 @@ $(document).ready(
                     $.ajax(
                             {
                                 url: $(this).attr('href'),
+                                type: 'POST',
+                                data: {
+
+                                },
                                 success: function(data){
                                     window.location.href = Routing.generate(
                                             data.route,
@@ -164,6 +172,13 @@ $(document).ready(
                                             'related_id': $(this).data('related-id')
                                         }
                                      ),
+                                type: 'POST',
+                                data: {
+                                    'type': $(this).data('main-type'),
+                                    'id': $(this).data('main-id'),
+                                    'related': $(this).data('related-type'),
+                                    'related_id': $(this).data('related-id')
+                                },
                                 success: function(data) {
                                     search_input.trigger('change');
                                     target.html(data);

@@ -44,7 +44,6 @@ twig:
     form_themes:
         - bootstrap_3_layout.html.twig
 #        - bootstrap_3_horizontal_layout.html.twig
-#        - "AppBundle:Form:custom_bootstrap_layout.html.twig"
 
 # Doctrine Configuration
 doctrine:

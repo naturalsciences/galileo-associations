@@ -82,6 +82,6 @@
 </dl>
 <div class="row">
     <div class="col-xs-12">
-        <a class="btn btn-sm rbins-remove-btn pull-right" href="{{ path('app_remove_related', {'id': id, 'type': 'projects'}) }}"><i class="fa fa-times"></i>&nbsp;{% trans from "messages" %}app.form.teamsAndProjects.view.button.removeProject{% endtrans %}</a>
+        <a class="btn btn-sm rbins-remove-btn pull-right" href="{{ path('app_remove_related', {'id': id, 'type': 'projects'}) }}" data-id="{{ id }}" data-type="projects"><i class="fa fa-times"></i>&nbsp;{% trans from "messages" %}app.form.teamsAndProjects.view.button.removeProject{% endtrans %}</a>
     </div>
 </div>

@@ -29,7 +29,7 @@ app_remove_related:
     requirements:
         type: "TeamsMembers|ProjectsMembers|TeamsProjects|teams|projects"
         id: \d+
-    methods: [GET]
+    methods: [POST]
 
 app_add_related:
     path: /add/{type}/{id}/{related}/{related_id}
@@ -42,7 +42,7 @@ app_add_related:
         related_id: \d+
     options:
         expose: true
-    methods: [GET]
+    methods: [POST]
 
 person_list:
     path: /{_locale}/person/list
