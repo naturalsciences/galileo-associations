@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" target-language="en" datatype="plaintext" original="global">
+        <body>
+            <group id="app-form">
+                <group id="app-form-teamsAndProjects">
+                    <group id="app-form-teamsAndProjects-edit">
+                        <group id="app-form-teamsAndProjects-edit-validation">
+                            <trans-unit id="app-form-teamsAndProjects-edit-validation-internationalNameLanguage-choice" resname="app.form.teamsAndProjects.edit.validation.internationalNameLanguage.choice">
+                                <source xml:lang="en">The language provided must be one of these: English, Dutch or French</source>
+                                <target xml:lang="en">The language provided must be one of these: English, Dutch or French</target>
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-validation-internationalNameCascade-choice" resname="app.form.teamsAndProjects.edit.validation.internationalNameCascade.choice">
+                                <source xml:lang="en">The language provided must be one of these: None of the translated versions, The corresponding language translated version or All translated version</source>
+                                <target xml:lang="en">The language provided must be one of these: None of the translated versions, The corresponding language translated version or All translated version</target>
+                            </trans-unit>
+                        </group>
+                    </group>
+                </group>
+            </group>
+        </body>
+    </file>
+</xliff>

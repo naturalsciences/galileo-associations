@@ -35,6 +35,7 @@ class ProjectsFormType extends AbstractType
                         'data-cascade-field-class' => '.rbins-name-cascade',
                     ),
                     'required' => true,
+                    'invalid_message' => 'app.form.teamsAndProjects.edit.validation.internationalNameLanguage.choice',
                 )
             )
             ->add(
@@ -87,6 +88,7 @@ class ProjectsFormType extends AbstractType
                         'data-language-source' => '.rbins-language-source'
                     ),
                     'required' => true,
+                    'invalid_message' => 'app.form.teamsAndProjects.edit.validation.internationalNameCascade.choice',
                 )
             )
             ->add(
