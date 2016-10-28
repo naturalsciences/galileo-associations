@@ -487,6 +487,10 @@
                 </group>    
             </group>
             <group id="app-errors">
+                <trans-unit id="app-errors-title" resname="app.errors.title">
+                    <source xml:lang="en">Some errors occured</source>
+                    <target xml:lang="en">Some errors occured</target>
+                </trans-unit>
                 <trans-unit id="app-errors-insert-uniqueViolation" resname="app.errors.insert.uniqueViolation">
                     <source xml:lang="en">The record you try to insert already exists</source>
                     <target xml:lang="en">The record you try to insert already exists</target>

@@ -75,3 +75,15 @@ fieldset {
 .rbins-form-dates {
   padding: 0;
 }
+
+.form-control-feedback {
+  background-color: $error-background;
+  border-color: $error-border;
+  color: $error-text;
+  line-height: 2rem;
+  vertical-align: middle;
+
+  li {
+    padding-left: .3rem;
+  }
+}

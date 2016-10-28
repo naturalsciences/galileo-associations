@@ -1,0 +1,35 @@
+{% if not form.vars.valid %}
+    {% set messages = [] %}
+    {% set err_msg = {} %}
+    {% for child in form.children %}
+        {%  if child.vars.errors is defined %}
+            {% for error in child.vars.errors %}
+                {% set messages = messages|merge([error.message]) %}
+            {% endfor %}
+            {% if messages is not empty %}
+                {% set err_msg = err_msg|merge({ (child.vars.label): (messages) }) %}
+            {% endif %}
+        {% endif %}
+        {% set messages = [] %}
+    {% endfor %}
+    {% if err_msg|length > 0 or form.vars.errors is not empty %}
+        <div class="alert alert-danger" role="alert">
+            <h3>{{ 'app.errors.title'|trans({}, "messages", app.request.getLocale()) }}</h3>
+            {% if form.vars.errors is not empty %}
+                {{ form_errors(form) }}
+            {% endif %}
+            <ul>
+                {% for msg, messages in err_msg %}
+                    <li>
+                        {{ msg|trans({}, "messages", app.request.getLocale()) }}:
+                        <ul>
+                            {% for message in messages %}
+                                <li>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endif %}

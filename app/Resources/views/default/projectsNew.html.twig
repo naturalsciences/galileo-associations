@@ -7,7 +7,7 @@
         </div>
         <div class="col-xs-12">
             {{ form_start(form) }}
-                {% if not form.vars.valid %}<div class="alert alert-danger" role="alert">{{ form_errors(form) }}</div>{% endif %}
+                {% include '_partials/errors/_formsErrors.html.twig' %}
                 <div class="form-group row">
                     {{ form_label(form.international_name_language) }}
                     <div class="col-xs-8 col-md-9 col-xl-10">

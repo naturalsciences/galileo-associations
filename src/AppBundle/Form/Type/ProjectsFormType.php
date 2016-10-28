@@ -46,7 +46,7 @@ class ProjectsFormType extends AbstractType
                         'class' => 'col-xs-4 col-sm-3 col-xl-2 col-form-label text-xs-right',
                     ),
                     'attr' => array(
-                        'class' => 'form-control col-xs-11 required rbins-int-name',
+                        'class' => 'form-control-text col-xs-11 required rbins-int-name',
                         'data-cascade-field-class' => '.rbins-name-cascade',
                     ),
                     'required' => true,
@@ -98,7 +98,7 @@ class ProjectsFormType extends AbstractType
                         'class' => 'col-xs-4 col-sm-3 col-xl-2 col-form-label text-xs-right',
                     ),
                     'attr' => array(
-                        'class' => 'form-control col-xs-11',
+                        'class' => 'form-control-text col-xs-11',
                     ),
                     'required' => false,
                 )
@@ -126,7 +126,7 @@ class ProjectsFormType extends AbstractType
                         'class' => 'col-xs-4 col-sm-3 col-xl-2 col-form-label text-xs-right',
                     ),
                     'attr' => array(
-                        'class' => 'form-control col-xs-11',
+                        'class' => 'form-control-text col-xs-11',
                     ),
                     'required' => false,
                 )
@@ -154,7 +154,7 @@ class ProjectsFormType extends AbstractType
                         'class' => 'col-xs-4 col-sm-3 col-xl-2 col-form-label text-xs-right',
                     ),
                     'attr' => array(
-                        'class' => 'form-control col-xs-11',
+                        'class' => 'form-control-text col-xs-11',
                     ),
                     'required' => false,
                 )
@@ -188,7 +188,7 @@ class ProjectsFormType extends AbstractType
                         'class' => 'col-xs-4 col-sm-3 col-xl-2 col-form-label text-xs-right',
                     ),
                     'attr' => array(
-                        'class' => 'js-datepicker form-control'
+                        'class' => 'js-datepicker form-control-date'
                     ),
                 )
             )
@@ -207,7 +207,7 @@ class ProjectsFormType extends AbstractType
                         'class' => 'col-xs-4 col-sm-3 col-md-2 col-form-label text-xs-right',
                     ),
                     'attr' => array(
-                        'class' => 'js-datepicker form-control'
+                        'class' => 'js-datepicker form-control-date'
                     ),
                 )
             )
