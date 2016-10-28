@@ -3,7 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Projects as Projects;
-use AppBundle\Form\ProjectsFormType;
+use AppBundle\Form\Type\ProjectsFormType as ProjectsFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 

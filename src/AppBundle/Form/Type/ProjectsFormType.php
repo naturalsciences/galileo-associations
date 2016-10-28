@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Form;
+namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -12,31 +12,31 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TeamsFormType extends AbstractType
+class ProjectsFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add(
-            'international_name_language',
-            ChoiceType::class,
-            array(
-                'choices' => array(
-                    'en' => 'en',
-                    'fr' => 'fr',
-                    'nl' => 'nl',
-                ),
-                'choice_translation_domain' => 'content-db',
-                'label' => 'app.form.teamsAndProjects.edit.internationalNameLanguage',
-                'label_attr' => array(
-                    'class' => 'col-xs-4 col-sm-3 col-xl-2 col-form-label text-xs-right',
-                ),
-                'attr' => array(
-                    'class' => 'form-control col-xs-6 col-sm-5 required rbins-language-source',
-                    'data-cascade-field-class' => '.rbins-name-cascade',
-                ),
-                'required' => true,
+                'international_name_language',
+                ChoiceType::class,
+                array(
+                    'choices' => array(
+                        'en' => 'en',
+                        'fr' => 'fr',
+                        'nl' => 'nl',
+                    ),
+                    'choice_translation_domain' => 'content-db',
+                    'label' => 'app.form.teamsAndProjects.edit.internationalNameLanguage',
+                    'label_attr' => array(
+                        'class' => 'col-xs-4 col-sm-3 col-xl-2 col-form-label text-xs-right',
+                    ),
+                    'attr' => array(
+                        'class' => 'form-control col-xs-6 col-sm-5 required rbins-language-source',
+                        'data-cascade-field-class' => '.rbins-name-cascade',
+                    ),
+                    'required' => true,
+                )
             )
-        )
             ->add(
                 'international_name',
                 TextType::class,
@@ -237,7 +237,7 @@ class TeamsFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array('data_class' => 'AppBundle\Entity\Teams')
+            array('data_class' => 'AppBundle\Entity\Projects')
         );
     }
 }

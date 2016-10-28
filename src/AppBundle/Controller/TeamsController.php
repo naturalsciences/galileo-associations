@@ -3,7 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Teams as Teams;
-use AppBundle\Form\TeamsFormType;
+use \AppBundle\Form\Type\TeamsFormType as TeamsFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
