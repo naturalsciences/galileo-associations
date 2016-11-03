@@ -21,4 +21,14 @@ class Util
         return str_replace($search, $replace, $string);
     }
 
+    /**
+     * @return array
+     */
+    static public function alphaRange(){
+        $values = array_fill(0,27,0);
+        $keys = range('A','Z');
+        array_unshift($keys, '#');
+        return array_combine($keys,$values);
+    }
+
 }

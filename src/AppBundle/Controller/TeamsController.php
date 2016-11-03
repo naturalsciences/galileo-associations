@@ -159,7 +159,10 @@ class TeamsController extends Controller
      */
     public function teamsListAction(Request $request)
     {
-        return $this->render('default/projectsAndTeamsList.html.twig');
+        $teamsGroupsLetter = $this->getDoctrine()
+                                ->getRepository('AppBundle:Teams')
+                                ->groupsByLetters($request->getLocale());
+        return $this->render('default/personProjectsAndTeamsList.html.twig', array('groupsLetter' =>$teamsGroupsLetter));
     }
     /**
      * @param Request $request

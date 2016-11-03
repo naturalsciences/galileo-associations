@@ -197,4 +197,13 @@ class ProjectsRepository extends \Doctrine\ORM\EntityRepository
         return $query_prepared->fetchAll();
 
     }
+
+    /**
+     * @param string $locale The locale used to organize the groups of projects retrieved
+     * @return array
+     */
+    public function groupsByLetters($locale = 'en') {
+        $response = Util::alphaRange();
+        return $response;
+    }
 }

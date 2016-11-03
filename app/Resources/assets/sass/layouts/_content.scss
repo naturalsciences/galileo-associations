@@ -266,3 +266,30 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+.rbins-listing {
+  text-align: center;
+
+  .pagination {
+    margin-top: .15rem;
+    margin-bottom: 0;
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+
+  ul,
+  ul li {
+    list-style: none;
+    display: inline-block;
+
+    a {
+      text-decoration: none;
+      color: $black;
+    }
+
+    a:hover {
+      color: $white;
+      background-color: $darkgrey;
+    }
+  }
+}

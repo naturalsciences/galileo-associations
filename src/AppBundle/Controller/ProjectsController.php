@@ -159,7 +159,10 @@ class ProjectsController extends Controller
      */
     public function projectsListAction(Request $request)
     {
-        return $this->render('default/projectsAndTeamsList.html.twig');
+        $projectsGroupsLetter = $this->getDoctrine()
+            ->getRepository('AppBundle:Projects')
+            ->groupsByLetters($request->getLocale());
+        return $this->render('default/personProjectsAndTeamsList.html.twig', array('groupsLetter' =>$projectsGroupsLetter));
     }
 
     /**

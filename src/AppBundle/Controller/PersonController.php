@@ -164,7 +164,10 @@ class PersonController extends Controller
      */
     public function personListAction(Request $request)
     {
-        return $this->render('');
+        $personGroupsLetter = $this->getDoctrine()
+            ->getRepository('AppBundle:Person')
+            ->groupsByLetters($request->getLocale());
+        return $this->render('default/personProjectsAndTeamsList.html.twig', array('groupsLetter' =>$personGroupsLetter));
     }
 
     /**
