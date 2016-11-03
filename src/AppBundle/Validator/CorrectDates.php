@@ -8,8 +8,8 @@
 
 namespace AppBundle\Validator;
 
-
 use Symfony\Component\Validator\Constraint;
+use Doctrine\Common\Annotations;
 
 /** @Annotations */
 class CorrectDates extends Constraint
