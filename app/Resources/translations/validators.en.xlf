@@ -14,6 +14,14 @@
                                 <source xml:lang="en">The language provided must be one of these: None of the translated versions, The corresponding language translated version or All translated version</source>
                                 <target xml:lang="en">The language provided must be one of these: None of the translated versions, The corresponding language translated version or All translated version</target>
                             </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-validation-missingStartDate" resname="app.form.teamsAndProjects.edit.validation.missingStartDate">
+                                <source xml:lang="en">When end date is provided, the start date cannot be empty</source>
+                                <target xml:lang="en">When end date is provided, the start date cannot be empty</target>
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-validation-correctDates" resname="app.form.teamsAndProjects.edit.validation.correctDates">
+                                <source xml:lang="en">Start date must be below or equal end date</source>
+                                <target xml:lang="en">Start date must be below or equal end date</target>
+                            </trans-unit>
                         </group>
                     </group>
                 </group>

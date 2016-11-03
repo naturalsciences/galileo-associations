@@ -12,3 +12,7 @@ services:
         arguments: ["%kernel.root_dir%"]
         tags:
             - { name: twig.extension }
+    correct_dates_validator:
+        class: AppBundle\Validator\CorrectDatesValidator
+        tags:
+            - { name: validator.constraint_validator , alias: correct_dates }
