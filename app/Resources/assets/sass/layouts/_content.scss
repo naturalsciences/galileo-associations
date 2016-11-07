@@ -292,4 +292,14 @@
       background-color: $darkgrey;
     }
   }
+
+  li.page-item.enabled a {
+    border-color: $darkgrey;
+  }
+
+  li.page-item.enabled.active a {
+    background-color: $darkgrey;
+    border-color: $orange;
+    color: $orange;
+  }
 }

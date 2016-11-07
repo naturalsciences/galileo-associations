@@ -25,10 +25,18 @@ class Util
      * @return array
      */
     static public function alphaRange(){
-        $values = array_fill(0,27,0);
+        $counts = array_fill(0,28,0);
+        $values = array();
+        foreach( $counts as $key=>$val ) {
+            $values[$key]['selected'] = 0;
+            $values[$key]['count'] = $val;
+            $values[$key]['list'] = array();
+        }
         $keys = range('A','Z');
         array_unshift($keys, '#');
-        return array_combine($keys,$values);
+        array_unshift($keys, '*');
+        $result = array_combine($keys,$values);
+        return $result;
     }
 
 }

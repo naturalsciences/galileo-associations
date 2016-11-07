@@ -4,7 +4,7 @@
     <div class="row rbins-listing">
         <ul class="col-xs-12 pagination pagination-sm">
             {% for key,value in groupsLetter %}
-                <li class="page-item {% if value == 0 %}disabled{% endif %}"><a class="page-link" href="#">{{ key }}</a></li>
+                <li class="page-item {% if value.count == 0 %}disabled{% else %}enabled{% endif %} {% if value.selected == 1 %}active{% endif %}"><a class="page-link" href="#">{{ key }}</a></li>
             {% endfor %}
         </ul>
     </div>

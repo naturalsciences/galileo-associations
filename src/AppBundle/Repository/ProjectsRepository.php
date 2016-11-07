@@ -199,11 +199,164 @@ class ProjectsRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
-     * @param string $locale The locale used to organize the groups of projects retrieved
+     * @param string $locale The locale used to organize the groups of teams retrieved
+     * @param string $letter The first letter used to get a list filtered by the team name first letter
      * @return array
      */
-    public function groupsByLetters($locale = 'en') {
+    public function groupsByLetters($locale = 'en', $letter = '*', $startFrom = 0) {
         $response = Util::alphaRange();
+        $dbResponse = array();
+
+        $em = $this->getEntityManager();
+        $conn = $em->getConnection();
+        $qb = $conn->createQueryBuilder();
+        $params = array('locale' => $locale);
+
+        $qb->select(
+            " p.*,
+              regexp_replace(
+                  upper(
+                    left(
+                        CASE
+                          WHEN p.international_cascade = 2 THEN
+                            p.international_name
+                          WHEN p.international_cascade = 1 AND p.international_name_language = :locale THEN
+                            p.international_name
+                          ELSE
+                            CASE
+                              WHEN :locale = 'nl' THEN
+                                CASE
+                                  WHEN p.name_nl IS NULL THEN
+                                    p.international_name
+                                  ELSE
+                                    p.name_nl
+                                 END
+                              WHEN :locale = 'fr' THEN
+                                CASE
+                                  WHEN p.name_fr IS NULL THEN
+                                    p.international_name
+                                  ELSE
+                                    p.name_fr
+                                END
+                              ELSE
+                                CASE
+                                  WHEN p.name_en IS NULL THEN
+                                    p.international_name
+                                  ELSE
+                                    p.name_en
+                                END
+                            END
+                        END,
+                        1
+                    )
+                  ),
+                  E'\\\d',
+                  '#' 
+              ) as firstLetter,
+              CASE
+                WHEN p.international_cascade = 2 THEN
+                  p.international_name
+                WHEN p.international_cascade = 1 AND p.international_name_language = :locale THEN
+                  p.international_name
+                ELSE
+                  CASE
+                    WHEN :locale = 'nl' THEN
+                      CASE
+                        WHEN p.name_nl IS NULL THEN
+                          p.international_name
+                        ELSE
+                          p.name_nl
+                       END
+                    WHEN :locale = 'fr' THEN
+                      CASE
+                        WHEN p.name_fr IS NULL THEN
+                          p.international_name
+                        ELSE
+                          p.name_fr
+                      END
+                    ELSE
+                      CASE
+                        WHEN p.name_en IS NULL THEN
+                          p.international_name
+                        ELSE
+                          p.name_en
+                      END
+                  END
+              END as \"name\",
+              CASE
+                WHEN COALESCE(p.end_date,'2999/01/01'::timestamp) > now() THEN
+                  'active'
+                ELSE
+                  'inactive'
+              END as \"active\",
+              COUNT(id) OVER (PARTITION BY regexp_replace(
+                  upper(
+                    left(
+                        CASE
+                          WHEN p.international_cascade = 2 THEN
+                            p.international_name
+                          WHEN p.international_cascade = 1 AND p.international_name_language = :locale THEN
+                            p.international_name
+                          ELSE
+                            CASE
+                              WHEN :locale = 'nl' THEN
+                                CASE
+                                  WHEN p.name_nl IS NULL THEN
+                                    p.international_name
+                                  ELSE
+                                    p.name_nl
+                                 END
+                              WHEN :locale = 'fr' THEN
+                                CASE
+                                  WHEN p.name_fr IS NULL THEN
+                                    p.international_name
+                                  ELSE
+                                    p.name_fr
+                                END
+                              ELSE
+                                CASE
+                                  WHEN p.name_en IS NULL THEN
+                                    p.international_name
+                                  ELSE
+                                    p.name_en
+                                END
+                            END
+                        END,
+                        1
+                    )
+                  ),
+                  E'\\\d',
+                  '#' 
+              ) ) as counting,
+              COUNT(id) OVER () as totalCounting
+            "
+        )
+            ->from(
+                'projects',
+                'p'
+            );
+
+        $qb->setParameters($params)
+            ->setMaxResults(500)
+            ->orderBy('firstLetter,name');
+
+        if ( $startFrom !== 0 ) {
+            $qb->setFirstResult($startFrom);
+        }
+
+        $query_prepared = $conn->prepare($qb->getSQL());
+        $query_prepared->execute($qb->getParameters());
+        $dbResponse = $query_prepared->fetchAll();
+
+        foreach( $dbResponse as $content ) {
+            $response['*']['count'] = $content['totalcounting'];
+            $response[$content['firstletter']]['count']= $content['counting'];
+            $response['*']['list'][] = $content;
+            $response[$content['firstletter']]['list'][]= $content;
+        }
+
+        $response[$letter]['selected'] = 1;
+
         return $response;
     }
 }

@@ -3,7 +3,7 @@
 {% block content_main %}
     <div class="row">
         <div class="col-xs-12">
-            <h2 class="content-title">{% trans from "messages" %}app.title.home.team{% endtrans %}</h2>
+            <h2 class="content-title">{% if form.vars.id == 'teams_form' %}{% trans from "messages" into app.request.getLocale() %}app.title.home.team{% endtrans %}{% else %}{% trans from "messages" into app.request.getLocale()  %}app.title.home.project{% endtrans %}{% endif %}</h2>
         </div>
         {% include '_partials/forms/teamsProjectsFormCore.html.twig' %}
     </div>

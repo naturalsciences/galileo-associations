@@ -108,7 +108,7 @@ class PersonRepository extends \Doctrine\ORM\EntityRepository
      * @param string $locale The locale used to organize the groups of people retrieved
      * @return array
      */
-    public function groupsByLetters($locale = 'en') {
+    public function groupsByLetters($locale = 'en', $letter = '*') {
         $response = Util::alphaRange();
         return $response;
     }
