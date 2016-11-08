@@ -17,7 +17,6 @@
 
 {% for key,value in groupsLetter %}
     {% if value.selected %}
-        {% dump value.list %}
         {% for subvalue in value.list %}
             {% set view_array = {'_locale': app.request.getLocale(), 'action': 'view', 'id': subvalue.id} %}
             {% set edit_array = {'_locale': app.request.getLocale(), 'action': 'edit', 'id': subvalue.id} %}
