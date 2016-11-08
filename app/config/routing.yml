@@ -55,6 +55,19 @@ person_list:
         expose: false
     methods: [GET]
 
+person_list_details:
+    path: /{_locale}/person/list/{letter}
+    defaults:
+        _controller: AppBundle:Person:personListDetails
+        _locale: "%locale%"
+    requirements:
+        _locale: "%locales%"
+        letter: "%alpha_list%"
+    options:
+        expose: true
+    methods: [GET]
+    condition: "request.isXmlHttpRequest()"
+
 person_fragment_view:
     path: /{_locale}/person/fragment/{action}/{id}
     defaults:
@@ -112,6 +125,19 @@ teams_list:
         expose: true
     methods: [GET]
 
+teams_list_details:
+    path: /{_locale}/teams/list/{letter}
+    defaults:
+        _controller: AppBundle:Teams:teamsListDetails
+        _locale: "%locale%"
+    requirements:
+        _locale: "%locales%"
+        letter: "%alpha_list%"
+    options:
+        expose: true
+    methods: [GET]
+    condition: "request.isXmlHttpRequest()"
+
 teams_fragment_view:
     path: /{_locale}/teams/fragment/{action}/{id}
     defaults:
@@ -168,6 +194,19 @@ projects_list:
     options:
         expose: true
     methods: [GET]
+
+projects_list_details:
+    path: /{_locale}/projects/list/{letter}
+    defaults:
+        _controller: AppBundle:Projects:projectsListDetails
+        _locale: "%locale%"
+    requirements:
+        _locale: "%locales%"
+        letter: "%alpha_list%"
+    options:
+        expose: true
+    methods: [GET]
+    condition: "request.isXmlHttpRequest()"
 
 projects_fragment_view:
     path: /{_locale}/projects/fragment/{action}/{id}

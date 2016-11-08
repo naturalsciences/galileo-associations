@@ -11,7 +11,7 @@
             'non_active': 'app.meta.description.content.activeToggle.nonActive'
         }
     %}
-    {% if type == 'person' %}
+    {% if type in ['person','teams'] %}
         {%
             set translation_vars = translation_vars|merge(
                 {

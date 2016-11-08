@@ -167,7 +167,31 @@ class PersonController extends Controller
         $personGroupsLetter = $this->getDoctrine()
             ->getRepository('AppBundle:Person')
             ->groupsByLetters($request->getLocale());
-        return $this->render('default/personProjectsAndTeamsList.html.twig', array('groupsLetter' =>$personGroupsLetter));
+        return $this->render(
+            'default/personProjectsAndTeamsList.html.twig',
+            array(
+                'type'=>'person',
+                'groupsLetter' =>$personGroupsLetter
+            )
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function personListDetailAction(Request $request)
+    {
+        $personGroupsLetter = $this->getDoctrine()
+            ->getRepository('AppBundle:Person')
+            ->groupsByLetters($request->getLocale(), $request->get('letter'));
+        return $this->render(
+            '_partials/listContent/letterDetails.html.twig',
+            array(
+                'type'=>'person',
+                'groupsLetter' =>$personGroupsLetter
+            )
+        );
     }
 
     /**

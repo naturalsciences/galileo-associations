@@ -1,0 +1,63 @@
+{%
+    set translation_vars = {
+        'active': 'app.meta.description.content.activeToggle.active',
+        'non_active': 'app.meta.description.content.activeToggle.nonActive'
+    }
+%}
+{% if type in ['person','teams'] %}
+    {%
+        set translation_vars = translation_vars|merge(
+            {
+                'active': 'app.meta.description.content.activeToggle.active.female',
+                'non_active': 'app.meta.description.content.activeToggle.nonActive.female'
+            }
+        )
+    %}
+{% endif %}
+
+{% for key,value in groupsLetter %}
+    {% if value.selected %}
+        {% dump value.list %}
+        {% for subvalue in value.list %}
+            {% set view_array = {'_locale': app.request.getLocale(), 'action': 'view', 'id': subvalue.id} %}
+            {% set edit_array = {'_locale': app.request.getLocale(), 'action': 'edit', 'id': subvalue.id} %}
+            {% if type == 'teams' %}
+                {% set view_path = path('teams', view_array) %}
+                {% set edit_path = path('teams', edit_array) %}
+                {% set name_label = 'app.meta.title.tab.team'|trans({}, 'messages', app.request.getLocale()) %}
+            {% elseif type == 'projects' %}
+                {% set view_path = path('projects', view_array) %}
+                {% set edit_path = path('projects', edit_array) %}
+                {% set name_label = 'app.meta.title.tab.project'|trans({}, 'messages', app.request.getLocale()) %}
+            {% else %}
+                {% set view_path = path('person', view_array) %}
+                {% set edit_path = '#' %}
+                {% set name_label = 'app.meta.title.tab.person'|trans({}, 'messages', app.request.getLocale()) %}
+            {% endif %}
+            <div class="col-xs-12 col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <ul class="row">
+                            <li class="{% if type == 'person' %}col-xs-11{% else %}col-xs-9{% endif %}">
+                                <h3>
+                                    <a href="{{ view_path }}">{{ subvalue.name }}</a><i class="fa {{ subvalue.active=='active'?'fa-toggle-on':'fa-toggle-off' }}" data-toggle="tooltip" data-placement="right" title="{{ subvalue.active=='active'?(name_label~' '~(translation_vars.active|trans({}, "messages"))):(name_label~' '~(translation_vars.non_active|trans({}, "messages"))) }}"></i>
+                                </h3>
+                            </li>
+                            <li class="col-xs-1">
+                                <a href="{{ view_path }}"><i class="fa fa-eye"></i></a>
+                            </li>
+                            {% if type != 'person' %}
+                            <li class="col-xs-1">
+                                <a href="{{ edit_path }}"><i class="fa fa-edit"></i></a>
+                            </li>
+                            <li class="col-xs-1">
+                                <a href="#" data-target=""><i class="fa fa-caret-down"></i></a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endfor %}

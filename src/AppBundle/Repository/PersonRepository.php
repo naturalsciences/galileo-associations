@@ -108,8 +108,80 @@ class PersonRepository extends \Doctrine\ORM\EntityRepository
      * @param string $locale The locale used to organize the groups of people retrieved
      * @return array
      */
-    public function groupsByLetters($locale = 'en', $letter = '*') {
+    public function groupsByLetters($locale = 'en', $letter = '*', $startFrom = 0) {
         $response = Util::alphaRange();
+
+        $conn = $this->getEntityManager()->getConnection();
+        $qb = $conn->createQueryBuilder();
+
+        $qb->select(
+            "
+             p.*,  
+             p.first_name || ' ' || p.last_name as \"name\",
+             COALESCE(e.exit_date, 'active') as \"active\",
+             regexp_replace(
+                upper(
+                    left(
+                        p.last_name,
+                        1
+                     )
+                  ),
+                  E'\\\d',
+                  '#' 
+              ) as firstLetter,
+              COUNT(p.id) OVER (PARTITION BY regexp_replace(
+                upper(
+                    left(
+                        p.last_name,
+                        1
+                     )
+                  ),
+                  E'\\\d',
+                  '#' 
+              )) as counting,
+              COUNT(p.id) OVER () as totalCounting
+            "
+        )
+        ->from(
+            'person',
+            'p'
+        )
+        ->leftJoin(
+            'p',
+            '(
+                select distinct on (person_ref) 
+                        person_ref, 
+                        entry_date, 
+                        CASE 
+                          WHEN coalesce(exit_date,\'01/01/2999\'::timestamp) > now() THEN
+                            \'active\' 
+                          ELSE 
+                            \'inactive\' 
+                        END as exit_date
+                from person_entry 
+                order by person_ref,entry_date DESC
+             )',
+            'e',
+            'e.person_ref=p.id'
+        );
+
+        $params = array();
+        $qb
+            ->setMaxResults(300)
+            ->orderBy('firstLetter,last_name');
+        $st = $conn->prepare($qb->getSQL());
+        $st->execute($params);
+        $dbResponse = $st->fetchAll();
+
+        foreach( $dbResponse as $content ) {
+            $response['*']['count'] = $content['totalcounting'];
+            $response[$content['firstletter']]['count']= $content['counting'];
+            $response['*']['list'][] = $content;
+            $response[$content['firstletter']]['list'][]= $content;
+        }
+
+        $response[$letter]['selected'] = 1;
+
         return $response;
     }
 }

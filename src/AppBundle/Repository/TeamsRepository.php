@@ -331,18 +331,63 @@ class TeamsRepository extends \Doctrine\ORM\EntityRepository
               COUNT(id) OVER () as totalCounting
             "
         )
-            ->from(
-                'teams',
-                't'
-            );
-
-        $qb->setParameters($params)
-            ->setMaxResults(500)
-            ->orderBy('firstLetter,name');
+        ->from(
+            'teams',
+            't'
+        );
 
         if ( $startFrom !== 0 ) {
             $qb->setFirstResult($startFrom);
         }
+
+        if ( $letter != '*' ) {
+            $qb->where(
+                "regexp_replace(
+                  upper(
+                    left(
+                        CASE
+                          WHEN t.international_cascade = 2 THEN
+                            t.international_name
+                          WHEN t.international_cascade = 1 AND t.international_name_language = :locale THEN
+                            t.international_name
+                          ELSE
+                            CASE
+                              WHEN :locale = 'nl' THEN
+                                CASE
+                                  WHEN t.name_nl IS NULL THEN
+                                    t.international_name
+                                  ELSE
+                                    t.name_nl
+                                 END
+                              WHEN :locale = 'fr' THEN
+                                CASE
+                                  WHEN t.name_fr IS NULL THEN
+                                    t.international_name
+                                  ELSE
+                                    t.name_fr
+                                END
+                              ELSE
+                                CASE
+                                  WHEN t.name_en IS NULL THEN
+                                    t.international_name
+                                  ELSE
+                                    t.name_en
+                                END
+                            END
+                        END,
+                        1
+                    )
+                  ),
+                  E'\\\d',
+                  '#' 
+              ) = :letter"
+            );
+            $params['letter']=$letter;
+        }
+
+        $qb->setParameters($params)
+            ->setMaxResults(500)
+            ->orderBy('firstLetter,name');
 
         $query_prepared = $conn->prepare($qb->getSQL());
         $query_prepared->execute($qb->getParameters());

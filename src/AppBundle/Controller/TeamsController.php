@@ -162,8 +162,29 @@ class TeamsController extends Controller
         $teamsGroupsLetter = $this->getDoctrine()
                                 ->getRepository('AppBundle:Teams')
                                 ->groupsByLetters($request->getLocale());
-        return $this->render('default/personProjectsAndTeamsList.html.twig', array('groupsLetter' =>$teamsGroupsLetter));
+        return $this->render(
+            'default/personProjectsAndTeamsList.html.twig',
+            array(
+                'type'=>'teams',
+                'groupsLetter' =>$teamsGroupsLetter
+            )
+        );
     }
+
+    public function teamsListDetailAction(Request $request)
+    {
+        $teamsGroupsLetter = $this->getDoctrine()
+            ->getRepository('AppBundle:Teams')
+            ->groupsByLetters($request->getLocale(),$request->get('letter'));
+        return $this->render(
+            '_partials/listContent/letterDetails.html.twig',
+            array(
+                'type'=>'teams',
+                'groupsLetter' =>$teamsGroupsLetter
+            )
+        );
+    }
+
     /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response

@@ -162,7 +162,31 @@ class ProjectsController extends Controller
         $projectsGroupsLetter = $this->getDoctrine()
             ->getRepository('AppBundle:Projects')
             ->groupsByLetters($request->getLocale());
-        return $this->render('default/personProjectsAndTeamsList.html.twig', array('groupsLetter' =>$projectsGroupsLetter));
+        return $this->render(
+            'default/personProjectsAndTeamsList.html.twig',
+            array(
+                'type'=>'projects',
+                'groupsLetter' =>$projectsGroupsLetter
+            )
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function projectsListDetailsAction(Request $request)
+    {
+        $projectsGroupsLetter = $this->getDoctrine()
+            ->getRepository('AppBundle:Projects')
+            ->groupsByLetters($request->getLocale(), $request->get('letter'));
+        return $this->render(
+            '_partials/listContent/letterDetails.html.twig',
+            array(
+                'type'=>'projects',
+                'groupsLetter' =>$projectsGroupsLetter
+            )
+        );
     }
 
     /**

@@ -331,18 +331,63 @@ class ProjectsRepository extends \Doctrine\ORM\EntityRepository
               COUNT(id) OVER () as totalCounting
             "
         )
-            ->from(
-                'projects',
-                'p'
-            );
-
-        $qb->setParameters($params)
-            ->setMaxResults(500)
-            ->orderBy('firstLetter,name');
+        ->from(
+            'projects',
+            'p'
+        );
 
         if ( $startFrom !== 0 ) {
             $qb->setFirstResult($startFrom);
         }
+
+        if ( $letter != '*' ) {
+            $qb->where(
+                "regexp_replace(
+                  upper(
+                    left(
+                        CASE
+                          WHEN p.international_cascade = 2 THEN
+                            p.international_name
+                          WHEN p.international_cascade = 1 AND p.international_name_language = :locale THEN
+                            p.international_name
+                          ELSE
+                            CASE
+                              WHEN :locale = 'nl' THEN
+                                CASE
+                                  WHEN p.name_nl IS NULL THEN
+                                    p.international_name
+                                  ELSE
+                                    p.name_nl
+                                 END
+                              WHEN :locale = 'fr' THEN
+                                CASE
+                                  WHEN p.name_fr IS NULL THEN
+                                    p.international_name
+                                  ELSE
+                                    p.name_fr
+                                END
+                              ELSE
+                                CASE
+                                  WHEN p.name_en IS NULL THEN
+                                    p.international_name
+                                  ELSE
+                                    p.name_en
+                                END
+                            END
+                        END,
+                        1
+                    )
+                  ),
+                  E'\\\d',
+                  '#' 
+              ) = :letter"
+            );
+            $params['letter']=$letter;
+        }
+
+        $qb->setParameters($params)
+            ->setMaxResults(500)
+            ->orderBy('firstLetter,name');
 
         $query_prepared = $conn->prepare($qb->getSQL());
         $query_prepared->execute($qb->getParameters());
