@@ -180,7 +180,7 @@ class PersonController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function personListDetailAction(Request $request)
+    public function personListDetailsAction(Request $request)
     {
         $personGroupsLetter = $this->getDoctrine()
             ->getRepository('AppBundle:Person')
@@ -189,7 +189,7 @@ class PersonController extends Controller
             '_partials/listContent/letterDetails.html.twig',
             array(
                 'type'=>'person',
-                'groupsLetter' =>$personGroupsLetter
+                'groupsLetter'=>$personGroupsLetter
             )
         );
     }

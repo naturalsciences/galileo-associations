@@ -171,7 +171,7 @@ class TeamsController extends Controller
         );
     }
 
-    public function teamsListDetailAction(Request $request)
+    public function teamsListDetailsAction(Request $request)
     {
         $teamsGroupsLetter = $this->getDoctrine()
             ->getRepository('AppBundle:Teams')
