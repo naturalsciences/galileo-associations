@@ -169,8 +169,25 @@ class PersonRepository extends \Doctrine\ORM\EntityRepository
         );
 
         $params = array();
+
+        if ( $letter != '*' ) {
+            $qb->where(
+                "regexp_replace(
+                    upper(
+                        left(
+                            p.last_name,
+                            1
+                         )
+                      ),
+                      E'\\\d',
+                      '#' 
+                 ) = :letter"
+            );
+            $params['letter']=$letter;
+        }
+
         $qb
-            ->setMaxResults(300)
+            ->setMaxResults(500)
             ->orderBy('"firstLetter",last_name');
         $st = $conn->prepare($qb->getSQL());
         $st->execute($params);

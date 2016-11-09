@@ -1,0 +1,29 @@
+$(document).ready(
+        function() {
+            $('.page-link').on(
+                    'click',
+                    function(event) {
+                        event.preventDefault();
+                        var target = $($(this).data('target'));
+                        var parent = $(this).parent('.page-item');
+                        if ( !parent.hasClass('active') ) {
+                            $.ajax(
+                                    {
+                                        url: $(this).attr('href'),
+                                        type: 'GET',
+                                        success: function (data) {
+                                            target.html(data);
+                                        }
+                                    }
+                            ).done(
+                                    function () {
+                                        $('.page-item').removeClass('active');
+                                        parent.addClass('active');
+                                    }
+                            );
+                        }
+                        return false;
+                    }
+            );
+        }
+);

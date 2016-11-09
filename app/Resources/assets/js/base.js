@@ -24,5 +24,8 @@ $(document).ready(
                 $(this).toggle().prev('.rbins-cards-actions-open').toggle();
             }
         );
+
+        $('[data-toggle="tooltip"]').tooltip()
+
     }
 );

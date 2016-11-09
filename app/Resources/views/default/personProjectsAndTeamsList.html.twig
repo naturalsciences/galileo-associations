@@ -12,7 +12,7 @@
                     {% set letterPath = path('person_list_details', { '_locale': app.request.getLocale(), 'letter': key }) %}
                 {% endif %}
                 <li class="page-item {% if value.count == 0 %}disabled{% else %}enabled{% endif %} {% if value.selected == 1 %}active{% endif %}">
-                    <a class="page-link" href="{{ letterPath }}">{{ key }}</a>
+                    <a class="page-link" href="{{ letterPath }}" data-target=".rbins-listing-details">{{ key }}</a>
                 </li>
             {% endfor %}
         </ul>
@@ -21,3 +21,6 @@
         {% include '_partials/listContent/letterDetails.html.twig' %}
     </div>
 {% endblock content_main %}
+{% block javascript_content %}
+    {% include '_partials/javascripts/lettered_list.js.twig' %}
+{% endblock javascript_content %}
