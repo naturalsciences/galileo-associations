@@ -34,11 +34,11 @@
                 {% set name_label = 'app.meta.title.tab.person'|trans({}, 'messages', app.request.getLocale()) %}
             {% endif %}
             <div class="col-xs-12">
-                <div class="card">
-                    <div class="card-header">
+                <div class="card panel" id="rbins-letter-card-{{ subvalue.id }}">
+                    <div class="card-header pannel-heading" role="tab">
                         <ul class="row">
                             <li class="{% if type == 'person' %}col-xs-8{% else %}col-xs-7{% endif %}">
-                                <h3>
+                                <h3 class="panel-title">
                                     <a href="{{ view_path }}">{{ subvalue.name }}</a><i class="fa {{ subvalue.active=='active'?'fa-toggle-on':'fa-toggle-off' }}" data-toggle="tooltip" data-placement="right" title="{{ subvalue.active=='active'?(name_label~' '~(translation_vars.active|trans({}, "messages"))):(name_label~' '~(translation_vars.non_active|trans({}, "messages"))) }}"></i>
                                 </h3>
                             </li>
@@ -47,15 +47,15 @@
                                 {% if type != 'person' %}
                                     <a href="{{ edit_path }}"><i class="fa fa-pencil"></i></a>
                                 {% endif %}
-                                <a class="rbins-cards-action-icons in" href="#" data-target=""><i class="fa fa-caret-down"></i></a>
-                                <a class="rbins-cards-action-icons hidden-xs-up" href="#" data-target=""><i class="fa fa-caret-up"></i></a>
+                                <a class="rbins-cards-action-icons rbins-cards-actions-open" href="#rbins-letter-card-details-{{ subvalue.id }}" data-toggle="collapse" data-collapse-parent="#rbins-letter-card-{{ subvalue.id }}" data-target="#rbins-letter-card-details-{{ subvalue.id }}"><i class="fa fa-caret-down"></i></a>
+                                <a class="rbins-cards-action-icons rbins-cards-actions-close" href="#rbins-letter-card-details-{{ subvalue.id }}" data-toggle="collapse" data-collapse-parent="#rbins-letter-card-{{ subvalue.id }}" data-target="#rbins-letter-card-details-{{ subvalue.id }}"><i class="fa fa-caret-up"></i></a>
                         </ul>
                     </div>
-                    <div class="card-block">
+                    <div class="card-block panel-collapse collapse" id="rbins-letter-card-details-{{ subvalue.id }}">
                         {% if type == 'person' %}
                             {% include '_partials/tabbedContent/mainTab/view/personContent.html.twig' with {'tabs': {'main': {'item': subvalue}}} %}
                         {% else %}
-                            {% include '_partials/tabbedContent/mainTab/view/teamsProjectsContent.html.twig' with {'tabs': {'main': {'item': subvalue}}} %}
+                            {% include '_partials/tabbedContent/mainTab/view/teamsProjectsContent.html.twig' with {'tabs': {'main': {'item': subvalue}}, 'inclusion_type': 'letterCards'} %}
                         {% endif %}
                     </div>
                 </div>

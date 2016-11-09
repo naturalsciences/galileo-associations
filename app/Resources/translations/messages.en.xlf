@@ -40,6 +40,10 @@
                         <source xml:lang="en">Language</source>
                         <target xml:lang="en">Language</target>
                     </trans-unit>
+                    <trans-unit id="app-meta-title-form-teamsAndProjects-view-nameInt" resname="app.meta.title.form.teamsAndProjects.view.nameInt">
+                        <source xml:lang="en">International name</source>
+                        <target xml:lang="en">International name</target>
+                    </trans-unit>
                     <trans-unit id="app-meta-title-form-teamsAndProjects-view-descriptionInt" resname="app.meta.title.form.teamsAndProjects.view.descriptionInt">
                         <source xml:lang="en">International description</source>
                         <target xml:lang="en">International description</target>
@@ -351,6 +355,10 @@
                             <trans-unit id="app-form-teamsAndProjects-view-label-language" resname="app.form.teamsAndProjects.view.label.language">
                                 <source xml:lang="en">Language</source>
                                 <target xml:lang="en">Language</target>
+                            </trans-unit>
+                           <trans-unit id="app-form-teamsAndProjects-view-label-nameInt" resname="app.form.teamsAndProjects.view.label.nameInt">
+                                <source xml:lang="en">Name (Int.)</source>
+                                <target xml:lang="en">Name (Int.)</target>
                             </trans-unit>
                             <trans-unit id="app-form-teamsAndProjects-view-label-description" resname="app.form.teamsAndProjects.view.label.description">
                                 <source xml:lang="en">Description (%locale%)</source>
