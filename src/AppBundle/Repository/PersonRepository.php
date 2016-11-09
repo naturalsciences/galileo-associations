@@ -116,7 +116,10 @@ class PersonRepository extends \Doctrine\ORM\EntityRepository
 
         $qb->select(
             "
-             p.*,  
+             p.id as \"id\",
+             p.first_name as \"firstName\",
+             p.last_name as \"lastName\",
+             p.email as \"email\",
              p.first_name || ' ' || p.last_name as \"name\",
              COALESCE(e.exit_date, 'active') as \"active\",
              regexp_replace(
@@ -128,7 +131,7 @@ class PersonRepository extends \Doctrine\ORM\EntityRepository
                   ),
                   E'\\\d',
                   '#' 
-              ) as firstLetter,
+              ) as \"firstLetter\",
               COUNT(p.id) OVER (PARTITION BY regexp_replace(
                 upper(
                     left(
@@ -139,7 +142,7 @@ class PersonRepository extends \Doctrine\ORM\EntityRepository
                   E'\\\d',
                   '#' 
               )) as counting,
-              COUNT(p.id) OVER () as totalCounting
+              COUNT(p.id) OVER () as \"totalCounting\"
             "
         )
         ->from(
@@ -168,16 +171,16 @@ class PersonRepository extends \Doctrine\ORM\EntityRepository
         $params = array();
         $qb
             ->setMaxResults(300)
-            ->orderBy('firstLetter,last_name');
+            ->orderBy('"firstLetter",last_name');
         $st = $conn->prepare($qb->getSQL());
         $st->execute($params);
         $dbResponse = $st->fetchAll();
 
         foreach( $dbResponse as $content ) {
-            $response['*']['count'] = $content['totalcounting'];
-            $response[$content['firstletter']]['count']= $content['counting'];
+            $response['*']['count'] = $content['totalCounting'];
+            $response[$content['firstLetter']]['count']= $content['counting'];
             $response['*']['list'][] = $content;
-            $response[$content['firstletter']]['list'][]= $content;
+            $response[$content['firstLetter']]['list'][]= $content;
         }
 
         $response[$letter]['selected'] = 1;

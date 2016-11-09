@@ -213,7 +213,19 @@ class ProjectsRepository extends \Doctrine\ORM\EntityRepository
         $params = array('locale' => $locale);
 
         $qb->select(
-            " p.*,
+            " p.id as \"id\",
+              p.international_name as \"internationalName\",
+              p.international_name_language as \"internationalNameLanguage\",
+              p.international_description as \"internationalDescription\",
+              p.international_cascade as \"internationalCascade\",
+              p.name_en as \"nameEn\",
+              p.description_en as \"descriptionEn\",
+              p.name_fr as \"nameFr\",
+              p.description_fr as \"descriptionFr\",
+              p.name_nl as \"nameNl\",
+              p.description_nl as \"descriptionNl\",
+              p.start_date as \"startDate\",
+              p.end_date as \"endDate\",
               regexp_replace(
                   upper(
                     left(
@@ -252,7 +264,7 @@ class ProjectsRepository extends \Doctrine\ORM\EntityRepository
                   ),
                   E'\\\d',
                   '#' 
-              ) as firstLetter,
+              ) as \"firstLetter\",
               CASE
                 WHEN p.international_cascade = 2 THEN
                   p.international_name
@@ -328,7 +340,7 @@ class ProjectsRepository extends \Doctrine\ORM\EntityRepository
                   E'\\\d',
                   '#' 
               ) ) as counting,
-              COUNT(id) OVER () as totalCounting
+              COUNT(id) OVER () as \"totalCounting\"
             "
         )
         ->from(
@@ -387,17 +399,17 @@ class ProjectsRepository extends \Doctrine\ORM\EntityRepository
 
         $qb->setParameters($params)
             ->setMaxResults(500)
-            ->orderBy('firstLetter,name');
+            ->orderBy('"firstLetter",name');
 
         $query_prepared = $conn->prepare($qb->getSQL());
         $query_prepared->execute($qb->getParameters());
         $dbResponse = $query_prepared->fetchAll();
 
         foreach( $dbResponse as $content ) {
-            $response['*']['count'] = $content['totalcounting'];
-            $response[$content['firstletter']]['count']= $content['counting'];
+            $response['*']['count'] = $content['totalCounting'];
+            $response[$content['firstLetter']]['count']= $content['counting'];
             $response['*']['list'][] = $content;
-            $response[$content['firstletter']]['list'][]= $content;
+            $response[$content['firstLetter']]['list'][]= $content;
         }
 
         $response[$letter]['selected'] = 1;

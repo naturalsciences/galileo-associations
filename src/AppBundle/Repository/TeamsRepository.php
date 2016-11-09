@@ -213,7 +213,19 @@ class TeamsRepository extends \Doctrine\ORM\EntityRepository
         $params = array('locale' => $locale);
 
         $qb->select(
-            " t.*,
+            " t.id as \"id\",
+              t.international_name as \"internationalName\",
+              t.international_name_language as \"internationalNameLanguage\",
+              t.international_description as \"internationalDescription\",
+              t.international_cascade as \"internationalCascade\",
+              t.name_en as \"nameEn\",
+              t.description_en as \"descriptionEn\",
+              t.name_fr as \"nameFr\",
+              t.description_fr as \"descriptionFr\",
+              t.name_nl as \"nameNl\",
+              t.description_nl as \"descriptionNl\",
+              t.start_date as \"startDate\",
+              t.end_date as \"endDate\",
               regexp_replace(
                   upper(
                     left(
@@ -252,7 +264,7 @@ class TeamsRepository extends \Doctrine\ORM\EntityRepository
                   ),
                   E'\\\d',
                   '#' 
-              ) as firstLetter,
+              ) as \"firstLetter\",
               CASE
                 WHEN t.international_cascade = 2 THEN
                   t.international_name
@@ -328,7 +340,7 @@ class TeamsRepository extends \Doctrine\ORM\EntityRepository
                   E'\\\d',
                   '#' 
               ) ) as counting,
-              COUNT(id) OVER () as totalCounting
+              COUNT(id) OVER () as \"totalCounting\"
             "
         )
         ->from(
@@ -387,17 +399,17 @@ class TeamsRepository extends \Doctrine\ORM\EntityRepository
 
         $qb->setParameters($params)
             ->setMaxResults(500)
-            ->orderBy('firstLetter,name');
+            ->orderBy('"firstLetter",name');
 
         $query_prepared = $conn->prepare($qb->getSQL());
         $query_prepared->execute($qb->getParameters());
         $dbResponse = $query_prepared->fetchAll();
 
         foreach( $dbResponse as $content ) {
-            $response['*']['count'] = $content['totalcounting'];
-            $response[$content['firstletter']]['count']= $content['counting'];
+            $response['*']['count'] = $content['totalCounting'];
+            $response[$content['firstLetter']]['count']= $content['counting'];
             $response['*']['list'][] = $content;
-            $response[$content['firstletter']]['list'][]= $content;
+            $response[$content['firstLetter']]['list'][]= $content;
         }
 
         $response[$letter]['selected'] = 1;
