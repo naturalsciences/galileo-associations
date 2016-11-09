@@ -55,7 +55,7 @@
                         {% if type == 'person' %}
                             {% include '_partials/tabbedContent/mainTab/view/personContent.html.twig' with {'tabs': {'main': {'item': subvalue}}} %}
                         {% else %}
-                            {% include '_partials/tabbedContent/mainTab/view/teamsProjectsContent.html.twig' with {'tabs': {'main': {'item': subvalue}}, 'inclusion_type': 'letterCards'} %}
+                            {% include '_partials/tabbedContent/mainTab/view/teamsProjectsContent.html.twig' with {'tabs': {'main': {'item': subvalue}}} %}
                         {% endif %}
                     </div>
                 </div>

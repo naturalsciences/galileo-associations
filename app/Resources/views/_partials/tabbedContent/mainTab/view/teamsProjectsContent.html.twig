@@ -5,7 +5,7 @@
     <dd class="col-xs-8 col-md-9 col-lg-10">
         {{ tabs.main.item.internationalNameLanguage|trans({}, 'content-db') }}
     </dd>
-    {% if inclusion_type is not empty %}
+    {% if tabs.main.item.internationalName is not empty %}
         <dt class="col-xs-4 col-md-3 col-lg-2" title="{% trans from "messages" %}app.meta.title.form.teamsAndProjects.view.nameInt{% endtrans %}">
             {% trans from "messages" %}app.form.teamsAndProjects.view.label.nameInt{% endtrans %}&nbsp;:
         </dt>
