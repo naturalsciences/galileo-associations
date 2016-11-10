@@ -10,9 +10,9 @@
         <hr class="rbins-related-title-separator"/>
         {% for person in related_people %}
             <dd class="col-xs-6 rbins-definition-{{ person.related_id }}"><a title="{% if person.active == 'active' %}{% trans from 'messages' %}app.title.content.related.active{% endtrans %}{% else %}{% trans from 'messages' %}app.title.content.related.inactive{% endtrans %}{% endif %}" class="{{ person.active }}" href="{{ path('person', { 'id':person.id, 'action': 'view' }) }}">{{ person.name }}</a></dd>
-            <dd class="col-xs-2 rbins-definition-{{ person.related_id }}">{{ person.start_date is empty ? "-" : person.start_date|date('d/m/Y') }}</dd>
-            <dd class="col-xs-2 rbins-definition-{{ person.related_id }}">{{ person.end_date is empty ? "-" : person.end_date|date('d/m/Y') }}</dd>
-            <dd class="col-xs-2 rbins-related-actions rbins-definition-{{ person.related_id }}"><a class="rbins-edit-related" href="#"><i class="fa fa-pencil"></i></a><a class="rbins-remove-related" href="{{ path('app_remove_related', { 'type': type, 'id': person.related_id }) }}" data-target-class="rbins-definition-{{ person.related_id }}" data-type="{{ type }}" data-id="{{ person.related_id }}"><i class="fa fa-times"></i></a></dd>
+            <dd class="col-xs-2 rbins-definition-{{ person.related_id }} rbins-definition-switchable-{{ person.related_id }}">{{ person.start_date is empty ? "-" : person.start_date|date('d/m/Y') }}</dd>
+            <dd class="col-xs-2 rbins-definition-{{ person.related_id }} rbins-definition-switchable-{{ person.related_id }}">{{ person.end_date is empty ? "-" : person.end_date|date('d/m/Y') }}</dd>
+            <dd class="col-xs-2 rbins-related-actions rbins-definition-{{ person.related_id }} rbins-definition-switchable-{{ person.related_id }}"><a class="rbins-edit-related" href="{{ path('app_edit_related', { 'type': type, 'id': person.related_id }) }}" data-target-class="rbins-definition-switchable-{{ person.related_id }}" data-type="{{ type }}" data-id="{{ person.related_id }}"><i class="fa fa-pencil"></i></a><a class="rbins-remove-related" href="{{ path('app_remove_related', { 'type': type, 'id': person.related_id }) }}" data-target-class="rbins-definition-{{ person.related_id }}" data-type="{{ type }}" data-id="{{ person.related_id }}"><i class="fa fa-times"></i></a></dd>
         {% endfor %}
     </dl>
 {% endif %}

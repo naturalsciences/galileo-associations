@@ -5,6 +5,9 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\ProjectsMembers;
 use AppBundle\Entity\TeamsMembers;
 use AppBundle\Entity\TeamsProjects;
+use AppBundle\Form\Type\ProjectsMembersFormType;
+use AppBundle\Form\Type\TeamsMembersFormType;
+use AppBundle\Form\Type\TeamsProjectsFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,6 +27,87 @@ class DefaultController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @return Response
+     */
+    public function editAction(Request $request)
+    {
+        $type = $request->get('type', '');
+        $translator = $this->get('translator');
+        $em = $this->getDoctrine()->getManager();
+        $results = $em->find('AppBundle:'.ucfirst($type), $request->get('id'));
+        $response = null;
+        $form = null;
+
+        if (  !$results ) {
+            $this->addFlash('error', $translator->trans('app.message.remove.failure.404', array(), 'messages'));
+            throw $this->createNotFoundException('The record you try to edit seems to not exists anymore. Please check again.');
+        }
+
+        switch ( $type ) {
+            case "ProjectsMembers":
+                $form = $this->createForm(
+                    ProjectsMembersFormType::class,
+                    $results
+                );
+                break;
+            case "TeamsMembers":
+                $form = $this->createForm(
+                    TeamsMembersFormType::class,
+                    $results
+                );
+                break;
+            case "TeamsProjects":
+                $form = $this->createForm(
+                    TeamsProjectsFormType::class,
+                    $results
+                );
+                break;
+            default:
+                $this->addFlash('error', $translator->trans('app.message.remove.failure.404', array(), 'messages'));
+                throw $this->createNotFoundException('The record you try to edit seems to not exists anymore. Please check again.');
+        }
+
+        if ( $request->getMethod() === 'POST') {
+            $form->handleRequest($request);
+
+            $results = $form->getData();
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                try {
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($results);
+                    $em->flush();
+
+                    /*                return $this->redirectToRoute(
+                                        'projects',
+                                        array(
+                                            'id' => $this->project->getId(),
+                                            'action' => 'view',
+                                            '_locale' => $request->getLocale()
+                                        )
+                                    );*/
+                } catch (\Exception $e) {
+                    $translator = $this->get('translator');
+                    $message = $e->getMessage();
+                    if (strpos($message, 'SQLSTATE[23505]') !== false) {
+                        $message = $translator->trans('app.errors.insert.uniqueViolation', array(), 'messages');
+                    }
+                    $this->addFlash('error', $message);
+                }
+            }
+        }
+
+        return $this->render(
+            '_partials/tabbedContent/relatedTabs/edit/inlineDatesForm.html.twig',
+            array(
+                'form' => $form->createView(),
+            )
+        );
+
+    }
+
+    /**
      * @param Request $request The request passed composed of a type and of an id
      * @return JsonResponse $response A Json containing the result of delete tentative
      */
@@ -32,20 +116,6 @@ class DefaultController extends Controller
         $type = $request->get('type', '');
         $translator = $this->get('translator');
         $response = new JsonResponse();
-
-        if (
-            !$request->isXmlHttpRequest() ||
-            (
-                $type != 'teams' &&
-                $type != 'projects' &&
-                $type != 'TeamsMembers' &&
-                $type != 'ProjectsMembers' &&
-                $type != 'TeamsProjects'
-            )
-        ) {
-            $this->addFlash('error', $translator->trans('app.message.remove.failure.403', array(), 'messages'));
-            $this->createAccessDeniedException('You cannot access this action aside from the application');
-        }
 
         $nameInt = '';
         $route = 'app_homepage';
@@ -89,11 +159,6 @@ class DefaultController extends Controller
         $translator = $this->get('translator');
         $em = $this->getDoctrine()->getManager();
         $response = new Response();
-
-        if (!$request->isXmlHttpRequest()) {
-            $this->addFlash('error', $translator->trans('app.message.remove.failure.403', array(), 'messages'));
-            $this->createAccessDeniedException('You cannot access this action aside from the application');
-        }
 
         try {
             $item = null;

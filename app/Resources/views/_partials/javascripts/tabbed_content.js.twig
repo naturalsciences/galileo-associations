@@ -21,9 +21,9 @@ $(document).ready(
         $('.rbins-related-content').on(
                 'click',
                 '.rbins-remove-related',
-                function(event) {
+                function (event) {
                     event.preventDefault();
-                    if ( !confirm("{{ 'app.message.related.removeConfirmation'|trans({}, 'messages') }}")) {
+                    if (!confirm("{{ 'app.message.related.removeConfirmation'|trans({}, 'messages') }}")) {
                         return false;
                     }
 
@@ -35,35 +35,33 @@ $(document).ready(
                             {
                                 url: $(this).attr('href'),
                                 type: 'POST',
-                                data: {
-
-                                },
-                                success: function() {
+                                data: {},
+                                success: function () {
                                     target_parent_related_content.find('.alert').fadeOut();
                                     target_parent_related_content.find('.flash-success-text').html("{{ 'app.message.remove.success'|trans({}, 'messages', app.request.getLocale()) }}").parent('.flash-success').fadeIn();
                                     target.parents('.rbins-tab-content').find('.rbins-search-content .rbins-search-input').trigger('change');
-                                    target_parent_related_content.find('dd.'+target_class).fadeOut().remove();
+                                    target_parent_related_content.find('dd.' + target_class).fadeOut().remove();
                                 },
-                                error: function(jqXHR) {
+                                error: function (jqXHR) {
                                     target_parent_related_content.find('.alert').fadeOut();
-                                    if ( jqXHR.status == '404' ) {
+                                    if (jqXHR.status == '404') {
                                         target_parent_related_content.find('.flash-warning-text').html("{{ 'app.message.remove.failure.404'|trans({}, 'messages', app.request.getLocale()) }}").parent('.flash-warning').fadeIn();
                                         target.parents('.rbins-tab-content').find('.rbins-search-content .rbins-search-input').trigger('change');
-                                        target_parent_related_content.find('dd.'+target_class).fadeOut().remove();
+                                        target_parent_related_content.find('dd.' + target_class).fadeOut().remove();
                                     }
-                                    else if ( jqXHR.status == '419' ) {
-                                        target_parent_related_content.find('.flash-warning-text').html('An error occured: '+jqXHR.responseText).parent('.flash-warning').fadeIn();
+                                    else if (jqXHR.status == '419') {
+                                        target_parent_related_content.find('.flash-warning-text').html('An error occured: ' + jqXHR.responseText).parent('.flash-warning').fadeIn();
                                     }
                                     else {
-                                        target_parent_related_content.find('.flash-error-text').html('An error occured: '+jqXHR.responseText).parent('.flash-error').fadeIn();
+                                        target_parent_related_content.find('.flash-error-text').html('An error occured: ' + jqXHR.responseText).parent('.flash-error').fadeIn();
                                     }
                                 }
                             }
                     ).done(
-                            function() {
-                                if ( target_parent_related_content.find('dd').length == 0 ) {
+                            function () {
+                                if (target_parent_related_content.find('dd').length == 0) {
                                     target_parent_related_content.find('dl').remove();
-                                    target_parent_related_content.append('<p class='+'"no-related-content-message"'+">{% trans from 'messages' into app.request.getLocale() %}app.message.noRelatedItems{% endtrans %}</p>");
+                                    target_parent_related_content.append('<p class=' + '"no-related-content-message"' + ">{% trans from 'messages' into app.request.getLocale() %}app.message.noRelatedItems{% endtrans %}</p>");
                                 }
                             }
                     );
@@ -74,9 +72,9 @@ $(document).ready(
 
         $('.rbins-remove-btn').on(
                 'click',
-                function(event) {
+                function (event) {
                     event.preventDefault();
-                    if ( !confirm("{{ 'app.message.main.removeConfirmation'|trans({}, 'messages', app.request.getLocale()) }}")) {
+                    if (!confirm("{{ 'app.message.main.removeConfirmation'|trans({}, 'messages', app.request.getLocale()) }}")) {
                         return false;
                     }
 
@@ -84,25 +82,23 @@ $(document).ready(
                             {
                                 url: $(this).attr('href'),
                                 type: 'POST',
-                                data: {
-
-                                },
-                                success: function(data){
+                                data: {},
+                                success: function (data) {
                                     window.location.href = Routing.generate(
                                             data.route,
                                             {
                                                 _locale: "{{ app.request.getLocale() }}"
                                             });
                                 },
-                                error: function(jqXHR){
+                                error: function (jqXHR) {
                                     var routeName = '';
-                                    if ( jqXHR.status == '404' ) {
+                                    if (jqXHR.status == '404') {
                                         routeName = 'app_homepage';
                                     }
-                                    else if ( jqXHR.status == '419' ) {
-                                        alert('An error occured: '+jqXHR.responseText);
+                                    else if (jqXHR.status == '419') {
+                                        alert('An error occured: ' + jqXHR.responseText);
                                     }
-                                    if ( routeName != '' ) {
+                                    if (routeName != '') {
                                         window.location.href = Routing.generate(
                                                 routeName,
                                                 {
@@ -136,7 +132,7 @@ $(document).ready(
                                             'related': $(this).data('related-type'),
                                             'related_id': $(this).data('related-id')
                                         }
-                                     ),
+                                ),
                                 type: 'POST',
                                 data: {
                                     'type': $(this).data('main-type'),
@@ -144,12 +140,12 @@ $(document).ready(
                                     'related': $(this).data('related-type'),
                                     'related_id': $(this).data('related-id')
                                 },
-                                success: function(data) {
+                                success: function (data) {
                                     search_input.trigger('change');
                                     target.html(data);
                                     target.find('.flash-success-text').html("{{ 'app.message.add.success'|trans({}, 'messages', app.request.getLocale()) }}").parent('.flash-success').fadeIn();
-                               },
-                                error: function(jqXHR) {
+                                },
+                                error: function (jqXHR) {
                                     target.find('.alert').fadeOut();
                                     target.find('.flash-error-text').html(jqXHR.responseText).parent('.flash-error').fadeIn();
                                 }
@@ -160,5 +156,23 @@ $(document).ready(
                 }
         );
 
+        $('.rbins-related-content').on(
+                'click',
+                '.rbins-edit-related',
+                function (event) {
+                    event.preventDefault();
+                    $.ajax(
+                            {
+                                url: $(this).attr('href'),
+                                type: 'GET',
+                                data: {},
+                                success: function (data) {
+                                    console.log(data);
+                                }
+                            }
+                    );
+                    return false;
+                }
+        );
     }
 );
