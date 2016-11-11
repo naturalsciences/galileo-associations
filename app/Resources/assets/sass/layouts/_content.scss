@@ -238,6 +238,10 @@
 
   a:first-child {
     margin-right: .5rem;
+
+    @include media-breakpoint-up(sm) {
+      margin-right: .7rem;
+    }
   }
 }
 

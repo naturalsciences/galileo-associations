@@ -48,7 +48,10 @@ class TeamsMembersFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array('data_class' => 'AppBundle\Entity\TeamsMembers')
+            array(
+                'data_class' => 'AppBundle\Entity\TeamsMembers',
+                'row_id' => null
+            )
         );
     }
 

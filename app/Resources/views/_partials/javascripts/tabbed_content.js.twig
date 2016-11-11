@@ -1,6 +1,10 @@
 $(document).ready(
     function() {
 
+        $.datepicker.setDefaults(
+                $.datepicker.regional[ "{{ app.request.getLocale() }}" ]
+        );
+
         $('.rbins-lateral-tabs li').on(
                 'click',
                 function (event) {
@@ -161,14 +165,24 @@ $(document).ready(
                 '.rbins-edit-related',
                 function (event) {
                     event.preventDefault();
+                    var elementsToHide = $('.'+$(this).data('target-class'));
                     $.ajax(
                             {
                                 url: $(this).attr('href'),
                                 type: 'GET',
                                 data: {},
                                 success: function (data) {
-                                    console.log(data);
+                                    elementsToHide.hide();
+                                    elementsToHide.last().after(data);
                                 }
+                            }
+                    ).done(
+                            function() {
+                                $('.js-datepicker').datepicker(
+                                        {
+                                            dateFormat: 'dd/mm/yy'
+                                        }
+                                );
                             }
                     );
                     return false;

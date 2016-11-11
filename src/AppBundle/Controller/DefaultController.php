@@ -36,7 +36,6 @@ class DefaultController extends Controller
         $translator = $this->get('translator');
         $em = $this->getDoctrine()->getManager();
         $results = $em->find('AppBundle:'.ucfirst($type), $request->get('id'));
-        $response = null;
         $form = null;
 
         if (  !$results ) {
@@ -48,19 +47,22 @@ class DefaultController extends Controller
             case "ProjectsMembers":
                 $form = $this->createForm(
                     ProjectsMembersFormType::class,
-                    $results
+                    $results,
+                    array('row_id' => $request->get('id'))
                 );
                 break;
             case "TeamsMembers":
                 $form = $this->createForm(
                     TeamsMembersFormType::class,
-                    $results
+                    $results,
+                    array('row_id' => $request->get('id'))
                 );
                 break;
             case "TeamsProjects":
                 $form = $this->createForm(
                     TeamsProjectsFormType::class,
-                    $results
+                    $results,
+                    array('row_id' => $request->get('id'))
                 );
                 break;
             default:
@@ -79,14 +81,6 @@ class DefaultController extends Controller
                     $em->persist($results);
                     $em->flush();
 
-                    /*                return $this->redirectToRoute(
-                                        'projects',
-                                        array(
-                                            'id' => $this->project->getId(),
-                                            'action' => 'view',
-                                            '_locale' => $request->getLocale()
-                                        )
-                                    );*/
                 } catch (\Exception $e) {
                     $translator = $this->get('translator');
                     $message = $e->getMessage();

@@ -24,7 +24,7 @@ class ProjectsMembersFormType extends AbstractType
                 'format' => 'dd/MM/yyyy',
                 'label' => '',
                 'attr' => array(
-                    'class' => 'js-datepicker form-control-date col-xs-2'
+                    'class' => 'js-datepicker form-control-date col-xs-4'
                 ),
             )
         )
@@ -40,7 +40,7 @@ class ProjectsMembersFormType extends AbstractType
                 'format' => 'dd/MM/yyyy',
                 'label' => '',
                 'attr' => array(
-                    'class' => 'js-datepicker form-control-date col-xs-2'
+                    'class' => 'js-datepicker form-control-date col-xs-4'
                 ),
             )
         );
@@ -49,7 +49,11 @@ class ProjectsMembersFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array('data_class' => 'AppBundle\Entity\ProjectsMembers')
+            array(
+                'data_class' => 'AppBundle\Entity\ProjectsMembers',
+                'row_id' => null
+            )
         );
     }
+
 }

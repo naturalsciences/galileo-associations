@@ -48,7 +48,10 @@ class TeamsProjectsFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array('data_class' => 'AppBundle\Entity\TeamsProjects')
+            array(
+                'data_class' => 'AppBundle\Entity\TeamsProjects',
+                'row_id' => null
+            )
         );
     }
 

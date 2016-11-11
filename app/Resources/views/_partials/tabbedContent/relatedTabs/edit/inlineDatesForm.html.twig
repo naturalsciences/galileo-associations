@@ -1,8 +1,6 @@
-{{ form_start(form) }}
-    <div class="form-group">
+{{ form_start(form, {'attr': {'class': 'col-xs-6 rbins-inline-form'}}) }}
         {{ form_widget(form.start_date) }}
         {{ form_widget(form.end_date) }}
-        <button type="submit" class="btn btn-sm btn-secondary col-xs-1"><i class="fa fa-floppy-o"></i></button>
-        <button type="button" class="btn btn-sm btn-secondary col-xs-1"><i class="fa fa-times-circle-o"></i></button>
-    </div>
+        <button type="submit" class="btn btn-sm btn-secondary"><i class="fa fa-floppy-o"></i></button>
+        <button type="button" class="btn btn-sm btn-secondary"><i class="fa fa-times-circle-o"></i></button>
 {{ form_end(form) }}
