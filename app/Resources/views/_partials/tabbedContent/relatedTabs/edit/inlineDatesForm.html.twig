@@ -1,6 +1,6 @@
 {{ form_start(form, {'attr': {'class': 'col-xs-6 rbins-inline-form'}}) }}
         {{ form_widget(form.start_date) }}
         {{ form_widget(form.end_date) }}
-        <button type="submit" class="btn btn-sm btn-secondary rbins-inline-submit"><i class="fa fa-floppy-o"></i></button>
+        <button type="submit" class="btn btn-sm btn-secondary rbins-inline-submit" data-target-redisplay-class="rbins-definition-switchable-{{ row_id }}" data-form-rowid="{{ row_id }}"><i class="fa fa-floppy-o"></i></button>
         <button type="button" class="btn btn-sm btn-secondary rbins-inline-cancel" data-target-redisplay-class="rbins-definition-switchable-{{ row_id }}"><i class="fa fa-times-circle-o"></i></button>
 {{ form_end(form) }}

@@ -37,32 +37,50 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $results = $em->find('AppBundle:'.ucfirst($type), $request->get('id'));
         $form = null;
+        $response = new JsonResponse();
 
         if (  !$results ) {
             $this->addFlash('error', $translator->trans('app.message.remove.failure.404', array(), 'messages'));
             throw $this->createNotFoundException('The record you try to edit seems to not exists anymore. Please check again.');
         }
 
+        $formAction = $this->generateUrl(
+            'app_edit_related',
+            array(
+                'type' => $request->get('type'),
+                'id' => $request->get('id'),
+            )
+        );
+
         switch ( $type ) {
             case "ProjectsMembers":
                 $form = $this->createForm(
                     ProjectsMembersFormType::class,
                     $results,
-                    array('row_id' => $request->get('id'))
+                    array(
+                        'row_id' => $request->get('id'),
+                        'action' => $formAction,
+                    )
                 );
                 break;
             case "TeamsMembers":
                 $form = $this->createForm(
                     TeamsMembersFormType::class,
                     $results,
-                    array('row_id' => $request->get('id'))
+                    array(
+                        'row_id' => $request->get('id'),
+                        'action' => $formAction,
+                    )
                 );
                 break;
             case "TeamsProjects":
                 $form = $this->createForm(
                     TeamsProjectsFormType::class,
                     $results,
-                    array('row_id' => $request->get('id'))
+                    array(
+                        'row_id' => $request->get('id'),
+                        'action' => $formAction,
+                    )
                 );
                 break;
             default:
@@ -71,6 +89,7 @@ class DefaultController extends Controller
         }
 
         if ( $request->getMethod() === 'POST') {
+
             $form->handleRequest($request);
 
             $results = $form->getData();
@@ -81,14 +100,25 @@ class DefaultController extends Controller
                     $em->persist($results);
                     $em->flush();
 
-                } catch (\Exception $e) {
-                    $translator = $this->get('translator');
+                    $startDate = ($results->getStartDate() === null)?'-':date_format($results->getStartDate(),'d/m/Y');
+                    $endDate = ($results->getEndDate() === null)?'-':date_format($results->getEndDate(),'d/m/Y');
+
+                    $response->setData(array('start_date'=>$startDate, 'end_date'=>$endDate));
+                    $response->setStatusCode(200);
+
+                }
+                catch (\Exception $e) {
                     $message = $e->getMessage();
                     if (strpos($message, 'SQLSTATE[23505]') !== false) {
                         $message = $translator->trans('app.errors.insert.uniqueViolation', array(), 'messages');
                     }
-                    $this->addFlash('error', $message);
+                    elseif(strpos($message, 'SQLSTATE[23514]') !== false) {
+                        $message = $translator->trans('app.errors.insert.dateCheckViolation', array(), 'messages');
+                    }
+                    $response->setData(array('response'=>$message));
+                    $response->setStatusCode(419);
                 }
+                return $response;
             }
         }
 
@@ -135,7 +165,7 @@ class DefaultController extends Controller
             $response->setData(array('response' => 'ok', 'route' => $route));
             if ( $type === 'teams' || $type === 'projects' ) {
                 $messageVar = $translator->trans($type,array('%name%'=>$nameInt),'content-db');
-                $this->addFlash('notice', $this->get('translator')->trans('app.flash.remove.teamsAndProjects', array('%detail%'=>$messageVar), 'messages'));
+                $this->addFlash('notice', $translator->trans('app.flash.remove.teamsAndProjects', array('%detail%'=>$messageVar), 'messages'));
             }
         }
         catch (\Exception $e) {
@@ -152,7 +182,6 @@ class DefaultController extends Controller
         $mainTypeId = $request->get('id', '');
         $relatedType = $request->get('related', '');
         $relatedTypeId = $request->get('related_id', '');
-        $translator = $this->get('translator');
         $em = $this->getDoctrine()->getManager();
         $response = new Response();
 

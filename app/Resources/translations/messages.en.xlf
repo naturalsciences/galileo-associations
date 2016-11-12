@@ -519,6 +519,10 @@
                     <source xml:lang="en">The record you try to insert already exists</source>
                     <target xml:lang="en">The record you try to insert already exists</target>
                 </trans-unit>
+                <trans-unit id="app-errors-insert-dateCheckViolation" resname="app.errors.insert.dateCheckViolation">
+                    <source xml:lang="en">Start date must be bellow or equal end date !</source>
+                    <target xml:lang="en">Start date must be bellow or equal end date !</target>
+                </trans-unit>
                 <trans-unit id="app-errors-custom" resname="app.errors.custom">
                     <source xml:lang="en">An error occured: %message%</source>
                     <target xml:lang="en">an error occured: %message%</target>

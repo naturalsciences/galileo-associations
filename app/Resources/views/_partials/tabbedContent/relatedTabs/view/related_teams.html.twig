@@ -10,8 +10,8 @@
         <hr class="rbins-related-title-separator"/>
         {% for team in related_teams %}
             <dd class="col-xs-6 rbins-definition-{{ team.related_id }}"><a title="{% if team.active == 'active' %}{% trans from 'messages' %}app.title.content.related.active{% endtrans %}{% else %}{% trans from 'messages' %}app.title.content.related.inactive{% endtrans %}{% endif %}" class="{{ team.active }}" href="{{ path('teams', { 'id':team.id, 'action': 'view' }) }}">{{ team.name }}</a></dd>
-            <dd class="col-xs-2 rbins-definition-{{ team.related_id }} rbins-definition-switchable-{{ team.related_id }}">{{ team.start_date is empty ? '-' : team.start_date|date('d/m/Y') }}</dd>
-            <dd class="col-xs-2 rbins-definition-{{ team.related_id }} rbins-definition-switchable-{{ team.related_id }}">{{ team.end_date is empty ? '-' : team.end_date|date('d/m/Y') }}</dd>
+            <dd class="col-xs-2 start_date rbins-definition-{{ team.related_id }} rbins-definition-switchable-{{ team.related_id }}">{{ team.start_date is empty ? '-' : team.start_date|date('d/m/Y') }}</dd>
+            <dd class="col-xs-2 end_date rbins-definition-{{ team.related_id }} rbins-definition-switchable-{{ team.related_id }}">{{ team.end_date is empty ? '-' : team.end_date|date('d/m/Y') }}</dd>
             <dd class="col-xs-2 rbins-related-actions rbins-definition-{{ team.related_id }} rbins-definition-switchable-{{ team.related_id }}"><a class="rbins-edit-related" href="{{ path('app_edit_related', { 'type': type, 'id': team.related_id }) }}" data-target-class="rbins-definition-switchable-{{ team.related_id }}" data-type="{{ type }}" data-id="{{ team.related_id }}"><i class="fa fa-pencil"></i></a><a class="rbins-remove-related" href="{{ path('app_remove_related', { 'type': type, 'id': team.related_id }) }}" data-target-class="rbins-definition-{{ team.related_id }}" data-type="{{ type }}" data-id="{{ team.related_id }}"><i class="fa fa-times"></i></a></dd>
         {% endfor %}
     </dl>

@@ -200,6 +200,39 @@ $(document).ready(
                     elementsToDisplay.fadeIn();
                 }
         );
-        
+
+        $('.rbins-related-content').on(
+                'click',
+                '.rbins-inline-submit',
+                function (event) {
+                    event.preventDefault();
+
+                    var elementsToDisplay = $('.'+$(this).data('target-redisplay-class'));
+                    var rowIdToRemove = new RegExp('_'+$(this).data('form-rowid'),'g');
+                    var currentForm = $(this).parents('form');
+                    var formData = currentForm.serialize().replace(rowIdToRemove, '');
+
+                    $('.rbins-related-content .alert').hide();
+
+                    $.ajax(
+                            {
+                                url: currentForm.attr('action'),
+                                type: 'POST',
+                                data: formData,
+                                success: function(data) {
+                                    for (var key in data) {
+                                        elementsToDisplay.filter('dd.'+key).text(data[key]);
+                                    }
+                                    currentForm.find('.rbins-inline-cancel').trigger('click');
+                                },
+                                error: function(jqXHR) {
+                                    var responseText = jQuery.parseJSON(jqXHR.responseText);
+                                    $('.rbins-related-content .flash-error').text(responseText.response).fadeIn();
+                                }
+                            }
+                    );
+
+                }
+        );
     }
 );
