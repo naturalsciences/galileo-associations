@@ -96,6 +96,8 @@ class DefaultController extends Controller
             '_partials/tabbedContent/relatedTabs/edit/inlineDatesForm.html.twig',
             array(
                 'form' => $form->createView(),
+                'type' => $type,
+                'row_id' => $request->get('id'),
             )
         );
 

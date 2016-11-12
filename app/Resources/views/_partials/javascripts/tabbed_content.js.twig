@@ -188,5 +188,18 @@ $(document).ready(
                     return false;
                 }
         );
+
+        $('.rbins-related-content').on(
+                'click',
+                '.rbins-inline-cancel',
+                function (event) {
+                    event.preventDefault();
+                    var elementsToDisplay = $('.'+$(this).data('target-redisplay-class'));
+                    var currentForm = $(this).parents('form');
+                    currentForm.fadeOut().remove();
+                    elementsToDisplay.fadeIn();
+                }
+        );
+        
     }
 );
