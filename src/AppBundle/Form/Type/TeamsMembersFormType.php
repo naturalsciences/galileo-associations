@@ -5,6 +5,8 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TeamsMembersFormType extends AbstractType
@@ -23,7 +25,7 @@ class TeamsMembersFormType extends AbstractType
                 'format' => 'dd/MM/yyyy',
                 'label' => '',
                 'attr' => array(
-                    'class' => 'js-datepicker form-control-date col-xs-2'
+                    'class' => 'js-datepicker form-control-date col-xs-4'
                 ),
             )
         )
@@ -39,10 +41,20 @@ class TeamsMembersFormType extends AbstractType
                     'format' => 'dd/MM/yyyy',
                     'label' => '',
                     'attr' => array(
-                        'class' => 'js-datepicker form-control-date col-xs-2'
+                        'class' => 'js-datepicker form-control-date col-xs-4'
                     ),
                 )
             );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        $view->vars['id'] .= '_'.$options['row_id'];
+        $view->vars['name'] .= '_'.$options['row_id'];
+        $view->vars['full_name'] .= '_'.$options['row_id'];
     }
 
     public function configureOptions(OptionsResolver $resolver)

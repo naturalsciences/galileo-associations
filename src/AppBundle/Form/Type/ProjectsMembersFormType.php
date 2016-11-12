@@ -4,8 +4,9 @@ namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ProjectsMembersFormType extends AbstractType
@@ -44,6 +45,16 @@ class ProjectsMembersFormType extends AbstractType
                 ),
             )
         );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        $view->vars['id'] .= '_'.$options['row_id'];
+        $view->vars['name'] .= '_'.$options['row_id'];
+        $view->vars['full_name'] .= '_'.$options['row_id'];
     }
 
     public function configureOptions(OptionsResolver $resolver)
