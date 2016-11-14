@@ -212,7 +212,8 @@ $(document).ready(
                     var currentForm = $(this).parents('form');
                     var formData = currentForm.serialize().replace(rowIdToRemove, '');
 
-                    $('.rbins-related-content .alert').hide();
+                    $('.rbins-related-content .flash-error-text').text('');
+                    $('.rbins-related-content .flash-error').hide();
 
                     $.ajax(
                             {
@@ -227,7 +228,8 @@ $(document).ready(
                                 },
                                 error: function(jqXHR) {
                                     var responseText = jQuery.parseJSON(jqXHR.responseText);
-                                    $('.rbins-related-content .flash-error').text(responseText.response).fadeIn();
+                                    $('.rbins-related-content .flash-error-text').text(responseText.response);
+                                    $('.rbins-related-content .flash-error').fadeIn();
                                 }
                             }
                     );
