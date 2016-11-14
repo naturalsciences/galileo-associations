@@ -101,3 +101,13 @@ lunetics_locale:
   switcher:
     template: /_partials/navigation/languages.html.twig
     show_current_locale: true
+
+ivory_ck_editor:
+    autoload: false
+    jquery: true
+    input_sync: true
+    default_config: default
+    configs:
+        default:
+          toolbar:  basic
+          width:  "91%"

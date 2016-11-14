@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form\Type;
 
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -55,7 +56,7 @@ class TeamsFormType extends AbstractType
             )
             ->add(
                 'international_description',
-                TextareaType::class,
+                CKEditorType::class,
                 array(
                     'label' => 'app.form.teamsAndProjects.edit.internationalDescription',
                     'label_attr' => array(
@@ -107,7 +108,7 @@ class TeamsFormType extends AbstractType
             )
             ->add(
                 'description_en',
-                TextareaType::class,
+                CKEditorType::class,
                 array(
                     'label' => 'app.form.teamsAndProjects.edit.descriptionEn',
                     'label_attr' => array(
@@ -135,7 +136,7 @@ class TeamsFormType extends AbstractType
             )
             ->add(
                 'description_nl',
-                TextareaType::class,
+                CKEditorType::class,
                 array(
                     'label' => 'app.form.teamsAndProjects.edit.descriptionNl',
                     'label_attr' => array(
@@ -163,7 +164,7 @@ class TeamsFormType extends AbstractType
             )
             ->add(
                 'description_fr',
-                TextareaType::class,
+                CKEditorType::class,
                 array(
                     'label' => 'app.form.teamsAndProjects.edit.descriptionFr',
                     'label_attr' => array(

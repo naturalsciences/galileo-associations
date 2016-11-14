@@ -18,7 +18,7 @@
             {% trans from "messages" %}app.form.teamsAndProjects.view.label.descriptionInt{% endtrans %}&nbsp;:
         </dt>
         <dd class="col-xs-8 col-md-9 col-lg-10">
-            {{ tabs.main.item.internationalDescription }}
+            {{ tabs.main.item.internationalDescription|raw }}
         </dd>
     {% endif %}
     {% if tabs.main.item.nameEn is not empty %}
@@ -34,7 +34,7 @@
             {% trans with {'%locale%': 'EN'} from "messages" %}app.form.teamsAndProjects.view.label.description{% endtrans %}&nbsp;:
         </dt>
         <dd class="col-xs-8 col-md-9 {% if tabs.main.item.nameEn is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
-            {{ tabs.main.item.descriptionEn }}
+            {{ tabs.main.item.descriptionEn|raw }}
         </dd>
     {% endif %}
     {% if tabs.main.item.nameNl is not empty %}
@@ -50,7 +50,7 @@
             {% trans with {'%locale%': 'NL'} from "messages" %}app.form.teamsAndProjects.view.label.description{% endtrans %}&nbsp;:
         </dt>
         <dd class="col-xs-8 col-md-9 {% if tabs.main.item.nameNl is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
-            {{ tabs.main.item.descriptionNl }}
+            {{ tabs.main.item.descriptionNl|raw }}
         </dd>
     {% endif %}
     {% if tabs.main.item.nameFr is not empty %}
@@ -66,7 +66,7 @@
             {% trans with {'%locale%': 'FR'} from "messages" %}app.form.teamsAndProjects.view.label.description{% endtrans %}&nbsp;:
         </dt>
         <dd class="col-xs-8 col-md-9 {% if tabs.main.item.nameFr is not empty %}col-lg-4{% else %}col-lg-10{% endif %}">
-            {{ tabs.main.item.descriptionFr }}
+            {{ tabs.main.item.descriptionFr|raw }}
         </dd>
     {% endif %}
     {% if tabs.main.item.startDate is not empty %}

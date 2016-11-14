@@ -1,5 +1,8 @@
 {% extends "default/index.html.twig" %}
 
+{% block javascriptsheader %}
+    <script type="text/javascript" src="{{ asset('bundles/ivoryckeditor/ckeditor.js') }}"></script>
+{% endblock %}
 {% block content_main %}
     <div class="row">
         <div class="col-xs-12">

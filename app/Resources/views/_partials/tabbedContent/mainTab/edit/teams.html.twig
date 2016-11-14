@@ -1,5 +1,9 @@
 {% include '_partials/action_switch/toggle_view_edit_top.html.twig' %}
 
+{% block javascriptsheader %}
+    <script type="text/javascript" src="{{ asset('bundles/ivoryckeditor/ckeditor.js') }}"></script>
+{% endblock %}
+
 <div class="row rbins-main-tab-content">
     {% include '_partials/forms/teamsProjectsFormCore.html.twig' with {'form': tabs.main.form } %}
 </div>

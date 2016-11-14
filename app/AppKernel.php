@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new \Lunetics\LocaleBundle\LuneticsLocaleBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new \Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new AppBundle\AppBundle(),
         ];
 
