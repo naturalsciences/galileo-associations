@@ -9,14 +9,20 @@ $(document).ready(
                 }
         );
 
+        var fieldsetControl = null;
+        var language = '';
+        var formName = '';
+        var intName = '';
+        var intDescr = '';
+
         $('.rbins-name-cascade').on(
                 'change',
                 function () {
-                    var fieldsetControl = $($(this).data('target'));
-                    var language = $($(this).data('language-source')).val();
-                    var formName = $(this).parents('form').attr('name');
-                    var intName = $('#' + formName + '_international_name').val();
-                    var intDescr = $('#' + formName + '_international_description').val();
+                    fieldsetControl = $($(this).data('target'));
+                    language = $($(this).data('language-source')).val();
+                    formName = $(this).parents('form').attr('name');
+                    intName = $('#' + formName + '_international_name').val();
+                    intDescr = $('#' + formName + '_international_description').val();
 
                     switch ($(this).val()) {
                         case '1':
@@ -47,6 +53,42 @@ $(document).ready(
         );
 
         $('.rbins-name-cascade').trigger('change');
+
+        CKEDITOR.on(
+                'instanceReady',
+                function (event) {
+                    var editor = event.editor;
+                    switch ($('.rbins-name-cascade').val()) {
+                        case '1':
+                            if(
+                                    editor.name == (formName + '_description_' + language)
+                            ){
+                                editor.setReadOnly(true);
+                            }
+                            else {
+                                editor.setReadOnly(false);
+                            }
+                            break;
+                        case '2':
+                            if(
+                                    [
+                                        formName + '_description_en',formName + '_description_fr',formName + '_description_nl'
+                                    ].indexOf(editor.name) >= 0
+                            ){
+                                editor.setReadOnly(true);
+                            }
+                            break;
+                        default:
+                            if(
+                                    [
+                                        formName + '_description_en',formName + '_description_fr',formName + '_description_nl'
+                                    ].indexOf(editor.name) >= 0
+                            ){
+                                editor.setReadOnly(false);
+                            }
+                    }
+                }
+        );
 
     }
 );
