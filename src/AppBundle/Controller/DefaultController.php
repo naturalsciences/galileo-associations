@@ -100,26 +100,30 @@ class DefaultController extends Controller
                     $em->persist($results);
                     $em->flush();
 
-                    $startDate = ($results->getStartDate() === null)?'-':date_format($results->getStartDate(),'d/m/Y');
-                    $endDate = ($results->getEndDate() === null)?'-':date_format($results->getEndDate(),'d/m/Y');
+                    $startDate = ($results->getStartDate() === null) ? '-' : date_format($results->getStartDate(), 'd/m/Y');
+                    $endDate = ($results->getEndDate() === null) ? '-' : date_format($results->getEndDate(), 'd/m/Y');
 
-                    $response->setData(array('start_date'=>$startDate, 'end_date'=>$endDate));
+                    $response->setData(array('start_date' => $startDate, 'end_date' => $endDate));
                     $response->setStatusCode(200);
 
-                }
-                catch (\Exception $e) {
+                } catch (\Exception $e) {
                     $message = $e->getMessage();
                     if (strpos($message, 'SQLSTATE[23505]') !== false) {
                         $message = $translator->trans('app.errors.insert.uniqueViolation', array(), 'messages');
-                    }
-                    elseif(strpos($message, 'SQLSTATE[23514]') !== false) {
+                    } elseif (strpos($message, 'SQLSTATE[23514]') !== false) {
                         $message = $translator->trans('app.errors.insert.dateCheckViolation', array(), 'messages');
                     }
-                    $response->setData(array('response'=>$message));
+                    $response->setData(array('response' => $message));
                     $response->setStatusCode(419);
                 }
-                return $response;
             }
+            elseif ( $form->isSubmitted() && !$form->isValid() ) {
+                    $error = (string) $form->getErrors();
+                    $error = trim(str_replace('ERROR:','',$error));
+                    $response->setData(array('response'=> $error));
+                    $response->setStatusCode(419);
+            }
+            return $response;
         }
 
         return $this->render(
