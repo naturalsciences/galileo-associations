@@ -111,3 +111,4 @@ ivory_ck_editor:
         default:
           toolbar:  basic
           width:  "91%"
+          enterMode: "CKEDITOR.ENTER_BR"
