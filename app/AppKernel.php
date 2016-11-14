@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new \Lunetics\LocaleBundle\LuneticsLocaleBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new \Ivory\CKEditorBundle\IvoryCKEditorBundle(),
+            new Exercise\HTMLPurifierBundle\ExerciseHTMLPurifierBundle(),
             new AppBundle\AppBundle(),
         ];
 
