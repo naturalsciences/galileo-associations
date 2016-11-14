@@ -214,6 +214,7 @@ $(document).ready(
 
                     $('.rbins-related-content .flash-error-text').text('');
                     $('.rbins-related-content .flash-error').hide();
+                    currentForm.removeClass('rbins-in-error');
 
                     $.ajax(
                             {
@@ -227,6 +228,7 @@ $(document).ready(
                                     currentForm.find('.rbins-inline-cancel').trigger('click');
                                 },
                                 error: function(jqXHR) {
+                                    currentForm.addClass('rbins-in-error');
                                     var responseText = jQuery.parseJSON(jqXHR.responseText);
                                     $('.rbins-related-content .flash-error-text').text(responseText.response);
                                     $('.rbins-related-content .flash-error').fadeIn();
