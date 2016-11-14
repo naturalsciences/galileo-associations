@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Validator\CorrectDates as CorrectDates;
 
 /**
