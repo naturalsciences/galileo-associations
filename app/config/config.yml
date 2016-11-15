@@ -104,7 +104,7 @@ lunetics_locale:
 
 ivory_ck_editor:
     autoload: false
-    jquery: true
+    jquery: false
     input_sync: true
     default_config: default
     configs:

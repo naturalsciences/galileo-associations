@@ -10,54 +10,150 @@ $(document).ready(
         );
 
         var fieldsetControl = null;
+        var nameInput = null;
+        var targetNameInput = null;
+        var descriptionTextArea = null;
+        var targetDescriptionTextArea = null;
+        var CKIntDescrTextArea = null;
         var language = '';
         var formName = '';
         var intName = '';
         var intDescr = '';
+        var CKIntValueFocus = '';
 
         $('.rbins-name-cascade').on(
                 'change',
-                function () {
+                function (event, CKTrigger, triggerSource) {
+
                     fieldsetControl = $($(this).data('target'));
                     language = $($(this).data('language-source')).val();
                     formName = $(this).parents('form').attr('name');
-                    intName = $('#' + formName + '_international_name').val();
-                    intDescr = $('#' + formName + '_international_description').val();
+                    nameInput = $('#' + formName + '_international_name');
+                    targetNameInput = $('#' + formName + '_name_' + language);
+                    intName = nameInput.val();
+                    descriptionTextArea = $('#' + formName + '_international_description');
+                    targetDescriptionTextArea = $('#' + formName + '_description_' + language);
+                    intDescr = descriptionTextArea.val();
+                    CKIntDescrTextArea = CKEDITOR.instances[(formName + '_international_description')];
 
                     switch ($(this).val()) {
                         case '1':
                             fieldsetControl.prop('disabled', false);
-                            $('#' + formName + '_name_' + language).val(intName).prop('disabled', true);
-                            $('#' + formName + '_description_' + language).val(intDescr).prop('disabled', true);
+                            if (triggerSource !== 'onLoad') {
+                                if (triggerSource !== 'descriptionChange') {
+                                    targetNameInput.val(intName);
+                                }
+                                if (triggerSource !== 'nameChange') {
+                                    targetDescriptionTextArea.val(intDescr);
+                                }
+                            }
+                            targetNameInput.prop('disabled', true);
+                            targetDescriptionTextArea.prop('disabled', true);
                             fieldsetControl.find('input').not('#' + formName + '_name_' + language).prop('disabled', false);
                             fieldsetControl.find('textarea').not('#' + formName + '_description_' + language).prop('disabled', false);
+                            if (CKTrigger !== 'noCK') {
+                                for (var key in CKEDITOR.instances) {
+                                    if (key == (formName + '_description_' + language)) {
+                                        CKEDITOR.instances[key].setReadOnly(true);
+                                        if (triggerSource !== 'nameChange') {
+                                            CKEDITOR.instances[key].setData(CKIntDescrTextArea.getData());
+                                        }
+                                    }
+                                    else {
+                                        CKEDITOR.instances[key].setReadOnly(false);
+                                    }
+                                }
+                            }
                             break;
                         case '2':
                             fieldsetControl.prop('disabled', true);
-                            fieldsetControl.find('input').val(intName);
-                            fieldsetControl.find('textarea').val(intDescr);
+                            if (triggerSource !== 'onLoad') {
+                                if (triggerSource !== 'descriptionChange') {
+                                    fieldsetControl.find('input').val(intName);
+                                }
+                                if (triggerSource !== 'nameChange') {
+                                    fieldsetControl.find('textarea').val(intDescr);
+                                }
+                            }
+                            if (CKTrigger !== 'noCK') {
+                                for (var key in CKEDITOR.instances) {
+                                    if (
+                                            [
+                                                formName + '_description_en', formName + '_description_fr', formName + '_description_nl'
+                                            ].indexOf(key) >= 0
+                                    ) {
+                                        CKEDITOR.instances[key].setReadOnly(true);
+                                        if (triggerSource !== 'nameChange') {
+                                            CKEDITOR.instances[key].setData(CKIntDescrTextArea.getData());
+                                        }
+                                    }
+                                }
+                            }
                             break;
                         default:
                             fieldsetControl.prop('disabled', false);
                             fieldsetControl.find('input').prop('disabled', false);
                             fieldsetControl.find('textarea').prop('disabled', false);
+                            if (CKTrigger !== 'noCK') {
+                                for (var key in CKEDITOR.instances) {
+                                    if (
+                                            [
+                                                formName + '_description_en', formName + '_description_fr', formName + '_description_nl'
+                                            ].indexOf(key) >= 0
+                                    ) {
+                                        CKEDITOR.instances[key].setReadOnly(false);
+                                    }
+                                }
+                            }
                     }
                 }
         );
 
-        $('.rbins-language-source, .rbins-int-name, .rbins-int-descr').on(
+        $('.rbins-name-cascade').trigger('change', ["noCK", "onLoad"]);
+
+        $('.rbins-language-source').on(
                 'change',
                 function () {
-                    $($(this).data('cascade-field-class')).trigger('change');
+                    $($(this).data('cascade-field-class')).trigger('change', ["CK", "languageChange"]);
                 }
         );
 
-        $('.rbins-name-cascade').trigger('change');
+        $('.rbins-int-name').on(
+                'change',
+                function () {
+                    $($(this).data('cascade-field-class')).trigger('change', ["noCK", "nameChange"]);
+                }
+        );
+
+        $('.rbins-int-descr').on(
+                'change',
+                function () {
+                    $($(this).data('cascade-field-class')).trigger('change', ["CK", "descriptionChange"]);
+                }
+        );
 
         CKEDITOR.on(
                 'instanceReady',
                 function (event) {
                     var editor = event.editor;
+                    if (editor.name === (formName+'_international_description')) {
+
+                        CKIntDescrTextArea.on(
+                                'focus',
+                                function(e) {
+                                    CKIntValueFocus = CKIntDescrTextArea.getData();
+                                }
+                        );
+
+                        CKIntDescrTextArea.on(
+                                'blur',
+                                function(e) {
+                                    if (CKIntValueFocus != CKIntDescrTextArea.getData()) {
+                                        $('.rbins-name-cascade').trigger('change', ["CK", "descriptionChange"]);
+                                    }
+                                }
+                        );
+                    }
                     switch ($('.rbins-name-cascade').val()) {
                         case '1':
                             if(
@@ -89,6 +185,5 @@ $(document).ready(
                     }
                 }
         );
-
     }
 );
