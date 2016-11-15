@@ -115,24 +115,25 @@ class PersonRepository extends \Doctrine\ORM\EntityRepository
         $qb = $conn->createQueryBuilder();
 
         $qb->select(
-            "
-             p.id as \"id\",
+            "p.id as \"id\",
              p.first_name as \"firstName\",
              p.last_name as \"lastName\",
              p.email as \"email\",
              p.first_name || ' ' || p.last_name as \"name\",
              COALESCE(e.exit_date, 'active') as \"active\",
-             regexp_replace(
-                upper(
-                    left(
-                        p.last_name,
-                        1
-                     )
-                  ),
-                  E'\\\d',
-                  '#' 
+             unaccent(
+                 regexp_replace(
+                    upper(
+                        left(
+                            p.last_name,
+                            1
+                         )
+                      ),
+                      E'\\\d',
+                      '#' 
+                  )
               ) as \"firstLetter\",
-              COUNT(p.id) OVER (PARTITION BY regexp_replace(
+              COUNT(p.id) OVER (PARTITION BY unaccent(regexp_replace(
                 upper(
                     left(
                         p.last_name,
@@ -141,7 +142,7 @@ class PersonRepository extends \Doctrine\ORM\EntityRepository
                   ),
                   E'\\\d',
                   '#' 
-              )) as counting,
+              ))) as counting,
               COUNT(p.id) OVER () as \"totalCounting\"
             "
         )
@@ -172,7 +173,7 @@ class PersonRepository extends \Doctrine\ORM\EntityRepository
 
         if ( $letter != '*' ) {
             $qb->where(
-                "regexp_replace(
+                "unaccent(regexp_replace(
                     upper(
                         left(
                             p.last_name,
@@ -181,7 +182,7 @@ class PersonRepository extends \Doctrine\ORM\EntityRepository
                       ),
                       E'\\\d',
                       '#' 
-                 ) = :letter"
+                 )) = :letter"
             );
             $params['letter']=$letter;
         }

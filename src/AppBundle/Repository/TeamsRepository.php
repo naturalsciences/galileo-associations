@@ -226,7 +226,7 @@ class TeamsRepository extends \Doctrine\ORM\EntityRepository
               t.description_nl as \"descriptionNl\",
               t.start_date as \"startDate\",
               t.end_date as \"endDate\",
-              regexp_replace(
+              unaccent(regexp_replace(
                   upper(
                     left(
                         CASE
@@ -264,7 +264,7 @@ class TeamsRepository extends \Doctrine\ORM\EntityRepository
                   ),
                   E'\\\d',
                   '#' 
-              ) as \"firstLetter\",
+              )) as \"firstLetter\",
               CASE
                 WHEN t.international_cascade = 2 THEN
                   t.international_name
@@ -301,7 +301,7 @@ class TeamsRepository extends \Doctrine\ORM\EntityRepository
                 ELSE
                   'inactive'
               END as \"active\",
-              COUNT(id) OVER (PARTITION BY regexp_replace(
+              COUNT(id) OVER (PARTITION BY unaccent(regexp_replace(
                   upper(
                     left(
                         CASE
@@ -339,7 +339,7 @@ class TeamsRepository extends \Doctrine\ORM\EntityRepository
                   ),
                   E'\\\d',
                   '#' 
-              ) ) as counting,
+              ))) as counting,
               COUNT(id) OVER () as \"totalCounting\"
             "
         )
@@ -354,7 +354,7 @@ class TeamsRepository extends \Doctrine\ORM\EntityRepository
 
         if ( $letter != '*' ) {
             $qb->where(
-                "regexp_replace(
+                "unaccent(regexp_replace(
                   upper(
                     left(
                         CASE
@@ -392,7 +392,7 @@ class TeamsRepository extends \Doctrine\ORM\EntityRepository
                   ),
                   E'\\\d',
                   '#' 
-              ) = :letter"
+              )) = :letter"
             );
             $params['letter']=$letter;
         }

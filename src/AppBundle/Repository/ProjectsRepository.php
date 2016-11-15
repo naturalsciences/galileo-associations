@@ -226,44 +226,46 @@ class ProjectsRepository extends \Doctrine\ORM\EntityRepository
               p.description_nl as \"descriptionNl\",
               p.start_date as \"startDate\",
               p.end_date as \"endDate\",
-              regexp_replace(
-                  upper(
-                    left(
-                        CASE
-                          WHEN p.international_cascade = 2 THEN
-                            p.international_name
-                          WHEN p.international_cascade = 1 AND p.international_name_language = :locale THEN
-                            p.international_name
-                          ELSE
+              unaccent(
+                  regexp_replace(
+                      upper(
+                        left(
                             CASE
-                              WHEN :locale = 'nl' THEN
-                                CASE
-                                  WHEN p.name_nl IS NULL THEN
-                                    p.international_name
-                                  ELSE
-                                    p.name_nl
-                                 END
-                              WHEN :locale = 'fr' THEN
-                                CASE
-                                  WHEN p.name_fr IS NULL THEN
-                                    p.international_name
-                                  ELSE
-                                    p.name_fr
-                                END
+                              WHEN p.international_cascade = 2 THEN
+                                p.international_name
+                              WHEN p.international_cascade = 1 AND p.international_name_language = :locale THEN
+                                p.international_name
                               ELSE
                                 CASE
-                                  WHEN p.name_en IS NULL THEN
-                                    p.international_name
+                                  WHEN :locale = 'nl' THEN
+                                    CASE
+                                      WHEN p.name_nl IS NULL THEN
+                                        p.international_name
+                                      ELSE
+                                        p.name_nl
+                                     END
+                                  WHEN :locale = 'fr' THEN
+                                    CASE
+                                      WHEN p.name_fr IS NULL THEN
+                                        p.international_name
+                                      ELSE
+                                        p.name_fr
+                                    END
                                   ELSE
-                                    p.name_en
+                                    CASE
+                                      WHEN p.name_en IS NULL THEN
+                                        p.international_name
+                                      ELSE
+                                        p.name_en
+                                    END
                                 END
-                            END
-                        END,
-                        1
-                    )
-                  ),
-                  E'\\\d',
-                  '#' 
+                            END,
+                            1
+                        )
+                      ),
+                      E'\\\d',
+                      '#' 
+                ) 
               ) as \"firstLetter\",
               CASE
                 WHEN p.international_cascade = 2 THEN
@@ -301,7 +303,7 @@ class ProjectsRepository extends \Doctrine\ORM\EntityRepository
                 ELSE
                   'inactive'
               END as \"active\",
-              COUNT(id) OVER (PARTITION BY regexp_replace(
+              COUNT(id) OVER (PARTITION BY unaccent(regexp_replace(
                   upper(
                     left(
                         CASE
@@ -339,7 +341,7 @@ class ProjectsRepository extends \Doctrine\ORM\EntityRepository
                   ),
                   E'\\\d',
                   '#' 
-              ) ) as counting,
+              ))) as counting,
               COUNT(id) OVER () as \"totalCounting\"
             "
         )
@@ -354,7 +356,7 @@ class ProjectsRepository extends \Doctrine\ORM\EntityRepository
 
         if ( $letter != '*' ) {
             $qb->where(
-                "regexp_replace(
+                "unaccent(regexp_replace(
                   upper(
                     left(
                         CASE
@@ -392,7 +394,7 @@ class ProjectsRepository extends \Doctrine\ORM\EntityRepository
                   ),
                   E'\\\d',
                   '#' 
-              ) = :letter"
+              )) = :letter"
             );
             $params['letter']=$letter;
         }
