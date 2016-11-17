@@ -38,7 +38,6 @@ $(document).ready(
 
                     switch ($(this).val()) {
                         case '1':
-                            fieldsetControl.prop('disabled', false);
                             if (triggerSource !== 'onLoad') {
                                 if (triggerSource !== 'descriptionChange') {
                                     targetNameInput.val(intName);
@@ -47,16 +46,17 @@ $(document).ready(
                                     targetDescriptionTextArea.val(intDescr);
                                 }
                             }
-                            targetNameInput.prop('disabled', true);
-                            targetDescriptionTextArea.prop('disabled', true);
-                            fieldsetControl.find('input').not('#' + formName + '_name_' + language).prop('disabled', false);
-                            fieldsetControl.find('textarea').not('#' + formName + '_description_' + language).prop('disabled', false);
+                            targetNameInput.prop('readonly', true);
+                            targetDescriptionTextArea.prop('readonly', true);
+                            fieldsetControl.find('input').not('#' + formName + '_name_' + language).prop('readonly', false);
+                            fieldsetControl.find('textarea').not('#' + formName + '_description_' + language).prop('readonly', false);
                             if (CKTrigger !== 'noCK') {
                                 for (var key in CKEDITOR.instances) {
                                     if (key == (formName + '_description_' + language)) {
                                         CKEDITOR.instances[key].setReadOnly(true);
                                         if (triggerSource !== 'nameChange') {
                                             CKEDITOR.instances[key].setData(CKIntDescrTextArea.getData());
+                                            CKEDITOR.instances[key].updateElement();
                                         }
                                     }
                                     else {
@@ -66,7 +66,8 @@ $(document).ready(
                             }
                             break;
                         case '2':
-                            fieldsetControl.prop('disabled', true);
+                            fieldsetControl.find('input').prop('readonly', true);
+                            fieldsetControl.find('textarea').prop('readonly', true);
                             if (triggerSource !== 'onLoad') {
                                 if (triggerSource !== 'descriptionChange') {
                                     fieldsetControl.find('input').val(intName);
@@ -85,15 +86,15 @@ $(document).ready(
                                         CKEDITOR.instances[key].setReadOnly(true);
                                         if (triggerSource !== 'nameChange') {
                                             CKEDITOR.instances[key].setData(CKIntDescrTextArea.getData());
+                                            CKEDITOR.instances[key].updateElement();
                                         }
                                     }
                                 }
                             }
                             break;
                         default:
-                            fieldsetControl.prop('disabled', false);
-                            fieldsetControl.find('input').prop('disabled', false);
-                            fieldsetControl.find('textarea').prop('disabled', false);
+                            fieldsetControl.find('input').prop('readonly', false);
+                            fieldsetControl.find('textarea').prop('readonly', false);
                             if (CKTrigger !== 'noCK') {
                                 for (var key in CKEDITOR.instances) {
                                     if (
