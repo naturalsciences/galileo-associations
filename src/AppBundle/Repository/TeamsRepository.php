@@ -416,4 +416,22 @@ class TeamsRepository extends \Doctrine\ORM\EntityRepository
 
         return $response;
     }
+
+    /**
+     * @return array List of 1000 first found teams in database
+     */
+    public function listAll() {
+        $dq = $this->createQueryBuilder('t')
+            ->select('t.id')
+            ->addSelect('t.international_name')
+            ->addSelect('t.name_en')
+            ->addSelect('t.name_nl')
+            ->addSelect('t.name_fr')
+            ->addSelect('t.international_name_language')
+            ->addSelect('case when t.end_date is null then \'active\' when t.end_date >= CURRENT_TIMESTAMP() then \'active\' else \'inactive\' end as active')
+            ->orderBy('t.international_name')
+            ->setMaxResults(1000)
+            ->getQuery();
+        return $dq->getResult();
+    }
 }

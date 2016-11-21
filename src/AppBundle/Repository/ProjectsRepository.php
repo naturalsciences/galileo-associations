@@ -418,4 +418,22 @@ class ProjectsRepository extends \Doctrine\ORM\EntityRepository
 
         return $response;
     }
+
+    /**
+     * @return array List of 1000 first found projects in database
+     */
+    public function listAll() {
+        $dq = $this->createQueryBuilder('p')
+            ->select('p.id')
+            ->addSelect('p.international_name')
+            ->addSelect('p.name_en')
+            ->addSelect('p.name_nl')
+            ->addSelect('p.name_fr')
+            ->addSelect('p.international_name_language')
+            ->addSelect('case when p.end_date is null then \'active\' when p.end_date >= CURRENT_TIMESTAMP() then \'active\' else \'inactive\' end as active')
+            ->orderBy('p.international_name')
+            ->setMaxResults(1000)
+            ->getQuery();
+        return $dq->getResult();
+    }
 }

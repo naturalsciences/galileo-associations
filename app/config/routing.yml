@@ -1,3 +1,21 @@
+app_rest_people:
+    path: /rest/people
+    defaults:
+        _controller: AppBundle:Rest/People:list
+    methods: [GET]
+
+app_rest_projects:
+    path: /rest/projects
+    defaults:
+        _controller: AppBundle:Rest/Projects:list
+    methods: [GET]
+
+app_rest_teams:
+    path: /rest/teams
+    defaults:
+        _controller: AppBundle:Rest/Teams:list
+    methods: [GET]
+
 app_homepage:
     path: /{_locale}
     defaults:

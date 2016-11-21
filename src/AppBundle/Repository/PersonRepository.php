@@ -205,4 +205,16 @@ class PersonRepository extends \Doctrine\ORM\EntityRepository
 
         return $response;
     }
+
+    /**
+     * @return array List of 1000 first found people in database
+     */
+    public function listAll() {
+        $dq = $this->createQueryBuilder('p')
+            ->select('p.first_name, p.last_name, p.email')
+            ->orderBy('p.last_name')
+            ->setMaxResults(1000)
+            ->getQuery();
+        return $dq->getResult();
+    }
 }
