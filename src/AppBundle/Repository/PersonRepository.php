@@ -207,14 +207,63 @@ class PersonRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
-     * @return array List of 1000 first found people in database
+     * @return array List of 3000 first found people in database
      */
     public function listAll() {
-        $dq = $this->createQueryBuilder('p')
-            ->select('p.first_name, p.last_name, p.email')
-            ->orderBy('p.last_name')
-            ->setMaxResults(1000)
-            ->getQuery();
-        return $dq->getResult();
+
+        $conn = $this->getEntityManager()->getConnection();
+        $qb = $conn->createQueryBuilder();
+
+        $qb->select('DISTINCT p.id, 
+                            p.first_name, 
+                            p.last_name, 
+                            p.email, 
+                            case when (
+                                max(
+                                    case when pe.exit_date is null then TIMESTAMP \'2100-12-31\' else pe.exit_date end
+                                    ) 
+                                over 
+                                (partition by pe.person_ref)
+                            ) >= now() then \'active\' 
+                            else \'inactive\' end as "active"'
+                    )
+            ->from(
+                'person',
+                'p'
+            )
+            ->leftJoin(
+                'p',
+                'person_entry',
+                'pe',
+                'p.id = pe.person_ref'
+            );
+        $qb
+            ->setMaxResults(3000)
+            ->orderBy('p.last_name');
+        $st = $conn->prepare($qb->getSQL());
+        $st->execute();
+        $dbResponse = $st->fetchAll();
+
+        return $dbResponse;
+    }
+
+    /**
+     * @param array $ids Array of int ids
+     * @param array $relatedFilters array describing the related items that should serve as filter
+     * @return array $response an array of person entries found
+     */
+    public function listByIds(Array $ids, Array $relatedFilters = array()) {
+        $response = array();
+        return $response;
+    }
+
+    /**
+     * @param array $ids Array of begin or whole international names
+     * @param array $relatedFilters array describing the related items that should serve as filter
+     * @return array $response an array of person entries found
+     */
+    public function listByNames(Array $names, Array $relatedFilters = array()) {
+        $response = array();
+        return $response;
     }
 }

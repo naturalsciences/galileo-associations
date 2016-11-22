@@ -420,20 +420,44 @@ class ProjectsRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
-     * @return array List of 1000 first found projects in database
+     * @return array List of 3000 first found projects in database
      */
     public function listAll() {
         $dq = $this->createQueryBuilder('p')
             ->select('p.id')
             ->addSelect('p.international_name')
+            ->addSelect('p.international_description')
             ->addSelect('p.name_en')
+            ->addSelect('p.description_en')
             ->addSelect('p.name_nl')
+            ->addSelect('p.description_nl')
             ->addSelect('p.name_fr')
+            ->addSelect('p.description_fr')
             ->addSelect('p.international_name_language')
             ->addSelect('case when p.end_date is null then \'active\' when p.end_date >= CURRENT_TIMESTAMP() then \'active\' else \'inactive\' end as active')
             ->orderBy('p.international_name')
-            ->setMaxResults(1000)
+            ->setMaxResults(3000)
             ->getQuery();
         return $dq->getResult();
+    }
+
+    /**
+     * @param array $ids Array of int ids
+     * @param array $relatedFilters array describing the related items that should serve as filter
+     * @return array $response an array of project entries found
+     */
+    public function listByIds(Array $ids, Array $relatedFilters = array()) {
+        $response = array();
+        return $response;
+    }
+
+    /**
+     * @param array $ids Array of begin or whole international names
+     * @param array $relatedFilters array describing the related items that should serve as filter
+     * @return array $response an array of project entries found
+     */
+    public function listByIntNames(Array $names, Array $relatedFilters = array()) {
+        $response = array();
+        return $response;
     }
 }

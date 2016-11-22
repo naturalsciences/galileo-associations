@@ -418,20 +418,45 @@ class TeamsRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
-     * @return array List of 1000 first found teams in database
+     * @return array List of 3000 first found teams in database
      */
     public function listAll() {
         $dq = $this->createQueryBuilder('t')
             ->select('t.id')
             ->addSelect('t.international_name')
+            ->addSelect('t.international_description')
             ->addSelect('t.name_en')
+            ->addSelect('t.description_en')
             ->addSelect('t.name_nl')
+            ->addSelect('t.description_nl')
+            ->addSelect('t.description_nl')
             ->addSelect('t.name_fr')
+            ->addSelect('t.description_fr')
             ->addSelect('t.international_name_language')
             ->addSelect('case when t.end_date is null then \'active\' when t.end_date >= CURRENT_TIMESTAMP() then \'active\' else \'inactive\' end as active')
             ->orderBy('t.international_name')
-            ->setMaxResults(1000)
+            ->setMaxResults(3000)
             ->getQuery();
         return $dq->getResult();
+    }
+
+    /**
+     * @param array $ids Array of int ids
+     * @param array $relatedFilters array describing the related items that should serve as filter
+     * @return array $response an array of team entries found
+     */
+    public function listByIds(Array $ids, Array $relatedFilters = array()) {
+        $response = array();
+        return $response;
+    }
+
+    /**
+     * @param array $ids Array of begin or whole international names
+     * @param array $relatedFilters array describing the related items that should serve as filter
+     * @return array $response an array of team entries found
+     */
+    public function listByIntNames(Array $names, Array $relatedFilters = array()) {
+        $response = array();
+        return $response;
     }
 }

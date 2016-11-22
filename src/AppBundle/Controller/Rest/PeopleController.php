@@ -2,21 +2,46 @@
 
 namespace AppBundle\Controller\Rest;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
-class PeopleController extends Controller
+class PeopleController extends BaseController
 {
     /**
-     * @return JsonResponse $response The complete (first 1000) list of people
+     * @return JsonResponse $response The complete (first 3000) list of people
      */
     public function listAction()
     {
         $data['people'] = $this->getDoctrine()
             ->getRepository('AppBundle:Person')
             ->listAll();
-        $response = new JsonResponse($data);
-        $response->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-        return $response;
+        return $this->handleJsonResponse($data, 'people');
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse $response The filtered list of people - filtering based on the list of Ids
+     */
+    public function listByIdAction(Request $request) {
+        $ids = explode(',', $request->get('id'));
+        $relatedFilters = array();
+        $data['people'] = $this->getDoctrine()
+            ->getRepository('AppBundle:Person')
+            ->listByIds($ids, $relatedFilters);
+        return $this->handleJsonResponse($data, 'people');
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse $response The filtered list of people - filtering based on the list of Ids
+     */
+    public function listByNameAction(Request $request) {
+        $names = explode(',', $request->get('name'));
+        $relatedFilters = array();
+        $data['people'] = $this->getDoctrine()
+            ->getRepository('AppBundle:Person')
+            ->listByNames($names, $relatedFilters);
+        return $this->handleJsonResponse($data, 'people');
     }
 }

@@ -1,19 +1,82 @@
 app_rest_people:
-    path: /rest/people
+    path: /rest/people.{_format}
     defaults:
         _controller: AppBundle:Rest/People:list
+        _format: "%default_rest_format%"
+    requirements:
+        _format: "%rest_formats%"
+    methods: [GET]
+
+app_rest_people_by_id:
+    path: /rest/people.{_format}/{id}
+    defaults:
+        _controller: AppBundle:Rest/People:listById
+        _format: "%default_rest_format%"
+    requirements:
+        _format: "%rest_formats%"
+    methods: [GET]
+
+app_rest_people_by_name:
+    path: /rest/people.{_format}/{name}
+    defaults:
+        _controller: AppBundle:Rest/People:listByName
+        _format: "%default_rest_format%"
+    requirements:
+        _format: "%rest_formats%"
     methods: [GET]
 
 app_rest_projects:
-    path: /rest/projects
+    path: /rest/projects.{_format}
     defaults:
         _controller: AppBundle:Rest/Projects:list
+        _format: "%default_rest_format%"
+    requirements:
+        _format: "%rest_formats%"
+    methods: [GET]
+
+app_rest_projects_by_id:
+    path: /rest/projects.{_format}/{id}
+    defaults:
+        _controller: AppBundle:Rest/Projects:listById
+        _format: "%default_rest_format%"
+    requirements:
+        _format: "%rest_formats%"
+    methods: [GET]
+
+app_rest_projects_by_name:
+    path: /rest/projects.{_format}/{name}
+    defaults:
+        _controller: AppBundle:Rest/Projects:listByName
+        _format: "%default_rest_format%"
+    requirements:
+        _format: "%rest_formats%"
     methods: [GET]
 
 app_rest_teams:
-    path: /rest/teams
+    path: /rest/teams.{_format}
     defaults:
         _controller: AppBundle:Rest/Teams:list
+        _format: "%default_rest_format%"
+    requirements:
+        _format: "%rest_formats%"
+    methods: [GET]
+
+app_rest_teams_by_id:
+    path: /rest/teams.{_format}/{id}
+    defaults:
+        _controller: AppBundle:Rest/Teams:listById
+        _format: "%default_rest_format%"
+    requirements:
+        _format: "%rest_formats%"
+    methods: [GET]
+
+app_rest_teams_by_name:
+    path: /rest/teams.{_format}/{name}
+    defaults:
+        _controller: AppBundle:Rest/Teams:listByName
+        _format: "%default_rest_format%"
+    requirements:
+        _format: "%rest_formats%"
     methods: [GET]
 
 app_homepage:

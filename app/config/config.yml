@@ -11,6 +11,8 @@ parameters:
     fast_search_types: "person|teams|projects"
     default_possible_actions: "add|view|edit"
     alpha_list: "\\*|\\#|A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z"
+    default_rest_format: "json"
+    rest_formats: "json"
 
 framework:
     #esi:             ~
