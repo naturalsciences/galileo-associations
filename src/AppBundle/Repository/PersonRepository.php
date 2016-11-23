@@ -56,15 +56,16 @@ class PersonRepository extends \Doctrine\ORM\EntityRepository
                      p.first_name, 
                      p.last_name, 
                      p.email, 
-                     case when (
-                                  select distinct 
-                                    max(
-                                      case when pe.exit_date is null then TIMESTAMP \'2100-12-31\' else pe.exit_date end
-                                    ) 
-                                    over 
-                                    (partition by pe.person_ref)
-                                  from person_entry pe
-                                  where pe.person_ref = p.id  
+                     case when coalesce(
+                                  (select distinct 
+                                     max(
+                                       case when pe.exit_date is null then TIMESTAMP \'2100-12-31\' else pe.exit_date end
+                                     ) 
+                                     over 
+                                     (partition by pe.person_ref)
+                                   from person_entry pe
+                                   where pe.person_ref = p.id
+                                  ), TIMESTAMP \'2100-12-31\'   
                                ) >= now() 
                      then \'active\' 
                      else \'inactive\' end as "active"'
@@ -75,15 +76,16 @@ class PersonRepository extends \Doctrine\ORM\EntityRepository
             );
 
         if ( in_array($active, array('active', 'inactive')) ) {
-            $qb->andWhere('case when (
-                                  select distinct 
-                                    max(
-                                      case when pe.exit_date is null then TIMESTAMP \'2100-12-31\' else pe.exit_date end
-                                    ) 
-                                    over 
-                                    (partition by pe.person_ref)
-                                  from person_entry pe
-                                  where pe.person_ref = p.id  
+            $qb->andWhere('case when coalesce(
+                                  (select distinct 
+                                     max(
+                                       case when pe.exit_date is null then TIMESTAMP \'2100-12-31\' else pe.exit_date end
+                                     ) 
+                                     over 
+                                     (partition by pe.person_ref)
+                                   from person_entry pe
+                                   where pe.person_ref = p.id
+                                  ), TIMESTAMP \'2100-12-31\'   
                                ) >= now() 
                      then \'active\' 
                      else \'inactive\' end = ?');
