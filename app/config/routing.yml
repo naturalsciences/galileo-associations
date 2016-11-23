@@ -1,5 +1,5 @@
 app_rest_people:
-    path: /rest/people.{_format}
+    path: /rest/people
     defaults:
         _controller: AppBundle:Rest/People:list
         _format: "%default_rest_format%"
@@ -8,16 +8,17 @@ app_rest_people:
     methods: [GET]
 
 app_rest_people_by_id:
-    path: /rest/people.{_format}/{id}
+    path: /rest/people/{id}
     defaults:
         _controller: AppBundle:Rest/People:listById
         _format: "%default_rest_format%"
     requirements:
         _format: "%rest_formats%"
+        id: \d+
     methods: [GET]
 
 app_rest_people_by_name:
-    path: /rest/people.{_format}/{name}
+    path: /rest/people/{name}
     defaults:
         _controller: AppBundle:Rest/People:listByName
         _format: "%default_rest_format%"
@@ -26,7 +27,7 @@ app_rest_people_by_name:
     methods: [GET]
 
 app_rest_projects:
-    path: /rest/projects.{_format}
+    path: /rest/projects
     defaults:
         _controller: AppBundle:Rest/Projects:list
         _format: "%default_rest_format%"
@@ -35,16 +36,17 @@ app_rest_projects:
     methods: [GET]
 
 app_rest_projects_by_id:
-    path: /rest/projects.{_format}/{id}
+    path: /rest/projects/{id}
     defaults:
         _controller: AppBundle:Rest/Projects:listById
         _format: "%default_rest_format%"
     requirements:
         _format: "%rest_formats%"
+        id: \d+
     methods: [GET]
 
 app_rest_projects_by_name:
-    path: /rest/projects.{_format}/{name}
+    path: /rest/projects/{name}
     defaults:
         _controller: AppBundle:Rest/Projects:listByName
         _format: "%default_rest_format%"
@@ -53,7 +55,7 @@ app_rest_projects_by_name:
     methods: [GET]
 
 app_rest_teams:
-    path: /rest/teams.{_format}
+    path: /rest/teams
     defaults:
         _controller: AppBundle:Rest/Teams:list
         _format: "%default_rest_format%"
@@ -62,16 +64,17 @@ app_rest_teams:
     methods: [GET]
 
 app_rest_teams_by_id:
-    path: /rest/teams.{_format}/{id}
+    path: /rest/teams/{id}
     defaults:
         _controller: AppBundle:Rest/Teams:listById
         _format: "%default_rest_format%"
     requirements:
         _format: "%rest_formats%"
+        id: \d+
     methods: [GET]
 
 app_rest_teams_by_name:
-    path: /rest/teams.{_format}/{name}
+    path: /rest/teams/{name}
     defaults:
         _controller: AppBundle:Rest/Teams:listByName
         _format: "%default_rest_format%"

@@ -422,7 +422,7 @@ class ProjectsRepository extends \Doctrine\ORM\EntityRepository
     /**
      * @return array List of 3000 first found projects in database
      */
-    public function listAll() {
+    public function listAll(Array $relatedFilter = array()) {
         $dq = $this->createQueryBuilder('p')
             ->select('p.id')
             ->addSelect('p.international_name')

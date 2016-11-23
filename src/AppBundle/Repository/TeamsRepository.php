@@ -420,7 +420,7 @@ class TeamsRepository extends \Doctrine\ORM\EntityRepository
     /**
      * @return array List of 3000 first found teams in database
      */
-    public function listAll() {
+    public function listAll(Array $relatedFilter = array()) {
         $dq = $this->createQueryBuilder('t')
             ->select('t.id')
             ->addSelect('t.international_name')

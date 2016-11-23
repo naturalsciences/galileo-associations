@@ -12,6 +12,139 @@ use AppBundle\Utils\Util as Util;
  */
 class PersonRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    /**
+     * @param \Doctrine\DBAL\Query\QueryBuilder $qb
+     * @param array $params
+     * @param array $relatedFilters
+     * @param $whereElement
+     * @param $elementConcerned
+     */
+    private function composeNumericWhereIn(\Doctrine\DBAL\Query\QueryBuilder &$qb, Array &$params, Array $relatedFilters, $whereElement, $elementConcerned) {
+        if ( isset($relatedFilters[$elementConcerned]) ) {
+            if ( is_array($relatedFilters[$elementConcerned]) ) {
+                if ( count($relatedFilters[$elementConcerned]) > 0 ) {
+                    $sqlWhere = '(';
+                    foreach( $relatedFilters[$elementConcerned] as $value ) {
+                        if ( is_numeric($value) ) {
+                            $sqlWhere .= '?,';
+                            $params[] = $value;
+                        }
+                    }
+                    $sqlWhere = rtrim($sqlWhere, ',');
+                    $sqlWhere .= ')';
+                    if ($sqlWhere !== '()') {
+                        $qb->andWhere($whereElement . ' IN ' . $sqlWhere);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * @param string $active Tells if we need to filter on active, non active or none "active" parameter
+     * @param array $relatedFilters List of complementary filters to apply
+     * @return \Doctrine\DBAL\Driver\Statement
+     */
+    private function extractPeople($active = 'active', Array $relatedFilters = array()) {
+        $conn = $this->getEntityManager()->getConnection();
+        $qb = $conn->createQueryBuilder();
+        $params = array();
+
+        $qb->select('DISTINCT p.id,
+                     p.uid as "samaccountname",
+                     p.first_name, 
+                     p.last_name, 
+                     p.email, 
+                     case when (
+                                  select distinct 
+                                    max(
+                                      case when pe.exit_date is null then TIMESTAMP \'2100-12-31\' else pe.exit_date end
+                                    ) 
+                                    over 
+                                    (partition by pe.person_ref)
+                                  from person_entry pe
+                                  where pe.person_ref = p.id  
+                               ) >= now() 
+                     then \'active\' 
+                     else \'inactive\' end as "active"'
+        )
+            ->from(
+                'person',
+                'p'
+            );
+
+        if ( in_array($active, array('active', 'inactive')) ) {
+            $qb->andWhere('case when (
+                                  select distinct 
+                                    max(
+                                      case when pe.exit_date is null then TIMESTAMP \'2100-12-31\' else pe.exit_date end
+                                    ) 
+                                    over 
+                                    (partition by pe.person_ref)
+                                  from person_entry pe
+                                  where pe.person_ref = p.id  
+                               ) >= now() 
+                     then \'active\' 
+                     else \'inactive\' end = ?');
+            $params[] = $active;
+        }
+
+        $this->composeNumericWhereIn($qb, $params, $relatedFilters, 'p.id', 'ids');
+
+        if ( isset($relatedFilters['teams'] ) ) {
+            if ( is_array($relatedFilters['teams']) ) {
+                if (count($relatedFilters['teams']) > 0) {
+                    $qb->innerJoin(
+                        'p',
+                        'teams_members',
+                        'tm',
+                        'p.id = tm.person_ref'
+                    );
+                    $this->composeNumericWhereIn($qb, $params, $relatedFilters, 'tm.team_ref', 'teams');
+                }
+            }
+        }
+
+        if ( isset($relatedFilters['projects'] ) ) {
+            if ( is_array($relatedFilters['projects']) ) {
+                if (count($relatedFilters['projects']) > 0) {
+                    $qb->innerJoin(
+                        'p',
+                        'projects_members',
+                        'pm',
+                        'p.id = pm.person_ref'
+                    );
+                    $this->composeNumericWhereIn($qb, $params, $relatedFilters, 'pm.project_ref', 'projects');
+                }
+            }
+        }
+
+        if ( isset($relatedFilters['uids']) ) {
+            if ( is_array($relatedFilters['uids']) ) {
+                if ( count($relatedFilters['uids']) > 0 ) {
+                    $sqlWhere = '(';
+                    foreach( $relatedFilters['uids'] as $value ) {
+                        $sqlWhere .= '?,';
+                        $params[] = $value;
+                    }
+                    $sqlWhere = rtrim($sqlWhere, ',');
+                    $sqlWhere .= ')';
+                    if ($sqlWhere !== '()') {
+                        $qb->andWhere('p.uid IN ' . $sqlWhere);
+                    }
+                }
+            }
+        }
+
+        $qb
+            ->setMaxResults(3000)
+            ->orderBy('p.last_name');
+        $st = $conn->prepare($qb->getSQL());
+        $st->execute($params);
+        return $st;
+    }
+
     /**
      * @param string $name The person name searched
      * @param bool $exact Tells if search for an exact match or not
@@ -207,63 +340,40 @@ class PersonRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
+     * @param string $active Tells if the filter on the active people
+     * @param array $relatedFilters List of complementary filter options
      * @return array List of 3000 first found people in database
      */
-    public function listAll() {
+    public function listAll($active = 'active', Array $relatedFilters = array()) {
 
-        $conn = $this->getEntityManager()->getConnection();
-        $qb = $conn->createQueryBuilder();
+        $SQL = $this->extractPeople($active, $relatedFilters);
+        return $SQL->fetchAll();
 
-        $qb->select('DISTINCT p.id, 
-                            p.first_name, 
-                            p.last_name, 
-                            p.email, 
-                            case when (
-                                max(
-                                    case when pe.exit_date is null then TIMESTAMP \'2100-12-31\' else pe.exit_date end
-                                    ) 
-                                over 
-                                (partition by pe.person_ref)
-                            ) >= now() then \'active\' 
-                            else \'inactive\' end as "active"'
-                    )
-            ->from(
-                'person',
-                'p'
-            )
-            ->leftJoin(
-                'p',
-                'person_entry',
-                'pe',
-                'p.id = pe.person_ref'
-            );
-        $qb
-            ->setMaxResults(3000)
-            ->orderBy('p.last_name');
-        $st = $conn->prepare($qb->getSQL());
-        $st->execute();
-        $dbResponse = $st->fetchAll();
-
-        return $dbResponse;
     }
 
     /**
-     * @param array $ids Array of int ids
-     * @param array $relatedFilters array describing the related items that should serve as filter
+     * @param string $active Tells if the filter on the active people
+     * @param int $id Id of the person to retrieve
+     * @param array $relatedFilters List of complementary filter options
      * @return array $response an array of person entries found
      */
-    public function listByIds(Array $ids, Array $relatedFilters = array()) {
-        $response = array();
-        return $response;
+    public function listById($active = 'active', $id, Array $relatedFilters = array()) {
+
+        $relatedFilters['ids'] = $id;
+        return $this->listAll($active, $relatedFilters);
+
     }
 
     /**
-     * @param array $ids Array of begin or whole international names
-     * @param array $relatedFilters array describing the related items that should serve as filter
+     * @param string $active Tells if the filter on the active people
+     * @param string $name Name part to search on
+     * @param array $relatedFilters List of complementary filter options
      * @return array $response an array of person entries found
      */
-    public function listByNames(Array $names, Array $relatedFilters = array()) {
-        $response = array();
-        return $response;
+    public function listByName($active = 'active', $name, Array $relatedFilters = array()) {
+
+        $relatedFilters['names'] = $name;
+        return $this->listAll($active, $relatedFilters);
+
     }
 }
