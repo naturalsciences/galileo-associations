@@ -9,30 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
 class PeopleController extends BaseController
 {
 
-    private function extractIds(Request $request) {
-        $ids = array();
-        if ( $request->query->get('ids', '') !== '' ) {
-            $ids = explode(',', $request->query->get('ids'));
-        }
-        return $ids;
-    }
-
-    private function extractNames(Request $request) {
-        $names = array();
-        if ( $request->query->get('names', '') !== '' ) {
-            $names = explode(',', $request->query->get('names'));
-        }
-        return $names;
-    }
-
-    private function extractUids(Request $request) {
-        $uids = array();
-        if ( $request->query->get('samaccountname', '') !== '' ) {
-            $uids = explode(',', $request->query->get('samaccountname'));
-        }
-        return $uids;
-    }
-
     /**
      * @return JsonResponse $response The complete (first 3000) list of people
      */

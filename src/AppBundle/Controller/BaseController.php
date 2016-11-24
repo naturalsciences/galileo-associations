@@ -23,6 +23,10 @@ class BaseController extends Controller
         return $response;
     }
 
+    /**
+     * @param Request $request
+     * @return string
+     */
     protected function extractActive (Request $request) {
         $active = 'active';
         $activeKeyword = $request->query->get('active', '');
@@ -44,6 +48,46 @@ class BaseController extends Controller
         return $active;
     }
 
+    /**
+     * @param Request $request
+     * @return array
+     */
+    protected function extractIds(Request $request) {
+        $ids = array();
+        if ( $request->query->get('ids', '') !== '' ) {
+            $ids = explode(',', $request->query->get('ids'));
+        }
+        return $ids;
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    protected function extractNames(Request $request) {
+        $names = array();
+        if ( $request->query->get('names', '') !== '' ) {
+            $names = explode(',', $request->query->get('names'));
+        }
+        return $names;
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    protected function extractUids(Request $request) {
+        $uids = array();
+        if ( $request->query->get('samaccountname', '') !== '' ) {
+            $uids = explode(',', $request->query->get('samaccountname'));
+        }
+        return $uids;
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     */
     protected function extractRelatedFilters (Request $request) {
         $relatedFilters = array();
         if ( $request->query->get('teams', '') !== '' ) {
@@ -51,6 +95,9 @@ class BaseController extends Controller
         }
         if ( $request->query->get('projects', '') !== '' ) {
             $relatedFilters['projects'] = explode(',', $request->query->get('projects'));
+        }
+        if ( $request->query->get('people', '') !== '' ) {
+            $relatedFilters['people'] = explode(',', $request->query->get('people'));
         }
         return $relatedFilters;
     }
