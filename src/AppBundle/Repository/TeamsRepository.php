@@ -425,7 +425,8 @@ class TeamsRepository extends BaseRepository
     public function listAll($active = 'active', Array $relatedFilters = array()) {
 
         $SQL = $this->extractProjectsTeams('teams', $active, $relatedFilters);
-        return $SQL->fetchAll();
+        $results = $SQL->fetchAll();
+        return $this->purifyResults($results);
 
     }
 }

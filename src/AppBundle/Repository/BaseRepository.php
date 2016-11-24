@@ -7,7 +7,7 @@
  */
 
 namespace AppBundle\Repository;
-
+use HTMLPurifier;
 
 abstract class BaseRepository extends \Doctrine\ORM\EntityRepository
 {
@@ -154,6 +154,18 @@ abstract class BaseRepository extends \Doctrine\ORM\EntityRepository
                 }
             }
         }
+    }
+
+    protected function purifyResults(Array $results) {
+        $purifier = new HTMLPurifier();
+        foreach ( $results as $key => $value ) {
+            foreach ( $value as $subKey => $subValue ) {
+                if ( in_array($subKey, array('international_description', 'description_en', 'description_fr', 'description_nl')) && $subValue !== null) {
+                    $results[$key][$subKey] = $purifier->purify($subValue);
+                }
+            }
+        }
+        return $results;
     }
 
     /**
