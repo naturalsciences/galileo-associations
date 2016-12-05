@@ -149,6 +149,15 @@ app_homepage:
         expose: true
     methods: [GET]
 
+app_login:
+    path: /{_locale}/login
+    defaults:
+        _controller: AppBundle:Security:login
+        _locale: "%locale%"
+    requirements:
+        _locale: "%locales%"
+    methods: [GET,POST]
+
 app_fastSearch:
     path: /{_locale}/search/{fast_search_type}/{exclusion_table}/{exclusion_id}
     defaults:
