@@ -1,0 +1,50 @@
+{% extends "base.html.twig" %}
+
+{% block navigation %}{% endblock navigation %}
+{% block search_menu %}{% endblock search_menu %}
+{% block content %}
+    <div class="well login_form">
+        <h1>{% trans from "security" %}login.title{% endtrans %}</h1>
+
+        {% if error %}
+            <div class="alert alert-danger">
+                {{ error.messageKey|trans(error.messageData, 'security') }}
+            </div>
+        {% endif %}
+        {{ form_start(form) }}
+            {{ form_row(form._username) }}
+            {{ form_row(form._password) }}
+            <button type="submit" class="btn btn-success">{% trans from "security" %}login.submit{% endtrans %}<i class="fa fa-lock"></i></button>
+        {{ form_end(form) }}
+{#
+        <form action="{{ path('app_login') }}" method="post" class="form-horizontal">
+
+            <div class="control-group">
+                <label class="control-label" for="username">{% trans from "security" %}login.user_label{% endtrans %}</label>
+                <div class="controls">
+                    <input type="text" id="username" name="_username" value="{{ form._username }}" />
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="password">{% trans from "security" %}login.pwd_label{% endtrans %}</label>
+                <div class="controls">
+                    <input type="password" id="password" name="_password" />
+                </div>
+            </div>
+
+            <input type="hidden" name="_target_path" value="/" />
+#}
+{#
+            <input type="hidden" name="_csrf_token" value="{{ token }}" />
+#}{#
+
+            <div class="control-group">
+                <div class="controls">
+                    <input type='submit' value='{% trans from "security" %}login.submit{% endtrans %}' id='submit_up' name='submit_up' class="btn btn-primary"/>
+                </div>
+            </div>
+        </form>
+#}
+    </div>
+{% endblock content %}

@@ -18,3 +18,9 @@ file_filter = app/Resources/translations/validators.<lang>.xlf
 source_file = app/Resources/translations/validators.en.xlf
 source_lang = en
 type = XLIFF
+
+[galileo-extension.security]
+file_filter = app/Resources/translations/security.<lang>.xlf
+source_file = app/Resources/translations/security.en.xlf
+source_lang = en
+type = XLIFF
