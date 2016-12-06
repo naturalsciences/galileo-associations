@@ -1,0 +1,28 @@
+<?xml version="1.0" ?><xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file datatype="plaintext" original="global" source-language="en" target-language="fr">
+        <body>
+            <group id="login">
+                <trans-unit id="login_title" resname="login.title">
+                    <source xml:lang="en">Galileo Extension</source>
+                    <target xml:lang="fr">Galileo Extension</target>
+                    
+                </trans-unit>
+                <trans-unit id="login_userLabel" resname="login.user_label">
+                    <source xml:lang="en">Username</source>
+                    <target xml:lang="fr">Nom d'utilisateur</target>
+                    
+                </trans-unit>
+                <trans-unit id="login_pwdLabel" resname="login.pwd_label">
+                    <source xml:lang="en">Password</source>
+                    <target xml:lang="fr">Mot de passe</target>
+                    
+                </trans-unit>
+                <trans-unit id="login_submit" resname="login.submit">
+                    <source xml:lang="en">Sign in</source>
+                    <target xml:lang="fr">Se connecter</target>
+                    
+                </trans-unit>
+            </group>
+        </body>
+    </file>
+</xliff>
