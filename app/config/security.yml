@@ -4,8 +4,8 @@ security:
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory:
-            memory: ~
+        db_users:
+            entity: { class: AppBundle\Entity\Person, property: uid }
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -13,8 +13,20 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
+        rest:
+            pattern: ^/rest/
+            anonymous: true
+            stateless: true
+            security: false
+
         main:
             anonymous: ~
+            guard:
+                authenticators:
+                    - app.security.login_form_authenticator
+            logout:
+                path: app_logout
+                target: app_login
             # activate different ways to authenticate
 
             # http_basic: ~
@@ -22,3 +34,7 @@ security:
 
             # form_login: ~
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+    access_control:
+        - { path: app_login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/rest, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/(en|fr|nl)$, roles: ROLE_USER }

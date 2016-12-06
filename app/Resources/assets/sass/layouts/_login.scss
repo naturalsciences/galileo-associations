@@ -6,6 +6,18 @@
   align-items: center;
   resize: both;
   margin-top: 12.5%;
+
+  .card-block.login-title {
+    padding-bottom: .1rem;
+
+    div.alert {
+      margin-top: .5rem;
+    }
+  }
+
+  .card-block.login-content {
+    padding-top: .1rem;
+  }
 }
 
 i.fa-lock {
