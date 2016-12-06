@@ -23,3 +23,8 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenNeedToBeChangedBeforeProd
+
+    # A ldap server
+    ldap_server: 127.0.0.1
+    ldap_user: admin
+    ldap_pwd: admin
