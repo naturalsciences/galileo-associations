@@ -7,6 +7,9 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="card">
+                    <div class="card-block login-header">
+                        {{  locale_switcher(null, null, "/_partials/navigation/languagesNonFloating.html.twig") }}
+                    </div>
                     <div class="card-block login-title">
                         <h1 class="card-title">{% trans from "security" %}login.title{% endtrans %}</h1>
                         <h6 class="card-subtitle text-muted">{% trans from "security" %}login.subtitle{% endtrans %}</h6>
@@ -20,7 +23,7 @@
                         {{ form_start(form) }}
                             {{ form_row(form._username) }}
                             {{ form_row(form._password) }}
-                            <button type="submit" class="btn btn-success">{% trans from "security" %}login.submit{% endtrans %}<i class="fa fa-lock"></i></button>
+                            <button type="submit" class="btn rbins-connect">{% trans from "security" %}login.submit{% endtrans %}<i class="fa fa-lock"></i></button>
                         {{ form_end(form) }}
                     </div>
                 </div>
