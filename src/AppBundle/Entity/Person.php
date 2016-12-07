@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\DBAL\Types\JsonArrayType;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -38,6 +39,22 @@ class Person implements UserInterface
      * @var string
      */
     private $email;
+
+    /**
+     * @var string
+     */
+    private $password;
+
+    /**
+     * @var string
+     */
+    private $plainPassword;
+
+    /**
+     * @var JsonArrayType
+     */
+    private $roles;
+
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -405,7 +422,7 @@ class Person implements UserInterface
      */
     public function getPassword()
     {
-        // TODO: Implement getPassword() method.
+        return $this->password;
     }
 
     /**
@@ -417,7 +434,6 @@ class Person implements UserInterface
      */
     public function getSalt()
     {
-        // TODO: Implement getSalt() method.
     }
 
     /**
@@ -438,7 +454,56 @@ class Person implements UserInterface
      */
     public function eraseCredentials()
     {
-        // TODO: Implement eraseCredentials() method.
+        $this->plainPassword = null;
+    }
+
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     *
+     * @return Person
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Set roles
+     *
+     * @param JsonArrayType $roles
+     *
+     * @return Person
+     */
+    public function setRoles(JsonArrayType $roles)
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * @param string $plainPassword
+     */
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+        // To guarantee that the password looks dirty too for the entity
+        // we set the password to null
+        // That will ensure the event listener to be called
+        $this->password = null;
     }
 
 

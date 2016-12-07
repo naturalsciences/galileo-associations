@@ -5,6 +5,7 @@ AppBundle\Entity\Person:
     matricule: "<ar_SA:nationalIdNumber()>"
     uid (unique): "<uid($first_name, $last_name)>"
     email: "<email()>"
+    plainPassword: "pioupiou"
 
 AppBundle\Entity\Teams:
   teams_{1..20}:
