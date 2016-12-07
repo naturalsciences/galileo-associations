@@ -32,6 +32,16 @@ AppBundle\Entity\Person:
       nullable: true
       options:
         comment: 'Person main email'
+    password:
+      type: text
+      nullable: true
+      options:
+        comment: 'User password'
+    roles:
+      type: json_array
+      nullable: true
+      options:
+        comment: 'List of roles given to the user'
   uniqueConstraints:
     unq_person_uid:
       columns: uid
