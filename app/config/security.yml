@@ -41,3 +41,6 @@ security:
         - { path: app_login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/rest, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/(|en|fr|nl)$, roles: ROLE_USER }
+        - { path: ^/(en|fr|nl)/(projects|teams|person)/(list|view), roles: ROLE_USER }
+        - { path: ^/(en|fr|nl)/(projects|teams|person)/(add|edit), roles: [ROLE_ADMIN, ROLE_HR, ROLE_TP_LEADER] }
+        - { path: ^/(edit|remove|add), roles: [ROLE_ADMIN, ROLE_HR, ROLE_TP_LEADER] }
