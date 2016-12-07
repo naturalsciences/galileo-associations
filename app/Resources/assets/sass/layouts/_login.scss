@@ -5,10 +5,43 @@
   justify-content: center;
   align-items: center;
   resize: both;
-  margin-top: 12.5%;
+  margin-top: 11%;
+
+  .container-fluid > .card {
+    border: 1px solid $lightgrey;
+    @include border-radius(.25rem);
+  }
+
+  .card-block.login-header {
+    background-color: $darkgrey;
+    padding-top: .8rem;
+    padding-bottom: .8rem;
+    @include border-top-radius(.25rem);
+
+    & > .row {
+      float: right;
+
+      ul {
+        padding-left: .5rem;
+        padding-right: .5rem;
+        li a {
+          color: $white;
+        }
+        li.active a,
+        li:hover a {
+          color:$orange;
+        }
+      }
+    }
+  }
 
   .card-block.login-title {
     padding-bottom: .1rem;
+    padding-top: .3rem;
+
+    h1 {
+      margin-left: -.2rem;
+    }
 
     div.alert {
       margin-top: .5rem;
@@ -22,4 +55,15 @@
 
 i.fa-lock {
   margin-left: 6px;
+}
+
+button.rbins-connect {
+  background-color: $orange;
+  color: $lightgrey;
+
+  &:hover,
+  &:active {
+    background-color: $orange-dark;
+    color: $white;
+  }
 }
