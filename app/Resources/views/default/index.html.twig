@@ -36,8 +36,7 @@
                         </div>
                         <div class="col-sm-6 col-lg-4">
                             {% block add_card_projects %}
-                                {% embed "_partials/cards/contentCards.html.twig" with { 'add_vars' : add_vars } %}
-                                {% endembed %}
+                                {% if is_granted('ROLE_TP_LEADER') %}{% embed "_partials/cards/contentCards.html.twig" with { 'add_vars' : add_vars } %}{% endembed %}{% endif %}
                             {% endblock add_card_projects %}
                         </div>
                         {%
@@ -52,8 +51,7 @@
                         %}
                         <div class="col-sm-6 col-lg-4">
                             {% block add_card_teams %}
-                                {% embed "_partials/cards/contentCards.html.twig" with { 'add_vars' : add_vars } %}
-                                {% endembed %}
+                                {% if is_granted('ROLE_TP_LEADER') %}{% embed "_partials/cards/contentCards.html.twig" with { 'add_vars' : add_vars } %}{% endembed %}{% endif %}
                             {% endblock add_card_teams %}
                         </div>
                         {%
@@ -68,8 +66,7 @@
                         %}
                         <div class="col-sm-12 col-lg-4">
                             {% block add_card_ad_sync %}
-                                {% embed "_partials/cards/contentCards.html.twig" with { 'add_vars' : add_vars } %}
-                                {% endembed %}
+                                {% if is_granted('ROLE_HR') %}{% embed "_partials/cards/contentCards.html.twig" with { 'add_vars' : add_vars } %}{% endembed %}{% endif %}
                             {% endblock add_card_ad_sync %}
                         </div>
                         <div class="col-sm-12">

@@ -44,7 +44,7 @@
                             </li>
                             <li class="{% if type == 'person' %}col-xs-4{% else %}col-xs-5{% endif %} text-xs-right">
                                 <a class="rbins-cards-action-icons" href="{{ view_path }}"><i class="fa fa-eye"></i></a>
-                                {% if type != 'person' %}
+                                {% if type != 'person' and is_granted('ROLE_TP_LEADER') %}
                                     <a href="{{ edit_path }}"><i class="fa fa-pencil"></i></a>
                                 {% endif %}
                                 <a class="rbins-cards-action-icons rbins-cards-actions-open" href="#rbins-letter-card-details-{{ subvalue.id }}" data-toggle="collapse" data-collapse-parent="#rbins-letter-card-{{ subvalue.id }}" data-target="#rbins-letter-card-details-{{ subvalue.id }}"><i class="fa fa-caret-down"></i></a>

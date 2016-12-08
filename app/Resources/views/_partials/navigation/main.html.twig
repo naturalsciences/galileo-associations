@@ -34,7 +34,9 @@
                     {% include "/_partials/navigation/projects.html.twig" %}
                 {% endblock navigation_top_bar_lg_projects %}
                 {% block navigation_top_bar_lg_ad_sync %}
-                    {% include "/_partials/navigation/adSync.html.twig" %}
+                    {% if is_granted('ROLE_HR') %}
+                        {% include "/_partials/navigation/adSync.html.twig" %}
+                    {% endif %}
                 {% endblock navigation_top_bar_lg_ad_sync %}
                 {%
                     set action_vars = action_vars|merge(
@@ -113,7 +115,9 @@
             </li>
             <li class="rbins-menu-dropdown">
                 {% block navigation_responsive_menu_ad_sync %}
-                    {% include "/_partials/navigation/adSync.html.twig" with { 'action_vars' : action_vars } %}
+                    {% if is_granted('ROLE_HR') %}
+                        {% include "/_partials/navigation/adSync.html.twig" with { 'action_vars' : action_vars } %}
+                    {% endif %}
                 {% endblock navigation_responsive_menu_ad_sync %}
             </li>
             {%

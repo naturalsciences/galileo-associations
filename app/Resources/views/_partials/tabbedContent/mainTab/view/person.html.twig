@@ -4,6 +4,6 @@
  #}
 
 {#
-{% include '_partials/action_switch/toggle_view_edit_top.html.twig' %}
+{% if is_granted('ROLE_TP_LEADER') %}{% include '_partials/action_switch/toggle_view_edit_top.html.twig' %}{% endif %}
  #}
 {% include '_partials/tabbedContent/mainTab/view/personContent.html.twig' %}

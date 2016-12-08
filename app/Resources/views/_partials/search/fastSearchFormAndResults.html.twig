@@ -1,5 +1,5 @@
 <form>
-    {% if search_vars.search_type != 'person' and search_vars.parent == 'base' %}
+    {% if search_vars.search_type != 'person' and search_vars.parent == 'base' and is_granted('ROLE_TP_LEADER') %}
         <p>
             <a class="add_item" href="{{ path( search_vars.search_type ) }}"><i class="fa fa-plus-circle" aria-hidden="true"></i>{{ search_vars.search_add_link_text }}</a>
         </p>

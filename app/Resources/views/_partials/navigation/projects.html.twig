@@ -4,7 +4,7 @@
         &nbsp;{% block projects_text %}<span>{% trans from "messages" %}app.nav.menu.projects{% endtrans %} <b class="caret"></b></span>{% endblock projects_text %}
     </a>
     <ul class="{% if action_vars.dropdown_sub_menu_class is defined %}{{ action_vars.dropdown_sub_menu_class }}{% else %}dropdown-menu{% endif %}" aria-labelledby="dropdownMenuButton">
-        <li><a class="dropdown-item" href="{{ path('projects') }}">{% trans from "messages" %}app.nav.menu.projects.add{% endtrans %}</a></li>
+        {% if is_granted('ROLE_TP_LEADER') %}<li><a class="dropdown-item" href="{{ path('projects') }}">{% trans from "messages" %}app.nav.menu.projects.add{% endtrans %}</a></li>{% endif %}
         <li><a class="dropdown-item" href="{{ path('projects_list') }}">{% trans from "messages" %}app.nav.menu.projects.list{% endtrans %}</a></li>
     </ul>
 </div>

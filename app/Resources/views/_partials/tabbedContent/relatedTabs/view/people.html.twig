@@ -12,10 +12,12 @@
 %}
 
 <div class="row">
-    <div class="hidden-xs-down col-sm-12 col-lg-4 rbins-search-content">
-        {% include '_partials/search/fastSearchFormAndResults.html.twig' with {'search_vars': search_vars} %}
-    </div>
-    <div class="col-xs-12 col-lg-8 rbins-related-content">
+    {% if is_granted('ROLE_TP_LEADER') %}
+        <div class="hidden-xs-down col-sm-12 col-lg-4 rbins-search-content">
+            {% include '_partials/search/fastSearchFormAndResults.html.twig' with {'search_vars': search_vars} %}
+        </div>
+    {% endif %}
+    <div class="col-xs-12 {% if is_granted('ROLE_TP_LEADER') %}col-lg-8{% endif %} rbins-related-content">
         {{
             render_esi(
                 controller(
