@@ -1,17 +1,32 @@
 {% extends "base.html.twig" %}
+
+{% block navigation %}{% endblock navigation %}
+{% block search_menu %}{% endblock search_menu %}
 {% block content %}
-    <div class="container-fluid rbins-content">
-        <div class="row">
-            <div class="col-md-3 col-lg-3 hidden-sm-down"></div>
-            <div class="col-xs-12 col-md-9 col-lg-9">
-                <h2>You reached an error.</h2>
-                <p>
-                    {{ exception.message }}
-                </p>
-                <p>
-                    Please let us know what you were doing when this error occurred.</br>
-                    We will fix it as soon as possible. Sorry for any inconvenience caused.
-                </p>
+    <div class="rbins-error rbins-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="card">
+                    <div class="card-block error-header">
+                        <h1 class="card-title">{% trans from "messages" %}app.errors.global.title{% endtrans %}</h1>
+                    </div>
+                    <div class="card-block error-content">
+                        <p class="rbins-original-error-message">
+                            {{ exception.message }}
+                        </p>
+                        <p>
+                            {% trans from "messages" %}app.errors.contact.message.firstLine{% endtrans %}
+                            <br/>
+                            {% trans from "messages" %}app.errors.contact.message.secondLine{% endtrans %}
+                        </p>
+                    </div>
+                    <div class="card-block error-footer">
+                        <h3>{% trans from "messages" %}app.errors.global.goBack{% endtrans %}</h3>
+                        <ul>
+                            <li><a href="{{ path("app_homepage") }}"><i class="fa fa-home"></i>{% trans from "messages" %}app.errors.global.goBack.home{% endtrans %}</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -143,6 +143,10 @@
                             <source xml:lang="en">Use this quick action to synchronize users with Active Directory (AD)</source>
                             <target xml:lang="en">Use this quick action to synchronize users with Active Directory (AD)</target>
                         </trans-unit>
+                        <trans-unit id="app-meta-description-home-profile" resname="app.meta.description.home.profile">
+                            <source xml:lang="en">Use this quick action to access your profile</source>
+                            <target xml:lang="en">Use this quick action to access your profile</target>
+                        </trans-unit>
                     </group>
                     <group id="app-meta-description-fastsearch">
                         <trans-unit id="app-meta-description-fastsearch-people" resname="app.meta.description.fastsearch.people">
@@ -201,6 +205,10 @@
                     <trans-unit id="app-title-home-adsync" resname="app.title.home.adsync">
                         <source xml:lang="en">AD Synchronization</source>
                         <target xml:lang="en">AD Synchronization</target>
+                    </trans-unit>
+                    <trans-unit id="app-title-home-profile" resname="app.title.home.profile">
+                        <source xml:lang="en">Access my profile</source>
+                        <target xml:lang="en">Access my profile</target>
                     </trans-unit>
                 </group>
                 <group id="app-title-fastsearch">
@@ -268,6 +276,12 @@
                         <trans-unit id="app-action-home-add-common" resname="app.action.home.add.common">
                             <source xml:lang="en">Add</source>
                             <target xml:lang="en">Add</target>
+                        </trans-unit>
+                    </group>
+                    <group id="app-action-home-GoTo">
+                        <trans-unit id="app-action-home-GoTo" resname="app.action.home.GoTo">
+                            <source xml:lang="en">Access</source>
+                            <target xml:lang="en">Access</target>
                         </trans-unit>
                     </group>
                 </group>
@@ -526,6 +540,34 @@
                 <trans-unit id="app-errors-custom" resname="app.errors.custom">
                     <source xml:lang="en">An error occured: %message%</source>
                     <target xml:lang="en">an error occured: %message%</target>
+                </trans-unit>
+                <trans-unit id="app-errors-global-title" resname="app.errors.global.title">
+                    <source xml:lang="en">An error occured</source>
+                    <target xml:lang="en">An error occured</target>
+                </trans-unit>
+                <trans-unit id="app-errors-contact-message-firstLine" resname="app.errors.contact.message.firstLine">
+                    <source xml:lang="en">Please let us know what you were doing when this error occurred.</source>
+                    <target xml:lang="en">Please let us know what you were doing when this error occurred.</target>
+                </trans-unit>
+                <trans-unit id="app-errors-contact-message-secondLine" resname="app.errors.contact.message.secondLine">
+                    <source xml:lang="en">We will fix it as soon as possible. Sorry for any inconvenience caused.</source>
+                    <target xml:lang="en">We will fix it as soon as possible. Sorry for any inconvenience caused.</target>
+                </trans-unit>
+                <trans-unit id="app-errors-global-goBack" resname="app.errors.global.goBack">
+                    <source xml:lang="en">Go back to:</source>
+                    <target xml:lang="en">Go back to:</target>
+                </trans-unit>
+                <trans-unit id="app-errors-global-goBack-login" resname="app.errors.global.goBack.login">
+                    <source xml:lang="en">Login form</source>
+                    <target xml:lang="en">Login form</target>
+                </trans-unit>
+                <trans-unit id="app-errors-global-goBack-profile" resname="app.errors.global.goBack.profile">
+                    <source xml:lang="en">Your profile</source>
+                    <target xml:lang="en">Your profile</target>
+                </trans-unit>
+                <trans-unit id="app-errors-global-goBack-home" resname="app.errors.global.goBack.home">
+                    <source xml:lang="en">Homepage</source>
+                    <target xml:lang="en">Homepage</target>
                 </trans-unit>
             </group>
             <group id="app-message">
