@@ -37,10 +37,16 @@ security:
 
             # form_login: ~
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+    role_hierarchy:
+        ROLE_TP_LEADER: ROLE_USER
+        ROLE_HR: ROLE_TP_LEADER
+        ROLE_ADMIN: ROLE_HR
+
     access_control:
         - { path: app_login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/rest, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/(|en|fr|nl)$, roles: ROLE_USER }
         - { path: ^/(en|fr|nl)/(projects|teams|person)/(list|view), roles: ROLE_USER }
-        - { path: ^/(en|fr|nl)/(projects|teams|person)/(add|edit), roles: [ROLE_ADMIN, ROLE_HR, ROLE_TP_LEADER] }
-        - { path: ^/(edit|remove|add), roles: [ROLE_ADMIN, ROLE_HR, ROLE_TP_LEADER] }
+        - { path: ^/(en|fr|nl)/(projects|teams|person)/(add|edit), roles: ROLE_TP_LEADER }
+        - { path: ^/(en|fr|nl)/(projects|teams|person)$, roles: ROLE_TP_LEADER }
+        - { path: ^/(edit|add|remove), roles: ROLE_TP_LEADER }

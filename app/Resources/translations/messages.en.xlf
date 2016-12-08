@@ -463,8 +463,8 @@
                                 <target xml:lang="en">The language provided must be one of these: English, Dutch or French</target>
                             </trans-unit>
                             <trans-unit id="app-form-teamsAndProjects-edit-validation-internationalNameCascade-choice" resname="app.form.teamsAndProjects.edit.validation.internationalNameCascade.choice">
-                                <source xml:lang="en">The language provided must be one of these: None of the translated versions, The corresponding language translated version or All translated version</source>
-                                <target xml:lang="en">The language provided must be one of these: None of the translated versions, The corresponding language translated version or All translated version</target>
+                                <source xml:lang="en">The option provided must be one of these: None of the translated versions, The corresponding language translated version or All translated version</source>
+                                <target xml:lang="en">The option provided must be one of these: None of the translated versions, The corresponding language translated version or All translated version</target>
                             </trans-unit>
                         </group>
                     </group>
