@@ -176,6 +176,11 @@
                             <target xml:lang="fr">Utilisez cette action pour accéder rapidement à l'écran de synchronisation avec l'Active Directory (AD)</target>
                             
                         </trans-unit>
+                        <trans-unit id="app-meta-description-home-profile" resname="app.meta.description.home.profile">
+                            <source xml:lang="en">Use this quick action to access your profile</source>
+                            <target xml:lang="fr">Utilisez cette action pour accéder rapidement à votre profil</target>
+                            
+                        </trans-unit>
                     </group>
                     <group id="app-meta-description-fastsearch">
                         <trans-unit id="app-meta-description-fastsearch-people" resname="app.meta.description.fastsearch.people">
@@ -245,6 +250,11 @@
                     <trans-unit id="app-title-home-adsync" resname="app.title.home.adsync">
                         <source xml:lang="en">AD Synchronization</source>
                         <target xml:lang="fr">Synchronisation AD</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-title-home-profile" resname="app.title.home.profile">
+                        <source xml:lang="en">Access my profile</source>
+                        <target xml:lang="fr">Accéder à mon profil</target>
                         
                     </trans-unit>
                 </group>
@@ -325,6 +335,13 @@
                         <trans-unit id="app-action-home-add-common" resname="app.action.home.add.common">
                             <source xml:lang="en">Add</source>
                             <target xml:lang="fr">Ajouter</target>
+                            
+                        </trans-unit>
+                    </group>
+                    <group id="app-action-home-GoTo">
+                        <trans-unit id="app-action-home-GoTo" resname="app.action.home.GoTo">
+                            <source xml:lang="en">Access</source>
+                            <target xml:lang="fr">Accéder</target>
                             
                         </trans-unit>
                     </group>
@@ -636,6 +653,41 @@
                 <trans-unit id="app-errors-custom" resname="app.errors.custom">
                     <source xml:lang="en">An error occured: %message%</source>
                     <target xml:lang="fr">Une erreur est survenue: %message%</target>
+                    
+                </trans-unit>
+                <trans-unit id="app-errors-global-title" resname="app.errors.global.title">
+                    <source xml:lang="en">An error occured</source>
+                    <target xml:lang="fr">Une erreur est apparue</target>
+                    
+                </trans-unit>
+                <trans-unit id="app-errors-contact-message-firstLine" resname="app.errors.contact.message.firstLine">
+                    <source xml:lang="en">Please let us know what you were doing when this error occurred.</source>
+                    <target xml:lang="fr">Veuillez nous communiquer les opérations que vous réalisiez lorsque cette erreur est apparue.</target>
+                    
+                </trans-unit>
+                <trans-unit id="app-errors-contact-message-secondLine" resname="app.errors.contact.message.secondLine">
+                    <source xml:lang="en">We will fix it as soon as possible. Sorry for any inconvenience caused.</source>
+                    <target xml:lang="fr">Nous fixerons le problème dès que possible. Nous nous excusons pour le dérangement causé.</target>
+                    
+                </trans-unit>
+                <trans-unit id="app-errors-global-goBack" resname="app.errors.global.goBack">
+                    <source xml:lang="en">Go back to:</source>
+                    <target xml:lang="fr">Revenir:</target>
+                    
+                </trans-unit>
+                <trans-unit id="app-errors-global-goBack-login" resname="app.errors.global.goBack.login">
+                    <source xml:lang="en">Login form</source>
+                    <target xml:lang="fr">au formulaire de contact</target>
+                    
+                </trans-unit>
+                <trans-unit id="app-errors-global-goBack-profile" resname="app.errors.global.goBack.profile">
+                    <source xml:lang="en">Your profile</source>
+                    <target xml:lang="fr">à votre profil</target>
+                    
+                </trans-unit>
+                <trans-unit id="app-errors-global-goBack-home" resname="app.errors.global.goBack.home">
+                    <source xml:lang="en">Homepage</source>
+                    <target xml:lang="fr">à la page d'accueil</target>
                     
                 </trans-unit>
             </group>

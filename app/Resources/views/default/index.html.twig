@@ -72,6 +72,11 @@
                                 {% endembed %}
                             {% endblock add_card_ad_sync %}
                         </div>
+                        <div class="col-sm-12">
+                            {% block goto_profile %}
+                                {% embed "_partials/cards/contentProfileCard.html.twig" %}{% endembed %}
+                            {% endblock goto_profile %}
+                        </div>
                     </div>
                 {% endblock content_main %}
             </div>

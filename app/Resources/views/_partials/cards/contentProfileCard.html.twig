@@ -1,0 +1,11 @@
+<a href="{{ path("person", {'id': app.getUser().getId()}) }}">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"><i class="fa fa-user"></i> {% trans from "messages" %}app.title.home.profile{% endtrans %}</h3>
+        </div>
+        <div class="card-block">
+            <p class="card-text">{% trans from "messages" %}app.meta.description.home.profile{% endtrans %}</p>
+            <span class="btn pull-xs-right">{% trans from "messages" %}app.action.home.GoTo{% endtrans %} <i class="fa fa-universal-access"></i></span>
+        </div>
+    </div>
+</a>
