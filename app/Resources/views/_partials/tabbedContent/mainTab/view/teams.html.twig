@@ -1,8 +1,10 @@
-{% include '_partials/action_switch/toggle_view_edit_top.html.twig' %}
+{% if is_granted('ROLE_TP_LEADER') %}{% include '_partials/action_switch/toggle_view_edit_top.html.twig' %}{% endif %}
 
 {% include '_partials/tabbedContent/mainTab/view/teamsProjectsContent.html.twig' %}
+{% if is_granted('ROLE_TP_LEADER') %}
 <div class="row">
     <div class="col-xs-12">
         <a class="btn btn-sm rbins-remove-btn pull-right" href="{{ path('app_remove_related', {'id': id, 'type': 'teams'}) }}" data-id="{{ id }}" data-type="teams"><i class="fa fa-times"></i>&nbsp;{% trans from "messages" %}app.form.teamsAndProjects.view.button.removeTeam{% endtrans %}</a>
     </div>
 </div>
+{% endif %}
