@@ -1,6 +1,6 @@
 <div class="{% if action_vars.position_class is defined %}{{ action_vars.position_class }}{% endif %} row flex-items-xs-middle {% if action_vars.responsive_hidden_class is defined %}{{ action_vars.responsive_hidden_class }}{% endif %} rbins-lg-actions-profile">
-    <a class="nav-link" href="#" title="{% trans from "messages" %}app.meta.title.nav.menu.profile{% endtrans %}">
+    <a class="nav-link" href="{{ path("person", {'id': app.getUser().getId()}) }}" title="{% trans from "messages" %}app.meta.title.nav.menu.profile{% endtrans %}">
         {% block profile_icon %}<i class="fa fa-user {% if action_vars.solarize is defined %}{% if action_vars.solarize == true %}fa-inverse{% endif %}{% endif %} {% if action_vars.icon_increase is defined %}{{ action_vars.icon_increase }}{% endif %}" aria-hidden="true"></i>{% endblock profile_icon %}
-        &nbsp;{% block profile_text %}<span>Firstname Lastname</span>{% endblock profile_text %}
+        &nbsp;{% block profile_text %}<span>{{ (app.getUser().getFirstName() ~ " " ~ app.getUser().getLastName())|trim }}</span>{% endblock profile_text %}
     </a>
 </div>

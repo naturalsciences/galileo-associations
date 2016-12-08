@@ -53,7 +53,7 @@ class Person implements UserInterface
     /**
      * @var JsonArrayType
      */
-    private $roles;
+    private $roles = [];
 
 
     /**
@@ -405,11 +405,15 @@ class Person implements UserInterface
      * and populated in any number of different ways when the user object
      * is created.
      *
-     * @return (Role|string)[] The user roles
+     * @return JsonArrayType The user roles
      */
     public function getRoles()
     {
-        return ['ROLE_USER'];
+        $roles = $this->roles;
+        if (!in_array('ROLE_USER', $roles)) {
+            $roles[] = 'ROLE_USER';
+        }
+        return $roles;
     }
 
     /**

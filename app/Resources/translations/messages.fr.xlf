@@ -48,6 +48,11 @@
                         <target xml:lang="fr">Langue</target>
                         
                     </trans-unit>
+                    <trans-unit id="app-meta-title-form-teamsAndProjects-view-nameInt" resname="app.meta.title.form.teamsAndProjects.view.nameInt">
+                        <source xml:lang="en">International name</source>
+                        <target xml:lang="fr">Nom à l'international</target>
+                        
+                    </trans-unit>
                     <trans-unit id="app-meta-title-form-teamsAndProjects-view-descriptionInt" resname="app.meta.title.form.teamsAndProjects.view.descriptionInt">
                         <source xml:lang="en">International description</source>
                         <target xml:lang="fr">Description générique</target>
@@ -116,6 +121,41 @@
                     <trans-unit id="app-meta-title-form-person-view-projectEndDate" resname="app.meta.title.form.person.view.email">
                         <source xml:lang="en">Email</source>
                         <target xml:lang="fr">Email</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-form-relatedPeople-view-name" resname="app.meta.title.form.relatedPeople.view.name">
+                        <source xml:lang="en">Person name</source>
+                        <target xml:lang="fr">Nom de la personne</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-form-relatedPeople-view-startDate" resname="app.meta.title.form.relatedPeople.view.startDate">
+                        <source xml:lang="en">Membership start date</source>
+                        <target xml:lang="fr">Date de début</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-form-relatedPeople-view-endDate" resname="app.meta.title.form.relatedPeople.view.endDate">
+                        <source xml:lang="en">Membership end date</source>
+                        <target xml:lang="fr">Date de fin</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-form-relatedProjects-view-name" resname="app.meta.title.form.relatedProjects.view.name">
+                        <source xml:lang="en">Project name</source>
+                        <target xml:lang="fr">Nom du projet</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-form-relatedTeamsAndProjects-view-startDate" resname="app.meta.title.form.relatedTeamsAndProjects.view.startDate">
+                        <source xml:lang="en">Relationship start date</source>
+                        <target xml:lang="fr">Date de début</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-form-relatedTeamsAndProjects-view-endDate" resname="app.meta.title.form.relatedTeamsAndProjects.view.endDate">
+                        <source xml:lang="en">Relationship end date</source>
+                        <target xml:lang="fr">Date de fin</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-meta-title-form-relatedTeams-view-name" resname="app.meta.title.form.relatedTeams.view.name">
+                        <source xml:lang="en">Team name</source>
+                        <target xml:lang="fr">Nom de l'équipe</target>
                         
                     </trans-unit>
                 </group>
@@ -189,7 +229,7 @@
                 <group id="app-title-home">
                     <trans-unit id="app-title-home" resname="app.title.home.welcome">
                         <source xml:lang="en">Welcome to Galileo extension</source>
-                        <target xml:lang="fr">Tapez ici le début du nom de l'équipe recherchée</target>
+                        <target xml:lang="fr">Bienvenue dans Galileo Extension</target>
                         
                     </trans-unit>
                     <trans-unit id="app-title-home-project" resname="app.title.home.project">
@@ -221,9 +261,23 @@
                     </trans-unit>
                     <trans-unit id="app-title-fastsearch-teams" resname="app.title.fastsearch.teams">
                         <source xml:lang="en">Search Teams</source>
-                        <target xml:lang="fr">Recherche d'Équipe</target>
+                        <target xml:lang="fr">Recherche d'Équipes</target>
                         
                     </trans-unit>
+                </group>
+                <group id="app-title-content">
+                    <group id="app-title-content-related">
+                        <trans-unit id="app-title-content-related-active" resname="app.title.content.related.active">
+                            <source xml:lang="en">active</source>
+                            <target xml:lang="fr">Actif</target>
+                            
+                        </trans-unit>
+                        <trans-unit id="app-title-content-related-inactive" resname="app.title.content.related.inactive">
+                            <source xml:lang="en">non active</source>
+                            <target xml:lang="fr">Inactif</target>
+                            
+                        </trans-unit>
+                    </group>
                 </group>
             </group>
             <group id="app-nav">
@@ -332,7 +386,21 @@
                     </trans-unit>
                 </group>
             </group>
+            <group id="app_flash">
+                <trans-unit id="app-flash-remove-teamsAndProjects" resname="app.flash.remove.teamsAndProjects">
+                    <source xml:lang="en">The %detail% has been well removed</source>
+                    <target xml:lang="fr">Le %detail% a été enlevé</target>
+                    
+                </trans-unit>
+            </group>
             <group id="app_form">
+                <group id="app-form-flash">
+                    <trans-unit id="app-form-flash-success" resname="app.form.flash.success">
+                        <source xml:lang="en">The record &quot;%name%&quot; has been well saved</source>
+                        <target xml:lang="fr">L'enregistrement &quot;%name%&quot; a bien été sauvegardé</target>
+                        
+                    </trans-unit>
+                </group>
                 <group id="app-form-person">
                     <group id="app-form-person-view">
                         <group id="app-form-person-view-label">
@@ -362,6 +430,11 @@
                                 <target xml:lang="fr">Langue</target>
                                 
                             </trans-unit>
+                           <trans-unit id="app-form-teamsAndProjects-view-label-nameInt" resname="app.form.teamsAndProjects.view.label.nameInt">
+                                <source xml:lang="en">Name (Int.)</source>
+                                <target xml:lang="fr">Nom (Int.)</target>
+                                
+                            </trans-unit>
                             <trans-unit id="app-form-teamsAndProjects-view-label-description" resname="app.form.teamsAndProjects.view.label.description">
                                 <source xml:lang="en">Description (%locale%)</source>
                                 <target xml:lang="fr">Description (%locale%)</target>
@@ -387,14 +460,204 @@
                                 <target xml:lang="fr">Date de fin</target>
                                 
                             </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-view-button-removeProject" resname="app.form.teamsAndProjects.view.button.removeProject">
+                                <source xml:lang="en">Remove project</source>
+                                <target xml:lang="fr">Enlever le projet</target>
+                                
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-view-button-removeTeam" resname="app.form.teamsAndProjects.view.button.removeTeam">
+                                <source xml:lang="en">Remove team</source>
+                                <target xml:lang="fr">Enlever l'équipe</target>
+                                
+                            </trans-unit>
+                        </group>
+                    </group>
+                    <group id="app-form-teamsAndProjects-edit">
+                        <group id="app-form-teamsAndProjects-edit-label">
+                            <trans-unit id="app-form-teamsAndProjects-edit-internationalNameLanguage" resname="app.form.teamsAndProjects.edit.internationalNameLanguage">
+                                <source xml:lang="en">Language (Int.)</source>
+                                <target xml:lang="fr">Langue (Int.)</target>
+                                
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-internationalName" resname="app.form.teamsAndProjects.edit.internationalName">
+                                <source xml:lang="en">Name (Int.)</source>
+                                <target xml:lang="fr">Nom (Int.)</target>
+                                
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-internationalDescription" resname="app.form.teamsAndProjects.edit.internationalDescription">
+                                <source xml:lang="en">Description (Int.)</source>
+                                <target xml:lang="fr">Description (Int.)</target>
+                                
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-internationalCascade" resname="app.form.teamsAndProjects.edit.internationalCascade">
+                                <source xml:lang="en">Use international name and description for</source>
+                                <target xml:lang="fr">Utiliser le nom et la description à l'international pour</target>
+                                
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-nameEn" resname="app.form.teamsAndProjects.edit.nameEn">
+                                <source xml:lang="en">Name (EN)</source>
+                                <target xml:lang="fr">Nom (EN)</target>
+                                
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-descriptionEn" resname="app.form.teamsAndProjects.edit.descriptionEn">
+                                <source xml:lang="en">Description (EN)</source>
+                                <target xml:lang="fr">Description (EN)</target>
+                                
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-nameNl" resname="app.form.teamsAndProjects.edit.nameNl">
+                                <source xml:lang="en">Name (NL)</source>
+                                <target xml:lang="fr">Nom (NL)</target>
+                                
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-descriptionNl" resname="app.form.teamsAndProjects.edit.descriptionNl">
+                                <source xml:lang="en">Description (NL)</source>
+                                <target xml:lang="fr">Description (NL)</target>
+                                
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-nameFr" resname="app.form.teamsAndProjects.edit.nameFr">
+                                <source xml:lang="en">Name (FR)</source>
+                                <target xml:lang="fr">Nom (FR)</target>
+                                
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-descriptionFr" resname="app.form.teamsAndProjects.edit.descriptionFr">
+                                <source xml:lang="en">Description (FR)</source>
+                                <target xml:lang="fr">Description (FR)</target>
+                                
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-startDate" resname="app.form.teamsAndProjects.edit.startDate">
+                                <source xml:lang="en">Start date</source>
+                                <target xml:lang="fr">Date de début</target>
+                                
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-endDate" resname="app.form.teamsAndProjects.edit.endDate">
+                                <source xml:lang="en">End date</source>
+                                <target xml:lang="fr">Date de fin</target>
+                                
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-fieldsetLegend" resname="app.form.teamsAndProjects.edit.fieldsetLegend">
+                                <source xml:lang="en">Localized names / descriptions</source>
+                                <target xml:lang="fr">Noms / Descriptions localisées</target>
+                                
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-date-placeholder" resname="app.form.teamsAndProjects.edit.date.placeholder">
+                                <source xml:lang="en">Enter a date in the format dd/mm/yyyy</source>
+                                <target xml:lang="fr">Entrez une date au format jj/mm/aaaa</target>
+                                
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-save" resname="app.form.teamsAndProjects.edit.save">
+                                <source xml:lang="en">Save</source>
+                                <target xml:lang="fr">Sauvegarder</target>
+                                
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-reset" resname="app.form.teamsAndProjects.edit.reset">
+                                <source xml:lang="en">Reset</source>
+                                <target xml:lang="fr">Réinitialiser</target>
+                                
+                            </trans-unit>
+                        </group>
+                        <group id="app-form-teamsAndProjects-edit-validation">
+                            <trans-unit id="app-form-teamsAndProjects-edit-validation-internationalNameLanguage-choice" resname="app.form.teamsAndProjects.edit.validation.internationalNameLanguage.choice">
+                                <source xml:lang="en">The language provided must be one of these: English, Dutch or French</source>
+                                <target xml:lang="fr">La langue fournie doit être: Anglais, Néerlandais ou Français</target>
+                                
+                            </trans-unit>
+                            <trans-unit id="app-form-teamsAndProjects-edit-validation-internationalNameCascade-choice" resname="app.form.teamsAndProjects.edit.validation.internationalNameCascade.choice">
+                                <source xml:lang="en">The option provided must be one of these: None of the translated versions, The corresponding language translated version or All translated version</source>
+                                <target xml:lang="fr">L'option fournie doit être: Aucune des versions traduites, La version de langue correspondante, Toutes les versions traduites</target>
+                                
+                            </trans-unit>
                         </group>
                     </group>
                 </group>
+                <group id="app-form-relatedPeople">
+                    <group id="app-form-relatedPeople-view">
+                        <group id="app-form-relatedPeople-view-label">
+                            <trans-unit id="app-form-relatedPeople-view-label-name" resname="app.form.relatedPeople.view.label.name">
+                                <source xml:lang="en">Name</source>
+                                <target xml:lang="fr">Nom</target>
+                                
+                            </trans-unit>
+                            <trans-unit id="app-form-relatedPeople-view-label-startDate" resname="app.form.relatedPeople.view.label.startDate">
+                                <source xml:lang="en">Start date</source>
+                                <target xml:lang="fr">Date de début</target>
+                                
+                            </trans-unit>
+                            <trans-unit id="app-form-relatedPeople-view-label-endDate" resname="app.form.relatedPeople.view.label.endDate">
+                                <source xml:lang="en">End date</source>
+                                <target xml:lang="fr">Date de fin</target>
+                                
+                            </trans-unit>
+                        </group>
+                    </group>
+                </group>
+                <group id="app-form-relatedTeamsAndProjects">
+                    <group id="app-form-relatedTeamsAndProjects-view">
+                        <group id="app-form-relatedTeamsAndProjects-view-label">
+                            <trans-unit id="app-form-relatedTeamsAndProjects-view-label-name" resname="app.form.relatedTeamsAndProjects.view.label.name">
+                                <source xml:lang="en">Name</source>
+                                <target xml:lang="fr">Nom</target>
+                                
+                            </trans-unit>
+                            <trans-unit id="app-form-relatedTeamsAndProjects-view-label-startDate" resname="app.form.relatedTeamsAndProjects.view.label.startDate">
+                                <source xml:lang="en">Start date</source>
+                                <target xml:lang="fr">Date de début</target>
+                                
+                            </trans-unit>
+                            <trans-unit id="app-form-relatedTeamsAndProjects-view-label-endDate" resname="app.form.relatedTeamsAndProjects.view.label.endDate">
+                                <source xml:lang="en">End date</source>
+                                <target xml:lang="fr">Date de fin</target>
+                                
+                            </trans-unit>
+                        </group>
+                    </group>
+                </group>    
+            </group>
+            <group id="app-errors">
+                <trans-unit id="app-errors-title" resname="app.errors.title">
+                    <source xml:lang="en">Some errors occured</source>
+                    <target xml:lang="fr">Des erreurs sont apparues</target>
+                    
+                </trans-unit>
+                <trans-unit id="app-errors-labeling" resname="app.errors.labeling">
+                    <source xml:lang="en">For the field</source>
+                    <target xml:lang="fr">Pour le champ</target>
+                    
+                </trans-unit>
+                <trans-unit id="app-errors-insert-uniqueViolation" resname="app.errors.insert.uniqueViolation">
+                    <source xml:lang="en">The record you try to insert already exists</source>
+                    <target xml:lang="fr">L'enregistrement que vous tentez de créer existe déjà</target>
+                    
+                </trans-unit>
+                <trans-unit id="app-errors-insert-dateCheckViolation" resname="app.errors.insert.dateCheckViolation">
+                    <source xml:lang="en">Start date must be bellow or equal end date !</source>
+                    <target xml:lang="fr">La date de début doit être antérieure ou égale à la date de fin !</target>
+                    
+                </trans-unit>
+                <trans-unit id="app-errors-custom" resname="app.errors.custom">
+                    <source xml:lang="en">An error occured: %message%</source>
+                    <target xml:lang="fr">Une erreur est survenue: %message%</target>
+                    
+                </trans-unit>
             </group>
             <group id="app-message">
                 <trans-unit id="app-message-search" resname="app.message.search">
                     <source xml:lang="en">Search</source>
                     <target xml:lang="fr">Rechercher</target>
+                    
+                </trans-unit>
+                <trans-unit id="app-message-search-person" resname="app.message.search.person">
+                    <source xml:lang="en">Search people</source>
+                    <target xml:lang="fr">Recherche personnes</target>
+                    
+                </trans-unit>
+                <trans-unit id="app-message-search-teams" resname="app.message.search.teams">
+                    <source xml:lang="en">Search teams</source>
+                    <target xml:lang="fr">Recherche équipes</target>
+                    
+                </trans-unit>
+                <trans-unit id="app-message-search-projects" resname="app.message.search.projects">
+                    <source xml:lang="en">Search projects</source>
+                    <target xml:lang="fr">Recherche projets</target>
                     
                 </trans-unit>
                 <trans-unit id="app-message-noRelatedPeople" resname="app.message.noRelatedPeople">
@@ -410,6 +673,41 @@
                 <trans-unit id="app-message-noRelatedProjects" resname="app.message.noRelatedProjects">
                     <source xml:lang="en">There's no related projects for the moment</source>
                     <target xml:lang="fr">Il n'y a aucun projet lié pour le moment</target>
+                    
+                </trans-unit>
+                <trans-unit id="app-message-noRelatedItems" resname="app.message.noRelatedItems">
+                    <source xml:lang="en">There's no related items for the moment</source>
+                    <target xml:lang="fr">Il n'y a pas d'éléments liés pour l'instant</target>
+                    
+                </trans-unit>
+                <trans-unit id="app-message-main-removeConfirmation" resname="app.message.main.removeConfirmation">
+                    <source xml:lang="en">Are you sure you want to remove this entry</source>
+                    <target xml:lang="fr">Êtes-vous sûrs de vouloir enlever cette entrée</target>
+                    
+                </trans-unit>
+                <trans-unit id="app-message-related-removeConfirmation" resname="app.message.related.removeConfirmation">
+                    <source xml:lang="en">Are you sure you want to remove this related entry</source>
+                    <target xml:lang="fr">Êtes-vous sûr de vouloir enlever cette entrée liée</target>
+                    
+                </trans-unit>
+                <trans-unit id="app-message-remove-failure-404" resname="app.message.remove.failure.404">
+                    <source xml:lang="en">It seems the item you try to remove does not exists anymore</source>
+                    <target xml:lang="fr">Il apparaît que l'élément que vous essayez d'enlever n'existe plus</target>
+                    
+                </trans-unit>
+                <trans-unit id="app-message-remove-failure-403" resname="app.message.remove.failure.403">
+                    <source xml:lang="en">You are not authorized to perform this operation</source>
+                    <target xml:lang="fr">Vous n'êtes pas autorisé à exécuter cette opération</target>
+                    
+                </trans-unit>
+                <trans-unit id="app-message-remove-success" resname="app.message.remove.success">
+                    <source xml:lang="en">The item has been well removed</source>
+                    <target xml:lang="fr">L'élément a été bien effacé</target>
+                    
+                </trans-unit>
+                <trans-unit id="app-message-add-success" resname="app.message.add.success">
+                    <source xml:lang="en">The item has been well added</source>
+                    <target xml:lang="fr">L'élément a été bien ajouté</target>
                     
                 </trans-unit>
             </group>
