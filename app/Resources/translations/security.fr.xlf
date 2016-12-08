@@ -7,6 +7,11 @@
                     <target xml:lang="fr">Galileo Extension</target>
                     
                 </trans-unit>
+                <trans-unit id="login_subtitle" resname="login.subtitle">
+                    <source xml:lang="en">Manage your teams and projects</source>
+                    <target xml:lang="fr">Gérez vos équipes et vos projets</target>
+                    
+                </trans-unit>
                 <trans-unit id="login_userLabel" resname="login.user_label">
                     <source xml:lang="en">Username</source>
                     <target xml:lang="fr">Nom d'utilisateur</target>
