@@ -9,6 +9,7 @@
 namespace AppBundle\Security;
 
 
+use AppBundle\Entity\Person;
 use AppBundle\Form\Type\SecurityFormType;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -134,18 +135,10 @@ class LoginFormLdapAuthenticator extends AbstractFormLoginAuthenticator
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
         $username = $credentials['_username'];
-        $user = $this->ldapUser->loadUserByUsername($username);
-        if ( $user->getUsername() === $username ) {
-            $dbUser = $this->em->getRepository('AppBundle:Person')
-                        ->findOneBy(array('uid' => $username));
-            if ( $dbUser === null ) {
+        $dbUser = $this->em->getRepository('AppBundle:Person')
+            ->findOneBy(array('uid' => $username));
 
-            }
-        }
-        else {
-            die(var_dump($user));
-        }
-        return $user;
+        return $dbUser;
     }
 
     /**
@@ -168,7 +161,6 @@ class LoginFormLdapAuthenticator extends AbstractFormLoginAuthenticator
     {
         $password = $credentials['_password'];
 
-        die(var_dump($user));
         if($this->passwordEncoder->isPasswordValid($user, $password)) {
             return true;
         }
