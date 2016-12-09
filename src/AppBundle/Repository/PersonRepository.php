@@ -95,6 +95,34 @@ class PersonRepository extends BaseRepository
             }
         }
 
+        if ( isset($relatedFilters['directorates'] ) ) {
+            if ( is_array($relatedFilters['directorates']) ) {
+                if (count($relatedFilters['directorates']) > 0) {
+                    $qb->innerJoin(
+                        'p',
+                        'working_duty',
+                        'wd',
+                        'p.id = wd.person_ref'
+                    );
+                    $this->composeNumericWhereIn($qb, $params, $relatedFilters, 'wd.department_ref', 'directorates');
+                }
+            }
+        }
+
+        if ( isset($relatedFilters['services'] ) ) {
+            if ( is_array($relatedFilters['services']) ) {
+                if (count($relatedFilters['services']) > 0) {
+                    $qb->innerJoin(
+                        'p',
+                        'working_duty',
+                        'wd',
+                        'p.id = wd.person_ref'
+                    );
+                    $this->composeNumericWhereIn($qb, $params, $relatedFilters, 'wd.department_ref', 'services');
+                }
+            }
+        }
+
         if ( isset($relatedFilters['uids']) ) {
             if ( is_array($relatedFilters['uids']) ) {
                 if ( count($relatedFilters['uids']) > 0 ) {
