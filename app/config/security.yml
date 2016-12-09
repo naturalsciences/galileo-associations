@@ -7,9 +7,21 @@ security:
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
+        chain_provider:
+            chain:
+                providers:
+                    - ldap_users
+                    - db_users
         db_users:
             entity: { class: AppBundle\Entity\Person, property: uid }
-
+        ldap_users:
+            ldap:
+                service: app.security.ldap
+                base_dn: cn=Users,dc=rbins,dc=be
+                search_dn: "cn=%ldap_user%,ou=%ldap_ou%,dc=rbins,dc=be"
+                search_password: "%ldap_pwd%"
+                default_roles: [ROLE_USER]
+                filter: (&(ObjectClass=Person)({uid_key}={username}))
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
@@ -26,7 +38,9 @@ security:
             anonymous: ~
             guard:
                 authenticators:
+                    - app.security.login_form_ldap_authenticator
                     - app.security.login_form_authenticator
+                entry_point: app.security.login_form_ldap_authenticator
             logout:
                 path: app_logout
                 target: app_login
