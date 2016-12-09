@@ -19,6 +19,7 @@ abstract class BaseRepository extends \Doctrine\ORM\EntityRepository
     abstract public function listAll($active = 'active', Array $relatedFilters = array());
 
     /**
+     * @param string $table
      * @param string $active Tells if we need to filter on active, non active or none "active" parameter
      * @param array $relatedFilters List of complementary filters to apply
      * @return \Doctrine\DBAL\Driver\Statement
@@ -94,6 +95,42 @@ abstract class BaseRepository extends \Doctrine\ORM\EntityRepository
                         'pt.id = tpm.'.$targetField
                     );
                     $this->composeNumericWhereIn($qb, $params, $relatedFilters, 'tpm.person_ref', 'people');
+                }
+            }
+        }
+
+        if ( isset($relatedFilters['directorates'] ) ) {
+            if ( is_array($relatedFilters['directorates']) ) {
+                if (count($relatedFilters['directorates']) > 0) {
+
+                    $targetTable = ($table === 'projects')?'departments_projects':'departments_teams';
+                    $targetField = ($table === 'projects')?'project_ref':'team_ref';
+
+                    $qb->innerJoin(
+                        'pt',
+                        $targetTable,
+                        'tpd',
+                        'pt.id = tpd.'.$targetField
+                    );
+                    $this->composeNumericWhereIn($qb, $params, $relatedFilters, 'tpd.department_ref', 'directorates');
+                }
+            }
+        }
+
+        if ( isset($relatedFilters['services'] ) ) {
+            if ( is_array($relatedFilters['services']) ) {
+                if (count($relatedFilters['services']) > 0) {
+
+                    $targetTable = ($table === 'projects')?'departments_projects':'departments_teams';
+                    $targetField = ($table === 'projects')?'project_ref':'team_ref';
+
+                    $qb->innerJoin(
+                        'pt',
+                        $targetTable,
+                        'tps',
+                        'pt.id = tps.'.$targetField
+                    );
+                    $this->composeNumericWhereIn($qb, $params, $relatedFilters, 'tps.department_ref', 'services');
                 }
             }
         }

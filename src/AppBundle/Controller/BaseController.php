@@ -17,7 +17,7 @@ class BaseController extends Controller
         $response = new JsonResponse($data);
         $response->setEncodingOptions(JSON_UNESCAPED_UNICODE);
         if (count($data[$key]) === 0) {
-            throw $this->createNotFoundException('No people found !');
+            throw $this->createNotFoundException('No record found !');
         }
         $response->setStatusCode(200);
         return $response;
@@ -98,6 +98,12 @@ class BaseController extends Controller
         }
         if ( $request->query->get('people', '') !== '' ) {
             $relatedFilters['people'] = explode(',', $request->query->get('people'));
+        }
+        if ( $request->query->get('directorates', '') !== '' ) {
+            $relatedFilters['directorates'] = explode(',', $request->query->get('directorates'));
+        }
+        if ( $request->query->get('services', '') !== '' ) {
+            $relatedFilters['services'] = explode(',', $request->query->get('services'));
         }
         return $relatedFilters;
     }

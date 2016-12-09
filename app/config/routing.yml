@@ -26,6 +26,62 @@ app_rest_people_by_name:
         _format: "%rest_formats%"
     methods: [GET]
 
+app_rest_directorates:
+    path: /rest/directorates
+    defaults:
+        _controller: AppBundle:Rest/Departments:listDirectorates
+        _format: "%default_rest_format%"
+    requirements:
+        _format: "%rest_formats%"
+    methods: [GET]
+
+app_rest_directorates_by_id:
+    path: /rest/directorates/{id}
+    defaults:
+        _controller: AppBundle:Rest/Departments:listById
+        _format: "%default_rest_format%"
+    requirements:
+        _format: "%rest_formats%"
+        id: \d+
+    methods: [GET]
+
+app_rest_directorates_by_name:
+    path: /rest/directorates/{name}
+    defaults:
+        _controller: AppBundle:Rest/Departments:listByName
+        _format: "%default_rest_format%"
+    requirements:
+        _format: "%rest_formats%"
+    methods: [GET]
+
+app_rest_services:
+    path: /rest/services
+    defaults:
+        _controller: AppBundle:Rest/Departments:listServices
+        _format: "%default_rest_format%"
+    requirements:
+        _format: "%rest_formats%"
+    methods: [GET]
+
+app_rest_services_by_id:
+    path: /rest/services/{id}
+    defaults:
+        _controller: AppBundle:Rest/Departments:listById
+        _format: "%default_rest_format%"
+    requirements:
+        _format: "%rest_formats%"
+        id: \d+
+    methods: [GET]
+
+app_rest_services_by_name:
+    path: /rest/services/{name}
+    defaults:
+        _controller: AppBundle:Rest/Departments:listByName
+        _format: "%default_rest_format%"
+    requirements:
+        _format: "%rest_formats%"
+    methods: [GET]
+
 app_rest_projects:
     path: /rest/projects
     defaults:
