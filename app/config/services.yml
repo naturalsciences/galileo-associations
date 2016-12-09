@@ -16,9 +16,17 @@ services:
         class: AppBundle\Validator\CorrectDatesValidator
         tags:
             - { name: validator.constraint_validator , alias: correct_dates }
+    app.security.ldap.adapter:
+        class: Symfony\Component\Ldap\Adapter\ExtLdap\Adapter
+        arguments:
+            - host: "%ldap_server%"
+        autowire: true
     app.security.ldap:
         class: Symfony\Component\Ldap\Ldap
-        arguments: [ "%ldap_server%" ]
+        arguments: [ "@app.security.ldap.adapter" ]
+        autowire: true
+    app.security.login_form_ldap_authenticator:
+        class: AppBundle\Security\LoginFormLdapAuthenticator
         autowire: true
     app.security.login_form_authenticator:
         class: AppBundle\Security\LoginFormAuthenticator
