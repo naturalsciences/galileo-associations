@@ -1,8 +1,8 @@
 Rest GET API usage
 ================
 * [List of Employees](#employees)
-> * [List of Employees by name](#employees-by-name)
-> * [Employee by id](#employees-by-id)
+  * [List of Employees by name](#employees-by-name)
+  * [Employee by id](#employees-by-id)
 
 You can easily retrieve the information stored in Galileo Extension (Employees, Research Teams, Research Projects, Departments and the relationships with each other) by using the Rest GET API.
 The following examples demonstrate the different possible uses:
