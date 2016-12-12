@@ -7,14 +7,14 @@ Rest GET API usage
 * [List of Research Projects](#research-projects)
 * [List of Research Teams](#research-teams)
 * [List of Directorates](#directorates)
-* [List of Services](#section-/-services)
+* [List of Services](#sections--services)
 * [Filtering parameters](#query-parameters-for-filtering)
   * [Active parameter](#active-parameter)
   * [Unique AD identifier parameter](#samaccountnames-parameter)
   * [Identifier(s) parameter](#identifiers-parameter)
   * [Directorate(s) identifiers parameter](#directorates-identifiers-parameter)
 
-You can easily retrieve the information stored in Galileo Extension ([Employees](#employees), Research Teams, [Research Projects](#research-projects), Departments and the relationships with each other) by using the Rest GET API.
+You can easily retrieve the information stored in Galileo Extension ([Employees](#employees), [Research Teams](#research-teams), [Research Projects](#research-projects), [Directorates](#directorates), [Services](#sections--services) and the relationships with each other) by using the Rest GET API.
 The format retrieved by default (and currently the only one) is JSON.
 The following examples demonstrate the different possible uses:
 
@@ -112,7 +112,7 @@ To get the list of directorates who are not in activity anymore type the followi
 
 Getting research directorates follow the same logic as getting employees... So please refer to the [Employees](#employees) section and replace the parameter _**people**_ by _**directorates**_.
 
-## Section / Services
+## Sections / Services
 To get the list of services who are still in activity type the following url:
 [https://your-site.com/rest/services](https://your-site.com/rest/services)
 
@@ -125,7 +125,7 @@ To get the list of services who are not in activity anymore type the following u
 Getting research services follow the same logic as getting employees... So please refer to the [Employees](#employees) section and replace the parameter _**people**_ by _**services**_.
 
 ## Query parameters for filtering
-A series of parameters can help filtering the list of entries ([Employee(s)](#employees), Research Teams, [Research Projects](#research-projects),...) retrieved by one of the previous method/url.
+A series of parameters can help filtering the list of entries ([Employee(s)](#employees), [Research Teams](#research-teams), [Research Projects](#research-projects),...) retrieved by one of the previous method/url.
 #### Active parameter
 As presented at the beginning of the documentation, by default, the list of entries retrieved concern only the ones which are still in activity. 
 
