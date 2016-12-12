@@ -10,9 +10,9 @@ Rest GET API usage
 * [List of Services](#section-/-services)
 * [Filtering parameters](#query-parameters-for-filtering)
   * [Active parameter](#active-parameter)
-  * [Unique AD identifier parameter](#samaccountname(s)-parameter)
-  * [Identifier(s) parameter](#identifier(s)-parameter)
-  * [Directorate(s) identifiers parameter](#directorate(s)-identifiers-parameter)
+  * [Unique AD identifier parameter](#samaccountnames-parameter)
+  * [Identifier(s) parameter](#identifiers-parameter)
+  * [Directorate(s) identifiers parameter](#directorates-identifiers-parameter)
 
 You can easily retrieve the information stored in Galileo Extension ([Employees](#employees), Research Teams, [Research Projects](#research-projects), Departments and the relationships with each other) by using the Rest GET API.
 The format retrieved by default (and currently the only one) is JSON.
