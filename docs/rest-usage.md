@@ -272,14 +272,14 @@ The result would be something like this:
 }
 ```
 
-#### Research Projects identifiers parameters
+#### Research Projects identifiers parameter
 
 With this parameter, you can filter a list by the relationship the element you retrieve has with research projects.
 
 For instance to retrieve all teams working on a project named Antabif (id 70), you would wait for the result of this url:
 [https://your-site.com/rest/teams?projects=70](https://your-site.com/rest/teams?projects=70)
 
-#### Research Teams identifiers parameters
+#### Research Teams identifiers parameter
 
 With this parameter, you can filter a list by the relationship the element you retrieve has with research projects.
 
