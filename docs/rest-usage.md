@@ -16,6 +16,7 @@ Rest GET API usage
   * [Service(s) identifiers parameter](#services-identifiers-parameter)
   * [Research projects identifiers parameter](#research-projects-identifiers-parameter)
   * [Research teams identifiers parameter](#research-teams-identifiers-parameter)
+  * [Combination of parameters](#combination-of-parameters)
 
 You can easily retrieve the information stored in Galileo Extension ([Employees](#employees), [Research Teams](#research-teams), [Research Projects](#research-projects), [Directorates](#directorates), [Services](#sections--services) and the relationships with each other) by using the Rest GET API.
 The format retrieved by default (and currently the only one) is JSON.
@@ -283,5 +284,9 @@ For instance to retrieve all teams working on a project named Antabif (id 70), y
 With this parameter, you can filter a list by the relationship the element you retrieve has with research projects.
 
 For instance to retrieve all projects a given team (Diggers - id 74) is working on, you would wait for the result of this url:
-[https://your-site.com/rest/projcets?teams=74](https://your-site.com/rest/projcets?teams=74)
+[https://your-site.com/rest/projects?teams=74](https://your-site.com/rest/projects?teams=74)
 
+#### Combination of parameters
+
+With the following url, you would get all people (active and non active) who worked for Monitoring (id 61) **OR** Taxonomists (id 73) teams **AND** also on Ibisca (id 72) **OR** Monilog (id 69) projects:
+[https://your-site.com/rest/people?active=all&teams=61,73&projects=69,72](https://your-site.com/rest/people?active=all&teams=61,73&projects=69,72)
