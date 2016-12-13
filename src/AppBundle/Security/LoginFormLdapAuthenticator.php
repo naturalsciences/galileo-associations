@@ -16,12 +16,16 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\Ldap\Adapter\ExtLdap\Connection;
+use Symfony\Component\Ldap\LdapInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\LdapUserProvider;
+use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
@@ -54,20 +58,45 @@ class LoginFormLdapAuthenticator extends AbstractFormLoginAuthenticator
     private $em;
 
     /**
+     * @var LdapBindAuthentication
+     */
+    private $ldapBindAuth;
+    /**
+     * @var LdapInterface
+     */
+    private $ldap;
+    /**
+     * @var UserCheckerInterface
+     */
+    private $userChecker;
+    /**
+     * @var Connection
+     */
+    private $ldapConnection;
+
+    /**
      * LoginFormAuthenticator constructor.
      * @param FormFactoryInterface $formFactory
      * @param LdapUserProvider $ldapUser
      * @param EntityManager $em
      * @param RouterInterface $router
      * @param UserPasswordEncoder $passwordEncoder
+     * @param UserCheckerInterface $userChecker
+     * @param LdapInterface $ldap
+     * @param Connection $ldapConnection
+     * @param KernelInterface $kernelInterface
      */
-    public function __construct(FormFactoryInterface $formFactory, LdapUserProvider $ldapUser, EntityManager $em, RouterInterface $router, UserPasswordEncoder $passwordEncoder)
+    public function __construct(FormFactoryInterface $formFactory, LdapUserProvider $ldapUser, EntityManager $em, RouterInterface $router, UserPasswordEncoder $passwordEncoder, UserCheckerInterface $userChecker, LdapInterface $ldap, Connection $ldapConnection)
     {
         $this->formFactory = $formFactory;
         $this->router = $router;
         $this->passwordEncoder = $passwordEncoder;
         $this->ldapUser = $ldapUser;
         $this->em = $em;
+        $this->ldap = $ldap;
+        $this->userChecker = $userChecker;
+        $this->ldapConnection = $ldapConnection;
+        $this->ldapBindAuth = new LdapBindAuthentication($ldapUser,$userChecker,'ldap_users', $ldap);
     }
 
 
@@ -161,8 +190,14 @@ class LoginFormLdapAuthenticator extends AbstractFormLoginAuthenticator
     {
         $password = $credentials['_password'];
 
-        if($this->passwordEncoder->isPasswordValid($user, $password)) {
+        try {
+            $this->ldapBindAuth->verifyAuthentication($user->getUsername(), $password);
             return true;
+        }
+        catch (\Exception $e){
+            if($this->passwordEncoder->isPasswordValid($user, $password)) {
+                return true;
+            }
         }
 
         return false;
