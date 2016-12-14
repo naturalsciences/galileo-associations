@@ -59,7 +59,9 @@ class LdapBindAuthentication extends LdapBindAuthenticationProvider
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $username
+     * @param string $password
+     * @return bool
      */
     public function verifyAuthentication($username, $password)
     {
@@ -74,6 +76,7 @@ class LdapBindAuthentication extends LdapBindAuthenticationProvider
         } catch (ConnectionException $e) {
             throw new BadCredentialsException('The presented password is invalid.');
         }
+        return true;
     }
 
 }

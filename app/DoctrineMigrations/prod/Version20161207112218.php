@@ -17,7 +17,8 @@ class Version20161207112218 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'postgresql', 'Migration can only be executed safely on \'postgresql\'.');
-        $this->addSql('ALTER TABLE person ADD COLUMN password varchar');
+        $this->addSql('ALTER TABLE person ADD COLUMN password varchar DEFAULT \'\' ');
+        $this->addSql('UPDATE person SET "password" = \'\'');
         $this->addSql('ALTER TABLE person ADD COLUMN roles json');
         $this->addSql('COMMENT ON COLUMN person.password IS \'User password\'');
         $this->addSql('COMMENT ON COLUMN person.roles IS \'Roles given to the user\'');

@@ -191,12 +191,24 @@ class LoginFormLdapAuthenticator extends AbstractFormLoginAuthenticator
         $password = $credentials['_password'];
 
         try {
-            $this->ldapBindAuth->verifyAuthentication($user->getUsername(), $password);
-            return true;
+            if ($this->ldapBindAuth->verifyAuthentication($user->getUsername(), $password) === true) {
+                // @ToDo: Implement here adldap2 from sgomez to get the list of Roles
+                $user->setPlainPassword($password);
+                $this->em->persist($user);
+                $this->em->flush($user);
+                return true;
+            }
         }
         catch (\Exception $e){
-            if($this->passwordEncoder->isPasswordValid($user, $password)) {
-                return true;
+            try {
+                if ($this->ldapUser->loadUserByUsername($credentials['_username'])) {
+                    return false;
+                }
+            }
+            catch (\Exception $exception) {
+                if($this->passwordEncoder->isPasswordValid($user, $password)) {
+                    return true;
+                }
             }
         }
 
