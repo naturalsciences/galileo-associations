@@ -19,7 +19,7 @@ class Version20161207112237 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'postgresql', 'Migration can only be executed safely on \'postgresql\'.');
         $this->addSql('ALTER TABLE person ADD COLUMN password varchar DEFAULT \'\' ');
         $this->addSql('UPDATE person SET "password" = \'\'');
-        $this->addSql('ALTER TABLE person ADD COLUMN roles json');
+        $this->addSql('ALTER TABLE person ADD COLUMN roles text');
         $this->addSql('COMMENT ON COLUMN person.password IS \'User password\'');
         $this->addSql('COMMENT ON COLUMN person.roles IS \'Roles given to the user\'');
     }

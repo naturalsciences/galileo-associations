@@ -38,7 +38,7 @@ AppBundle\Entity\Person:
       options:
         comment: 'User password'
     roles:
-      type: json_array
+      type: simple_array
       nullable: true
       options:
         comment: 'List of roles given to the user'

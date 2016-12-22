@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new \Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new Exercise\HTMLPurifierBundle\ExerciseHTMLPurifierBundle(),
+            new Sgomez\Bundle\Adldap2Bundle\Adldap2Bundle(),
             new AppBundle\AppBundle(),
         ];
 

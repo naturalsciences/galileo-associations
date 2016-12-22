@@ -26,6 +26,8 @@ parameters:
 
     # A ldap server
     ldap_server: 127.0.0.1
+    ldap_domain: company
+    ldap_domain_ext: com
     ldap_user: admin
     ldap_pwd: admin
     ldap_ou: admin

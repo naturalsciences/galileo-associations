@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\DBAL\Types\JsonArrayType;
+use Doctrine\DBAL\Types\SimpleArrayType;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -51,7 +51,7 @@ class Person implements UserInterface
     private $plainPassword;
 
     /**
-     * @var JsonArrayType
+     * @var SimpleArrayType
      */
     private $roles = [];
 
@@ -405,7 +405,7 @@ class Person implements UserInterface
      * and populated in any number of different ways when the user object
      * is created.
      *
-     * @return JsonArrayType The user roles
+     * @return SimpleArrayType The user roles
      */
     public function getRoles()
     {
@@ -479,11 +479,11 @@ class Person implements UserInterface
     /**
      * Set roles
      *
-     * @param JsonArrayType $roles
+     * @param mixed $roles
      *
      * @return Person
      */
-    public function setRoles(JsonArrayType $roles)
+    public function setRoles(Array $roles)
     {
         $this->roles = $roles;
 

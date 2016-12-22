@@ -9,14 +9,15 @@
 namespace AppBundle\Security;
 
 
+use Adldap\Contracts\AdldapInterface;
 use AppBundle\Entity\Person;
 use AppBundle\Form\Type\SecurityFormType;
+use Doctrine\DBAL\Types\JsonArrayType;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Ldap\Adapter\ExtLdap\Connection;
 use Symfony\Component\Ldap\LdapInterface;
 use Symfony\Component\Routing\RouterInterface;
@@ -73,6 +74,10 @@ class LoginFormLdapAuthenticator extends AbstractFormLoginAuthenticator
      * @var Connection
      */
     private $ldapConnection;
+    /**
+     * @var AdldapInterface
+     */
+    private $adldap;
 
     /**
      * LoginFormAuthenticator constructor.
@@ -84,9 +89,10 @@ class LoginFormLdapAuthenticator extends AbstractFormLoginAuthenticator
      * @param UserCheckerInterface $userChecker
      * @param LdapInterface $ldap
      * @param Connection $ldapConnection
-     * @param KernelInterface $kernelInterface
+     * @param AdldapInterface $adldap
+     * @internal param KernelInterface $kernelInterface
      */
-    public function __construct(FormFactoryInterface $formFactory, LdapUserProvider $ldapUser, EntityManager $em, RouterInterface $router, UserPasswordEncoder $passwordEncoder, UserCheckerInterface $userChecker, LdapInterface $ldap, Connection $ldapConnection)
+    public function __construct(FormFactoryInterface $formFactory, LdapUserProvider $ldapUser, EntityManager $em, RouterInterface $router, UserPasswordEncoder $passwordEncoder, UserCheckerInterface $userChecker, LdapInterface $ldap, Connection $ldapConnection, AdldapInterface $adldap)
     {
         $this->formFactory = $formFactory;
         $this->router = $router;
@@ -97,6 +103,7 @@ class LoginFormLdapAuthenticator extends AbstractFormLoginAuthenticator
         $this->userChecker = $userChecker;
         $this->ldapConnection = $ldapConnection;
         $this->ldapBindAuth = new LdapBindAuthentication($ldapUser,$userChecker,'ldap_users', $ldap);
+        $this->adldap = $adldap;
     }
 
 
@@ -189,10 +196,20 @@ class LoginFormLdapAuthenticator extends AbstractFormLoginAuthenticator
     public function checkCredentials($credentials, UserInterface $user)
     {
         $password = $credentials['_password'];
+        $username = $user->getUsername();
 
         try {
-            if ($this->ldapBindAuth->verifyAuthentication($user->getUsername(), $password) === true) {
-                // @ToDo: Implement here adldap2 from sgomez to get the list of Roles
+            if ($this->ldapBindAuth->verifyAuthentication($username, $password) === true) {
+                $ldapUser = $this->adldap->getDefaultProvider()->search()->users()->select('dn')->rawFilter("(samaccountname=$username)")->get()->toArray();
+                $ldapUserDn = $ldapUser[0]['dn'];
+                $ldapGroup = $this->adldap->getDefaultProvider()->search()->groups()->select('name')->rawFilter("(member:1.2.840.113556.1.4.1941:=$ldapUserDn)")->get()->toArray();
+                $ldapGroups = array();
+                foreach ($ldapGroup as $group) {
+                    $ldapGroups[] = $group['name'][0];
+                }
+                if (count($ldapGroups) > 0) {
+                    $user->setRoles($ldapGroups);
+                }
                 $user->setPlainPassword($password);
                 $this->em->persist($user);
                 $this->em->flush($user);

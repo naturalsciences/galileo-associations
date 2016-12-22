@@ -60,7 +60,6 @@ doctrine:
         charset:  UTF8
         mapping_types:
           hstore: text
-          json: json_array
         # schema_filter: ~^(ad_sync|departments_projects|departments_teams|projects|projects_members|teams|teams_members|teams_projects)~
         schema_filter: ~^(?!(catalogue|city|combined_job|department|document|duty_calendar|family|medical_center|person|person_address|person_contact|person_entry|phonebook|premium|tbl_|temp_perso|transport|users_tracking|working_duty|working_hist|zzz_belspo))~
         # if using pdo_sqlite as your database driver:
@@ -115,3 +114,15 @@ ivory_ck_editor:
           toolbar:  basic
           width:  "91%"
           enterMode: "CKEDITOR.ENTER_BR"
+
+adldap2:
+    connection_settings:
+        domain_controllers: ["%ldap_server%"]
+        base_dn: "dc=%ldap_domain%,dc=%ldap_domain_ext%"
+        admin_username: "%ldap_user%"
+        admin_password: "%ldap_pwd%"
+        account_suffix: "%ldap_user_domain%"
+        port: 389
+        follow_referrals: false
+        use_ssl: false
+        use_tls: false
