@@ -57,6 +57,7 @@ security:
         hr-it: ROLE_ADMIN
         devel-ict: ROLE_ADMIN
         ROLE_HR_SUPERADMIN: ROLE_ADMIN
+        HR_superadmin: ROLE_ADMIN
 
     access_control:
         - { path: app_login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
