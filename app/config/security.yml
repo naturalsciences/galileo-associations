@@ -34,7 +34,6 @@ security:
             guard:
                 authenticators:
                     - app.security.login_form_ldap_authenticator
-#                    - app.security.login_form_authenticator
                 entry_point: app.security.login_form_ldap_authenticator
             logout:
                 path: app_logout
@@ -50,6 +49,14 @@ security:
         ROLE_TP_LEADER: ROLE_USER
         ROLE_HR: ROLE_TP_LEADER
         ROLE_ADMIN: ROLE_HR
+        Administrators: ROLE_ADMIN
+        dbadmins: ROLE_ADMIN
+        hr-it: ROLE_ADMIN
+        devel-ict: ROLE_ADMIN
+        ROLE_HR_SUPERADMIN: ROLE_ADMIN
+        ROLE_HR_ADMIN: ROLE_HR
+        ROLE_HR_EDIT: ROLE_USER
+        ROLE_HR_VIEWER: ROLE_USER
 
     access_control:
         - { path: app_login, roles: IS_AUTHENTICATED_ANONYMOUSLY }

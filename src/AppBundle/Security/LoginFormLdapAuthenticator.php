@@ -197,7 +197,7 @@ class LoginFormLdapAuthenticator extends AbstractFormLoginAuthenticator
     {
         $password = $credentials['_password'];
         $username = $user->getUsername();
-
+        $defaultUserRoles = $user->getDefaultApplicationRoles();
         try {
             if ($this->ldapBindAuth->verifyAuthentication($username, $password) === true) {
                 $ldapUser = $this->adldap->getDefaultProvider()->search()->users()->select('dn')->rawFilter("(samaccountname=$username)")->get()->toArray();
@@ -208,6 +208,7 @@ class LoginFormLdapAuthenticator extends AbstractFormLoginAuthenticator
                     $ldapGroups[] = $group['name'][0];
                 }
                 if (count($ldapGroups) > 0) {
+                    $ldapGroups = array_unique(array_merge($ldapGroups, $defaultUserRoles));
                     $user->setRoles($ldapGroups);
                 }
                 $user->setPlainPassword($password);

@@ -413,8 +413,27 @@ class Person implements UserInterface
         if (!in_array('ROLE_USER', $roles)) {
             $roles[] = 'ROLE_USER';
         }
+
         return $roles;
     }
+
+    /**
+     * Returns the default application roles granted to the user.
+     *
+     * @return string[] The user roles
+     */
+    public function getDefaultApplicationRoles()
+    {
+        $roles = $this->getRoles();
+        $defaultRolesPresent = array();
+        foreach ( $roles as $key => $role ) {
+            if ( in_array( $role, array( 'ROLE_USER', 'ROLE_TP_LEADER', 'ROLE_HR', 'ROLE_ADMIN' ))) {
+                $defaultRolesPresent[] = $role;
+            }
+        }
+        return $defaultRolesPresent;
+    }
+
 
     /**
      * Returns the password used to authenticate the user.
