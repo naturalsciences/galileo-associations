@@ -12,8 +12,8 @@ security:
         ldap_users:
             ldap:
                 service: app.security.ldap
-                base_dn: "cn=Users,dc=%ldap_domain%,dc=%ldap_domain_ext%"
-                search_dn: "cn=%ldap_user%,ou=%ldap_ou%,dc=%ldap_domain%,dc=%ldap_domain_ext%"
+                base_dn: "cn=Users,%ldap_base_dn%"
+                search_dn: "cn=%ldap_user%,ou=%ldap_ou%,%ldap_base_dn%"
                 search_password: "%ldap_pwd%"
                 default_roles: [ROLE_USER]
                 filter: (&(ObjectClass=Person)({uid_key}={username}))

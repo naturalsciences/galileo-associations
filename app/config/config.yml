@@ -118,7 +118,7 @@ ivory_ck_editor:
 adldap2:
     connection_settings:
         domain_controllers: ["%ldap_server%"]
-        base_dn: "dc=%ldap_domain%,dc=%ldap_domain_ext%"
+        base_dn: "%ldap_base_dn%"
         admin_username: "%ldap_user%"
         admin_password: "%ldap_pwd%"
         account_suffix: "%ldap_user_domain%"

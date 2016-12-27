@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "516b8a042d5f4ab7dcc14391ac1bf677",
-    "content-hash": "61b956c3a65ef6caada68f6dc79aba86",
+    "hash": "0ddc25440f0c59bebdc1de743cf1e40b",
+    "content-hash": "37fe999a7632070b2ffadbcc93fee469",
     "packages": [
         {
             "name": "adldap2/adldap2",
@@ -1987,51 +1987,6 @@
             ],
             "description": "A security checker for your composer.lock",
             "time": "2016-09-23 18:09:57"
-        },
-        {
-            "name": "sgomez/adldap2-bundle",
-            "version": "v2.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sgomez/adldap2-bundle.git",
-                "reference": "f584b76c1633ecbb0ba153a8428db44f7d13cf9c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sgomez/adldap2-bundle/zipball/f584b76c1633ecbb0ba153a8428db44f7d13cf9c",
-                "reference": "f584b76c1633ecbb0ba153a8428db44f7d13cf9c",
-                "shasum": ""
-            },
-            "require": {
-                "adldap2/adldap2": "~6.0",
-                "php": ">=5.4",
-                "symfony/config": "~2.3|~3.0",
-                "symfony/dependency-injection": "~2.3|~3.0",
-                "symfony/http-kernel": "~2.3|~3.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Sgomez\\Bundle\\Adldap2Bundle\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Sergio Gómez",
-                    "email": "sergio@uco.es"
-                }
-            ],
-            "description": "Symfony Bundle for adldap2 library.",
-            "time": "2016-10-04 16:30:39"
         },
         {
             "name": "swiftmailer/swiftmailer",
