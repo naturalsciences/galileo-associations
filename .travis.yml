@@ -19,7 +19,7 @@ before_script:
   - psql -U postgres -c "create extension hstore"
   - psql -U postgres -c "create extension unaccent"
   - psql -U postgres -c "create role galileotester LOGIN NOSUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION PASSWORD 'Gal!Pol!'"
-  - psql -U postgres -c "create database "galileotravis" with owner = "galileotester"'
+  - psql -U postgres -c 'create database "galileotravis" with owner = "galileotester"'
   - psql -U postgres -d galileotravis -c 'create schema "galileotester" authorization "galileotester"'
   - cp app/config/parameters_travis.yml.dist app/config/parameters.yml
   - composer install
