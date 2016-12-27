@@ -1,0 +1,29 @@
+language: php
+php:
+  - 7.0
+addons:
+  postgresql: "9.5"
+env:
+  - SYMFONY_VERSION="3.1.*"
+services:
+  - postgresql
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install -y postgresql-9.5-pgtap libtap-parser-sourcehandler-pgtap-perl
+  - composer self-update
+before_script:
+  - phpenv config-rm xdebug.ini
+  - echo "datestyle = 'iso, dmy'"  | sudo tee -a /etc/postgresql/9.5/main/postgresql.conf
+  - sudo /etc/init.d/postgresql stop
+  - sudo /etc/init.d/postgresql start 9.5
+  - psql -U postgres -c "create extension hstore"
+  - psql -U postgres -c "create extension unaccent"
+  - psql -U postgres -c "create role galileotester LOGIN NOSUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION PASSWORD 'Gal!Pol!'"
+  - psql -U postgres -c "create database "galileotravis" with owner = "galileotester"'
+  - psql -U postgres -d galileotravis -c 'create schema "galileotester" authorization "galileotester"'
+  - cp app/config/parameters_travis.yml.dist app/config/parameters.yml
+  - composer install
+  - bin/console doctrine:migrations:migrate --env=test -q --no-debug
+  - bin/console doctrine:fixtures:load --env=test -q -n
+script:
+  - vendor/phpunit/phpunit/phpunit

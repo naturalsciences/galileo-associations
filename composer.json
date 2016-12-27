@@ -42,7 +42,8 @@
         "symfony/phpunit-bridge": "^3.2",
         "doctrine/doctrine-fixtures-bundle": "^2.3",
         "nelmio/alice": "^2.1",
-        "guzzlehttp/guzzle": "^6.2"
+        "guzzlehttp/guzzle": "^6.2",
+        "phpunit/phpunit": "5.7.*"
     },
     "scripts": {
         "post-install-cmd": [

@@ -1,11 +1,20 @@
 AppBundle\Entity\Person:
   person_{1..100}:
     first_name: "<firstName()>"
-    last_name: "<lastName()>"
+    last_name (unique): "<lastName()>"
     matricule: "<ar_SA:nationalIdNumber()>"
-    uid (unique): "<uid($first_name, $last_name)>"
+    uid: "<uid($first_name, $last_name)>"
     email: "<email()>"
     plainPassword: "pioupiou"
+    roles: "<randomElement([['ROLE_HR'],['ROLE_TP_LEADER'],['ROLE_USER']])>"
+  person_101:
+    first_name: "Pollo"
+    last_name: "Fox"
+    matricule: "<ar_SA:nationalIdNumber()>"
+    uid: "<uid($first_name, $last_name)>"
+    email: "<email()>"
+    plainPassword: "rootIs3vil"
+    roles: "<randomElement([['ROLE_ADMIN']])>"
 
 AppBundle\Entity\Teams:
   teams_{1..20}:
