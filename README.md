@@ -1,7 +1,8 @@
 Galileo Extension
 ====================
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/5185af88-4f52-4022-8aad-e01f1e621020/small.png)](https://insight.sensiolabs.com/projects/5185af88-4f52-4022-8aad-e01f1e621020)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/5185af88-4f52-4022-8aad-e01f1e621020/mini.png)](https://insight.sensiolabs.com/projects/5185af88-4f52-4022-8aad-e01f1e621020)
+[![Build Status](https://travis-ci.org/naturalsciences/galileo-associations.svg?branch=master)](https://travis-ci.org/naturalsciences/galileo-associations)
 
 The product is an extension to HR management tool [@RBINS](https://www.naturalsciences.be).
 It allows to provide the research projects and the research teams and to set relationships with the employees.
