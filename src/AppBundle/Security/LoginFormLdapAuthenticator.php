@@ -63,18 +63,6 @@ class LoginFormLdapAuthenticator extends AbstractFormLoginAuthenticator
      */
     private $ldapBindAuth;
     /**
-     * @var LdapInterface
-     */
-    private $ldap;
-    /**
-     * @var UserCheckerInterface
-     */
-    private $userChecker;
-    /**
-     * @var Connection
-     */
-    private $ldapConnection;
-    /**
      * @var AdldapInterface
      */
     private $adldap;
@@ -99,9 +87,6 @@ class LoginFormLdapAuthenticator extends AbstractFormLoginAuthenticator
         $this->passwordEncoder = $passwordEncoder;
         $this->ldapUser = $ldapUser;
         $this->em = $em;
-        $this->ldap = $ldap;
-        $this->userChecker = $userChecker;
-        $this->ldapConnection = $ldapConnection;
         $this->ldapBindAuth = new LdapBindAuthentication($ldapUser,$userChecker,'ldap_users', $ldap);
         $this->adldap = $adldap;
     }
