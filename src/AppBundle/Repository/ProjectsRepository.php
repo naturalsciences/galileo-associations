@@ -422,11 +422,12 @@ class ProjectsRepository extends BaseRepository
     /**
      * @param string $active Tells if the filter on the active projects
      * @param array $relatedFilters List of complementary filter options
+     * @param string $withoutDescription Tells if description fields should be removed from output
      * @return array List of 2000 first found projects in database
      */
-    public function listAll($active = 'active', Array $relatedFilters = array()) {
+    public function listAll($active = 'active', Array $relatedFilters = array(), $withoutDescription = 'false') {
 
-        $SQL = $this->extractProjectsTeams('projects', $active, $relatedFilters);
+        $SQL = $this->extractProjectsTeams('projects', $active, $relatedFilters, $withoutDescription);
         $results = $SQL->fetchAll();
         return $this->purifyResults($results);
 

@@ -18,10 +18,10 @@ class TeamsController extends BaseController
         $relatedFilters['names'] = $this->extractNames($request);
         $relatedFilters['uids'] = $this->extractUids($request);
         $active = $this->extractActive($request);
-
+        $withoutDescription = $this->extractWithoutDescription($request);
         $data['teams'] = $this->getDoctrine()
             ->getRepository('AppBundle:Teams')
-            ->listAll($active, $relatedFilters);
+            ->listAll($active, $relatedFilters, $withoutDescription);
         return $this->handleJsonResponse($data, 'teams');
     }
 
@@ -32,11 +32,12 @@ class TeamsController extends BaseController
     public function listByIdAction(Request $request) {
         $id = explode(',', $request->get('id'));
         $active = $this->extractActive($request);
+        $withoutDescription = $this->extractWithoutDescription($request);
         $relatedFilters = $this->extractRelatedFilters($request);
 
         $data['teams'] = $this->getDoctrine()
             ->getRepository('AppBundle:Teams')
-            ->listById($active, $id, $relatedFilters);
+            ->listById($active, $id, $relatedFilters, $withoutDescription);
         return $this->handleJsonResponse($data, 'teams');
     }
 
@@ -47,11 +48,12 @@ class TeamsController extends BaseController
     public function listByNameAction(Request $request) {
         $name = explode(',', $request->get('name'));
         $active = $this->extractActive($request);
+        $withoutDescription = $this->extractWithoutDescription($request);
         $relatedFilters = $this->extractRelatedFilters($request);
 
         $data['teams'] = $this->getDoctrine()
             ->getRepository('AppBundle:Teams')
-            ->listByName($active, $name, $relatedFilters);
+            ->listByName($active, $name, $relatedFilters, $withoutDescription);
         return $this->handleJsonResponse($data, 'teams');
     }
 }

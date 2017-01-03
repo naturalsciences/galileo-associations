@@ -22,23 +22,24 @@ abstract class BaseRepository extends \Doctrine\ORM\EntityRepository
      * @param string $table
      * @param string $active Tells if we need to filter on active, non active or none "active" parameter
      * @param array $relatedFilters List of complementary filters to apply
+     * @param string $withoutDescription Tells if description fields should be removed from query
      * @return \Doctrine\DBAL\Driver\Statement
      */
-    protected function extractProjectsTeams($table = 'projects', $active = 'active', Array $relatedFilters = array())
+    protected function extractProjectsTeams($table = 'projects', $active = 'active', Array $relatedFilters = array(), $withoutDescription = 'false')
     {
         $conn = $this->getEntityManager()->getConnection();
         $qb = $conn->createQueryBuilder();
         $params = array();
         $qb->select('DISTINCT pt.id, 
-                        pt.international_name, 
-                        pt.international_description,
-                        pt.name_en,
-                        pt.description_en,
-                        pt.name_nl,
-                        pt.description_nl,
-                        pt.name_fr,
-                        pt.description_fr,
-                        pt.international_name_language,
+                        pt.international_name,'.
+                        (($withoutDescription === 'false')?'pt.international_description,':'').
+                        'pt.name_en,'.
+                        (($withoutDescription === 'false')?'pt.description_en,':'').
+                        'pt.name_nl,'.
+                        (($withoutDescription === 'false')?'pt.description_nl,':'').
+                        'pt.name_fr,'.
+                        (($withoutDescription === 'false')?'pt.description_fr,':'').
+                        'pt.international_name_language,
                         case when pt.end_date is null then \'active\' when pt.end_date >= now() then \'active\' else \'inactive\' end as "active"
                     ')
             ->from($table, 'pt')
@@ -209,12 +210,13 @@ abstract class BaseRepository extends \Doctrine\ORM\EntityRepository
      * @param string $active Tells if the filter on the active teams
      * @param int $id Id of the project to retrieve
      * @param array $relatedFilters List of complementary filter options
+     * @param string $withoutDescription Tells if description fields should be removed from output
      * @return array $response an array of teams entries found
      */
-    public function listById($active = 'active', $id, Array $relatedFilters = array()) {
+    public function listById($active = 'active', $id, Array $relatedFilters = array(), $withoutDescription = 'false') {
 
         $relatedFilters['ids'] = $id;
-        return $this->listAll($active, $relatedFilters);
+        return $this->listAll($active, $relatedFilters, $withoutDescription);
 
     }
 
@@ -222,12 +224,13 @@ abstract class BaseRepository extends \Doctrine\ORM\EntityRepository
      * @param string $active Tells if the filter on the active teams
      * @param string $name Name part to search on
      * @param array $relatedFilters List of complementary filter options
+     * @param string $withoutDescription Tells if description fields should be removed from output
      * @return array $response an array of project entries found
      */
-    public function listByName($active = 'active', $name, Array $relatedFilters = array()) {
+    public function listByName($active = 'active', $name, Array $relatedFilters = array(), $withoutDescription = 'false') {
 
         $relatedFilters['names'] = $name;
-        return $this->listAll($active, $relatedFilters);
+        return $this->listAll($active, $relatedFilters, $withoutDescription);
 
     }
 }

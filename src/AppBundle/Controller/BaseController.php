@@ -107,4 +107,22 @@ class BaseController extends Controller
         }
         return $relatedFilters;
     }
+
+    /**
+     * @param Request $request
+     * @return string
+     */
+    protected function extractWithoutDescription (Request $request) {
+        $withoutDescr = 'false';
+        $withoutDescrKeyword = $request->query->get('withoutdescription', '');
+        if( in_array(
+            strtolower($withoutDescrKeyword),
+            array('true', '1', 'yes')
+        )
+        ) {
+            $withoutDescr = 'true';
+        }
+        return $withoutDescr;
+    }
+
 }
