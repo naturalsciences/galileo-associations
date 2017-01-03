@@ -12,13 +12,15 @@ use Adldap\Adldap;
 use AppBundle\Entity\ADSync;
 use Doctrine\Bundle\DoctrineBundle\Command\DoctrineCommand;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Console\Command\LockableTrait;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ADImportCommand extends DoctrineCommand
 {
-
+    use LockableTrait;
     /**
      * @var EntityManager The entity manager to interact with Database and ADSync table
      */
@@ -28,7 +30,7 @@ class ADImportCommand extends DoctrineCommand
      */
     private $ldap;
     /**
-     * @var string The list of uid to renew
+     * @var string[] The list of uid to renew
      */
     private $sammacountnames;
     /**
@@ -39,6 +41,23 @@ class ADImportCommand extends DoctrineCommand
      * @var mixed The Formatter Helper
      */
     private $formatter;
+
+    /**
+     * @return string The samaccountname filter that needs to be passed when issueing a ldap search for users
+     */
+    private function constructSamaccountnameFilter() {
+        // By default filter on samaccountname is every record that has got a samaccountname field filled
+        $samaccountnameFilter = '(samaccountname=*)';
+        // If uid asked, then construct the filter with OR
+        if ( $this->sammacountnames[0] !== '' ) {
+            $samaccountnameFilter = '(|';
+            foreach ( $this->sammacountnames as $sammacountname ) {
+                $samaccountnameFilter.='(samaccountname='.ldap_escape($sammacountname, null, LDAP_ESCAPE_FILTER).')';
+            }
+            $samaccountnameFilter.=')';
+        }
+        return $samaccountnameFilter;
+    }
 
     /**
      * @inheritDoc
@@ -67,17 +86,18 @@ EOT
      */
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
+        // Initialize all common vars
         $this->formatter = $this->getHelper('formatter');
         try {
-            $this->em = $this->getContainer()->get('doctrine')->getManager();
-/*            $this->em = $this->getEntityManager($input->getOption('em'));*/
+            $this->em = $this->getEntityManager($input->getOption('em'));
             $this->ldap = $this->getContainer()->get('adldap2');
             $this->sammacountnames = explode(',',$input->getOption('uid'));
-            $this->batchSize = 20;
+            $this->batchSize = 200;
         }
         catch (\Exception $e) {
             $formattedBlock = $this->formatter->formatBlock("An error occured: $e", 'error');
             $output->writeln($formattedBlock);
+            return 0;
         }
     }
 
@@ -86,36 +106,67 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        // Test if a lock is already set in place by the same execution elsewhere
+        if (!$this->lock()) {
+            $output->writeln('The command is already running in another process.');
+            return 0;
+        }
         try {
+            // Initialize some vars
+            $ldapBaseDN = $this->getContainer()->getParameter('ldap_base_dn');
+            $samaccountnameFilter = $this->constructSamaccountnameFilter();
+            // Query the ldap with filter to get the list of users
             $ldapUser = $this->ldap->getDefaultProvider()
                 ->search()
                 ->users()
                 ->select('samaccountname', 'sn', 'givenname', 'mail', 'othermailbox', 'userprincipalname')
-                ->rawFilter("(&(objectClass=Person)(!(zarafaresourcetype=room))(mail=*)(sAMAccountName=*)(!(memberOf=CN=NotForWebUsers,CN=Users,DC=rbins,DC=be)))")
+                ->rawFilter("(&(objectClass=Person)(!(zarafaresourcetype=room))(mail=*)$samaccountnameFilter(!(memberOf=CN=NotForWebUsers,CN=Users,$ldapBaseDN)))")
                 ->get()->toArray();
-            $counting = 1;
-            foreach ($ldapUser as $user) {
-                $adSync = new ADSync();
-                $adSync->setSamaccountname($user['samaccountname']);
-                $adSync->setSn($user['sn'][0]);
-                $adSync->setGivenname($user['givenname']);
-                $adSync->setMail($user['mail']);
-                $adSync->setOthermail($user['othermailbox']);
-                $adSync->setUserprincipalname($user['userprincipalname']);
-                $this->em->persist($adSync);
-                if (($counting % $this->batchSize) === 0) {
-                    $this->em->flush();
-                    $this->em->clear();
+            // Initialize counting vars
+            $counting = 0;
+            $ldapUserCount = count($ldapUser);
+            if ( $ldapUserCount > 0) {
+                $this->em->beginTransaction();
+                // First delete necessary records (all or the ones defined with the option --uid)
+                $qb = $this->em->createQueryBuilder()->delete('AppBundle:ADSync', 'ad');
+                if ( $this->sammacountnames[0] !== '' && $samaccountnameFilter !== '(samaccountname=*)') {
+                    $qb->andWhere($qb->expr()->in('ad.samaccountname', $this->sammacountnames));
                 }
-                $counting += 1;
+                $qb->getQuery()->execute();
+                // Initialize progress bar
+                $progress = new ProgressBar($output, $ldapUserCount);
+                $progress->start();
+                // Insert by loop all ldap users retrieved with necessary informations for adsync table
+                foreach ($ldapUser as $user) {
+                    $adSync = new ADSync();
+                    $adSync->setSamaccountname((string)$user['samaccountname'][0]);
+                    $adSync->setGivenname((string)$user['givenname'][0]);
+                    $adSync->setMail((string)$user['mail'][0]);
+                    $adSync->setSn((string)$user['sn'][0]);
+                    $adSync->setOthermail((string)$user['othermailbox'][0]);
+                    $adSync->setUserprincipalname((string)$user['userprincipalname'][0]);
+                    $this->em->persist($adSync);
+                    // Do batch insertion depending the value of $this->batchSize
+                    if ($counting > 0 && ($counting % $this->batchSize) === 0) {
+                        $this->em->flush();
+                        $this->em->clear();
+                    }
+                    $progress->advance();
+                    $counting += 1;
+                }
+                // Insert the remaining
+                $this->em->flush();
+                $this->em->clear();
+                $this->em->commit();
+                $progress->finish();
             }
-            $this->em->flush();
-            $this->em->clear();
+            $formattedBlock = $this->formatter->formatBlock("Successfully renewed ".$counting.' records', 'info');
         }
         catch (\Exception $e) {
             $formattedBlock = $this->formatter->formatBlock("An error occured: $e", 'error');
-            $output->writeln($formattedBlock);
         }
+        $this->release();
+        $output->writeln($formattedBlock);
     }
 
 }
