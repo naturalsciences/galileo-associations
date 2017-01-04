@@ -140,8 +140,8 @@
                             <target xml:lang="en">Use this quick action to add team</target>
                         </trans-unit>
                         <trans-unit id="app-meta-description-home-adsync" resname="app.meta.description.home.adsync">
-                            <source xml:lang="en">Use this quick action to synchronize users with Active Directory (AD)</source>
-                            <target xml:lang="en">Use this quick action to synchronize users with Active Directory (AD)</target>
+                            <source xml:lang="en">Use this quick action to go to the the screen where you can synchronize users with Active Directory (AD)</source>
+                            <target xml:lang="en">Use this quick action to go to the the screen where you can synchronize users with Active Directory (AD)</target>
                         </trans-unit>
                         <trans-unit id="app-meta-description-home-profile" resname="app.meta.description.home.profile">
                             <source xml:lang="en">Use this quick action to access your profile</source>
@@ -285,6 +285,14 @@
                         </trans-unit>
                     </group>
                 </group>
+                <group id="app-action-adsync">
+                    <group id="app-action-adsync-refresh">
+                        <trans-unit id="app-action-adsync-refresh-uid" resname="app.action.adsync.refresh.uid">
+                            <source xml:lang="en">Refresh Users ID</source>
+                            <target xml:lang="en">Refresh Users ID</target>
+                        </trans-unit>
+                    </group>
+                </group>
                 <group id="app-action-fastsearch">
                     <group id="app-action-fastsearch-add">
                         <trans-unit id="app-action-fastsearch-add-team" resname="app.action.fastsearch.add.team">
@@ -336,6 +344,14 @@
                 <trans-unit id="app-flash-remove-teamsAndProjects" resname="app.flash.remove.teamsAndProjects">
                     <source xml:lang="en">The %detail% has been well removed</source>
                     <target xml:lang="en">The %detail% has been well removed</target>
+                </trans-unit>
+                <trans-unit id="app-flash-adsync-success" resname="app.flash.adsync.success">
+                    <source xml:lang="en">The list of users coming from active directory has been well refreshed</source>
+                    <target xml:lang="en">The list of users coming from active directory has been well refreshed</target>
+                </trans-unit>
+                <trans-unit id="app-flash-adsync-failure" resname="app.flash.adsync.failure">
+                    <source xml:lang="en">The operation of refreshing the list of users coming from active directory FAILED ! Please contact your Application Administrator.</source>
+                    <target xml:lang="en">The operation of refreshing the list of users coming from active directory FAILED ! Please contact your Application Administrator.</target>
                 </trans-unit>
             </group>
             <group id="app_form">

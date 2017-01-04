@@ -1,0 +1,16 @@
+{% extends "default/index.html.twig" %}
+
+{% block content_main %}
+    <div class="row">
+        <div class="col-xs-12 rbins-messages"></div>
+        <div class="col-xs-12">
+            <h2 class="content-title rbins-adsync-title">{% trans from "messages" into app.request.getLocale() %}app.title.home.adsync{% endtrans %}</h2>
+            <div class="rbins-adsync-action">
+                <button type="button" class="btn btn-warning rbins-btn-adsync" data-message-target-class="rbins-messages" data-call-url="{{ path("adsync_sync") }}"><span class="rbins-adsync-text">{% trans from "messages" into app.request.getLocale() %}app.action.adsync.refresh.uid{% endtrans %}</span> <i class="fa wobble-fix fa-refresh"></i></button>
+            </div>
+        </div>
+    </div>
+{% endblock content_main %}
+{% block javascript_content %}
+    {% include '_partials/javascripts/adsync.js.twig' %}
+{% endblock javascript_content %}

@@ -68,6 +68,7 @@ class ADImportCommand extends DoctrineCommand
             ->setName('rbins:ad:import')
             ->setDescription('Import (or reimport) all users from Active Directory into the ADSync table')
             ->addOption('uid',null,InputOption::VALUE_REQUIRED, 'An optional list of user identifiers to re-import')
+            ->addOption('simple-message', null, InputOption::VALUE_NONE, 'Tells if wished to have shorten output message')
             ->addOption('em',null,InputOption::VALUE_REQUIRED,'The entity manager to use for this command','default')
             ->setHelp(<<<EOT
 The <info>%command.name%</info> command import or re-import all users from the Active Directory configured:
@@ -77,6 +78,10 @@ The <info>%command.name%</info> command import or re-import all users from the A
 You can also optionally specify a list of users id you wish to overwrite - each one separated by a comma:
 
     <info>php %command.full_name% --uid=uid1,uid2,...</info>
+
+You can also optionally specify to get output as simple message: OK if everything went well KO if not
+
+    <info>php %command.full_name% --simple-message</info>
 EOT
             );
     }
@@ -108,7 +113,12 @@ EOT
     {
         // Test if a lock is already set in place by the same execution elsewhere
         if (!$this->lock()) {
-            $output->writeln('The command is already running in another process.');
+            if ($input->getOption('simple-message')) {
+                $output->writeln('KO');
+            }
+            else {
+                $output->writeln('The command is already running in another process.');
+            }
             return 0;
         }
         try {
@@ -133,9 +143,11 @@ EOT
                     $qb->andWhere($qb->expr()->in('ad.samaccountname', $this->sammacountnames));
                 }
                 $qb->getQuery()->execute();
-                // Initialize progress bar
-                $progress = new ProgressBar($output, $ldapUserCount);
-                $progress->start();
+                if (!$input->getOption('simple-message')) {
+                    // Initialize progress bar
+                    $progress = new ProgressBar($output, $ldapUserCount);
+                    $progress->start();
+                }
                 // Insert by loop all ldap users retrieved with necessary informations for adsync table
                 foreach ($ldapUser as $user) {
                     $adSync = new ADSync();
@@ -151,19 +163,33 @@ EOT
                         $this->em->flush();
                         $this->em->clear();
                     }
-                    $progress->advance();
+                    if (!$input->getOption('simple-message')) {
+                        $progress->advance();
+                    }
                     $counting += 1;
                 }
                 // Insert the remaining
                 $this->em->flush();
                 $this->em->clear();
                 $this->em->commit();
-                $progress->finish();
+                if (!$input->getOption('simple-message')) {
+                    $progress->finish();
+                }
             }
-            $formattedBlock = $this->formatter->formatBlock("Successfully renewed ".$counting.' records', 'info');
+            if (!$input->getOption('simple-message')) {
+                $formattedBlock = $this->formatter->formatBlock("Successfully renewed " . $counting . ' records', 'info');
+            }
+            else {
+                $formattedBlock = 'OK';
+            }
         }
         catch (\Exception $e) {
-            $formattedBlock = $this->formatter->formatBlock("An error occured: $e", 'error');
+            if (!$input->getOption('simple-message')) {
+                $formattedBlock = $this->formatter->formatBlock("An error occured: $e", 'error');
+            }
+            else {
+                $formattedBlock = 'KO';
+            }
         }
         $this->release();
         $output->writeln($formattedBlock);

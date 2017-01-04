@@ -354,3 +354,19 @@
     display:none;
   }
 }
+
+.rbins-adsync-title {
+  padding-bottom: .8rem;
+}
+
+.rbins-adsync-action {
+  position: absolute;
+  right: 1rem;
+  top: .2rem;
+}
+
+span.rbins-adsync-text {
+  @include media-breakpoint-down(xs) {
+    display: none;
+  }
+}

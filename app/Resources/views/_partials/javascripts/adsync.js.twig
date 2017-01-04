@@ -1,0 +1,32 @@
+$(document).ready(
+    function() {
+        $('.rbins-btn-adsync').on(
+            'click',
+            function (event) {
+                event.preventDefault();
+                var refreshIcon = $(this).find('i.fa-refresh');
+                refreshIcon.addClass('fa-spin');
+                var callUrl = $(this).data('call-url');
+                var messageTargetClass = $(this).data('message-target-class');
+                $('.'+messageTargetClass).html('');
+                $.ajax(
+                    {
+                        url : callUrl,
+                        type: 'GET',
+                        success: function (data) {
+                            $('.'+messageTargetClass).html(data);
+                        },
+                        error: function (jqXHR) {
+                            console.log('error');
+                            console.log(jqXHR.status);
+                        }
+                    }
+                ).done(
+                    function() {
+                        refreshIcon.removeClass('fa-spin');
+                    }
+                );
+            }
+        )
+    }
+);

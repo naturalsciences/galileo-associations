@@ -215,6 +215,28 @@ app_add_related:
     methods: [POST]
     condition: "request.isXmlHttpRequest()"
 
+adsync_list:
+    path: /{_locale}/ad/list
+    defaults:
+        _controller: AppBundle:ADSync:index
+        _locale: "%locale%"
+    requirements:
+        _locale: "%locales%"
+    options:
+        expose: false
+    methods: [GET]
+
+adsync_sync:
+    path: /{_locale}/ad/sync
+    defaults:
+        _controller: AppBundle:ADSync:refresh
+        _locale: "%locale%"
+    requirements:
+        _locale: "%locales%"
+    options:
+        expose: false
+    methods: [GET]
+
 person_list:
     path: /{_locale}/person/list
     defaults:

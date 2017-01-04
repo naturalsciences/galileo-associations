@@ -5,6 +5,8 @@
         'add_type': 'projects',
         'add_text': ('app.title.home.project'|trans({}, 'messages')),
         'add_main_text': ('app.meta.description.home.project'|trans({}, 'messages')),
+        'add_link_text': ('app.action.home.add.common'|trans({}, 'messages')),
+        'add_link_icon': 'fa-plus-circle',
         'add_icon': 'fa-briefcase'
     }
 %}
@@ -57,9 +59,11 @@
                         {%
                             set add_vars = add_vars|merge(
                                 {
-                                    'add_type': '',
+                                    'add_type': 'adsync_list',
                                     'add_text': ('app.title.home.adsync'|trans({}, 'messages')),
                                     'add_main_text': ('app.meta.description.home.adsync'|trans({}, 'messages')),
+                                    'add_link_text': ('app.action.home.GoTo'|trans({}, 'messages')),
+                                    'add_link_icon': 'fa-chevron-circle-right',
                                     'add_icon': 'fa-refresh'
                                 }
                             )
