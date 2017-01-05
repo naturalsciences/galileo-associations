@@ -8,7 +8,6 @@
 
 namespace AppBundle\Utils;
 
-
 class Util
 {
     /**
@@ -37,6 +36,19 @@ class Util
         array_unshift($keys, '*');
         $result = array_combine($keys,$values);
         return $result;
+    }
+
+    /**
+     * @return array The list of options for the active/nonactive/all list of possible entries
+     *               for people list on ADSync screen
+     */
+    public function getActiveOptions() {
+        $activeOptions = array(
+            0 => 'adsync.active.options.active',
+            1 => 'adsync.active.options.nonactive',
+            2 => 'adsync.active.options.all',
+        );
+        return $activeOptions;
     }
 
 }

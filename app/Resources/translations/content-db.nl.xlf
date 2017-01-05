@@ -1,21 +1,68 @@
 <?xml version="1.0" ?><xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file datatype="plaintext" original="global" source-language="en" target-language="nl">
         <body>
-            <trans-unit id="language_abbrev_english" resname="en">
-                <source xml:lang="en">en</source>
-                <target xml:lang="nl">Engels</target>
-                
-            </trans-unit>
-            <trans-unit id="language_abbrev_dutch" resname="nl">
-                <source xml:lang="en">nl</source>
-                <target xml:lang="nl">Nederlands</target>
-                
-            </trans-unit>
-            <trans-unit id="language_abbrev_french" resname="fr">
-                <source xml:lang="en">fr</source>
-                <target xml:lang="nl">Frans</target>
-                
-            </trans-unit>
+            <group id="global">
+                <trans-unit id="language_abbrev_english" resname="en">
+                    <source xml:lang="en">en</source>
+                    <target xml:lang="nl">Engels</target>
+                    
+                </trans-unit>
+                <trans-unit id="language_abbrev_dutch" resname="nl">
+                    <source xml:lang="en">nl</source>
+                    <target xml:lang="nl">Nederlands</target>
+                    
+                </trans-unit>
+                <trans-unit id="language_abbrev_french" resname="fr">
+                    <source xml:lang="en">fr</source>
+                    <target xml:lang="nl">Frans</target>
+                    
+                </trans-unit>
+                <trans-unit id="flash_parameter_project" resname="projects">
+                    <source xml:lang="en">project &quot;%name%&quot;</source>
+                    <target xml:lang="nl">project &quot;%name%&quot;</target>
+                    
+                </trans-unit>
+                <trans-unit id="flash_parameter_team" resname="teams">
+                    <source xml:lang="en">team &quot;%name%&quot;</source>
+                    <target xml:lang="nl">ploeg &quot;%name%&quot;</target>
+                    
+                </trans-unit>
+                <trans-unit id="adsync_active_options_active" resname="adsync.active.options.active">
+                    <source xml:lang="en">Active</source>
+                    <target xml:lang="nl">Actief</target>
+                    
+                </trans-unit>
+                <trans-unit id="adsync_active_options_nonactive" resname="adsync.active.options.nonactive">
+                    <source xml:lang="en">Non active</source>
+                    <target xml:lang="nl">Non actief</target>
+                    
+                </trans-unit>
+                <trans-unit id="adsync_active_options_all" resname="adsync.active.options.all">
+                    <source xml:lang="en">All</source>
+                    <target xml:lang="nl">Allerlei</target>
+                    
+                </trans-unit>
+            </group>
+            <group id="form">
+                <group id="form-teamsAndProjects">
+                    <trans-unit id="form-teamsAndProjects-internationalCascade.0" resname="form.teamsAndProjects.internationalCascade.0">
+                        <source xml:lang="en">None of the translated versions</source>
+                        <target xml:lang="nl">Geen van het vertaalde versies</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="form-teamsAndProjects-internationalCascade.1" resname="form.teamsAndProjects.internationalCascade.1">
+                        <source xml:lang="en">The corresponding language translated version</source>
+                        <target xml:lang="nl">De bijbehorende vertaalde versies</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="form-teamsAndProjects-internationalCascade.2" resname="form.teamsAndProjects.internationalCascade.2">
+                        <source xml:lang="en">All translated versions</source>
+                        <target xml:lang="nl">Alle vertaalde versies</target>
+                        
+                    </trans-unit>
+                </group>
+            </group>
         </body>
     </file>
 </xliff>
+

@@ -27,6 +27,21 @@
                     <target xml:lang="fr">équipe &quot;%name%&quot;</target>
                     
                 </trans-unit>
+                <trans-unit id="adsync_active_options_active" resname="adsync.active.options.active">
+                    <source xml:lang="en">Active</source>
+                    <target xml:lang="fr">Actifs</target>
+                    
+                </trans-unit>
+                <trans-unit id="adsync_active_options_nonactive" resname="adsync.active.options.nonactive">
+                    <source xml:lang="en">Non active</source>
+                    <target xml:lang="fr">Inactifs</target>
+                    
+                </trans-unit>
+                <trans-unit id="adsync_active_options_all" resname="adsync.active.options.all">
+                    <source xml:lang="en">All</source>
+                    <target xml:lang="fr">Tous</target>
+                    
+                </trans-unit>
             </group>
             <group id="form">
                 <group id="form-teamsAndProjects">
