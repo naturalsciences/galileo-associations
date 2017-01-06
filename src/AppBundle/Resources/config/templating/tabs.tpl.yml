@@ -162,6 +162,6 @@ adsync:
             collapseElementId: "personCorrectIdContent"
             collapseElementDefaultState: ""
             headingText: "app.action.tab.personCorrectId"
-            headingIcon: "fa-user-circle"
+            headingIcon: "fa-check-circle"
             controller: "AppBundle:Person:renderPersonCorrectIDView"
             route: "person_correct_id_view"

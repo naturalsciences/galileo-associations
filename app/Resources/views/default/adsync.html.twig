@@ -1,6 +1,12 @@
 {% extends "default/index.html.twig" %}
 
 {% block content_main %}
+    {%
+        set tabbed_content_vars = {
+            'parent_id': 'rbins-content-main'
+        }
+    %}
+
     <div class="row">
         <div class="col-xs-12 rbins-messages"></div>
         <div class="col-xs-12">
@@ -16,9 +22,58 @@
         </div>
     </div>
     <div class="row">
-
+        {%  for key,tab in tabs %}
+            <div id="rbins-tab-{{ loop.index }}" class="col-xs-12 col-md-11 col-xl-10 rbins-tab">
+                <div class="panel panel-default">
+                    <div id="{{ tab.id }}-heading"
+                         class="panel-heading hidden-md-up">
+                        <h4 class="panel-title">
+                            <button class="btn btn-secondary bg-inverse btn-block rbins-btn-secondary text-sm-left rbins-content-collapse"
+                                    data-toggle="collapse" data-collapse-parent="#{{ tabbed_content_vars.parent_id }}"
+                                    data-tab-id="#{{ tab.id }}"
+                                    href="#{{ tab.collapseElementId }}"
+                                    data-target="#{{ tab.collapseElementId }}"
+                                    aria-controls="{{ tab.collapseElementId }}"
+                                    aria-expanded="true">
+                                <i class="fa {{ tab.headingIcon }}"></i> {{ tab.headingText }}
+                            </button>
+                        </h4>
+                    </div>
+                    <div id="{{ tab.collapseElementId }}"
+                         class="panel-collapse collapse {{ tab.collapseElementDefaultState }} fade rbins-tab-content"
+                         data-collapse-parent="#{{ tabbed_content_vars.parent_id }}"
+                         role="tabpanel"
+                         aria-labelledby="{{ tab.id }}-heading">
+                        <p>blabla{{ tab.id }}</p>
+{#
+                        {% set parameter_bag =
+                            {
+                                'id': id,
+                                'controller': tab.controller,
+                                'route': tab.route,
+                            }
+                        %}
+                        {{
+                            render(
+                                controller(
+                                    tab.controller,
+                                    parameter_bag
+                                )
+                            )
+                        }}
+#}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <ul class="nav nav-tabs hidden-sm-down col-lg-2 rbins-lateral-tabs rbins-adsync-tabs">
+            {% for key,tab in tabs %}
+                <li id="{{ tab.id }}" class="{% if key == 'person-no-id' %}active{% endif %}" data-target="#{{ tab.collapseElementId }}"><a class="{% if key == 'person-no-id' %}active{% endif %}" href="#"><i class="fa fa-2x {{ tab.headingIcon }}"></i><span class="hidden-lg-down"> {{ tab.headingText }}</span></a></li>
+            {% endfor %}
+        </ul>
     </div>
 {% endblock content_main %}
 {% block javascript_content %}
+    {% include "_partials/javascripts/tabbed_content.js.twig" %}
     {% include '_partials/javascripts/adsync.js.twig' %}
 {% endblock javascript_content %}

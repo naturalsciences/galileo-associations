@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Yaml\Yaml;
 
 class ADSyncController extends Controller
 {
@@ -44,15 +45,35 @@ class ADSyncController extends Controller
     }
 
     /**
+     * @return array List of different tabs to display
+     */
+    private function extractTabsContent(){
+        $translator = $this->get('translator');
+        $tabsConfig = Yaml::parse(file_get_contents(__DIR__.'/../Resources/config/templating/tabs.tpl.yml'));
+        $tabs = array();
+        if ( isset( $tabsConfig['adsync']['tabs'] ) && count( $tabsConfig['adsync']['tabs'] ) > 0 ) {
+            $tabs = $tabsConfig['adsync']['tabs'];
+        }
+        foreach ( $tabs as &$tab ){
+            if ( isset($tab['headingText']) && $tab['headingText'] !== '' ){
+                $tab['headingText'] = $translator->trans($tab['headingText']);
+            }
+        }
+        return $tabs;
+    }
+
+    /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction()
     {
         $activeOptions = $this->translateActiveOptions();
+        $tabs = $this->extractTabsContent();
         return $this->render(
             'default/adsync.html.twig',
             array(
-                'activeOptions' => $activeOptions
+                'activeOptions' => $activeOptions,
+                'tabs' => $tabs
             )
         );
     }

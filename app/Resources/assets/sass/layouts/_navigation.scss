@@ -408,6 +408,10 @@ button.navbar-toggle {
   &:hover {
     color: $orange;
   }
+
+  &:focus {
+    color:$white;
+  }
 }
 
 #people-heading {

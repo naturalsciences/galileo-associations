@@ -20,7 +20,10 @@
 
 #personContent,
 #projectsContent,
-#teamsContent {
+#teamsContent,
+#personNoIdContent,
+#personWrongIdContent,
+#personCorrectIdContent {
   margin-top: 1px;
   padding-left: .3rem;
   padding-right: .3rem;
@@ -374,4 +377,8 @@ span.rbins-adsync-text {
 #rbins-adsync-active-options {
   width: inherit;
   display:inline-block;
+}
+
+ul.rbins-adsync-tabs {
+  margin-top: .85rem;
 }
