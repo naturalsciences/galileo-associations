@@ -390,6 +390,21 @@
                         <target xml:lang="fr">Projets liés</target>
                         
                     </trans-unit>
+                    <trans-unit id="app-action-tab-personNoId" resname="app.action.tab.personNoId">
+                        <source xml:lang="en">People without ID</source>
+                        <target xml:lang="fr">Personnes sans ID</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-action-tab-personWrongId" resname="app.action.tab.personWrongId">
+                        <source xml:lang="en">People with wrong ID</source>
+                        <target xml:lang="fr">Personnes avec mauvais ID</target>
+                        
+                    </trans-unit>
+                    <trans-unit id="app-action-tab-personCorrectId" resname="app.action.tab.personCorrectId">
+                        <source xml:lang="en">People with valid ID</source>
+                        <target xml:lang="fr">Personnes avec ID valide</target>
+                        
+                    </trans-unit>
                     <trans-unit id="app-action-switch-prefix" resname="app.action.switch.prefix">
                         <source xml:lang="en">Switch to</source>
                         <target xml:lang="fr">Basculer vers</target>

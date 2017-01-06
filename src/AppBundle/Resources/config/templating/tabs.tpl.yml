@@ -1,0 +1,167 @@
+person:
+    type: "person"
+    name_label: "app.meta.title.tab.person"
+    name: ""
+    id: ~
+    active: true
+    action: "view"
+    tabs:
+        main:
+            id: "person-tab"
+            collapseElementId: "personContent"
+            collapseElementDefaultState: "in"
+            headingText: "app.action.tab.main"
+            headingIcon: "fa-cog"
+            item: ~
+            form: ~
+            view_container_controller: "AppBundle:Persons:renderPersonView"
+            view_controller: "AppBundle:Persons:renderPersonView"
+            view_route: "person_fragment_view"
+            edit_controller: "AppBundle:Persons:renderPersonEdit"
+            edit_route: "person_fragment_edit"
+        related-projects:
+            id: "projects-tab"
+            collapseElementId: "projectsContent"
+            collapseElementDefaultState: ""
+            headingText: "app.action.tab.relatedProjects"
+            headingIcon: "fa-user"
+            item: ~
+            form: ~
+            view_container_controller: "AppBundle:Projects:renderRelatedProjectsViewContainer"
+            view_controller: "AppBundle:Projects:renderRelatedProjectsView"
+            view_route: "related_projects_fragment_view"
+            edit_controller: "AppBundle:Projects:renderProjectEdit"
+            edit_route: "project_fragment_edit"
+        related-teams:
+            id: "teams-tab"
+            collapseElementId: "teamsContent"
+            collapseElementDefaultState: ""
+            headingText: "app.action.tab.relatedTeams"
+            headingIcon: "fa-users"
+            item: ~
+            form: ~
+            view_container_controller: "AppBundle:Teams:renderRelatedTeamsViewContainer"
+            view_controller: "AppBundle:Teams:renderRelatedTeamsView"
+            view_route: "related_teams_fragment_view"
+            edit_controller: "AppBundle:Teams:renderTeamEdit"
+            edit_route: "team_fragment_edit"
+projects:
+    type: "projects"
+    name_label: "app.meta.title.tab.project"
+    name: ""
+    id: ~
+    active: true
+    action: "view"
+    tabs:
+        main:
+            id: "projects-tab"
+            collapseElementId: "projectsContent"
+            collapseElementDefaultState: "in"
+            headingText: "app.action.tab.main"
+            headingIcon: "fa-cog"
+            item: ~
+            form: ~
+            view_container_controller: "AppBundle:Projects:renderProjectView"
+            view_controller: "AppBundle:Projects:renderProjectView"
+            view_route: "project_fragment_view"
+            edit_controller: "AppBundle:Projects:renderProjectEdit"
+            edit_route: "project_fragment_edit"
+        related-people:
+            id: "person-tab"
+            collapseElementId: "personContent"
+            collapseElementDefaultState: ""
+            headingText: "app.action.tab.relatedPeople"
+            headingIcon: "fa-user"
+            item: ~
+            form: ~
+            view_container_controller: "AppBundle:Person:renderRelatedPeopleViewContainer"
+            view_controller: "AppBundle:Person:renderRelatedPeopleView"
+            view_route: "related_people_fragment_view"
+            edit_controller: "AppBundle:Person:renderPersonEdit"
+            edit_route: "person_fragment_edit"
+        related-teams:
+            id: "teams-tab"
+            collapseElementId: "teamsContent"
+            collapseElementDefaultState: ""
+            headingText: "app.action.tab.relatedTeams"
+            headingIcon: "fa-users"
+            item: ~
+            form: ~
+            view_container_controller: "AppBundle:Teams:renderRelatedTeamsViewContainer"
+            view_controller: "AppBundle:Teams:renderRelatedTeamsView"
+            view_route: "related_teams_fragment_view"
+            edit_controller: "AppBundle:Teams:renderTeamEdit"
+            edit_route: "team_fragment_edit"
+teams:
+    type: "teams"
+    name_label: "app.meta.title.tab.team"
+    name: ""
+    id: ~
+    active: true
+    action: "view"
+    tabs:
+        main:
+            id: "teams-tab"
+            collapseElementId: "teamsContent"
+            collapseElementDefaultState: "in"
+            headingText: "app.action.tab.main"
+            headingIcon: "fa-cog"
+            item: ~
+            form: ~
+            view_container_controller: "AppBundle:Teams:renderTeamView"
+            view_controller: "AppBundle:Teams:renderTeamView"
+            view_route: "team_fragment_view"
+            edit_controller: "AppBundle:Teams:renderTeamEdit"
+            edit_route: "team_fragment_edit"
+        related-people:
+            id: "person-tab"
+            collapseElementId: "personContent"
+            collapseElementDefaultState: ""
+            headingText: "app.action.tab.relatedPeople"
+            headingIcon: "fa-user"
+            item: ~
+            form: ~
+            view_container_controller: "AppBundle:Person:renderRelatedPeopleViewContainer"
+            view_controller: "AppBundle:Person:renderRelatedPeopleView"
+            view_route: "related_people_fragment_view"
+            edit_controller: "AppBundle:Person:renderPersonEdit"
+            edit_route: "person_fragment_edit"
+        related-teams:
+            id: "projects-tab"
+            collapseElementId: "projectsContent"
+            collapseElementDefaultState: ""
+            headingText: "app.action.tab.relatedProjects"
+            headingIcon: "fa-suitcase"
+            item: ~
+            form: ~
+            view_container_controller: "AppBundle:Projects:renderRelatedProjectsViewContainer"
+            view_controller: "AppBundle:Projects:renderRelatedProjectsView"
+            view_route: "related_projects_fragment_view"
+            edit_controller: "AppBundle:Projects:renderProjectEdit"
+            edit_route: "project_fragment_edit"
+adsync:
+    tabs:
+        person-no-id:
+            id: "person-no-id"
+            collapseElementId: "personNoIdContent"
+            collapseElementDefaultState: "in"
+            headingText: "app.action.tab.personNoId"
+            headingIcon: "fa-exclamation-circle"
+            controller: "AppBundle:Person:renderPersonNoIDView"
+            route: "person_no_id_view"
+        person-wrong-id:
+            id: "person-wrong-id"
+            collapseElementId: "personWrongIdContent"
+            collapseElementDefaultState: ""
+            headingText: "app.action.tab.personWrongId"
+            headingIcon: "fa-question-circle"
+            controller: "AppBundle:Person:renderPersonWrongIDView"
+            route: "person_wrong_id_view"
+        person-correct-id:
+            id: "person-correct-id"
+            collapseElementId: "personCorrectIdContent"
+            collapseElementDefaultState: ""
+            headingText: "app.action.tab.personCorrectId"
+            headingIcon: "fa-user-circle"
+            controller: "AppBundle:Person:renderPersonCorrectIDView"
+            route: "person_correct_id_view"
