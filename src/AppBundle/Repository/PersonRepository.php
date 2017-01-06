@@ -3,6 +3,7 @@
 namespace AppBundle\Repository;
 
 use AppBundle\Utils\Util as Util;
+use Doctrine\DBAL\Query\QueryBuilder;
 
 /**
  * PersonRepository
@@ -12,6 +13,13 @@ use AppBundle\Utils\Util as Util;
  */
 class PersonRepository extends BaseRepository
 {
+
+    /**
+     * @var array Array of parameters used to filter (set in where clause) the sql that bring list of people grouped by
+     *            letters
+     */
+    private $letterParams = array();
+
     /**
      * @param string $active Tells if we need to filter on active, non active or none "active" parameter
      * @param array $relatedFilters List of complementary filters to apply
@@ -240,16 +248,69 @@ class PersonRepository extends BaseRepository
         $st->execute($params);
         return  $st->fetchAll();
     }
+
     /**
-     * @param string $locale The locale used to organize the groups of people retrieved
-     * @return array
+     * @param QueryBuilder $qb The Query Builder passed
+     * @param string $uidstate The desired uid state(s)
+     * @return QueryBuilder The Query Builder filled in
      */
-    public function groupsByLetters($locale = 'en', $letter = '*', $startFrom = 0) {
-        $response = Util::alphaRange();
+    private function queryBuildWithUidState(QueryBuilder $qb, $uidstate = 'all') {
+        $qb->addSelect(
+            "
+                case 
+                    when p.uid is null or p.uid = '' then
+                        'person-no-id'
+                    when ad.samaccountname is null then
+                        'person-wrong-id'
+                    else
+                        'person-correct-id'
+                end as uidstate
+            "
+        )
+            ->leftJoin(
+                'p',
+                'ad_sync',
+                'ad',
+                'p.uid=ad.samaccountname'
+            )
+            ->orderBy(
+                "
+                    case 
+                        when p.uid is null or p.uid = '' then
+                            'person-no-id'
+                        when ad.samaccountname is null then
+                            'person-wrong-id'
+                        else
+                            'person-correct-id'
+                    end
+                "
+            );
+        if ( $uidstate !== 'all' ) {
+            $qb->andWhere(
+                "
+                    case 
+                        when p.uid is null or p.uid = '' then
+                            'person-no-id'
+                        when ad.samaccountname is null then
+                            'person-wrong-id'
+                        else
+                            'person-correct-id'
+                    end = :uidstate
+                "
+            );
+            $this->letterParams[':uidstate'] = $uidstate;
+        }
+        return $qb;
+    }
 
-        $conn = $this->getEntityManager()->getConnection();
-        $qb = $conn->createQueryBuilder();
-
+    /**
+     * @param QueryBuilder $qb The Query Builder passed
+     * @param string $letter The first letter used to get a list filtered by the person name first letter
+     * @param string $activeState Filter to get only active/inactive or all people
+     * @param int $startFrom The Offset to start from
+     * @return QueryBuilder The Query Builder filled in
+     */
+    public function queryBuildByLetter(QueryBuilder $qb, $letter = '*', $activeState = 'all' ,$startFrom = 0) {
         $qb->select(
             "p.id as \"id\",
              p.first_name as \"firstName\",
@@ -289,23 +350,25 @@ class PersonRepository extends BaseRepository
         ->leftJoin(
             'p',
             '(
-                select distinct on (person_ref) 
-                        person_ref, 
-                        entry_date, 
-                        CASE 
-                          WHEN coalesce(exit_date,\'01/01/2999\'::timestamp) > now() THEN
-                            \'active\' 
-                          ELSE 
-                            \'inactive\' 
-                        END as exit_date
-                from person_entry 
-                order by person_ref,entry_date DESC
-             )',
+            select distinct on (person_ref) 
+                    person_ref, 
+                    entry_date, 
+                    CASE 
+                      WHEN coalesce(exit_date,\'01/01/2999\'::timestamp) > now() THEN
+                        \'active\' 
+                      ELSE 
+                        \'inactive\' 
+                    END as exit_date
+            from person_entry 
+            order by person_ref,entry_date DESC
+         )',
             'e',
             'e.person_ref=p.id'
         );
 
-        $params = array();
+        if ( $startFrom !== 0 ) {
+            $qb->setFirstResult($startFrom);
+        }
 
         if ( $letter != '*' ) {
             $qb->where(
@@ -320,24 +383,61 @@ class PersonRepository extends BaseRepository
                       '#' 
                  )) = :letter"
             );
-            $params['letter']=$letter;
+            $this->letterParams['letter']=$letter;
+        }
+
+        if ( in_array($activeState, array('active', 'inactive')) ) {
+            $qb->andWhere(
+                "COALESCE(e.exit_date, 'active') = :activestate"
+            );
+            $this->letterParams['activestate']= $activeState;
         }
 
         $qb
-            ->setMaxResults(500)
-            ->orderBy('"firstLetter",last_name');
-        $st = $conn->prepare($qb->getSQL());
-        $st->execute($params);
-        $dbResponse = $st->fetchAll();
+            ->setMaxResults(500);
+        return $qb;
+    }
 
-        foreach( $dbResponse as $content ) {
-            $response['*']['count'] = $content['totalCounting'];
-            $response[$content['firstLetter']]['count']= $content['counting'];
-            $response['*']['list'][] = $content;
-            $response[$content['firstLetter']]['list'][]= $content;
+    /**
+     * @param string $letter The first letter used to get a list filtered by the person name first letter
+     * @param int $startFrom The Offset to start from
+     * @param string $activeState Filter to get only active/inactive or all people
+     * @param string $uidState Complementary parameter to tell if uid state/existence should also appear in the list
+     *                         and what to extract
+     * @return array
+     */
+    public function groupsByLetters($letter = '*', $activeState = 'all', $startFrom = 0, $uidState = '') {
+        $conn = $this->getEntityManager()->getConnection();
+        $qb = $conn->createQueryBuilder();
+
+        $qb = $this->queryBuildByLetter($qb, $letter, $activeState, $startFrom);
+
+        if ( in_array($uidState, array('all', 'person-no-id', 'person-wrong-id', 'person-correct-id')) ) {
+            $qb = $this->queryBuildWithUidState($qb, $uidState);
+        }
+        else {
+            $qb->orderBy('"firstLetter",last_name');
         }
 
-        $response[$letter]['selected'] = 1;
+        $st = $conn->prepare($qb->getSQL());
+        $st->execute($this->letterParams);
+        $dbResponse = $st->fetchAll();
+
+        if ( !in_array($uidState, array('all', 'person-no-id', 'person-wrong-id', 'person-correct-id')) ) {
+            $response = Util::alphaRange();
+
+            foreach ($dbResponse as $content) {
+                $response['*']['count'] = $content['totalCounting'];
+                $response[$content['firstLetter']]['count'] = $content['counting'];
+                $response['*']['list'][] = $content;
+                $response[$content['firstLetter']]['list'][] = $content;
+            }
+
+            $response[$letter]['selected'] = 1;
+        }
+        else {
+            $response = Util::alphaRange();
+        }
 
         return $response;
     }

@@ -44,9 +44,9 @@ class Util
      */
     public function getActiveOptions() {
         $activeOptions = array(
-            0 => 'adsync.active.options.active',
-            1 => 'adsync.active.options.nonactive',
-            2 => 'adsync.active.options.all',
+            'active' => 'adsync.active.options.active',
+            'inactive' => 'adsync.active.options.nonactive',
+            'all' => 'adsync.active.options.all',
         );
         return $activeOptions;
     }

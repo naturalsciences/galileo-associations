@@ -13,6 +13,11 @@ use Symfony\Component\Yaml\Yaml;
 class ADSyncController extends Controller
 {
     /**
+     * @var string Parameter passed to activate the filtering over the corresponding entries in ADSync for People retrieval
+     */
+    private $uidState = 'all';
+
+    /**
      * ADSyncController responsible of returning the translated activeOptions.
      */
     private function translateActiveOptions(){
@@ -49,7 +54,8 @@ class ADSyncController extends Controller
      */
     private function extractTabsContent(){
         $translator = $this->get('translator');
-        $tabsConfig = Yaml::parse(file_get_contents(__DIR__.'/../Resources/config/templating/tabs.tpl.yml'));
+        $path = $this->get('kernel')->locateResource("@AppBundle/Resources/config/templating/tabs.tpl.yml");
+        $tabsConfig = Yaml::parse(file_get_contents($path));
         $tabs = array();
         if ( isset( $tabsConfig['adsync']['tabs'] ) && count( $tabsConfig['adsync']['tabs'] ) > 0 ) {
             $tabs = $tabsConfig['adsync']['tabs'];
@@ -69,6 +75,9 @@ class ADSyncController extends Controller
     {
         $activeOptions = $this->translateActiveOptions();
         $tabs = $this->extractTabsContent();
+        $people = $this->getDoctrine()
+            ->getRepository('AppBundle:Person')
+            ->groupsByLetters('*', 'all', 0, $this->uidState);
         return $this->render(
             'default/adsync.html.twig',
             array(

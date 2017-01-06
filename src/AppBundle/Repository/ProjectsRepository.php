@@ -201,6 +201,7 @@ class ProjectsRepository extends BaseRepository
     /**
      * @param string $locale The locale used to organize the groups of teams retrieved
      * @param string $letter The first letter used to get a list filtered by the team name first letter
+     * @param int $startFrom The Offset to start from
      * @return array
      */
     public function groupsByLetters($locale = 'en', $letter = '*', $startFrom = 0) {

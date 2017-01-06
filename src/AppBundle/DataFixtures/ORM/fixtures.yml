@@ -3,7 +3,7 @@ AppBundle\Entity\Person:
     first_name: "<firstName()>"
     last_name (unique): "<lastName()>"
     matricule: "<ar_SA:nationalIdNumber()>"
-    uid: "<uid($first_name, $last_name)>"
+    uid: "80%? <uid($first_name, $last_name)>"
     email: "<email()>"
     plainPassword: "pioupiou"
     roles: "<randomElement([['ROLE_HR'],['ROLE_TP_LEADER'],['ROLE_USER']])>"

@@ -166,7 +166,7 @@ class PersonController extends Controller
     {
         $personGroupsLetter = $this->getDoctrine()
             ->getRepository('AppBundle:Person')
-            ->groupsByLetters($request->getLocale());
+            ->groupsByLetters();
         return $this->render(
             'default/personProjectsAndTeamsList.html.twig',
             array(
@@ -184,7 +184,7 @@ class PersonController extends Controller
     {
         $personGroupsLetter = $this->getDoctrine()
             ->getRepository('AppBundle:Person')
-            ->groupsByLetters($request->getLocale(), $request->get('letter'));
+            ->groupsByLetters($request->get('letter'));
         return $this->render(
             '_partials/listContent/letterDetails.html.twig',
             array(
