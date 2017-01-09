@@ -82,7 +82,8 @@ class ADSyncController extends Controller
             'default/adsync.html.twig',
             array(
                 'activeOptions' => $activeOptions,
-                'tabs' => $tabs
+                'tabs' => $tabs,
+                'people' => $people,
             )
         );
     }

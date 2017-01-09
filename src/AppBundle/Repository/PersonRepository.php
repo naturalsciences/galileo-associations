@@ -265,26 +265,50 @@ class PersonRepository extends BaseRepository
                     else
                         'person-correct-id'
                 end as uidstate
-            "
-        )
+            ")
+            ->addSelect(
+                "COUNT(p.id) OVER (PARTITION BY
+                        case 
+                            when p.uid is null or p.uid = '' then
+                                'person-no-id'
+                            when ad.samaccountname is null then
+                                'person-wrong-id'
+                            else
+                                'person-correct-id'
+                        end,
+                        unaccent(regexp_replace(
+                            upper(
+                                left(
+                                    p.last_name,
+                                    1
+                                )
+                            ),
+                            E'\\\d',
+                              '#' 
+                    ))) as counting
+                "
+            )
+            ->addSelect(
+                "
+                    COUNT(p.id) OVER ( PARTITION BY
+                        case 
+                            when p.uid is null or p.uid = '' then
+                                'person-no-id'
+                            when ad.samaccountname is null then
+                                'person-wrong-id'
+                            else
+                                'person-correct-id'
+                        end
+                    ) as \"totalCounting\"
+                "
+            )
             ->leftJoin(
                 'p',
                 'ad_sync',
                 'ad',
                 'p.uid=ad.samaccountname'
             )
-            ->orderBy(
-                "
-                    case 
-                        when p.uid is null or p.uid = '' then
-                            'person-no-id'
-                        when ad.samaccountname is null then
-                            'person-wrong-id'
-                        else
-                            'person-correct-id'
-                    end
-                "
-            );
+            ->orderBy("\"uidstate\",\"firstLetter\", p.last_name");
         if ( $uidstate !== 'all' ) {
             $qb->andWhere(
                 "
@@ -322,25 +346,14 @@ class PersonRepository extends BaseRepository
                  regexp_replace(
                     upper(
                         left(
-                            p.last_name,
-                            1
-                         )
-                      ),
-                      E'\\\d',
-                      '#' 
-                  )
-              ) as \"firstLetter\",
-              COUNT(p.id) OVER (PARTITION BY unaccent(regexp_replace(
-                upper(
-                    left(
-                        p.last_name,
-                        1
-                     )
-                  ),
-                  E'\\\d',
-                  '#' 
-              ))) as counting,
-              COUNT(p.id) OVER () as \"totalCounting\"
+                           p.last_name,
+                           1
+                        )
+                     ),
+                     E'\\\d',
+                     '#' 
+                 )
+             ) as \"firstLetter\"
             "
         )
         ->from(
@@ -416,7 +429,22 @@ class PersonRepository extends BaseRepository
             $qb = $this->queryBuildWithUidState($qb, $uidState);
         }
         else {
-            $qb->orderBy('"firstLetter",last_name');
+            $qb->addSelect(
+                "COUNT(p.id) OVER (PARTITION BY unaccent(regexp_replace(
+                    upper(
+                        left(
+                            p.last_name,
+                            1
+                        )
+                    ),
+                    E'\\\d',
+                    '#' 
+                  ))) as counting"
+                )
+                ->addSelect(
+                    "COUNT(p.id) OVER () as \"totalCounting\""
+                )
+                ->orderBy('"firstLetter",last_name');
         }
 
         $st = $conn->prepare($qb->getSQL());
@@ -425,18 +453,30 @@ class PersonRepository extends BaseRepository
 
         if ( !in_array($uidState, array('all', 'person-no-id', 'person-wrong-id', 'person-correct-id')) ) {
             $response = Util::alphaRange();
-
-            foreach ($dbResponse as $content) {
+            foreach ( $dbResponse as $content ) {
                 $response['*']['count'] = $content['totalCounting'];
                 $response[$content['firstLetter']]['count'] = $content['counting'];
                 $response['*']['list'][] = $content;
                 $response[$content['firstLetter']]['list'][] = $content;
             }
-
             $response[$letter]['selected'] = 1;
         }
         else {
-            $response = Util::alphaRange();
+            $response = Util::adsyncAlphaRange();
+            foreach ( $dbResponse as $content ) {
+                $response[$content['uidstate']]['*']['count'] = $content['totalCounting'];
+                $response[$content['uidstate']][$content['firstLetter']]['count'] = $content['counting'];
+                $response[$content['uidstate']]['*']['list'][] = $content;
+                $response[$content['uidstate']][$content['firstLetter']]['list'][] = $content;
+            }
+            if ( $uidState === 'all' ) {
+                $response['person-no-id'][$letter]['selected'] = 1;
+                $response['person-wrong-id'][$letter]['selected'] = 1;
+                $response['person-correct-id'][$letter]['selected'] = 1;
+            }
+            else {
+                $response[$uidState][$letter]['selected'] = 1;
+            }
         }
 
         return $response;

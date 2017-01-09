@@ -38,6 +38,13 @@ class Util
         return $result;
     }
 
+    static public function adsyncAlphaRange() {
+        $results['person-no-id'] = self::alphaRange();
+        $results['person-wrong-id'] = self::alphaRange();
+        $results['person-correct-id'] = self::alphaRange();
+        return $results;
+    }
+
     /**
      * @return array The list of options for the active/nonactive/all list of possible entries
      *               for people list on ADSync screen
