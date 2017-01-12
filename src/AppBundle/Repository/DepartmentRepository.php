@@ -100,7 +100,7 @@ class DepartmentRepository extends BaseRepository
      */
     public function listAll($active = 'active', Array $relatedFilters = array()) {
 
-        $SQL = $this->extractDepartmentsAndServices($active, $relatedFilters);
+        $SQL = $this->extractDepartmentsAndServices('', $active, $relatedFilters);
         return $SQL->fetchAll();
 
     }
