@@ -19,10 +19,10 @@ class DepartmentsController extends BaseController
         $relatedFilters['names'] = $this->extractNames($request);
         $active = $this->extractActive($request);
 
-        $data['departments'] = $this->getDoctrine()
+        $data['organigram'] = $this->getDoctrine()
             ->getRepository('AppBundle:Department')
             ->listAll($active, $relatedFilters);
-        return $this->handleJsonResponse($data, 'departments');
+        return $this->handleJsonResponse($data, 'organigram');
     }
 
     /**

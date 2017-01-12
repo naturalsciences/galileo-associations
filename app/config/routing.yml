@@ -26,6 +26,15 @@ app_rest_people_by_name:
         _format: "%rest_formats%"
     methods: [GET]
 
+app_rest_organigram:
+    path: /rest/organigram
+    defaults:
+        _controller: AppBundle:Rest/Departments:listAll
+        _format: "%default_rest_format%"
+    requirements:
+        _format: "%rest_formats%"
+    methods: [GET]
+
 app_rest_directorates:
     path: /rest/directorates
     defaults:

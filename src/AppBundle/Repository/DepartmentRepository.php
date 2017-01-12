@@ -25,7 +25,8 @@ class DepartmentRepository extends BaseRepository
                         d.name_en, 
                         d.name_nl,
                         d.name_fr,
-                        case when d.is_active = TRUE then \'active\' else \'inactive\' end as "active"
+                        case when d.is_active = TRUE then \'active\' else \'inactive\' end as "active",
+                        d.path
                     ')
             ->from('department', 'd')
             ->orderBy('d.name_en');
