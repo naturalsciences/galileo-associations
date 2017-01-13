@@ -99,6 +99,9 @@ class BaseController extends Controller
         if ( $request->query->get('people', '') !== '' ) {
             $relatedFilters['people'] = explode(',', $request->query->get('people'));
         }
+        if ( $request->query->get('organigram', '') !== '' ) {
+            $relatedFilters['organigram'] = explode(',', $request->query->get('organigram'));
+        }
         if ( $request->query->get('directorates', '') !== '' ) {
             $relatedFilters['directorates'] = explode(',', $request->query->get('directorates'));
         }

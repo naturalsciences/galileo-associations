@@ -100,6 +100,24 @@ abstract class BaseRepository extends \Doctrine\ORM\EntityRepository
             }
         }
 
+        if ( isset($relatedFilters['organigram'] ) ) {
+            if ( is_array($relatedFilters['organigram']) ) {
+                if (count($relatedFilters['organigram']) > 0) {
+
+                    $targetTable = ($table === 'projects')?'departments_projects':'departments_teams';
+                    $targetField = ($table === 'projects')?'project_ref':'team_ref';
+
+                    $qb->innerJoin(
+                        'pt',
+                        $targetTable,
+                        'tpd',
+                        'pt.id = tpd.'.$targetField
+                    );
+                    $this->composeNumericWhereIn($qb, $params, $relatedFilters, 'tpd.department_ref', 'organigram');
+                }
+            }
+        }
+
         if ( isset($relatedFilters['directorates'] ) ) {
             if ( is_array($relatedFilters['directorates']) ) {
                 if (count($relatedFilters['directorates']) > 0) {
