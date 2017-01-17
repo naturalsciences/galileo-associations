@@ -1,0 +1,30 @@
+{% for value in groupsLetter %}
+    {% if value.selected %}
+        {% if value.count > 0 %}
+            <div class="col-xs-12 rbins-adlist-{{ type }}">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>{% trans %}app.form.relatedPeople.view.label.name{% endtrans %}</th>
+                            <th>{% trans %}app.meta.title.form.person.view.email{% endtrans %}</th>
+                            <th class="{% if type == 'person-no-id' %}not-visible{% endif %}">{% trans %}app.meta.title.form.person.view.uid{% endtrans %}</th>
+                            <th>button here</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        {% endif %}
+        {% for subvalue in value.list %}
+                        <tr class="rbins-adlist-{{ type }}-{{ subvalue.firstLetter }}">
+                            <td class="person-name"><span class="person-id hidden">{{ subvalue.id }}</span><a href="{{ path('person', {'action':'view', 'id':subvalue.id}) }}">{{ subvalue.name }}</a></td>
+                            <td class="person-email"><a href="mailto:{{ subvalue.email }}">{{ subvalue.email }}</a></td>
+                            <td class="person-uid">{{ subvalue.uid }}</td>
+                            <td class="person-action">button here</td>
+                        </tr>
+        {% endfor %}
+        {% if value.count > 0 %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endfor %}

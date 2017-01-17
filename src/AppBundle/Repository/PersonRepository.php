@@ -256,7 +256,7 @@ class PersonRepository extends BaseRepository
      */
     private function queryBuildWithUidState(QueryBuilder $qb, $uidstate = 'all') {
         $qb->addSelect(
-            "
+            "   p.uid,
                 case 
                     when p.uid is null or p.uid = '' then
                         'person-no-id'

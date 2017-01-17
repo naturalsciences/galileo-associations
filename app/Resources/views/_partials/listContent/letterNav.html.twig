@@ -1,0 +1,16 @@
+<div class="row rbins-listing">
+    <ul class="col-xs-12 pagination pagination-sm">
+        {% for key,value in groupsLetter %}
+            {% if type == 'teams' %}
+                {% set letterPath = path('teams_list_details', { '_locale': app.request.getLocale(), 'letter': key }) %}
+            {% elseif type == 'projects' %}
+                {% set letterPath = path('projects_list_details', { '_locale': app.request.getLocale(), 'letter': key }) %}
+            {% else %}
+                {% set letterPath = path('person_list_details', { '_locale': app.request.getLocale(), 'letter': key }) %}
+            {% endif %}
+            <li class="page-item {% if value.count == 0 %}disabled{% else %}enabled{% endif %} {% if value.selected == 1 %}active{% endif %}">
+                <a class="page-link" href="{{ letterPath }}" data-target=".rbins-listing-details">{{ key }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

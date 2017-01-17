@@ -6,11 +6,6 @@
             'parent_id': 'rbins-content-main'
         }
     %}
-
-{#
-    {{ dump(people) }}
-#}
-
     <div class="row">
         <div class="col-xs-12 rbins-messages"></div>
         <div class="col-xs-12">
@@ -48,24 +43,10 @@
                          data-collapse-parent="#{{ tabbed_content_vars.parent_id }}"
                          role="tabpanel"
                          aria-labelledby="{{ tab.id }}-heading">
-                        <p>blabla{{ tab.id }}</p>
-{#
-                        {% set parameter_bag =
-                            {
-                                'id': id,
-                                'controller': tab.controller,
-                                'route': tab.route,
-                            }
-                        %}
-                        {{
-                            render(
-                                controller(
-                                    tab.controller,
-                                    parameter_bag
-                                )
-                            )
-                        }}
-#}
+                        {% include '_partials/listContent/letterNav.html.twig' with {'type': tab.id, 'groupsLetter': people[tab.id] } %}
+                        <div class="row rbins-listing-details">
+                            {% include '_partials/listContent/letterADDetails.html.twig' with {'type':tab.id,'groupsLetter':people[tab.id]} %}
+                        </div>
                     </div>
                 </div>
             </div>

@@ -314,6 +314,22 @@
 .rbins-listing-details {
   margin-top: .5rem;
 
+  table {
+    width: 100%;
+
+    thead tr {
+      border-bottom: 1px solid $darkgrey;
+    }
+
+    .not-visible {
+      visibility: hidden;
+    }
+
+    .hidden {
+      display: none;
+    }
+  }
+
   ul {
     margin-bottom: 0;
     padding-left: .1rem;
