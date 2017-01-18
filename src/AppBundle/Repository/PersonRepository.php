@@ -407,7 +407,7 @@ class PersonRepository extends BaseRepository
         }
 
         $qb
-            ->setMaxResults(500);
+            ->setMaxResults(2500);
         return $qb;
     }
 
