@@ -455,7 +455,6 @@ button.navbar-toggle {
   margin-bottom: 4px;
 
   .search-results a.inactive {
-    text-decoration: line-through;
     color: $gray;
   }
 }
@@ -496,12 +495,10 @@ ul.rbins-fast-search {
 
     &.inactive {
       color: $gray;
-      text-decoration: line-through;
     }
 
     &.inactive:hover {
       color: $orange;
-      text-decoration: line-through;
     }
 
     i {

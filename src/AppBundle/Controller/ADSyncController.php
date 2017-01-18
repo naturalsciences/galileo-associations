@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Yaml\Yaml;
 
@@ -71,13 +73,25 @@ class ADSyncController extends Controller
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $activeOptions = $this->translateActiveOptions();
         $tabs = $this->extractTabsContent();
         $people = $this->getDoctrine()
             ->getRepository('AppBundle:Person')
-            ->groupsByLetters('*', 'all', 0, $this->uidState);
+            ->groupsByLetters($request->get('letter', '*'), $request->get('active', 'active'), 0, $this->uidState);
+        if ($request->isXmlHttpRequest()) {
+            $JsonResponse = array();
+            foreach($people as $key=>$person) {
+                $JsonResponse[$key]['letterNav'] = $this->renderView('_partials/listContent/letterNav.html.twig', array('type'=>$key, 'groupsLetter'=>$person));
+                $JsonResponse[$key]['letterDetails'] = $this->renderView('_partials/listContent/letterADDetails.html.twig', array('type'=>$key, 'groupsLetter'=>$person));
+            }
+
+            return new JsonResponse(
+                $JsonResponse
+            );
+        }
+
         return $this->render(
             'default/adsync.html.twig',
             array(

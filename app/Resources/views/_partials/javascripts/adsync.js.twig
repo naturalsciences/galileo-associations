@@ -15,8 +15,10 @@ $(document).ready(
                         type: 'GET',
                         success: function (data) {
                             $('.'+messageTargetClass).html(data);
+                            $('#rbins-adsync-active-options').trigger('change');
                         },
                         error: function (jqXHR) {
+                            // ToDo: Use a HandleBar template to display the error in the messageTargetClass
                             console.log('error');
                             console.log(jqXHR.status);
                         }
@@ -24,6 +26,39 @@ $(document).ready(
                 ).done(
                     function() {
                         refreshIcon.removeClass('fa-spin');
+                    }
+                );
+            }
+        );
+
+        $('.rbins-tab-content').on(
+            'click',
+            '.rbins-listing a.page-link',
+            function(event) {
+                event.preventDefault();
+                var targetElements = $($(this).data('target'));
+                var excludedElements = targetElements.parents('table').find('tbody tr').not('.'+targetElements.attr('class'));
+                var otherLetterLinks = $(this).parents($(this).data('parent')).find('a.page-link').not('.'+$(this).attr('class')).parents('li');
+                otherLetterLinks.removeClass('active');
+                $(this).parents('li').addClass('active');
+                excludedElements.hide();
+                targetElements.fadeIn();
+            }
+        );
+
+        $('#rbins-adsync-active-options').on(
+            'change',
+            function(event) {
+                var url = $(this).data('call-url')+'/*/'+$(this).val();
+                $.get(
+                    url,
+                    function(data){
+                        $('#person-no-id .rbins-listing').replaceWith(data['person-no-id'].letterNav);
+                        $('#person-no-id .rbins-listing-details').html(data['person-no-id'].letterDetails);
+                        $('#person-wrong-id .rbins-listing').replaceWith(data['person-wrong-id'].letterNav);
+                        $('#person-wrong-id .rbins-listing-details').html(data['person-wrong-id'].letterDetails);
+                        $('#person-correct-id .rbins-listing').replaceWith(data['person-correct-id'].letterNav);
+                        $('#person-correct-id .rbins-listing-details').html(data['person-correct-id'].letterDetails);
                     }
                 );
             }

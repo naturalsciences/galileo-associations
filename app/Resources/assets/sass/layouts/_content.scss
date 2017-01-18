@@ -21,9 +21,9 @@
 #personContent,
 #projectsContent,
 #teamsContent,
-#personNoIdContent,
-#personWrongIdContent,
-#personCorrectIdContent {
+div#person-no-id,
+div#person-wrong-id,
+div#person-correct-id {
   margin-top: 1px;
   padding-left: .3rem;
   padding-right: .3rem;
@@ -40,17 +40,18 @@
       width: 100%;
     }
 
-    dl a:hover {
+    dl a:hover
+    td a:hover {
       text-decoration: none;
     }
 
     dl a.inactive,
-    dl a.inactive:hover {
-      text-decoration: line-through;
+    td a.inactive {
       color: $gray;
     }
 
-    dl a.inactive:hover {
+    dl a.inactive:hover,
+    td a.inactive:hover {
       color: $black;
     }
 
@@ -397,5 +398,5 @@ span.rbins-adsync-text {
 }
 
 ul.rbins-adsync-tabs {
-  margin-top: .85rem;
+  margin-top: .83rem;
 }

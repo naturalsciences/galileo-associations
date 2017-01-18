@@ -225,10 +225,12 @@ app_add_related:
     condition: "request.isXmlHttpRequest()"
 
 adsync_list:
-    path: /{_locale}/ad/list
+    path: /{_locale}/ad/list/{letter}/{active}
     defaults:
         _controller: AppBundle:ADSync:index
         _locale: "%locale%"
+        letter: '*'
+        active: 'active'
     requirements:
         _locale: "%locales%"
     options:

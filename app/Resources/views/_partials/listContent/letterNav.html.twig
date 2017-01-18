@@ -5,11 +5,13 @@
                 {% set letterPath = path('teams_list_details', { '_locale': app.request.getLocale(), 'letter': key }) %}
             {% elseif type == 'projects' %}
                 {% set letterPath = path('projects_list_details', { '_locale': app.request.getLocale(), 'letter': key }) %}
+            {% elseif type in ['person-no-id', 'person-wrong-id', 'person-correct-id'] %}
+                {% set letterPath = path('adsync_list', { '_locale': app.request.getLocale(), 'letter': key }) %}
             {% else %}
                 {% set letterPath = path('person_list_details', { '_locale': app.request.getLocale(), 'letter': key }) %}
             {% endif %}
             <li class="page-item {% if value.count == 0 %}disabled{% else %}enabled{% endif %} {% if value.selected == 1 %}active{% endif %}">
-                <a class="page-link" href="{{ letterPath }}" data-target=".rbins-listing-details">{{ key }}</a>
+                <a class="page-link page-link-{% if key == '*' %}all{% elseif key == '#' %}carret{% else %}{{ key }}{% endif %}" href="{{ letterPath }}" data-parent=".rbins-listing" data-target=".rbins-listing-details {% if type in ['person-no-id', 'person-wrong-id', 'person-correct-id'] %}.rbins-adlist-{{ type }}-{% if key == '*' %}all{% elseif key == '#' %}carret{% else %}{{ key }}{% endif %}{% endif %}">{{ key }}</a>
             </li>
         {% endfor %}
     </ul>

@@ -419,7 +419,7 @@ class PersonRepository extends BaseRepository
      *                         and what to extract
      * @return array
      */
-    public function groupsByLetters($letter = '*', $activeState = 'all', $startFrom = 0, $uidState = '') {
+    public function groupsByLetters($letter = '*', $activeState = 'active', $startFrom = 0, $uidState = '') {
         $conn = $this->getEntityManager()->getConnection();
         $qb = $conn->createQueryBuilder();
 

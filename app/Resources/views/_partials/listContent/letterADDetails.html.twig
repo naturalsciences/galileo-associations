@@ -14,9 +14,9 @@
                     <tbody>
         {% endif %}
         {% for subvalue in value.list %}
-                        <tr class="rbins-adlist-{{ type }}-{{ subvalue.firstLetter }}">
-                            <td class="person-name"><span class="person-id hidden">{{ subvalue.id }}</span><a href="{{ path('person', {'action':'view', 'id':subvalue.id}) }}">{{ subvalue.name }}</a></td>
-                            <td class="person-email"><a href="mailto:{{ subvalue.email }}">{{ subvalue.email }}</a></td>
+                        <tr class="rbins-adlist-{{ type }}-{% if subvalue.firstLetter == '#' %}carret{% else %}{{ subvalue.firstLetter }}{% endif %} rbins-adlist-{{ type }}-all">
+                            <td class="person-name"><span class="person-id hidden">{{ subvalue.id }}</span><a class="{{ subvalue.active }}" href="{{ path('person', {'action':'view', 'id':subvalue.id}) }}">{{ subvalue.name }}</a></td>
+                            <td class="person-email"><a class="{{ subvalue.active }}" href="mailto:{{ subvalue.email }}">{{ subvalue.email }}</a></td>
                             <td class="person-uid">{{ subvalue.uid }}</td>
                             <td class="person-action">button here</td>
                         </tr>

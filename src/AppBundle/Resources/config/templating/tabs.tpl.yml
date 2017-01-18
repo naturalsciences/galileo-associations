@@ -143,7 +143,7 @@ adsync:
     tabs:
         person-no-id:
             id: "person-no-id"
-            collapseElementId: "personNoIdContent"
+            collapseElementId: "person-no-id"
             collapseElementDefaultState: "in"
             headingText: "app.action.tab.personNoId"
             headingIcon: "fa-exclamation-circle"
@@ -151,7 +151,7 @@ adsync:
             route: "person_no_id_view"
         person-wrong-id:
             id: "person-wrong-id"
-            collapseElementId: "personWrongIdContent"
+            collapseElementId: "person-wrong-id"
             collapseElementDefaultState: ""
             headingText: "app.action.tab.personWrongId"
             headingIcon: "fa-question-circle"
@@ -159,7 +159,7 @@ adsync:
             route: "person_wrong_id_view"
         person-correct-id:
             id: "person-correct-id"
-            collapseElementId: "personCorrectIdContent"
+            collapseElementId: "person-correct-id"
             collapseElementDefaultState: ""
             headingText: "app.action.tab.personCorrectId"
             headingIcon: "fa-check-circle"

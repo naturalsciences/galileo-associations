@@ -7,11 +7,10 @@
         }
     %}
     <div class="row">
-        <div class="col-xs-12 rbins-messages"></div>
         <div class="col-xs-12">
             <h2 class="content-title rbins-adsync-title">{% trans from "messages" into app.request.getLocale() %}app.title.home.adsync{% endtrans %}</h2>
             <div class="rbins-adsync-action">
-                <select id="rbins-adsync-active-options" class="form-control">
+                <select id="rbins-adsync-active-options" class="form-control" data-call-url="{{ path('adsync_list') }}">
                     {% for key,option in activeOptions %}
                         <option value="{{ key }}">{{ option }}</option>
                     {% endfor %}
@@ -56,6 +55,9 @@
                 <li id="{{ tab.id }}" class="{% if key == 'person-no-id' %}active{% endif %}" data-target="#{{ tab.collapseElementId }}"><a class="{% if key == 'person-no-id' %}active{% endif %}" href="#"><i class="fa fa-2x {{ tab.headingIcon }}"></i><span class="hidden-lg-down"> {{ tab.headingText }}</span></a></li>
             {% endfor %}
         </ul>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 rbins-messages"></div>
     </div>
 {% endblock content_main %}
 {% block javascript_content %}
