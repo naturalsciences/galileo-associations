@@ -16,9 +16,6 @@ class BaseController extends Controller
     protected function handleJsonResponse(Array $data, $key) {
         $response = new JsonResponse($data);
         $response->setEncodingOptions(JSON_UNESCAPED_UNICODE);
-        if (count($data[$key]) === 0) {
-            throw $this->createNotFoundException('No record found !');
-        }
         $response->setStatusCode(200);
         return $response;
     }
