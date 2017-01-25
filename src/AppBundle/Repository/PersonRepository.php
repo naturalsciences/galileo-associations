@@ -148,6 +148,20 @@ class PersonRepository extends BaseRepository
             }
         }
 
+        if ( isset($relatedFilters['last_name']) ) {
+            if ( is_array($relatedFilters['last_name']) ) {
+                if ( count($relatedFilters['last_name']) > 0 ) {
+                    $sqlWhere = '';
+                    foreach( $relatedFilters['last_name'] as $value ) {
+                        $sqlWhere .= 'p.last_name ilike \'%\' || ? || \'%\' OR ';
+                        $params[] = $value;
+                    }
+                    $sqlWhere = trim(rtrim(trim($sqlWhere), 'OR'));
+                    $qb->andWhere($sqlWhere);
+                }
+            }
+        }
+
         $qb
             ->setMaxResults(3000)
             ->orderBy('p.last_name');

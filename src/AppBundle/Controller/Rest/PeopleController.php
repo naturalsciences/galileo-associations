@@ -17,6 +17,7 @@ class PeopleController extends BaseController
         $relatedFilters = $this->extractRelatedFilters($request);
         $relatedFilters['ids'] = $this->extractIds($request);
         $relatedFilters['names'] = $this->extractNames($request);
+        $relatedFilters['last_name'] = $this->extractLastNames($request);
         $relatedFilters['uids'] = $this->extractUids($request);
         $active = $this->extractActive($request);
 

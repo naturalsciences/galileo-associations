@@ -73,6 +73,18 @@ class BaseController extends Controller
      * @param Request $request
      * @return array
      */
+    protected function extractLastNames(Request $request) {
+        $lastNames = array();
+        if ( $request->query->get('last_name', '') !== '' ) {
+            $lastNames = explode(',', $request->query->get('last_name'));
+        }
+        return $lastNames;
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     */
     protected function extractUids(Request $request) {
         $uids = array();
         if ( $request->query->get('samaccountname', '') !== '' ) {
