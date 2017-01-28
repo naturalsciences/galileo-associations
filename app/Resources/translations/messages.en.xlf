@@ -104,6 +104,10 @@
                         <source xml:lang="en">User ID</source>
                         <target xml:lang="en">User ID</target>
                     </trans-unit>
+                    <trans-unit id="app-meta-title-form-person-view-action" resname="app.meta.title.form.person.view.action">
+                        <source xml:lang="en">Action</source>
+                        <target xml:lang="en">Action</target>
+                    </trans-unit>
                     <trans-unit id="app-meta-title-form-relatedPeople-view-name" resname="app.meta.title.form.relatedPeople.view.name">
                         <source xml:lang="en">Person name</source>
                         <target xml:lang="en">Person name</target>

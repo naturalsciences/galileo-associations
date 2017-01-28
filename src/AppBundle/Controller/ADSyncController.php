@@ -130,4 +130,16 @@ class ADSyncController extends Controller
             '_partials/messages/_messages.html.twig'
         );
     }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse The list on non used UIDs
+     */
+    public function getNonUsedUidsAction(Request $request) {
+        $uid = $request->get('term','');
+        $uidsWithPeople = $this->getDoctrine()
+            ->getRepository('AppBundle:ADSync')
+            ->listFreeUids($uid);
+        return new JsonResponse($uidsWithPeople);
+    }
 }

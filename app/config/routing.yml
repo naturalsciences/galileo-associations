@@ -249,6 +249,18 @@ adsync_sync:
     methods: [GET]
     condition: "request.isXmlHttpRequest()"
 
+adsync_free_uids:
+    path: /{_locale}/ad/freeuids
+    defaults:
+        _controller: AppBundle:ADSync:getNonUsedUids
+        _locale: "%locale%"
+    requirements:
+        _locale: "%locales%"
+    options:
+        expose: false
+    methods: [GET]
+#    condition: "request.isXmlHttpRequest()"
+
 person_list:
     path: /{_locale}/person/list
     defaults:

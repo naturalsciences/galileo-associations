@@ -1,30 +1,38 @@
 {% for value in groupsLetter %}
     {% if value.selected %}
-        {% if value.count > 0 %}
-            <div class="col-xs-12 rbins-adlist-{{ type }}">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>{% trans %}app.form.relatedPeople.view.label.name{% endtrans %}</th>
-                            <th>{% trans %}app.meta.title.form.person.view.email{% endtrans %}</th>
-                            <th class="{% if type == 'person-no-id' %}not-visible{% endif %}">{% trans %}app.meta.title.form.person.view.uid{% endtrans %}</th>
-                            <th>button here</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-        {% endif %}
-        {% for subvalue in value.list %}
-                        <tr class="rbins-adlist-{{ type }}-{% if subvalue.firstLetter == '#' %}carret{% else %}{{ subvalue.firstLetter }}{% endif %} rbins-adlist-{{ type }}-all">
-                            <td class="person-name"><span class="person-id hidden">{{ subvalue.id }}</span><a class="{{ subvalue.active }}" href="{{ path('person', {'action':'view', 'id':subvalue.id}) }}">{{ subvalue.name }}</a></td>
-                            <td class="person-email"><a class="{{ subvalue.active }}" href="mailto:{{ subvalue.email }}">{{ subvalue.email|length > 20 ? subvalue.email|slice(0,17) ~ '...' : subvalue.email }}</a></td>
-                            <td class="person-uid">{{ subvalue.uid }}</td>
-                            <td class="person-action">button here</td>
-                        </tr>
-        {% endfor %}
-        {% if value.count > 0 %}
-                    </tbody>
-                </table>
-            </div>
-        {% endif %}
+        <div class="col-xs-12 rbins-adlist-{{ type }}">
+            <table class="{% if value.count == 0 %}invisible{% endif %}">
+                <thead>
+                    <tr>
+                        <th>{% trans %}app.form.relatedPeople.view.label.name{% endtrans %}</th>
+                        <th>{% trans %}app.meta.title.form.person.view.email{% endtrans %}</th>
+                        <th class="{% if type == 'person-no-id' %}not-visible{% endif %}">{% trans %}app.meta.title.form.person.view.uid{% endtrans %}</th>
+                        <th>{% trans %}app.meta.title.form.person.view.action{% endtrans %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for subvalue in value.list %}
+                    <tr class="rbins-adlist-{{ type }}-{% if subvalue.firstLetter == '#' %}carret{% else %}{{ subvalue.firstLetter }}{% endif %} rbins-adlist-{{ type }}-all">
+                        <td class="person-name"><span class="person-id hidden">{{ subvalue.id }}</span><a class="{{ subvalue.active }}" href="{{ path('person', {'action':'view', 'id':subvalue.id}) }}">{{ subvalue.name }}</a></td>
+                        <td class="person-email"><a class="{{ subvalue.active }}" href="mailto:{{ subvalue.email }}">{{ subvalue.email|length > 20 ? subvalue.email|slice(0,17) ~ '...' : subvalue.email }}</a></td>
+                        <td class="person-uid">
+                            {% if type != "person-correct-id" %}
+                                <span class="invisible rbins-definition-switchable-{{ type }}-{{ subvalue.id }} ui-widget">
+                                    <input type="text">
+                                    <button type="button" class="btn btn-sm btn-secondary rbins-inline-save"><i class="fa fa-save"></i></button>
+                                    <button type="button" class="btn btn-sm btn-secondary rbins-inline-close"><i class="fa fa-times"></i></button>
+                                </span>
+                            {% endif %}
+                            <span>{{ subvalue.uid }}</span>
+                        </td>
+                        <td class="person-action">
+                            {% if type != 'person-correct-id' %}<button type="button" class="btn btn-sm btn-secondary rbins-inline-edit-uid" data-target-redisplay-class="rbins-definition-switchable-{{ type }}-{{ subvalue.id }}"><i class="fa {% if type == 'person-no-id' %}fa-id-card-o{% else %}fa-exchange{% endif %}"></i></button>{% endif %}
+                            {% if type != 'person-no-id' %}<button type="button" class="btn btn-sm btn-secondary rbins-inline-cancel"><i class="fa fa-times-circle-o"></i></button>{% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     {% endif %}
 {% endfor %}

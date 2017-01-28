@@ -10,4 +10,20 @@ namespace AppBundle\Repository;
  */
 class ADSyncRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @return array The list of Free UIDs
+     */
+    public function listFreeUids($uid) {
+        $params = array('%'.$uid.'%');
+        $conn = $this->getEntityManager()->getConnection();
+        $qb =  $conn->createQueryBuilder()
+            ->select('ad.samaccountname || \' - \' || ad.givenname || \' \' || ad.sn as value')
+            ->from('ad_sync','ad')
+            ->leftJoin('ad','person','p','p.uid = ad.samaccountname')
+            ->where('p.uid IS NULL')
+            ->andWhere('ad.samaccountname ilike ?');
+        $st = $conn->prepare($qb->getSQL());
+        $st->execute($params);
+        return $st->fetchAll();
+    }
 }
