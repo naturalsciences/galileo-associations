@@ -11,6 +11,7 @@ namespace AppBundle\Repository;
 class ADSyncRepository extends \Doctrine\ORM\EntityRepository
 {
     /**
+     * @param string $uid Textual part of uid searched
      * @return array The list of Free UIDs
      */
     public function listFreeUids($uid) {

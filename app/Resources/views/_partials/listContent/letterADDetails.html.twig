@@ -6,7 +6,7 @@
                     <tr>
                         <th>{% trans %}app.form.relatedPeople.view.label.name{% endtrans %}</th>
                         <th>{% trans %}app.meta.title.form.person.view.email{% endtrans %}</th>
-                        <th class="{% if type == 'person-no-id' %}not-visible{% endif %}">{% trans %}app.meta.title.form.person.view.uid{% endtrans %}</th>
+                        <th>{% trans %}app.meta.title.form.person.view.uid{% endtrans %}</th>
                         <th>{% trans %}app.meta.title.form.person.view.action{% endtrans %}</th>
                     </tr>
                 </thead>
@@ -16,18 +16,19 @@
                         <td class="person-name"><span class="person-id hidden">{{ subvalue.id }}</span><a class="{{ subvalue.active }}" href="{{ path('person', {'action':'view', 'id':subvalue.id}) }}">{{ subvalue.name }}</a></td>
                         <td class="person-email"><a class="{{ subvalue.active }}" href="mailto:{{ subvalue.email }}">{{ subvalue.email|length > 20 ? subvalue.email|slice(0,17) ~ '...' : subvalue.email }}</a></td>
                         <td class="person-uid">
+                            {{ subvalue.uid }}
+                        </td>
+                        <td class="person-action">
                             {% if type != "person-correct-id" %}
-                                <span class="invisible rbins-definition-switchable-{{ type }}-{{ subvalue.id }} ui-widget">
+                                <span id="rbins-definition-switchable-{{ type }}-{{ subvalue.id }}" class="invisible ui-widget">
                                     <input type="text">
-                                    <button type="button" class="btn btn-sm btn-secondary rbins-inline-save"><i class="fa fa-save"></i></button>
+                                    <button type="button" class="btn btn-sm btn-secondary rbins-inline-save" data-person-uid="{{ subvalue.uid }}" data-person-id="{{ subvalue.id }}" data-type="{{ type }}" data-letter="{% if subvalue.firstLetter == '#' %}carret{% else %}{{ subvalue.firstLetter }}{% endif %}" data-parent-div-class="rbins-adlist-{{ type }}" data-target-type="person-correct-id" data-target-div-class="rbins-adlist-person-correct-id" data-parent-letter-class="rbins-letter-{{ type }}" data-target-letter-class="rbins-letter-person-correct-id"><i class="fa fa-save"></i></button>
                                     <button type="button" class="btn btn-sm btn-secondary rbins-inline-close"><i class="fa fa-times"></i></button>
                                 </span>
                             {% endif %}
-                            <span>{{ subvalue.uid }}</span>
-                        </td>
-                        <td class="person-action">
-                            {% if type != 'person-correct-id' %}<button type="button" class="btn btn-sm btn-secondary rbins-inline-edit-uid" data-target-redisplay-class="rbins-definition-switchable-{{ type }}-{{ subvalue.id }}"><i class="fa {% if type == 'person-no-id' %}fa-id-card-o{% else %}fa-exchange{% endif %}"></i></button>{% endif %}
-                            {% if type != 'person-no-id' %}<button type="button" class="btn btn-sm btn-secondary rbins-inline-cancel"><i class="fa fa-times-circle-o"></i></button>{% endif %}
+
+                            {% if type != 'person-correct-id' %}<button type="button" class="btn btn-sm btn-secondary rbins-inline-edit-uid" data-person-uid="{{ subvalue.uid }}" data-person-id="{{ subvalue.id }}" data-type="{{ type }}" data-letter="{% if subvalue.firstLetter == '#' %}carret{% else %}{{ subvalue.firstLetter }}{% endif %}" data-parent-div-class="rbins-adlist-{{ type }}" data-target-type="person-correct-id" data-target-div-class="rbins-adlist-person-correct-id" data-parent-letter-class="rbins-letter-{{ type }}" data-target-letter-class="rbins-letter-person-correct-id" data-target-display-id="rbins-definition-switchable-{{ type }}-{{ subvalue.id }}"><i class="fa {% if type == 'person-no-id' %}fa-id-card-o{% else %}fa-exchange{% endif %}"></i></button>{% endif %}
+                            {% if type != 'person-no-id' %}<button type="button" class="btn btn-sm btn-secondary rbins-inline-remove-uid" data-person-uid="{{ subvalue.uid }}" data-person-id="{{ subvalue.id }}" data-type="{{ type }}" data-letter="{% if subvalue.firstLetter == '#' %}carret{% else %}{{ subvalue.firstLetter }}{% endif %}" data-parent-div-class="rbins-adlist-{{ type }}" data-target-type="person-no-id" data-target-div-class="rbins-adlist-person-no-id" data-parent-letter-class="rbins-letter-{{ type }}" data-target-letter-class="rbins-letter-person-no-id"><i class="fa fa-times-circle-o"></i></button>{% endif %}
                         </td>
                     </tr>
                 {% endfor %}

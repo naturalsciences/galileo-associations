@@ -400,3 +400,15 @@ span.rbins-adsync-text {
 ul.rbins-adsync-tabs {
   margin-top: .83rem;
 }
+
+.rbins-adlist-person-no-id,
+.rbins-adlist-person-wrong-id,
+.rbins-adlist-person-correct-id {
+  table {
+    th:last-child,
+    td:last-child {
+      text-align: right;
+      padding-right: 8px;
+    }
+  }
+}

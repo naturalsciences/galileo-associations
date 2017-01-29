@@ -1,5 +1,30 @@
 $(document).ready(
     function() {
+
+        var adSync = function(btnClicked) {
+            if (this === window) {
+                return new adSync(btnClicked);
+            }
+            this.personId = btnClicked.data('person-id');
+            this.uid = btnClicked.data('person-uid');
+            this.currentDiv = $('div.'+btnClicked.data('parent-div-class'));
+            this.currentDivType = btnClicked.data('type');
+            this.currentDivLetter = btnClicked.data('letter');
+            this.currentLetterDiv = $('div.'+btnClicked.data('parent-letter-class'));
+            this.currentLetterSelected = this.currentLetterDiv.find('li.page-item.active');
+            this.currentDivLetterCount = this.currentDiv.find('tr.rbins-adlist-'+this.currentDivType+'-'+this.currentDivLetter).length;
+            this.currentDivAllCount = this.currentDiv.find('tr.rbins-adlist-'+this.currentDivType+'-all').length;
+            this.currentTable = btnClicked.parents('table');
+            this.targetDiv = $('div.'+btnClicked.data('target-div-class'));
+            this.targetDivType = btnClicked.data('target-type');
+            this.targetLetterDiv = $('div.'+btnClicked.data('target-letter-class'));
+            this.targetLetterSelected = this.targetLetterDiv.find('li.page-item.active');
+            this.targetDivLetterCount = this.targetDiv.find('tr.rbins-adlist-'+this.targetDivType+'-'+this.currentDivLetter).length;
+            this.targetDivAllCount = this.targetDiv.find('tr.rbins-adlist-'+this.targetDivType+'-all').length;
+            this.targetTable = this.targetDiv.find('table');
+            return this;
+        };
+
         $('.rbins-btn-adsync').on(
             'click',
             function (event) {
@@ -44,6 +69,53 @@ $(document).ready(
                 excludedElements.hide();
                 targetElements.fadeIn();
             }
+        ).on(
+            'click',
+            '.rbins-inline-remove-uid',
+            function() {
+                var buttonClicked = $(this);
+                var ad = adSync(buttonClicked);
+                var parentTr = buttonClicked.parents('tr');
+                // @ ToDo: Add Ajax here to condition in case of success the rest of the code
+                parentTr.removeClass().addClass('rbins-adlist-'+ad.targetDivType+'-'+ad.currentDivLetter).addClass('rbins-adlist-'+ad.targetDivType+'-all').find('td.person-uid').empty();
+                $(this).remove();
+                if ( parentTr.find('button.rbins-inline-edit-uid').length > 0 ) {
+                    parentTr.find('button.rbins-inline-edit-uid i').removeClass('fa-exchange').addClass('fa-id-card-o');
+                }
+                if ( ad.currentDivLetterCount == 1 ) {
+                    ad.currentLetterDiv.find('.page-item-'+ad.currentDivLetter).removeClass('enabled', 'active').addClass('disabled');
+                    if ( ad.currentDivAllCount == 1 ) {
+                        ad.currentLetterDiv.find('.page-item-all').removeClass('enabled', 'active').addClass('disabled');
+                        ad.currentTable.addClass('invisible');
+                    }
+                }
+                if ( ad.targetDivAllCount == 0 ) {
+                    ad.targetTable.removeClass('invisible');
+                    ad.targetLetterDiv.find('.page-item-all').removeClass('disabled').addClass('enabled').addClass('active');
+                    ad.targetTable.append(parentTr); // ToDo Check validity of this
+                }
+                else {
+                    if ( ad.targetDivLetterCount == 0 ) {
+                        ad.targetLetterDiv.find('.page-item-'+ad.currentDivLetter).removeClass('disabled').addClass('enabled');
+                        // @ ToDo: Find Out here how to move at the right place
+                    }
+                    else {
+                        parentTr.insertAfter(ad.targetTable.find('tr.rbins-adlist-'+ad.targetDivType+'-'+ad.currentDivLetter).last());
+                    }
+                }
+            }
+        ).on(
+            'click',
+            '.rbins-inline-edit-uid',
+            function() {
+                $('#'+$(this).data('target-display-id')).toggleClass('invisible');
+            }
+        ).on(
+            'click',
+            '.rbins-inline-close',
+            function() {
+                $(this).parents('span').addClass('invisible').find('input').val('');
+            }
         );
 
         $('#rbins-adsync-active-options').on(
@@ -67,10 +139,7 @@ $(document).ready(
         $('div.rbins-adlist-person-no-id input, div.rbins-adlist-person-wrong-id input').autocomplete(
             {
                 source: "{{ path('adsync_free_uids') }}",
-                minLength: 2,
-                select: function( event, ui ) {
-                    console.log( "Selected: " + ui.item.value + " aka " + ui.item.id );
-                }
+                minLength: 2
             }
         );
     }

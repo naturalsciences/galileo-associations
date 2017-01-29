@@ -259,7 +259,7 @@ adsync_free_uids:
     options:
         expose: false
     methods: [GET]
-#    condition: "request.isXmlHttpRequest()"
+    condition: "request.isXmlHttpRequest()"
 
 person_list:
     path: /{_locale}/person/list
