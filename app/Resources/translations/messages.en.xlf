@@ -605,6 +605,10 @@
                     <source xml:lang="en">Homepage</source>
                     <target xml:lang="en">Homepage</target>
                 </trans-unit>
+                <trans-unit id="app-errors-adsync-removeUid-noPersonId" resname="app.errors.adsync.removeUid.noPersonId">
+                    <source xml:lang="en">You did not provide any person ID. Please provide one !</source>
+                    <target xml:lang="en">You did not provide any person ID. Please provide one !</target>
+                </trans-unit>
             </group>
             <group id="app-message">
                 <trans-unit id="app-message-search" resname="app.message.search">

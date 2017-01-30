@@ -5,11 +5,13 @@ $(document).ready(
             if (this === window) {
                 return new adSync(btnClicked);
             }
+            this.letterList = ['carret','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
             this.personId = btnClicked.data('person-id');
             this.uid = btnClicked.data('person-uid');
             this.currentDiv = $('div.'+btnClicked.data('parent-div-class'));
             this.currentDivType = btnClicked.data('type');
             this.currentDivLetter = btnClicked.data('letter');
+            this.currentDivLetterIndex = this.letterList.indexOf(this.currentDivLetter);
             this.currentLetterDiv = $('div.'+btnClicked.data('parent-letter-class'));
             this.currentLetterSelected = this.currentLetterDiv.find('li.page-item.active');
             this.currentDivLetterCount = this.currentDiv.find('tr.rbins-adlist-'+this.currentDivType+'-'+this.currentDivLetter).length;
@@ -44,8 +46,8 @@ $(document).ready(
                         },
                         error: function (jqXHR) {
                             // ToDo: Use a HandleBar template to display the error in the messageTargetClass
-                            console.log('error');
-                            console.log(jqXHR.status);
+                            // console.log('error');
+                            // console.log(jqXHR.status);
                         }
                     }
                 ).done(
@@ -76,33 +78,61 @@ $(document).ready(
                 var buttonClicked = $(this);
                 var ad = adSync(buttonClicked);
                 var parentTr = buttonClicked.parents('tr');
-                // @ ToDo: Add Ajax here to condition in case of success the rest of the code
-                parentTr.removeClass().addClass('rbins-adlist-'+ad.targetDivType+'-'+ad.currentDivLetter).addClass('rbins-adlist-'+ad.targetDivType+'-all').find('td.person-uid').empty();
-                $(this).remove();
-                if ( parentTr.find('button.rbins-inline-edit-uid').length > 0 ) {
-                    parentTr.find('button.rbins-inline-edit-uid i').removeClass('fa-exchange').addClass('fa-id-card-o');
-                }
-                if ( ad.currentDivLetterCount == 1 ) {
-                    ad.currentLetterDiv.find('.page-item-'+ad.currentDivLetter).removeClass('enabled', 'active').addClass('disabled');
-                    if ( ad.currentDivAllCount == 1 ) {
-                        ad.currentLetterDiv.find('.page-item-all').removeClass('enabled', 'active').addClass('disabled');
-                        ad.currentTable.addClass('invisible');
+                $("body").css("cursor", "wait");
+                $.ajax(
+                    {
+                        url: "{{ path('person_remove_uid') }}",
+                        data: { person_id: ad.personId },
+                        type: 'POST',
+                        success: function() {
+                            parentTr.removeClass().addClass('rbins-adlist-'+ad.targetDivType+'-'+ad.currentDivLetter).addClass('rbins-adlist-'+ad.targetDivType+'-all').find('td.person-uid').empty();
+                            buttonClicked.remove();
+                            if ( parentTr.find('button.rbins-inline-edit-uid').length > 0 ) {
+                                parentTr.find('button.rbins-inline-edit-uid i').removeClass('fa-exchange').addClass('fa-id-card-o');
+                            }
+                            if ( ad.currentDivLetterCount == 1 ) {
+                                ad.currentLetterDiv.find('.page-item-'+ad.currentDivLetter).removeClass('enabled', 'active').addClass('disabled');
+                                if ( ad.currentDivAllCount == 1 ) {
+                                    ad.currentLetterDiv.find('.page-item-all').removeClass('enabled', 'active').addClass('disabled');
+                                    ad.currentTable.addClass('invisible');
+                                }
+                            }
+                            if ( ad.targetDivAllCount == 0 ) {
+                                ad.targetTable.removeClass('invisible');
+                                ad.targetLetterDiv.find('.page-item-all').removeClass('disabled').addClass('enabled').addClass('active');
+                                ad.targetTable.append(parentTr); // ToDo Check validity of this
+                            }
+                            else {
+                                if ( ad.targetDivLetterCount == 0 ) {
+                                    ad.targetLetterDiv.find('.page-item-'+ad.currentDivLetter).removeClass('disabled').addClass('enabled');
+                                    var recFound = false;
+                                    for ( var i=ad.currentDivLetterIndex; i-- > 0; ) {
+                                        if ( ad.targetTable.find('tr.rbins-adlist-'+ad.targetDivType+'-'+ad.letterList[i]).last().length > 0 ) {
+                                            parentTr.insertAfter(ad.targetTable.find('tr.rbins-adlist-'+ad.targetDivType+'-'+ad.letterList[i]).last());
+                                            recFound = true;
+                                            break;
+                                        }
+                                    }
+                                    if ( !recFound ) {
+                                        parentTr.insertBefore(ad.targetTable.find('tbody tr').first());
+                                    }
+                                }
+                                else {
+                                    parentTr.insertAfter(ad.targetTable.find('tr.rbins-adlist-'+ad.targetDivType+'-'+ad.currentDivLetter).last());
+                                }
+                            }
+                        },
+                        error: function (jqXHR) {
+                            // ToDo: Use a HandleBar template to display the error in the messageTargetClass
+                            // console.log('error');
+                            // console.log(jqXHR.status);
+                        }
                     }
-                }
-                if ( ad.targetDivAllCount == 0 ) {
-                    ad.targetTable.removeClass('invisible');
-                    ad.targetLetterDiv.find('.page-item-all').removeClass('disabled').addClass('enabled').addClass('active');
-                    ad.targetTable.append(parentTr); // ToDo Check validity of this
-                }
-                else {
-                    if ( ad.targetDivLetterCount == 0 ) {
-                        ad.targetLetterDiv.find('.page-item-'+ad.currentDivLetter).removeClass('disabled').addClass('enabled');
-                        // @ ToDo: Find Out here how to move at the right place
+                ).done(
+                    function(){
+                        $("body").css("cursor", "default");
                     }
-                    else {
-                        parentTr.insertAfter(ad.targetTable.find('tr.rbins-adlist-'+ad.targetDivType+'-'+ad.currentDivLetter).last());
-                    }
-                }
+                );
             }
         ).on(
             'click',

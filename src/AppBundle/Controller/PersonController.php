@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class PersonController extends Controller
@@ -274,5 +275,32 @@ class PersonController extends Controller
             '_partials/tabbedContent/relatedTabs/view/related_people.html.twig',
             array( 'related_people' => $related_people, 'type' => $type )
         );
+    }
+
+    public function removeUidAction(Request $request) {
+        $response = new JsonResponse();
+        if ( $request->get('person_id', '') === '' ) {
+            $translator = $this->get('translator');
+            $message = $translator->trans('app.errors.adsync.removeUid.noPersonId',array(),'messages',$request->getLocale());
+            $response->setData(array('response'=> $message))
+                ->setStatusCode(419);
+        }
+        else {
+            try {
+                $em = $this->getDoctrine()->getManager();
+                $person = $em->getRepository('AppBundle:Person')
+                    ->find($request->get('person_id'));
+                $person->setUid(null);
+                $em->flush();
+                $response->setData(array('response'=>'OK'))
+                    ->setStatusCode(200);
+            }
+            catch (\Exception $error) {
+                $response->setData(array('response'=>$error->getMessage()))
+                    ->setContent($error->getMessage())
+                    ->setStatusCode(419);
+            }
+        }
+        return $response;
     }
 }

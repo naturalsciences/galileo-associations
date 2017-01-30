@@ -65,6 +65,7 @@ security:
         - { path: ^/(|en|fr|nl)$, roles: ROLE_USER }
         - { path: ^/(en|fr|nl)/(projects|teams|person)/(list|view), roles: ROLE_USER }
         - { path: ^/(en|fr|nl)/(projects|teams|person)/(add|edit), roles: ROLE_TP_LEADER }
+        - { path: ^/(en|fr|nl)/person/uid/remove$, roles: ROLE_HR }
         - { path: ^/(en|fr|nl)/(projects|teams|person)$, roles: ROLE_TP_LEADER }
-        - { path: ^/(en|fr|nl)/(ad)/(list|sync)$, roles: ROLE_HR }
+        - { path: ^/(en|fr|nl)/ad/(list|sync|freeuids)$, roles: ROLE_HR }
         - { path: ^/(edit|add|remove), roles: ROLE_TP_LEADER }
