@@ -27,6 +27,99 @@ $(document).ready(
             return this;
         };
 
+        var movingOperations = function(buttonClicked, parentTr, ad) {
+            parentTr.removeClass().addClass('rbins-adlist-'+ad.targetDivType+'-'+ad.currentDivLetter).addClass('rbins-adlist-'+ad.targetDivType+'-all').find('td.person-uid').empty();
+            buttonClicked.remove();
+            if ( parentTr.find('button.rbins-inline-edit-uid').length > 0 && ad.targetDivType == 'person-no-id' ) {
+                parentTr.find('button.rbins-inline-edit-uid i').removeClass('fa-exchange').addClass('fa-id-card-o');
+            }
+            else if ( parentTr.find('button.rbins-inline-edit-uid').length == 0 && ad.targetDivType == 'person-no-id' ) {
+                parentTr.find('td').last().append(
+                    '<span id="rbins-definition-switchable-'+
+                    ad.targetDivType+
+                    '-'+
+                    ad.personId+
+                    '" class="invisible ui-widget"><input type="text"><button type="button" class="btn btn-sm btn-secondary rbins-inline-save" data-person-uid="'+
+                    ad.uid+
+                    '" data-person-id="'+
+                    ad.personId+
+                    '" data-type="'+
+                    ad.targetDivType+
+                    '" data-letter="'+
+                    ad.currentDivLetter+
+                    '" data-parent-div-class="rbins-adlist-'+
+                    ad.targetDivType+
+                    '" data-target-type="person-correct-id" data-target-div-class="rbins-adlist-person-correct-id" data-parent-letter-class="rbins-letter-'+
+                    ad.targetDivType+
+                    '" data-target-letter-class="rbins-letter-person-correct-id"><i class="fa fa-save"></i></button><button type="button" class="btn btn-sm btn-secondary rbins-inline-close"><i class="fa fa-times"></i></button></span><button type="button" class="btn btn-sm btn-secondary rbins-inline-edit-uid" data-person-uid="'+
+                    ad.uid+
+                    '" data-person-id="'+
+                    ad.personId+
+                    '" data-type="'+
+                    ad.targetDivType+
+                    '" data-letter="'+
+                    ad.currentDivLetter+
+                    '" data-parent-div-class="rbins-adlist-'+
+                    ad.targetDivType+
+                    '" data-target-type="person-correct-id" data-target-div-class="rbins-adlist-person-correct-id" data-parent-letter-class="rbins-letter-'+
+                    ad.targetDivType+
+                    '" data-target-letter-class="rbins-letter-person-correct-id" data-target-display-id="rbins-definition-switchable-'+
+                    ad.targetDivType+
+                    '-'+
+                    ad.personId+
+                    '"><i class="fa fa-id-card-o"></i></button>'
+                );
+            }
+            else if ( parentTr.find('button.rbins-inline-remove-uid').length == 0 && ad.targetDivType == 'person-correct-id' ) {
+                parentTr.find('td').last().append(
+                        '<button type="button" class="btn btn-sm btn-secondary rbins-inline-remove-uid" data-person-uid="'+
+                        ad.uid+
+                        '" data-person-id="'+
+                        ad.personId+
+                        '" data-type="'+
+                        ad.targetDivType+
+                        '" data-letter="'+
+                        ad.currentDivLetter+
+                        '" data-parent-div-class="rbins-adlist-'+
+                        ad.targetDivType+
+                        '" data-target-type="person-no-id" data-target-div-class="rbins-adlist-person-no-id" data-parent-letter-class="rbins-letter-'+
+                        ad.targetDivType+
+                        '" data-target-letter-class="rbins-letter-person-no-id"><i class="fa fa-times-circle-o"></i></button>'
+                );
+            }
+            if ( ad.currentDivLetterCount == 1 ) {
+                ad.currentLetterDiv.find('.page-item-'+ad.currentDivLetter).removeClass('enabled', 'active').addClass('disabled');
+                if ( ad.currentDivAllCount == 1 ) {
+                    ad.currentLetterDiv.find('.page-item-all').removeClass('enabled', 'active').addClass('disabled');
+                    ad.currentTable.addClass('invisible');
+                }
+            }
+            if ( ad.targetDivAllCount == 0 ) {
+                ad.targetTable.removeClass('invisible');
+                ad.targetLetterDiv.find('.page-item-all').removeClass('disabled').addClass('enabled').addClass('active');
+                ad.targetTable.find('tbody').append(parentTr); // ToDo Check validity of this
+            }
+            else {
+                if ( ad.targetDivLetterCount == 0 ) {
+                    ad.targetLetterDiv.find('.page-item-'+ad.currentDivLetter).removeClass('disabled').addClass('enabled');
+                    var recFound = false;
+                    for ( var i=ad.currentDivLetterIndex; i-- > 0; ) {
+                        if ( ad.targetTable.find('tr.rbins-adlist-'+ad.targetDivType+'-'+ad.letterList[i]).last().length > 0 ) {
+                            parentTr.insertAfter(ad.targetTable.find('tr.rbins-adlist-'+ad.targetDivType+'-'+ad.letterList[i]).last());
+                            recFound = true;
+                            break;
+                        }
+                    }
+                    if ( !recFound ) {
+                        parentTr.insertBefore(ad.targetTable.find('tbody tr').first());
+                    }
+                }
+                else {
+                    parentTr.insertAfter(ad.targetTable.find('tr.rbins-adlist-'+ad.targetDivType+'-'+ad.currentDivLetter).last());
+                }
+            }
+        };
+
         $('.rbins-btn-adsync').on(
             'click',
             function (event) {
@@ -84,44 +177,7 @@ $(document).ready(
                         url: "{{ path('person_remove_uid') }}",
                         data: { person_id: ad.personId },
                         type: 'POST',
-                        success: function() {
-                            parentTr.removeClass().addClass('rbins-adlist-'+ad.targetDivType+'-'+ad.currentDivLetter).addClass('rbins-adlist-'+ad.targetDivType+'-all').find('td.person-uid').empty();
-                            buttonClicked.remove();
-                            if ( parentTr.find('button.rbins-inline-edit-uid').length > 0 ) {
-                                parentTr.find('button.rbins-inline-edit-uid i').removeClass('fa-exchange').addClass('fa-id-card-o');
-                            }
-                            if ( ad.currentDivLetterCount == 1 ) {
-                                ad.currentLetterDiv.find('.page-item-'+ad.currentDivLetter).removeClass('enabled', 'active').addClass('disabled');
-                                if ( ad.currentDivAllCount == 1 ) {
-                                    ad.currentLetterDiv.find('.page-item-all').removeClass('enabled', 'active').addClass('disabled');
-                                    ad.currentTable.addClass('invisible');
-                                }
-                            }
-                            if ( ad.targetDivAllCount == 0 ) {
-                                ad.targetTable.removeClass('invisible');
-                                ad.targetLetterDiv.find('.page-item-all').removeClass('disabled').addClass('enabled').addClass('active');
-                                ad.targetTable.append(parentTr); // ToDo Check validity of this
-                            }
-                            else {
-                                if ( ad.targetDivLetterCount == 0 ) {
-                                    ad.targetLetterDiv.find('.page-item-'+ad.currentDivLetter).removeClass('disabled').addClass('enabled');
-                                    var recFound = false;
-                                    for ( var i=ad.currentDivLetterIndex; i-- > 0; ) {
-                                        if ( ad.targetTable.find('tr.rbins-adlist-'+ad.targetDivType+'-'+ad.letterList[i]).last().length > 0 ) {
-                                            parentTr.insertAfter(ad.targetTable.find('tr.rbins-adlist-'+ad.targetDivType+'-'+ad.letterList[i]).last());
-                                            recFound = true;
-                                            break;
-                                        }
-                                    }
-                                    if ( !recFound ) {
-                                        parentTr.insertBefore(ad.targetTable.find('tbody tr').first());
-                                    }
-                                }
-                                else {
-                                    parentTr.insertAfter(ad.targetTable.find('tr.rbins-adlist-'+ad.targetDivType+'-'+ad.currentDivLetter).last());
-                                }
-                            }
-                        },
+                        success: movingOperations(buttonClicked, parentTr, ad),
                         error: function (jqXHR) {
                             // ToDo: Use a HandleBar template to display the error in the messageTargetClass
                             // console.log('error');
