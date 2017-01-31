@@ -33,6 +33,10 @@ $(document).ready(
                 parentTr.find('td.person-uid').empty();
                 buttonClicked.remove();
             }
+            else if ( buttonClicked.hasClass('rbins-inline-save') ) {
+                parentTr.find('td.person-uid').html(ad.uid);
+                parentTr.find('td.person-action').empty();
+            }
             if ( parentTr.find('button.rbins-inline-edit-uid').length > 0 && ad.targetDivType == 'person-no-id' ) {
                 parentTr.find('td.person-action').empty();
                 parentTr.find('td.person-action').append(
@@ -244,7 +248,9 @@ $(document).ready(
                         url: "{{ path('person_remove_uid') }}",
                         data: { person_id: ad.personId },
                         type: 'POST',
-                        success: movingOperations(buttonClicked, parentTr, ad),
+                        success: function() {
+                            movingOperations(buttonClicked, parentTr, ad);
+                        },
                         error: function (jqXHR) {
                             $("body").css("cursor", "default");
                             // ToDo: Use a HandleBar template to display the error in the messageTargetClass
@@ -258,13 +264,47 @@ $(document).ready(
             'click',
             '.rbins-inline-edit-uid',
             function() {
-                $('#'+$(this).data('target-display-id')).toggleClass('invisible');
+                $('#'+$(this).data('target-display-id')).toggleClass('invisible').find('input').autocomplete(
+                    {
+                        source: "{{ path('adsync_free_uids') }}",
+                        minLength: 2
+                    }
+                );
             }
         ).on(
             'click',
             '.rbins-inline-close',
             function() {
                 $(this).parents('span').addClass('invisible').find('input').val('');
+            }
+        ).on(
+            'click',
+            '.rbins-inline-save',
+            function() {
+                var uid = $(this).parents('span').find('input').val().trim().split(" ")[0];
+                if ( uid.length > 2 ) {
+                    var buttonClicked = $(this);
+                    var ad = adSync(buttonClicked);
+                    ad.uid = uid;
+                    var parentTr = buttonClicked.parents('tr');
+                    $("body").css("cursor", "wait");
+                    $.ajax(
+                        {
+                            url: "{{ path('person_update_uid') }}",
+                            data: { person_id: ad.personId, person_uid: uid },
+                            type: 'POST',
+                            success: function() {
+                                movingOperations(buttonClicked, parentTr, ad);
+                            },
+                            error: function (jqXHR) {
+                                $("body").css("cursor", "default");
+                                // ToDo: Use a HandleBar template to display the error in the messageTargetClass
+                                // console.log('error');
+                                // console.log(jqXHR.status);
+                            }
+                        }
+                    );
+                }
             }
         );
 
@@ -283,13 +323,6 @@ $(document).ready(
                         $('#person-correct-id .rbins-listing-details').html(data['person-correct-id'].letterDetails);
                     }
                 );
-            }
-        );
-
-        $('div.rbins-adlist-person-no-id input, div.rbins-adlist-person-wrong-id input').autocomplete(
-            {
-                source: "{{ path('adsync_free_uids') }}",
-                minLength: 2
             }
         );
     }

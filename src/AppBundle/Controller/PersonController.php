@@ -160,6 +160,38 @@ class PersonController extends Controller
     }
 
     /**
+     * @param string $personId Id of person to act on
+     * @param null $uid user ID (uid) to set
+     * @return JsonResponse
+     */
+    private function updatePersonUid($locale, $personId = '', $uid = null) {
+        $response = new JsonResponse();
+        if ( $personId === '' ) {
+            $translator = $this->get('translator');
+            $message = $translator->trans('app.errors.adsync.removeUid.noPersonId',array(),'messages',$locale);
+            $response->setData(array('response'=> $message))
+                ->setStatusCode(419);
+        }
+        else {
+            try {
+                $em = $this->getDoctrine()->getManager();
+                $person = $em->getRepository('AppBundle:Person')
+                    ->find($personId);
+                $person->setUid($uid);
+                $em->flush();
+                $response->setData(array('response'=>'OK'))
+                    ->setStatusCode(200);
+            }
+            catch (\Exception $error) {
+                $response->setData(array('response'=>$error->getMessage()))
+                    ->setContent($error->getMessage())
+                    ->setStatusCode(419);
+            }
+        }
+        return $response;
+    }
+
+    /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -277,30 +309,28 @@ class PersonController extends Controller
         );
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function removeUidAction(Request $request) {
+        return $this->updatePersonUid($request->getLocale(), $request->get('person_id', ''));
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function updateUidAction(Request $request) {
         $response = new JsonResponse();
-        if ( $request->get('person_id', '') === '' ) {
+        $uid = trim($request->get('person_uid',''));
+        if ( $uid === '' ) {
             $translator = $this->get('translator');
-            $message = $translator->trans('app.errors.adsync.removeUid.noPersonId',array(),'messages',$request->getLocale());
+            $message = $translator->trans('app.errors.adsync.removeUid.noPersonUid',array(),'messages',$request->getLocale());
             $response->setData(array('response'=> $message))
                 ->setStatusCode(419);
+            return $response;
         }
-        else {
-            try {
-                $em = $this->getDoctrine()->getManager();
-                $person = $em->getRepository('AppBundle:Person')
-                    ->find($request->get('person_id'));
-                $person->setUid(null);
-                $em->flush();
-                $response->setData(array('response'=>'OK'))
-                    ->setStatusCode(200);
-            }
-            catch (\Exception $error) {
-                $response->setData(array('response'=>$error->getMessage()))
-                    ->setContent($error->getMessage())
-                    ->setStatusCode(419);
-            }
-        }
-        return $response;
+        return $this->updatePersonUid($request->getLocale(), $request->get('person_id', ''), $uid);
     }
 }

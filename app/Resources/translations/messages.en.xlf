@@ -609,6 +609,10 @@
                     <source xml:lang="en">You did not provide any person ID. Please provide one !</source>
                     <target xml:lang="en">You did not provide any person ID. Please provide one !</target>
                 </trans-unit>
+                <trans-unit id="app-errors-adsync-removeUid-noPersonUid" resname="app.errors.adsync.removeUid.noPersonUid">
+                    <source xml:lang="en">You did not provide any person UID. Please provide one !</source>
+                    <target xml:lang="en">You did not provide any person UID. Please provide one !</target>
+                </trans-unit>
             </group>
             <group id="app-message">
                 <trans-unit id="app-message-search" resname="app.message.search">
